@@ -11,7 +11,7 @@ app.config.timestamp_*.js
 .env*.local
 
 # dependencies
-/node_modules
+node_modules
 
 # IDEs and editors
 /.idea
@@ -26,3 +26,12 @@ gitignore
 # System Files
 .DS_Store
 Thumbs.db
+
+# Test output
+__screenshots__
+.vitest-attachments
+test-results
+.vitest
+
+# Release tarballs (pnpm release:pack)
+release
