@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": [
+    "apps/docs/file-routes.d.ts",
+    "packages/ui/src/styles/responsive.css",
+    "packages/ui/llm/**",
+    "packages/forms/llm/**",
+    "packages/i18n/llm/**"
+  ],
+  "printWidth": 130,
+  "singleQuote": true
+}

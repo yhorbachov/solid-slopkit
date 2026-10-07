@@ -1,5 +1,5 @@
-import style from "./button.module.css";
+import style from './button.module.css';
 
 export function Button() {
-  return <button class={style.button}>Click me</button>;
+  return <button class={style.button}>Click me 123</button>;
 }
