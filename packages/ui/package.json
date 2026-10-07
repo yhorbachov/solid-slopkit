@@ -32,7 +32,14 @@
     "./reset.css": "./dist/reset.css",
     "./reset.min.css": "./dist/reset.min.css"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "pnpm build:clean && pnpm build:source && pnpm build:client && pnpm build:server && pnpm build:css",
+    "build:clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build:source": "tsc -p tsconfig.build.json",
+    "build:client": "vite build",
+    "build:server": "vite build --ssr",
+    "build:css": "echo todo"
+  },
   "dependencies": {
     "@floating-ui/dom": "^1.7.0"
   },
