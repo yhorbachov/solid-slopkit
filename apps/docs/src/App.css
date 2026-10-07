@@ -1,9 +1,9 @@
+@layer slopkit.themes {
+}
+
 body {
   margin: 0;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
   text-align: center;
 }
 
@@ -44,6 +44,7 @@ main {
   font-size: 1rem;
   padding: 0.5rem 1.5rem;
   cursor: pointer;
+  background-color: blue;
 }
 
 main a {
