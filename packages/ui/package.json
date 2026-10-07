@@ -1,0 +1,57 @@
+{
+  "name": "@slopkit/ui",
+  "version": "0.0.0",
+  "description": "Component library for SolidJS 2.x, styled with plain CSS and CSS variables",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "llm"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "solid": "./dist/source/index.js",
+      "node": "./dist/server/index.js",
+      "browser": "./dist/client/index.js",
+      "default": "./dist/client/index.js"
+    },
+    "./dates": {
+      "types": "./dist/types/dates/index.d.ts",
+      "solid": "./dist/source/dates/index.js",
+      "node": "./dist/server/dates/index.js",
+      "browser": "./dist/client/dates/index.js",
+      "default": "./dist/client/dates/index.js"
+    },
+    "./slopkit.css": "./dist/slopkit.css",
+    "./slopkit.min.css": "./dist/slopkit.min.css",
+    "./reset.css": "./dist/reset.css",
+    "./reset.min.css": "./dist/reset.min.css"
+  },
+  "scripts": {},
+  "dependencies": {
+    "@floating-ui/dom": "^1.7.0"
+  },
+  "devDependencies": {
+    "@solidjs/diagnostics": "^2.0.0-rc.13",
+    "@solidjs/testing-library": "^1.0.0-beta.3",
+    "@solidjs/vite-plugin": "^3.0.0-next.46",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@types/node": "^22.0.0",
+    "@vitest/browser-playwright": "^5.0.2",
+    "axe-core": "^4.13.0",
+    "jsdom": "^25.0.1",
+    "playwright": "^1.63.0",
+    "typescript": "^5.9.2",
+    "vite": "^8.1.5",
+    "vitest": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@solidjs/web": ">=2.0.0-rc.11 <3",
+    "solid-js": ">=2.0.0-rc.11 <3"
+  }
+}

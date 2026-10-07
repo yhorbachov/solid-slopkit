@@ -28,7 +28,7 @@ importers:
         version: 1.0.0-next.2(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(solid-js@2.0.0-rc.13)
       '@solidjs/router':
         specifier: ^2.0.0-next.30
-        version: 2.0.0-next.35(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(filesystem-routing@0.4.0(vite@8.3.3))(solid-js@2.0.0-rc.13)
+        version: 2.0.0-next.35(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(filesystem-routing@0.4.0(vite@8.3.3(@types/node@22.20.5)))(solid-js@2.0.0-rc.13)
       '@solidjs/web':
         specifier: ^2.0.0-rc.13
         version: 2.0.0-rc.13(solid-js@2.0.0-rc.13)
@@ -44,19 +44,19 @@ importers:
         version: 1.0.0-beta.3(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(solid-js@2.0.0-rc.13)
       '@solidjs/vite-plugin':
         specifier: ^3.0.0-next.46
-        version: 3.0.0-next.47(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(@testing-library/jest-dom@7.0.1(@testing-library/dom@10.4.2)(vitest@5.0.3))(solid-js@2.0.0-rc.13)(vite@8.3.3)
+        version: 3.0.0-next.47(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(@testing-library/jest-dom@7.0.1(@testing-library/dom@10.4.2)(vitest@5.0.3))(solid-js@2.0.0-rc.13)(vite@8.3.3(@types/node@22.20.5))
       '@testing-library/jest-dom':
         specifier: ^7.0.0
         version: 7.0.1(@testing-library/dom@10.4.2)(vitest@5.0.3)
       '@vitest/browser-playwright':
         specifier: ^5.0.2
-        version: 5.0.3(playwright@1.63.0)(vite@8.3.3)(vitest@5.0.3)
+        version: 5.0.3(playwright@1.63.0)(vite@8.3.3(@types/node@22.20.5))(vitest@5.0.3)
       axe-core:
         specifier: ^4.13.0
         version: 4.14.0
       filesystem-routing:
         specifier: 0.4.0
-        version: 0.4.0(vite@8.3.3)
+        version: 0.4.0(vite@8.3.3(@types/node@22.20.5))
       jsdom:
         specifier: ^25.0.1
         version: 25.0.1
@@ -68,10 +68,59 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^8.1.5
-        version: 8.3.3
+        version: 8.3.3(@types/node@22.20.5)
       vitest:
         specifier: ^5.0.0
-        version: 5.0.3(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3)
+        version: 5.0.3(@types/node@22.20.5)(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3(@types/node@22.20.5))
+
+  packages/ui:
+    dependencies:
+      '@floating-ui/dom':
+        specifier: ^1.7.0
+        version: 1.8.0
+      '@solidjs/web':
+        specifier: '>=2.0.0-rc.11 <3'
+        version: 2.0.0-rc.13(solid-js@2.0.0-rc.13)
+      solid-js:
+        specifier: '>=2.0.0-rc.11 <3'
+        version: 2.0.0-rc.13
+    devDependencies:
+      '@solidjs/diagnostics':
+        specifier: ^2.0.0-rc.13
+        version: 2.0.0-rc.13(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(solid-js@2.0.0-rc.13)(vitest@5.0.3)
+      '@solidjs/testing-library':
+        specifier: ^1.0.0-beta.3
+        version: 1.0.0-beta.3(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(solid-js@2.0.0-rc.13)
+      '@solidjs/vite-plugin':
+        specifier: ^3.0.0-next.46
+        version: 3.0.0-next.47(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(@testing-library/jest-dom@7.0.1(@testing-library/dom@10.4.2)(vitest@5.0.3))(solid-js@2.0.0-rc.13)(vite@8.3.3(@types/node@22.20.5))
+      '@testing-library/jest-dom':
+        specifier: ^7.0.0
+        version: 7.0.1(@testing-library/dom@10.4.2)(vitest@5.0.3)
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.5
+      '@vitest/browser-playwright':
+        specifier: ^5.0.2
+        version: 5.0.3(playwright@1.63.0)(vite@8.3.3(@types/node@22.20.5))(vitest@5.0.3)
+      axe-core:
+        specifier: ^4.13.0
+        version: 4.14.0
+      jsdom:
+        specifier: ^25.0.1
+        version: 25.0.1
+      playwright:
+        specifier: ^1.63.0
+        version: 1.63.0
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.3
+      vite:
+        specifier: ^8.1.5
+        version: 8.3.3(@types/node@22.20.5)
+      vitest:
+        specifier: ^5.0.0
+        version: 5.0.3(@types/node@22.20.5)(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3(@types/node@22.20.5))
 
 packages:
 
@@ -254,6 +303,15 @@ packages:
   '@eslint/plugin-kit@0.7.3':
     resolution: {integrity: sha512-IkO+/KEUvwbVpiURZg+P7zF74z5Jxe0UgJxVni+RtoHQ6IZieXaO02kmadomap/q+l6bc/jdPGGqTjhuZnuz1Q==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
+
+  '@floating-ui/core@1.8.0':
+    resolution: {integrity: sha512-0CIZ5itps/8x7BG8dEIhs53BvCUH2PCoogtakwRTut+Arm58sJooJ0AuZhLw2HJYIR5cMLNPBSS728sPho2khQ==}
+
+  '@floating-ui/dom@1.8.0':
+    resolution: {integrity: sha512-yXSrzeHZBTZadLOlfyhCkJHNeLJnHRnRInwdZ40L7ZiaAtrBwoYlsDrX3v5zB1Utk7CLfzcOVnVVWoXEky7Ceg==}
+
+  '@floating-ui/utils@0.2.12':
+    resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -951,6 +1009,9 @@ packages:
 
   '@types/micromatch@4.0.10':
     resolution: {integrity: sha512-5jOhFDElqr4DKTrTEbnW8DZ4Hz5LRUEmyrGpCMrD/NphYv3nUnaF08xmSLx1rGGnyEs/kFnhiw6dCgcDqMr5PQ==}
+
+  '@types/node@22.20.5':
+    resolution: {integrity: sha512-U2+DNr+wSjpsTS/wZGYHq7GcwfuSmKiKvoPvK22zwTlRhU91yOniN4qRR5KhIjvif7ysw/dz/hKmfDH0Ris4aA==}
 
   '@typescript-eslint/project-service@8.71.0':
     resolution: {integrity: sha512-aABjw5rjBacYONVPaPiWOCjJu0vEF4a25iQuodlmQYL1trtLZ0X/y+2Vzl3BKI1odM4LnwLE1oUDXYp1wzx1TQ==}
@@ -1876,6 +1937,9 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  undici-types@6.21.0:
+    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
+
   update-browserslist-db@1.3.3:
     resolution: {integrity: sha512-pJ2sYawQS0R/WI928Gj5GlPhTGzbMelq0+4INtSYNDV9ErKJcX6xjGWkoG/VnB3dpUm00zALaqkrUD77pO5TDQ==}
     hasBin: true
@@ -2264,6 +2328,17 @@ snapshots:
       '@eslint/core': 1.2.1
       levn: 0.4.1
 
+  '@floating-ui/core@1.8.0':
+    dependencies:
+      '@floating-ui/utils': 0.2.12
+
+  '@floating-ui/dom@1.8.0':
+    dependencies:
+      '@floating-ui/core': 1.8.0
+      '@floating-ui/utils': 0.2.12
+
+  '@floating-ui/utils@0.2.12': {}
+
   '@humanfs/core@0.19.2':
     dependencies:
       '@humanfs/types': 0.15.0
@@ -2610,19 +2685,19 @@ snapshots:
       '@solidjs/web': 2.0.0-rc.13(solid-js@2.0.0-rc.13)
       solid-js: 2.0.0-rc.13
     optionalDependencies:
-      vitest: 5.0.3(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3)
+      vitest: 5.0.3(@types/node@22.20.5)(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3(@types/node@22.20.5))
 
   '@solidjs/meta@1.0.0-next.2(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(solid-js@2.0.0-rc.13)':
     dependencies:
       '@solidjs/web': 2.0.0-rc.13(solid-js@2.0.0-rc.13)
       solid-js: 2.0.0-rc.13
 
-  '@solidjs/router@2.0.0-next.35(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(filesystem-routing@0.4.0(vite@8.3.3))(solid-js@2.0.0-rc.13)':
+  '@solidjs/router@2.0.0-next.35(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(filesystem-routing@0.4.0(vite@8.3.3(@types/node@22.20.5)))(solid-js@2.0.0-rc.13)':
     dependencies:
       '@solidjs/web': 2.0.0-rc.13(solid-js@2.0.0-rc.13)
       solid-js: 2.0.0-rc.13
     optionalDependencies:
-      filesystem-routing: 0.4.0(vite@8.3.3)
+      filesystem-routing: 0.4.0(vite@8.3.3(@types/node@22.20.5))
 
   '@solidjs/signals@2.0.0-rc.13': {}
 
@@ -2632,7 +2707,7 @@ snapshots:
       '@testing-library/dom': 10.4.2
       solid-js: 2.0.0-rc.13
 
-  '@solidjs/vite-plugin@3.0.0-next.47(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(@testing-library/jest-dom@7.0.1(@testing-library/dom@10.4.2)(vitest@5.0.3))(solid-js@2.0.0-rc.13)(vite@8.3.3)':
+  '@solidjs/vite-plugin@3.0.0-next.47(@solidjs/web@2.0.0-rc.13(solid-js@2.0.0-rc.13))(@testing-library/jest-dom@7.0.1(@testing-library/dom@10.4.2)(vitest@5.0.3))(solid-js@2.0.0-rc.13)(vite@8.3.3(@types/node@22.20.5))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@babel/core': 7.29.7
@@ -2642,8 +2717,8 @@ snapshots:
       '@types/babel__core': 7.20.5
       merge-anything: 5.1.7
       solid-js: 2.0.0-rc.13
-      vite: 8.3.3
-      vitefu: 1.1.3(vite@8.3.3)
+      vite: 8.3.3(@types/node@22.20.5)
+      vitefu: 1.1.3(vite@8.3.3(@types/node@22.20.5))
     optionalDependencies:
       '@testing-library/jest-dom': 7.0.1(@testing-library/dom@10.4.2)(vitest@5.0.3)
     transitivePeerDependencies:
@@ -2677,7 +2752,7 @@ snapshots:
       picocolors: 1.1.1
       redent: 3.0.0
     optionalDependencies:
-      vitest: 5.0.3(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3)
+      vitest: 5.0.3(@types/node@22.20.5)(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3(@types/node@22.20.5))
 
   '@tybys/wasm-util@0.10.4':
     dependencies:
@@ -2725,6 +2800,10 @@ snapshots:
   '@types/micromatch@4.0.10':
     dependencies:
       '@types/braces': 3.0.5
+
+  '@types/node@22.20.5':
+    dependencies:
+      undici-types: 6.21.0
 
   '@typescript-eslint/project-service@8.71.0(typescript@5.9.3)':
     dependencies:
@@ -2777,30 +2856,30 @@ snapshots:
       '@typescript-eslint/types': 8.71.0
       eslint-visitor-keys: 5.0.1
 
-  '@vitest/browser-playwright@5.0.3(playwright@1.63.0)(vite@8.3.3)(vitest@5.0.3)':
+  '@vitest/browser-playwright@5.0.3(playwright@1.63.0)(vite@8.3.3(@types/node@22.20.5))(vitest@5.0.3)':
     dependencies:
-      '@vitest/browser': 5.0.3(vite@8.3.3)(vitest@5.0.3)
-      '@vitest/mocker': 5.0.3(vite@8.3.3)
+      '@vitest/browser': 5.0.3(vite@8.3.3(@types/node@22.20.5))(vitest@5.0.3)
+      '@vitest/mocker': 5.0.3(vite@8.3.3(@types/node@22.20.5))
       playwright: 1.63.0
       tinyrainbow: 3.2.0
-      vitest: 5.0.3(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3)
+      vitest: 5.0.3(@types/node@22.20.5)(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3(@types/node@22.20.5))
     transitivePeerDependencies:
       - bufferutil
       - msw
       - utf-8-validate
       - vite
 
-  '@vitest/browser@5.0.3(vite@8.3.3)(vitest@5.0.3)':
+  '@vitest/browser@5.0.3(vite@8.3.3(@types/node@22.20.5))(vitest@5.0.3)':
     dependencies:
       '@blazediff/core': 1.10.0
-      '@vitest/mocker': 5.0.3(vite@8.3.3)
+      '@vitest/mocker': 5.0.3(vite@8.3.3(@types/node@22.20.5))
       '@vitest/ui': 5.0.3(vitest@5.0.3)
       '@vitest/utils': 5.0.3
       magic-string: 1.4.3
       pngjs: 7.0.0
       sirv: 3.0.2
       tinyrainbow: 3.2.0
-      vitest: 5.0.3(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3)
+      vitest: 5.0.3(@types/node@22.20.5)(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3(@types/node@22.20.5))
       ws: 8.22.0
     transitivePeerDependencies:
       - bufferutil
@@ -2808,14 +2887,14 @@ snapshots:
       - utf-8-validate
       - vite
 
-  '@vitest/mocker@5.0.3(vite@8.3.3)':
+  '@vitest/mocker@5.0.3(vite@8.3.3(@types/node@22.20.5))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.3
       estree-walker: 3.0.3
       magic-string: 1.4.3
     optionalDependencies:
-      vite: 8.3.3
+      vite: 8.3.3(@types/node@22.20.5)
 
   '@vitest/pretty-format@5.0.3':
     dependencies:
@@ -2831,7 +2910,7 @@ snapshots:
       pathe: 2.0.3
       sirv: 3.0.2
       tinyrainbow: 3.2.0
-      vitest: 5.0.3(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3)
+      vitest: 5.0.3(@types/node@22.20.5)(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3(@types/node@22.20.5))
 
   '@vitest/utils@5.0.3':
     dependencies:
@@ -3093,7 +3172,7 @@ snapshots:
     dependencies:
       flat-cache: 6.1.23
 
-  filesystem-routing@0.4.0(vite@8.3.3):
+  filesystem-routing@0.4.0(vite@8.3.3(@types/node@22.20.5)):
     dependencies:
       '@babel/core': 7.29.7
       '@types/babel__core': 7.20.5
@@ -3104,7 +3183,7 @@ snapshots:
       oxc-parser: 0.139.0
       radix3: 1.1.2
     optionalDependencies:
-      vite: 8.3.3
+      vite: 8.3.3(@types/node@22.20.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -3662,6 +3741,8 @@ snapshots:
 
   typescript@5.9.3: {}
 
+  undici-types@6.21.0: {}
+
   update-browserslist-db@1.3.3(browserslist@4.29.3):
     dependencies:
       browserslist: 4.29.3
@@ -3672,7 +3753,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  vite@8.3.3:
+  vite@8.3.3(@types/node@22.20.5):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -3680,16 +3761,17 @@ snapshots:
       rolldown: 1.2.12
       tinyglobby: 0.2.17
     optionalDependencies:
+      '@types/node': 22.20.5
       fsevents: 2.3.3
 
-  vitefu@1.1.3(vite@8.3.3):
+  vitefu@1.1.3(vite@8.3.3(@types/node@22.20.5)):
     optionalDependencies:
-      vite: 8.3.3
+      vite: 8.3.3(@types/node@22.20.5)
 
-  vitest@5.0.3(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3):
+  vitest@5.0.3(@types/node@22.20.5)(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(jsdom@25.0.1)(vite@8.3.3(@types/node@22.20.5)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.3(vite@8.3.3)
+      '@vitest/mocker': 5.0.3(vite@8.3.3(@types/node@22.20.5))
       chai: 6.3.0
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -3700,10 +3782,11 @@ snapshots:
       tinybench: 6.2.0
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
-      vite: 8.3.3
+      vite: 8.3.3(@types/node@22.20.5)
       why-is-node-running: 3.2.1
     optionalDependencies:
-      '@vitest/browser-playwright': 5.0.3(playwright@1.63.0)(vite@8.3.3)(vitest@5.0.3)
+      '@types/node': 22.20.5
+      '@vitest/browser-playwright': 5.0.3(playwright@1.63.0)(vite@8.3.3(@types/node@22.20.5))(vitest@5.0.3)
       '@vitest/ui': 5.0.3(vitest@5.0.3)
       jsdom: 25.0.1
     transitivePeerDependencies:
