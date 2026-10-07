@@ -16,16 +16,12 @@
     ".": {
       "types": "./dist/types/index.d.ts",
       "solid": "./dist/source/index.js",
-      "node": "./dist/server/index.js",
-      "browser": "./dist/client/index.js",
-      "default": "./dist/client/index.js"
+      "default": "./dist/source/index.js"
     },
     "./dates": {
       "types": "./dist/types/dates/index.d.ts",
       "solid": "./dist/source/dates/index.js",
-      "node": "./dist/server/dates/index.js",
-      "browser": "./dist/client/dates/index.js",
-      "default": "./dist/client/dates/index.js"
+      "default": "./dist/source/dates/index.js"
     },
     "./slopkit.css": "./dist/slopkit.css",
     "./slopkit.min.css": "./dist/slopkit.min.css",
@@ -33,12 +29,10 @@
     "./reset.min.css": "./dist/reset.min.css"
   },
   "scripts": {
-    "build": "pnpm build:clean && pnpm build:source && pnpm build:client && pnpm build:server && pnpm build:css",
+    "build": "pnpm build:clean && pnpm build:source && pnpm build:css",
     "build:clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "build:source": "tsc -p tsconfig.build.json",
-    "build:client": "vite build",
-    "build:server": "vite build --ssr",
-    "build:css": "echo todo"
+    "build:css": "node -e \"require('fs').cpSync('src','dist/source',{recursive:true,filter:s=>!require('path').extname(s)||s.endsWith('.css')})\""
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.0"
