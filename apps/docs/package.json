@@ -1,34 +1,35 @@
 {
-    "name": "docs",
-    "version": "0.0.0",
-    "private": true,
-    "license": "MIT",
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "serve": "vite preview",
-        "test": "vitest run",
-        "typecheck": "pnpm --filter @slopkit/i18n build:plugin && node ../../packages/i18n/dist/cli.js typegen && tsc --noEmit"
-    },
-    "dependencies": {
-        "@solidjs/meta": "^1.0.0-next.2",
-        "@solidjs/router": "^2.0.0-next.30",
-        "@solidjs/web": "^2.0.0-rc.13",
-        "solid-js": "^2.0.0-rc.13"
-    },
-    "devDependencies": {
-        "@solidjs/diagnostics": "^2.0.0-rc.13",
-        "@solidjs/testing-library": "^1.0.0-beta.3",
-        "@solidjs/vite-plugin": "^3.0.0-next.46",
-        "@testing-library/jest-dom": "^7.0.0",
-        "@vitest/browser-playwright": "^5.0.2",
-        "axe-core": "^4.13.0",
-        "filesystem-routing": "0.4.0",
-        "jsdom": "^25.0.1",
-        "playwright": "^1.63.0",
-        "typescript": "^5.9.2",
-        "vite": "^8.1.5",
-        "vitest": "^5.0.0"
-    }
+  "name": "docs",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "test": "vitest run",
+    "typecheck": "pnpm --filter @slopkit/i18n build:plugin && node ../../packages/i18n/dist/cli.js typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@solidjs/meta": "^1.0.0-next.2",
+    "@solidjs/router": "^2.0.0-next.30",
+    "@solidjs/web": "^2.0.0-rc.13",
+    "solid-js": "^2.0.0-rc.13",
+    "@slopkit/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@solidjs/diagnostics": "^2.0.0-rc.13",
+    "@solidjs/testing-library": "^1.0.0-beta.3",
+    "@solidjs/vite-plugin": "^3.0.0-next.46",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@vitest/browser-playwright": "^5.0.2",
+    "axe-core": "^4.13.0",
+    "filesystem-routing": "0.4.0",
+    "jsdom": "^25.0.1",
+    "playwright": "^1.63.0",
+    "typescript": "^5.9.2",
+    "vite": "^8.1.5",
+    "vitest": "^5.0.0"
+  }
 }
