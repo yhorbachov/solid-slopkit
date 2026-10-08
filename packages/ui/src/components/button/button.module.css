@@ -15,7 +15,7 @@
     --_btn-color: var(--slp-button-color, var(--_btn-theme-color));
     --_btn-content: var(--slp-button-content, var(--_btn-theme-content));
 
-    --_btn-size: calc(var(--slp-size-field) * 10);
+    --_btn-size: calc(var(--slp-size-field) * 8);
     --_btn-px: 1rem;
     --_btn-font-size: 0.875rem;
     --_btn-icon-size: 1.25rem;
@@ -48,7 +48,7 @@
     color: var(--_btn-fg);
     font-family: inherit;
     font-size: var(--_btn-font-size);
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1;
     text-align: center;
     text-decoration: none;
@@ -253,23 +253,23 @@
     &[data-size='xs'] {
       --_btn-size: calc(var(--slp-size-field) * 6);
       --_btn-px: 0.5rem;
-      --_btn-font-size: 0.6875rem;
+      --_btn-font-size: 0.75rem;
       --_btn-icon-size: 0.875rem;
     }
     &[data-size='sm'] {
-      --_btn-size: calc(var(--slp-size-field) * 8);
+      --_btn-size: calc(var(--slp-size-field) * 7);
       --_btn-px: 0.75rem;
       --_btn-font-size: 0.75rem;
       --_btn-icon-size: 1rem;
     }
     &[data-size='lg'] {
-      --_btn-size: calc(var(--slp-size-field) * 12);
+      --_btn-size: calc(var(--slp-size-field) * 10);
       --_btn-px: 1.25rem;
       --_btn-font-size: 1.125rem;
       --_btn-icon-size: 1.375rem;
     }
     &[data-size='xl'] {
-      --_btn-size: calc(var(--slp-size-field) * 14);
+      --_btn-size: calc(var(--slp-size-field) * 12);
       --_btn-px: 1.5rem;
       --_btn-font-size: 1.375rem;
       --_btn-icon-size: 1.5rem;

@@ -21,7 +21,7 @@
     --slp-color-error: #cb2824;
     --slp-color-error-content: #ffffff;
     --slp-radius-selector: 0.25rem;
-    --slp-radius-field: 1rem;
+    --slp-radius-field: 10px;
     --slp-radius-box: 1rem;
     --slp-size-selector: 0.25rem;
     --slp-size-field: 0.25rem;
