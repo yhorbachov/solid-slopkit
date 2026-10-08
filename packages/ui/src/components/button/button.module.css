@@ -205,7 +205,7 @@
 
     /* Unlike daisyUI, ghost never turns solid: hover and press only add a light tint. */
     &[data-variant='ghost'] {
-      --_btn-fg: currentColor;
+      --_btn-fg: var(--_btn-color, currentColor);
       --_btn-bg: transparent;
       --_btn-border: transparent;
       outline-color: currentColor;
@@ -213,14 +213,12 @@
 
       &:hover,
       &:focus-visible {
-        --_btn-fg: var(--_btn-color, currentColor);
         --_btn-bg: color-mix(in oklab, var(--_btn-color, var(--slp-color-base-content)) 10%, transparent);
         --_btn-border: transparent;
       }
 
       &:active,
       &[data-active] {
-        --_btn-fg: var(--_btn-color, currentColor);
         --_btn-bg: color-mix(in oklab, var(--_btn-color, var(--slp-color-base-content)) 16%, transparent);
         --_btn-border: transparent;
       }
