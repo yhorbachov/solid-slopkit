@@ -1,0 +1,32 @@
+@layer slopkit.themes {
+  :root {
+    --slp-color-base-100: #ffffff;
+    --slp-color-base-200: #f4f7fa;
+    --slp-color-base-300: #e8eef5;
+    --slp-color-base-content: #242424;
+    --slp-color-primary: #fc6f3c;
+    --slp-color-primary-content: #ffffff;
+    --slp-color-secondary: oklch(70% 0.213 47.604);
+    --slp-color-secondary-content: oklch(26% 0.051 172.552);
+    --slp-color-accent: oklch(0% 0 0);
+    --slp-color-accent-content: oklch(100% 0 0);
+    --slp-color-neutral: #242424;
+    --slp-color-neutral-content: #ffffff;
+    --slp-color-info: #ebf2ff;
+    --slp-color-info-content: #223ebb;
+    --slp-color-success: #ebffec;
+    --slp-color-success-content: #0c9b4e;
+    --slp-color-warning: #fff5e5;
+    --slp-color-warning-content: #d99c07;
+    --slp-color-error: #fff1f0;
+    --slp-color-error-content: #cb2824;
+    --slp-radius-selector: 0.25rem;
+    --slp-radius-field: 1rem;
+    --slp-radius-box: 1rem;
+    --slp-size-selector: 0.25rem;
+    --slp-size-field: 0.25rem;
+    --slp-border: 1px;
+    --slp-depth: 0;
+    --slp-noise: 0;
+  }
+}

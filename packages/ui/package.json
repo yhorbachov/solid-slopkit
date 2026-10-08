@@ -25,8 +25,8 @@
     },
     "./slopkit.css": "./dist/slopkit.css",
     "./slopkit.min.css": "./dist/slopkit.min.css",
-    "./reset.css": "./dist/reset.css",
-    "./reset.min.css": "./dist/reset.min.css"
+    "./styles/slopkit.css": "./dist/styles/slopkit.css",
+    "./styles/default-theme.css": "./dist/styles/default-theme.css"
   },
   "scripts": {
     "build": "pnpm build:clean && pnpm build:source && pnpm build:css",
