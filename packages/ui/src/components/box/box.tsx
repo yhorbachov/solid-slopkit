@@ -1,31 +1,20 @@
 import { createMemo, omit } from 'solid-js';
 import { Polymorphic, type PolymorphicProps } from '../polymorphic';
-import { mergeStyles } from '../../utils';
 import { type JSX, type ValidComponent } from '@solidjs/web';
+import { PADDING_PROPS, resolvePaddingClasses, type BoxPaddingProps } from './style-props';
 import style from './box.module.css';
 
-type BoxCommonProps = {
+type BoxCommonProps = BoxPaddingProps & {
   children?: JSX.Element;
   class?: JSX.ClassValue | JSX.RemoveAttribute;
-  style?: JSX.CSSProperties | string | JSX.RemoveAttribute;
 };
 
 export function Box<T extends ValidComponent = 'div'>(props: PolymorphicProps<T, BoxCommonProps>) {
-  const others = omit(props, 'class', 'style');
+  const others = omit(props, 'class', ...PADDING_PROPS);
 
-  const cssVariables = createMemo<JSX.CSSProperties>(() => {
-    return {
-      '--slp-box-pl': '20px',
-      // '--slp-box-pl-md': '40px',
-    };
+  const paddingClasses = createMemo(() => resolvePaddingClasses(props).map((name) => style[name]), {
+    name: 'Box.paddingClasses',
   });
 
-  return (
-    <Polymorphic
-      as="div"
-      class={['slp-box', style.box, props.class]}
-      style={mergeStyles(cssVariables(), props.style)}
-      {...others}
-    />
-  );
+  return <Polymorphic as="div" class={['slp-box', style.box, paddingClasses(), props.class]} {...others} />;
 }

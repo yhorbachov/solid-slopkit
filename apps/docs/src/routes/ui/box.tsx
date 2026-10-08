@@ -5,6 +5,10 @@ import { H2 } from '../../components/Heading';
 
 import Basic from '../../examples/box/basic';
 import basicCode from '../../examples/box/basic.tsx?raw';
+import Padding from '../../examples/box/padding';
+import paddingCode from '../../examples/box/padding.tsx?raw';
+import ResponsivePadding from '../../examples/box/responsive-padding';
+import responsivePaddingCode from '../../examples/box/responsive-padding.tsx?raw';
 import Style from '../../examples/box/style';
 import styleCode from '../../examples/box/style.tsx?raw';
 import Polymorphic from '../../examples/box/polymorphic';
@@ -23,6 +27,20 @@ export default function BoxPage() {
 
       <H2 id="basic">Basic</H2>
       <Example component={Basic} code={basicCode} />
+
+      <H2 id="padding">Padding</H2>
+      <p>
+        <code>p</code>, <code>px</code>, <code>py</code>, <code>pt</code>, <code>pr</code>, <code>pb</code> and <code>pl</code>.
+        Values are theme sizes, read from <code>--slp-spacing-*</code>. The more specific prop wins.
+      </p>
+      <Example component={Padding} code={paddingCode} />
+
+      <H2 id="responsive">Responsive</H2>
+      <p>
+        Pass an object of breakpoints. Mobile-first: each value applies from its min-width up (xs 36em, sm 48em, md 62em, lg 75em,
+        xl 88em).
+      </p>
+      <Example component={ResponsivePadding} code={responsivePaddingCode} />
 
       <H2 id="style">Style</H2>
       <p>
