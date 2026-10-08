@@ -1,4 +1,26 @@
 @layer slopkit.components {
   .box {
+    padding-left: var(--slp-box-pl);
+  }
+
+  @media (min-width: 36em) {
+    .box {
+      padding-left: var(--slp-box-pl);
+    }
+  }
+
+  @media (min-width: 48em) {
+    .box {
+      padding-left: var(--slp-box-pl-md);
+    }
+  }
+
+  @media (min-width: 62em) {
+  }
+
+  @media (min-width: 75em) {
+  }
+
+  @media (min-width: 88em) {
   }
 }

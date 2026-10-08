@@ -15,7 +15,8 @@ export function Box<T extends ValidComponent = 'div'>(props: PolymorphicProps<T,
 
   const cssVariables = createMemo<JSX.CSSProperties>(() => {
     return {
-      '--foo': 'bar',
+      '--slp-box-pl': '20px',
+      // '--slp-box-pl-md': '40px',
     };
   });
 
