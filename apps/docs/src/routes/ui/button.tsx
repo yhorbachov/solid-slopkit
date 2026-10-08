@@ -73,7 +73,7 @@ export default function ButtonPage() {
         <code>leftSection</code> and <code>rightSection</code> place content, usually icons, around the label. Icons are sized to
         match the button.
       </p>
-      <Example component={Sections} code={sectionsCode} />
+      <Example component={Sections} code={sectionsCode} column />
 
       <H2 id="loading">Loading</H2>
       <p>
