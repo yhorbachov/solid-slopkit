@@ -32,7 +32,8 @@
     "build": "pnpm build:clean && pnpm build:source && pnpm build:css",
     "build:clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "build:source": "tsc -p tsconfig.build.json",
-    "build:css": "node -e \"require('fs').cpSync('src','dist/source',{recursive:true,filter:s=>!require('path').extname(s)||s.endsWith('.css')})\""
+    "build:css": "node -e \"require('fs').cpSync('src','dist/source',{recursive:true,filter:s=>!require('path').extname(s)||s.endsWith('.css')})\"",
+    "test": "vitest run"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.0"

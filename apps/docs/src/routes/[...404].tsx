@@ -11,16 +11,12 @@ export const route = {
 
 export default function NotFound() {
   return (
-    <main>
-      <Title>Not Found - Solid App</Title>
-      <h1>Page Not Found</h1>
+    <article class="docs-page">
+      <Title>Not found · slopkit</Title>
+      <h1>Page not found</h1>
       <p>
-        Visit{' '}
-        <a href="https://docs.solidjs.com" target="_blank" rel="noreferrer">
-          docs.solidjs.com
-        </a>{' '}
-        to learn how to build Solid apps.
+        This page doesn't exist. Go back to the <a href="/">introduction</a>.
       </p>
-    </main>
+    </article>
   );
 }

@@ -1,2 +1,2 @@
 // Public API. Named exports only.
-export * from "./components/index.js";
+export * from './components/index.js';

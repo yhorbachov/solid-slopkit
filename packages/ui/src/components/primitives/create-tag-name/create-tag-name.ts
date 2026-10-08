@@ -13,10 +13,12 @@ import { isString } from '../../../utils';
 export function createTagName(ref: Accessor<HTMLElement | undefined>, fallback?: Accessor<string | Component | undefined>) {
   const [tagName, setTagName] = createSignal(stringOrUndefined(fallback?.()));
 
+  // The ref is only assigned once the element is created, so it is read in the effect phase
+  // (after mount) rather than tracked in the compute phase, where it is still undefined.
   createEffect(
-    () => ({ ref: ref(), fallback: fallback?.() }),
+    () => fallback?.(),
     (value) => {
-      setTagName(value.ref?.tagName.toLowerCase() || stringOrUndefined(value.fallback));
+      setTagName(ref()?.tagName.toLowerCase() || stringOrUndefined(value));
     },
   );
 
