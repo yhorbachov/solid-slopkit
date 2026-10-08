@@ -20,6 +20,7 @@ export const nav: NavSection[] = [
     items: [
       { title: 'Overview', href: '/ui' },
       { title: 'Theming', href: '/ui/theming' },
+      { title: 'Box', href: '/ui/box' },
       { title: 'Button', href: '/ui/button' },
     ],
   },

@@ -1,5 +1,6 @@
 import { createMemo, omit } from 'solid-js';
 import { Polymorphic, type PolymorphicProps } from '../polymorphic';
+import { mergeStyles } from '../../utils';
 import { type JSX, type ValidComponent } from '@solidjs/web';
 import style from './box.module.css';
 
@@ -18,5 +19,12 @@ export function Box<T extends ValidComponent = 'div'>(props: PolymorphicProps<T,
     };
   });
 
-  return <Polymorphic class={['slp-box', style.box, props.class]} style={[cssVariables(), props.style]} {...others} />;
+  return (
+    <Polymorphic
+      as="div"
+      class={['slp-box', style.box, props.class]}
+      style={mergeStyles(cssVariables(), props.style)}
+      {...others}
+    />
+  );
 }
