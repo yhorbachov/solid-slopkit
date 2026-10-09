@@ -24,6 +24,15 @@ function createStyleClass(props: BoxStyleProps, group: StyleGroup, registerStyle
   );
 }
 
+// A string class is applied in one write; an array is normalized and applied entry by entry, which costs
+// more per element. Only a user `class` that is an array or object needs the array form.
+function joinClass(classes: (string | undefined)[], userClass: JSX.ClassValue | JSX.RemoveAttribute): JSX.ClassValue {
+  if (userClass && typeof userClass !== 'string') return [...classes, userClass];
+  let result = '';
+  for (const value of classes) if (value) result += result ? ` ${value}` : value;
+  return userClass ? `${result} ${userClass}` : result;
+}
+
 export function Box<T extends ValidComponent = 'div'>(props: PolymorphicProps<T, BoxCommonProps>) {
   const others = omit(props, 'class', ...STYLE_PROPS);
 
@@ -32,5 +41,5 @@ export function Box<T extends ValidComponent = 'div'>(props: PolymorphicProps<T,
   const spacing = createStyleClass(props, 'spacing', registerStyle);
   const size = createStyleClass(props, 'size', registerStyle);
 
-  return <Polymorphic as="div" class={['slp-box', style.box, spacing(), size(), props.class]} {...others} />;
+  return <Polymorphic as="div" class={joinClass(['slp-box', style.box, spacing(), size()], props.class)} {...others} />;
 }
