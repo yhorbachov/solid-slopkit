@@ -1,5 +1,5 @@
 import type { OverrideProps } from '../../utils';
-import { omit } from 'solid-js';
+import { omit, untrack } from 'solid-js';
 import type { ValidComponent, ComponentProps } from '@solidjs/web';
 import { dynamic, type JSX } from '@solidjs/web';
 
@@ -7,6 +7,11 @@ export type ElementOf<T> = T extends HTMLElement ? T : T extends keyof HTMLEleme
 
 export interface PolymorphicAttributes<T extends ValidComponent> {
   as?: T | keyof JSX.HTMLElementTags;
+  /**
+   * Set when `as` changes after the first render, to swap the rendered element. By default `as` is read once,
+   * which skips the per-instance computations that tracking it needs. Read once itself.
+   */
+  dynamicAs?: boolean;
 }
 
 /**
@@ -27,8 +32,8 @@ export type PolymorphicCallbackProps<CustomProps extends {}, Options extends {},
   RenderProps;
 
 export function Polymorphic<RenderProps>(props: RenderProps & PolymorphicAttributes<ValidComponent>): JSX.Element {
-  const others = omit(props, 'as');
-  const Element = dynamic(() => props.as);
+  const others = omit(props, 'as', 'dynamicAs');
+  const Element = dynamic(() => props.as, { static: !untrack(() => props.dynamicAs) });
 
   return <Element {...others} />;
 }
