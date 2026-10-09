@@ -1,3 +1,5 @@
+import { hash } from '../../utils';
+
 export const BREAKPOINTS = { xs: '36em', sm: '48em', md: '62em', lg: '75em', xl: '88em' } as const;
 export type Breakpoint = keyof typeof BREAKPOINTS;
 
@@ -36,6 +38,10 @@ export type SizeValue = number | (string & {});
 export interface BoxSizeProps {
   w?: ResponsiveValue<SizeValue>;
   h?: ResponsiveValue<SizeValue>;
+  miw?: ResponsiveValue<SizeValue>;
+  maw?: ResponsiveValue<SizeValue>;
+  mih?: ResponsiveValue<SizeValue>;
+  mah?: ResponsiveValue<SizeValue>;
 }
 
 export type BoxStyleProps = BoxPaddingProps & BoxMarginProps & BoxSizeProps;
@@ -57,6 +63,10 @@ export const STYLE_PROPS = [
   'ml',
   'w',
   'h',
+  'miw',
+  'maw',
+  'mih',
+  'mah',
 ] as const satisfies (keyof BoxStyleProps)[];
 
 // Each CSS property and the props that set it, most specific first: a side prop wins over its axis, the
@@ -76,10 +86,19 @@ const STYLE_GROUPS = {
   size: {
     width: ['w'],
     height: ['h'],
+    'min-width': ['miw'],
+    'max-width': ['maw'],
+    'min-height': ['mih'],
+    'max-height': ['mah'],
   },
 } as const satisfies Record<string, Record<string, (keyof BoxStyleProps)[]>>;
 
 export type StyleGroup = keyof typeof STYLE_GROUPS;
+
+// The props each group reads, for the cache key and the early exit.
+const GROUP_PROPS = Object.fromEntries(
+  Object.entries(STYLE_GROUPS).map(([group, properties]) => [group, [...new Set(Object.values(properties).flat())]]),
+) as Record<StyleGroup, (keyof BoxStyleProps)[]>;
 
 type Key = 'base' | Breakpoint;
 const KEYS = ['base', ...(Object.keys(BREAKPOINTS) as Breakpoint[])] as const;
@@ -130,6 +149,41 @@ export function resolveStyleProps(props: BoxStyleProps, group: StyleGroup): Styl
   }
 
   return declarations;
+}
+
+export interface StyleClass {
+  className: string;
+  css: string;
+}
+
+// Resolved classes by group and prop values. Boxes with the same values skip resolving, hashing and
+// building the CSS. Cleared when full rather than evicted one by one, since it only refills with values
+// still in use.
+const cache = new Map<string, StyleClass | undefined>();
+const CACHE_LIMIT = 1000;
+
+/**
+ * The class and CSS for one group of style props, or undefined when none of them are set. The class name is
+ * a hash of the declarations, so it is the same on the server and the client, and props that resolve to the
+ * same CSS share it.
+ */
+export function resolveStyleClass(props: BoxStyleProps, group: StyleGroup): StyleClass | undefined {
+  const values = GROUP_PROPS[group].map((name) => props[name]);
+  if (values.every((value) => value === undefined)) return undefined;
+
+  const key = group + JSON.stringify(values);
+  if (cache.has(key)) return cache.get(key);
+
+  const declarations = resolveStyleProps(props, group);
+  let result: StyleClass | undefined;
+  if (Object.keys(declarations).length > 0) {
+    const className = `slp-box-${hash(JSON.stringify(declarations))}`;
+    result = { className, css: styleCss(`.${className}`, declarations) };
+  }
+
+  if (cache.size >= CACHE_LIMIT) cache.clear();
+  cache.set(key, result);
+  return result;
 }
 
 /** CSS for `selector`, in the components layer so unlayered user CSS still wins. */

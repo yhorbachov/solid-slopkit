@@ -47,9 +47,10 @@ export default function BoxPage() {
       </p>
       <Example component={Margin} code={marginCode} column />
 
-      <H2 id="size">Width and height</H2>
+      <H2 id="size">Size</H2>
       <p>
-        <code>w</code> and <code>h</code>. A number is in spacing units like padding, so{' '}
+        <code>w</code>, <code>h</code>, <code>miw</code>, <code>maw</code>, <code>mih</code> and <code>mah</code>. A number is in
+        spacing units like padding, so{' '}
         <code>
           w={'{'}24{'}'}
         </code>{' '}
