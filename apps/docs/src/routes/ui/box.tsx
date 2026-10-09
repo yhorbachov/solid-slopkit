@@ -13,8 +13,6 @@ import Size from '../../examples/box/size';
 import sizeCode from '../../examples/box/size.tsx?raw';
 import Display from '../../examples/box/display';
 import displayCode from '../../examples/box/display.tsx?raw';
-import Flex from '../../examples/box/flex';
-import flexCode from '../../examples/box/flex.tsx?raw';
 import ResponsivePadding from '../../examples/box/responsive-padding';
 import responsivePaddingCode from '../../examples/box/responsive-padding.tsx?raw';
 import Style from '../../examples/box/style';
@@ -60,19 +58,9 @@ export default function BoxPage() {
       </p>
       <Example component={Size} code={sizeCode} column />
 
-      <H2 id="flex">Flex</H2>
-      <p>
-        <code>direction</code>, <code>wrap</code>, <code>align</code> (<code>align-items</code>), <code>justify</code> (
-        <code>justify-content</code>), <code>gap</code>, <code>rowGap</code> and <code>columnGap</code>. Any of them makes the box{' '}
-        <code>display: flex</code>, unless <code>display</code> is set. Gaps are in spacing units, and <code>rowGap</code> /{' '}
-        <code>columnGap</code> win over <code>gap</code>.
-      </p>
-      <Example component={Flex} code={flexCode} column />
-
       <H2 id="display">Display</H2>
       <p>
-        <code>display</code> takes any CSS display value, per breakpoint. It wins over the <code>display: flex</code> that flex
-        props imply, so <code>display="grid"</code> with <code>gap</code> makes a grid with gaps.
+        <code>display</code> takes any CSS display value, per breakpoint. For flex layouts, use <a href="/ui/flex">Flex</a>.
       </p>
       <Example component={Display} code={displayCode} column />
 

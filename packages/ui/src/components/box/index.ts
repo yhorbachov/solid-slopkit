@@ -5,15 +5,10 @@ export type {
   BoxMarginProps,
   BoxSizeProps,
   BoxDisplayProps,
-  BoxFlexProps,
-  DisplayValue,
-  FlexDirection,
-  FlexWrap,
-  FlexAlign,
-  FlexJustify,
+  BoxDisplayValue,
   SpacingValue,
   MarginValue,
   SizeValue,
   ResponsiveValue,
   Breakpoint,
-} from './style-props';
+} from '../../style-props';

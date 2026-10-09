@@ -22,6 +22,7 @@ export const nav: NavSection[] = [
       { title: 'Theming', href: '/ui/theming' },
       { title: 'Box', href: '/ui/box' },
       { title: 'Button', href: '/ui/button' },
+      { title: 'Flex', href: '/ui/flex' },
     ],
   },
 ];

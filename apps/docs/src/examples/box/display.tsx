@@ -12,9 +12,9 @@ export default function Display() {
       <Box display={{ base: 'block', sm: 'none' }} p={2} style={surface}>
         {"display={{ base: 'block', sm: 'none' }}: only below sm"}
       </Box>
-      <Box display="grid" gap={2} p={2} style={{ ...surface, 'grid-template-columns': 'repeat(3, 1fr)' }}>
+      <Box display="grid" p={2} style={{ ...surface, 'grid-template-columns': 'repeat(3, 1fr)', gap: '0.5rem' }}>
         <Box p={2} style={item}>
-          {'display="grid" gap={2}'}
+          {'display="grid"'}
         </Box>
         <Box p={2} style={item}>
           b
@@ -23,18 +23,6 @@ export default function Display() {
           c
         </Box>
       </Box>
-      {/* In a plain block: as a child of the flex preview, inline-flex would be blockified to flex. */}
-      <div>
-        <Box display="inline-flex" gap={2} p={2} style={surface}>
-          <Box p={2} style={item}>
-            {'display="inline-flex" gap={2}'}
-          </Box>
-          <Box p={2} style={item}>
-            b
-          </Box>
-        </Box>
-        <span> next to inline text</span>
-      </div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { hash } from '../../utils';
+import { hash } from '../utils';
 
 export const BREAKPOINTS = { xs: '36em', sm: '48em', md: '62em', lg: '75em', xl: '88em' } as const;
 export type Breakpoint = keyof typeof BREAKPOINTS;
@@ -69,25 +69,23 @@ export type FlexJustify =
   | 'stretch'
   | (string & {});
 
-export type DisplayValue =
-  | 'none'
-  | 'block'
-  | 'inline'
-  | 'inline-block'
-  | 'flex'
-  | 'inline-flex'
-  | 'grid'
-  | 'inline-grid'
-  | 'contents'
-  | (string & {});
+/** Display values for Box. Flex layouts belong to `Flex`, so `flex` and `inline-flex` are not among them. */
+export type BoxDisplayValue = 'none' | 'block' | 'inline' | 'inline-block' | 'grid' | 'inline-grid' | 'contents';
+
+/** Display values for Flex: inline or hidden, e.g. `display={{ base: 'none', md: 'flex' }}`. */
+export type FlexDisplayValue = 'flex' | 'inline-flex' | 'none';
 
 export interface BoxDisplayProps {
-  /** Overrides the `display: flex` that flex props imply, e.g. `display={{ base: 'none', md: 'flex' }}`. */
-  display?: ResponsiveValue<DisplayValue>;
+  display?: ResponsiveValue<BoxDisplayValue>;
 }
 
-/** Flex container props. Without a `display` below the first breakpoint, they make the element `display: flex`. */
-export interface BoxFlexProps {
+export interface FlexDisplayProps {
+  /** Overrides Flex's `display: flex`. */
+  display?: ResponsiveValue<FlexDisplayValue>;
+}
+
+/** Flex container props, for `Flex`. */
+export interface FlexContainerProps {
   direction?: ResponsiveValue<FlexDirection>;
   wrap?: ResponsiveValue<FlexWrap>;
   /** `align-items`. */
@@ -99,9 +97,14 @@ export interface BoxFlexProps {
   columnGap?: ResponsiveValue<SpacingValue>;
 }
 
-export type BoxStyleProps = BoxPaddingProps & BoxMarginProps & BoxSizeProps & BoxDisplayProps & BoxFlexProps;
+export type BoxStyleProps = BoxPaddingProps & BoxMarginProps & BoxSizeProps & BoxDisplayProps;
+export type FlexStyleProps = FlexDisplayProps & FlexContainerProps;
 
-export const STYLE_PROPS = [
+/** Every style prop any component reads; each component only declares and passes its own. */
+export type AllStyleProps = Omit<BoxStyleProps, 'display'> &
+  FlexContainerProps & { display?: ResponsiveValue<BoxDisplayValue | FlexDisplayValue> };
+
+export const BOX_STYLE_PROPS = [
   'p',
   'px',
   'py',
@@ -123,6 +126,10 @@ export const STYLE_PROPS = [
   'mih',
   'mah',
   'display',
+] as const satisfies (keyof BoxStyleProps)[];
+
+export const FLEX_STYLE_PROPS = [
+  'display',
   'direction',
   'wrap',
   'align',
@@ -130,7 +137,7 @@ export const STYLE_PROPS = [
   'gap',
   'rowGap',
   'columnGap',
-] as const satisfies (keyof BoxStyleProps)[];
+] as const satisfies (keyof FlexStyleProps)[];
 
 // Each CSS property and the props that set it, most specific first: a side prop wins over its axis, the
 // axis over the shorthand. Each group gets its own class and <style>, so the common spacing combinations
@@ -154,9 +161,12 @@ const STYLE_GROUPS = {
     'min-height': ['mih'],
     'max-height': ['mah'],
   },
-  // `display` shares the class with the flex props: in separate classes of equal specificity, which one wins
-  // would depend on registration order.
-  layout: {
+  display: {
+    display: ['display'],
+  },
+  // Flex has its own `display` rather than the `display` group's: in separate classes of equal specificity,
+  // which one wins would depend on registration order.
+  flex: {
     display: ['display'],
     'flex-direction': ['direction'],
     'flex-wrap': ['wrap'],
@@ -165,23 +175,20 @@ const STYLE_GROUPS = {
     'row-gap': ['rowGap', 'gap'],
     'column-gap': ['columnGap', 'gap'],
   },
-} as const satisfies Record<string, Record<string, (keyof BoxStyleProps)[]>>;
+} as const satisfies Record<string, Record<string, (keyof AllStyleProps)[]>>;
 
 export type StyleGroup = keyof typeof STYLE_GROUPS;
-export const STYLE_GROUP_NAMES = Object.keys(STYLE_GROUPS) as StyleGroup[];
 
-const FLEX_PROPS = ['direction', 'wrap', 'align', 'justify', 'gap', 'rowGap', 'columnGap'] as const;
-
-// Values a property takes below the first breakpoint when no prop sets one there: flex props only work on a
-// flex container, so they imply `display: flex` unless `display` says otherwise.
-const PROPERTY_FALLBACKS: Record<string, (props: BoxStyleProps) => SizeValue | undefined> = {
-  display: (props) => (FLEX_PROPS.some((name) => props[name] !== undefined) ? 'flex' : undefined),
+// Values a property takes below the first breakpoint when no prop sets one there. A group with fallbacks
+// always emits a class, even without props: every Flex is `display: flex` unless `display` says otherwise.
+const PROPERTY_FALLBACKS: Partial<Record<StyleGroup, Record<string, SizeValue>>> = {
+  flex: { display: 'flex' },
 };
 
 // The props each group reads, for the cache key and the early exit.
 const GROUP_PROPS = Object.fromEntries(
   Object.entries(STYLE_GROUPS).map(([group, properties]) => [group, [...new Set(Object.values(properties).flat())]]),
-) as Record<StyleGroup, (keyof BoxStyleProps)[]>;
+) as Record<StyleGroup, (keyof AllStyleProps)[]>;
 
 type Key = 'base' | Breakpoint;
 const KEYS = ['base', ...(Object.keys(BREAKPOINTS) as Breakpoint[])] as const;
@@ -207,14 +214,14 @@ function cssValue(value: SizeValue): string | undefined {
  * left side at 2 everywhere. A declaration is only emitted where the property's value changes, and always
  * in the same order, so props that resolve to the same CSS produce the same declarations.
  */
-export function resolveStyleProps(props: BoxStyleProps, group: StyleGroup): StyleDeclarations {
+export function resolveStyleProps(props: AllStyleProps, group: StyleGroup): StyleDeclarations {
   const declarations: StyleDeclarations = {};
 
-  const properties = Object.entries(STYLE_GROUPS[group]) as [string, readonly (keyof BoxStyleProps)[]][];
+  const properties = Object.entries(STYLE_GROUPS[group]) as [string, readonly (keyof AllStyleProps)[]][];
 
   for (const [property, sourceKeys] of properties) {
     const sources = sourceKeys.map((source) => toBreakpoints<SizeValue>(props[source]));
-    const fallback = PROPERTY_FALLBACKS[property]?.(props);
+    const fallback = PROPERTY_FALLBACKS[group]?.[property];
     // Least specific, so any prop value wins over it.
     if (fallback !== undefined) sources.push({ base: fallback });
     const current: (SizeValue | undefined)[] = sources.map(() => undefined);
@@ -242,20 +249,21 @@ export interface StyleClass {
   css: string;
 }
 
-// Resolved classes by group and prop values. Boxes with the same values skip resolving, hashing and
+// Resolved classes by group and prop values. Components with the same values skip resolving, hashing and
 // building the CSS. Cleared when full rather than evicted one by one, since it only refills with values
 // still in use.
 const cache = new Map<string, StyleClass | undefined>();
 const CACHE_LIMIT = 1000;
 
 /**
- * The class and CSS for one group of style props, or undefined when none of them are set. The class name is
+ * The class and CSS for one group of style props, or undefined when none of them are set and the group has no
+ * fallbacks. The class name is
  * a hash of the declarations, so it is the same on the server and the client, and props that resolve to the
  * same CSS share it.
  */
-export function resolveStyleClass(props: BoxStyleProps, group: StyleGroup): StyleClass | undefined {
+export function resolveStyleClass(props: AllStyleProps, group: StyleGroup): StyleClass | undefined {
   const values = GROUP_PROPS[group].map((name) => props[name]);
-  if (values.every((value) => value === undefined)) return undefined;
+  if (!PROPERTY_FALLBACKS[group] && values.every((value) => value === undefined)) return undefined;
 
   const key = group + JSON.stringify(values);
   if (cache.has(key)) return cache.get(key);
@@ -263,7 +271,7 @@ export function resolveStyleClass(props: BoxStyleProps, group: StyleGroup): Styl
   const declarations = resolveStyleProps(props, group);
   let result: StyleClass | undefined;
   if (Object.keys(declarations).length > 0) {
-    const className = `slp-box-${hash(JSON.stringify(declarations))}`;
+    const className = `slp-s-${hash(JSON.stringify(declarations))}`;
     result = { className, css: styleCss(`.${className}`, declarations) };
   }
 
