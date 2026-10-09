@@ -31,6 +31,16 @@ import '@slopkit/ui/styles/default-theme.css';`}
       </p>
 
       <H2 id="usage">Usage</H2>
+      <p>
+        Wrap the app in <code>&lt;SlopkitUi&gt;</code> once. Components that generate CSS at runtime, such as Box, add it there.
+      </p>
+      <CodeBlock
+        code={`import { SlopkitUi } from '@slopkit/ui';
+
+export function Root() {
+  return <SlopkitUi>{/* your app */}</SlopkitUi>;
+}`}
+      />
       <CodeBlock
         code={`import { Button } from '@slopkit/ui';
 
