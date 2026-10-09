@@ -7,6 +7,8 @@ import Basic from '../../examples/box/basic';
 import basicCode from '../../examples/box/basic.tsx?raw';
 import Padding from '../../examples/box/padding';
 import paddingCode from '../../examples/box/padding.tsx?raw';
+import Margin from '../../examples/box/margin';
+import marginCode from '../../examples/box/margin.tsx?raw';
 import ResponsivePadding from '../../examples/box/responsive-padding';
 import responsivePaddingCode from '../../examples/box/responsive-padding.tsx?raw';
 import Style from '../../examples/box/style';
@@ -35,6 +37,13 @@ export default function BoxPage() {
         generates one class per distinct padding and injects its CSS once with <code>&lt;Style&gt;</code>.
       </p>
       <Example component={Padding} code={paddingCode} />
+
+      <H2 id="margin">Margin</H2>
+      <p>
+        <code>m</code>, <code>mx</code>, <code>my</code>, <code>mt</code>, <code>mr</code>, <code>mb</code> and <code>ml</code>,
+        in the same units. Negative values pull the box outward, and <code>auto</code> centers it.
+      </p>
+      <Example component={Margin} code={marginCode} column />
 
       <H2 id="responsive">Responsive</H2>
       <p>
