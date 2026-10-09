@@ -9,6 +9,8 @@ import Padding from '../../examples/box/padding';
 import paddingCode from '../../examples/box/padding.tsx?raw';
 import Margin from '../../examples/box/margin';
 import marginCode from '../../examples/box/margin.tsx?raw';
+import Size from '../../examples/box/size';
+import sizeCode from '../../examples/box/size.tsx?raw';
 import ResponsivePadding from '../../examples/box/responsive-padding';
 import responsivePaddingCode from '../../examples/box/responsive-padding.tsx?raw';
 import Style from '../../examples/box/style';
@@ -44,6 +46,16 @@ export default function BoxPage() {
         in the same units. Negative values pull the box outward, and <code>auto</code> centers it.
       </p>
       <Example component={Margin} code={marginCode} column />
+
+      <H2 id="size">Width and height</H2>
+      <p>
+        <code>w</code> and <code>h</code>. A number is in spacing units like padding, so{' '}
+        <code>
+          w={'{'}24{'}'}
+        </code>{' '}
+        is 6rem. A string is any CSS value, such as <code>'100%'</code> or <code>'auto'</code>.
+      </p>
+      <Example component={Size} code={sizeCode} column />
 
       <H2 id="responsive">Responsive</H2>
       <p>

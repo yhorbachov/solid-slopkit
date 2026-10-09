@@ -30,7 +30,15 @@ export interface BoxMarginProps {
   ml?: ResponsiveValue<MarginValue>;
 }
 
-export type BoxStyleProps = BoxPaddingProps & BoxMarginProps;
+/** Spacing units, or any CSS length such as `'100%'` or `'auto'`. */
+export type SizeValue = number | (string & {});
+
+export interface BoxSizeProps {
+  w?: ResponsiveValue<SizeValue>;
+  h?: ResponsiveValue<SizeValue>;
+}
+
+export type BoxStyleProps = BoxPaddingProps & BoxMarginProps & BoxSizeProps;
 
 export const STYLE_PROPS = [
   'p',
@@ -47,6 +55,8 @@ export const STYLE_PROPS = [
   'mr',
   'mb',
   'ml',
+  'w',
+  'h',
 ] as const satisfies (keyof BoxStyleProps)[];
 
 // Each CSS property and the props that set it, most specific first: a side prop wins over its axis, the
@@ -60,6 +70,8 @@ const PROPERTIES = {
   'margin-right': ['mr', 'mx', 'm'],
   'margin-bottom': ['mb', 'my', 'm'],
   'margin-left': ['ml', 'mx', 'm'],
+  width: ['w'],
+  height: ['h'],
 } as const satisfies Record<string, (keyof BoxStyleProps)[]>;
 
 type Key = 'base' | Breakpoint;
@@ -72,8 +84,11 @@ function toBreakpoints<T>(value: ResponsiveValue<T> | undefined): Partial<Record
   return typeof value === 'object' && value !== null ? (value as Partial<Record<Key, T>>) : { base: value };
 }
 
-function spacing(value: MarginValue): string {
-  if (value === 'auto') return 'auto';
+// The CSS goes into a generated <style>, so a string must not be able to close the rule or the tag.
+const UNSAFE_VALUE = /[;{}<>]/;
+
+function cssValue(value: SizeValue): string | undefined {
+  if (typeof value === 'string') return UNSAFE_VALUE.test(value) ? undefined : value;
   return value === 0 ? '0' : `calc(var(--slp-spacing) * ${value})`;
 }
 
@@ -87,9 +102,9 @@ export function resolveStyleProps(props: BoxStyleProps): StyleDeclarations {
   const declarations: StyleDeclarations = {};
 
   for (const [property, sourceKeys] of Object.entries(PROPERTIES)) {
-    const sources = sourceKeys.map((source) => toBreakpoints<MarginValue>(props[source]));
-    const current: (MarginValue | undefined)[] = sources.map(() => undefined);
-    let previous: MarginValue | undefined;
+    const sources = sourceKeys.map((source) => toBreakpoints<SizeValue>(props[source]));
+    const current: (SizeValue | undefined)[] = sources.map(() => undefined);
+    let previous: string | undefined;
 
     for (const key of KEYS) {
       sources.forEach((source, index) => {
@@ -97,10 +112,11 @@ export function resolveStyleProps(props: BoxStyleProps): StyleDeclarations {
       });
 
       const value = current.find((value) => value !== undefined);
-      if (value === undefined || value === previous) continue;
+      const css = value === undefined ? undefined : cssValue(value);
+      if (css === undefined || css === previous) continue;
 
-      (declarations[key] ??= []).push(`${property}:${spacing(value)}`);
-      previous = value;
+      (declarations[key] ??= []).push(`${property}:${css}`);
+      previous = css;
     }
   }
 
