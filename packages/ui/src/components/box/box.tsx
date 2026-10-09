@@ -3,6 +3,7 @@ import { Polymorphic, type PolymorphicProps } from '../polymorphic';
 import { type JSX, type ValidComponent } from '@solidjs/web';
 import { PADDING_PROPS, resolvePaddingClasses, type BoxPaddingProps } from './style-props';
 import style from './box.module.css';
+import { Style } from '@solidjs/meta';
 
 type BoxCommonProps = BoxPaddingProps & {
   children?: JSX.Element;
@@ -11,10 +12,16 @@ type BoxCommonProps = BoxPaddingProps & {
 
 export function Box<T extends ValidComponent = 'div'>(props: PolymorphicProps<T, BoxCommonProps>) {
   const others = omit(props, 'class', ...PADDING_PROPS);
+  const KEY = 'hash_key';
 
   const paddingClasses = createMemo(() => resolvePaddingClasses(props).map((name) => style[name]), {
     name: 'Box.paddingClasses',
   });
 
-  return <Polymorphic as="div" class={['slp-box', style.box, paddingClasses(), props.class]} {...others} />;
+  return (
+    <>
+      <Style key={KEY}>{`.slp-box { background: yellow; }`}</Style>
+      <Polymorphic as="div" class={['slp-box', style.box, paddingClasses(), props.class]} {...others} />
+    </>
+  );
 }

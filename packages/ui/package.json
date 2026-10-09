@@ -53,6 +53,7 @@
     "vitest": "^5.0.0"
   },
   "peerDependencies": {
+    "@solidjs/meta": "^1.0.0-next.2",
     "@solidjs/web": ">=2.0.0-rc.11 <3",
     "solid-js": ">=2.0.0-rc.11 <3"
   }

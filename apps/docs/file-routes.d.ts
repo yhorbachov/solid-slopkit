@@ -47,15 +47,9 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/";
+      path: "/ui/box";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/index")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/theming";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/box")>;
       $$route?: undefined;
     },
     {
@@ -65,9 +59,15 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/box";
+      path: "/ui/";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/box")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/index")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/theming";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
       $$route?: undefined;
     }
   ];
