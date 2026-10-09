@@ -60,19 +60,26 @@ export const STYLE_PROPS = [
 ] as const satisfies (keyof BoxStyleProps)[];
 
 // Each CSS property and the props that set it, most specific first: a side prop wins over its axis, the
-// axis over the shorthand.
-const PROPERTIES = {
-  'padding-top': ['pt', 'py', 'p'],
-  'padding-right': ['pr', 'px', 'p'],
-  'padding-bottom': ['pb', 'py', 'p'],
-  'padding-left': ['pl', 'px', 'p'],
-  'margin-top': ['mt', 'my', 'm'],
-  'margin-right': ['mr', 'mx', 'm'],
-  'margin-bottom': ['mb', 'my', 'm'],
-  'margin-left': ['ml', 'mx', 'm'],
-  width: ['w'],
-  height: ['h'],
-} as const satisfies Record<string, (keyof BoxStyleProps)[]>;
+// axis over the shorthand. Each group gets its own class and <style>, so the common spacing combinations
+// stay shared between boxes that differ only in size.
+const STYLE_GROUPS = {
+  spacing: {
+    'padding-top': ['pt', 'py', 'p'],
+    'padding-right': ['pr', 'px', 'p'],
+    'padding-bottom': ['pb', 'py', 'p'],
+    'padding-left': ['pl', 'px', 'p'],
+    'margin-top': ['mt', 'my', 'm'],
+    'margin-right': ['mr', 'mx', 'm'],
+    'margin-bottom': ['mb', 'my', 'm'],
+    'margin-left': ['ml', 'mx', 'm'],
+  },
+  size: {
+    width: ['w'],
+    height: ['h'],
+  },
+} as const satisfies Record<string, Record<string, (keyof BoxStyleProps)[]>>;
+
+export type StyleGroup = keyof typeof STYLE_GROUPS;
 
 type Key = 'base' | Breakpoint;
 const KEYS = ['base', ...(Object.keys(BREAKPOINTS) as Breakpoint[])] as const;
@@ -93,15 +100,17 @@ function cssValue(value: SizeValue): string | undefined {
 }
 
 /**
- * Resolves style props into declarations per breakpoint. Each prop carries its value up through the
+ * Resolves one group of style props into declarations per breakpoint. Each prop carries its value up through the
  * breakpoints first, then the most specific prop wins at each breakpoint: `p={{ md: 8 }} pl={2}` keeps the
  * left side at 2 everywhere. A declaration is only emitted where the property's value changes, and always
  * in the same order, so props that resolve to the same CSS produce the same declarations.
  */
-export function resolveStyleProps(props: BoxStyleProps): StyleDeclarations {
+export function resolveStyleProps(props: BoxStyleProps, group: StyleGroup): StyleDeclarations {
   const declarations: StyleDeclarations = {};
 
-  for (const [property, sourceKeys] of Object.entries(PROPERTIES)) {
+  const properties = Object.entries(STYLE_GROUPS[group]) as [string, readonly (keyof BoxStyleProps)[]][];
+
+  for (const [property, sourceKeys] of properties) {
     const sources = sourceKeys.map((source) => toBreakpoints<SizeValue>(props[source]));
     const current: (SizeValue | undefined)[] = sources.map(() => undefined);
     let previous: string | undefined;
