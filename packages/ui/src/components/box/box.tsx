@@ -1,14 +1,10 @@
 import { createMemo, omit } from 'solid-js';
-import { Polymorphic, type PolymorphicProps } from '../polymorphic';
-import { type JSX, type ValidComponent } from '@solidjs/web';
+import { type JSX } from '@solidjs/web';
 import { useSlopkitUi } from '../provider/slopkit-ui';
 import { STYLE_GROUP_NAMES, STYLE_PROPS, resolveStyleClass, type BoxStyleProps, type StyleGroup } from './style-props';
 import style from './box.module.css';
 
-type BoxCommonProps = BoxStyleProps & {
-  children?: JSX.Element;
-  class?: JSX.ClassValue | JSX.RemoveAttribute;
-};
+export type BoxProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof BoxStyleProps> & BoxStyleProps;
 
 // One class per distinct set of declarations in a group. Boxes with the same declarations share the class,
 // and the provider adds its CSS once.
@@ -32,7 +28,7 @@ function joinClass(classes: (string | undefined)[], userClass: JSX.ClassValue | 
   return userClass ? `${result} ${userClass}` : result;
 }
 
-export function Box<T extends ValidComponent = 'div'>(props: PolymorphicProps<T, BoxCommonProps>) {
+export function Box(props: BoxProps) {
   const others = omit(props, 'class', ...STYLE_PROPS);
 
   const { registerStyle } = useSlopkitUi('Box');
@@ -51,5 +47,5 @@ export function Box<T extends ValidComponent = 'div'>(props: PolymorphicProps<T,
     { name: 'Box.styleClasses' },
   );
 
-  return <Polymorphic as="div" class={joinClass(['slp-box', style.box, styleClasses()], props.class)} {...others} />;
+  return <div class={joinClass(['slp-box', style.box, styleClasses()], props.class)} {...others} />;
 }

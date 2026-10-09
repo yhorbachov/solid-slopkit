@@ -19,8 +19,6 @@ import ResponsivePadding from '../../examples/box/responsive-padding';
 import responsivePaddingCode from '../../examples/box/responsive-padding.tsx?raw';
 import Style from '../../examples/box/style';
 import styleCode from '../../examples/box/style.tsx?raw';
-import Polymorphic from '../../examples/box/polymorphic';
-import polymorphicCode from '../../examples/box/polymorphic.tsx?raw';
 
 export default function BoxPage() {
   return (
@@ -90,9 +88,6 @@ export default function BoxPage() {
         <code>style</code> accepts an object or a string, and is merged with the box's own CSS variables.
       </p>
       <Example component={Style} code={styleCode} />
-
-      <H2 id="polymorphic">Polymorphic</H2>
-      <Example component={Polymorphic} code={polymorphicCode} />
     </article>
   );
 }
