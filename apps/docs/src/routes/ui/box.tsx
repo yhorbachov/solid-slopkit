@@ -31,7 +31,8 @@ export default function BoxPage() {
       <H2 id="padding">Padding</H2>
       <p>
         <code>p</code>, <code>px</code>, <code>py</code>, <code>pt</code>, <code>pr</code>, <code>pb</code> and <code>pl</code>.
-        Values are theme sizes, read from <code>--slp-spacing-*</code>. The more specific prop wins.
+        Values are multiples of <code>--slp-spacing</code> (0.25rem), so <code>4</code> is 1rem. The more specific prop wins. Box
+        generates one class per distinct padding and injects its CSS once with <code>&lt;Style&gt;</code>.
       </p>
       <Example component={Padding} code={paddingCode} />
 

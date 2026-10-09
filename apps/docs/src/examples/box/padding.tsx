@@ -5,17 +5,20 @@ const surface = { background: 'var(--slp-color-base-200)' };
 export default function Padding() {
   return (
     <>
-      <Box p="md" style={surface}>
-        p="md"
+      <Box p={4} style={surface}>
+        {'p={4}'}
       </Box>
-      <Box px="xl" py="xs" style={surface}>
-        px="xl" py="xs"
+      <Box px={8} py={2} style={surface}>
+        {'px={8} py={2}'}
       </Box>
-      <Box p="xs" pl="xl" style={surface}>
-        p="xs" pl="xl"
+      <Box p={2} pl={10} style={surface}>
+        {'p={2} pl={10}'}
       </Box>
-      <Box pt="lg" style={surface}>
-        pt="lg"
+      <Box pt={6} style={surface}>
+        {'pt={6}'}
+      </Box>
+      <Box p={4} style={surface}>
+        {'p={4}, shares its <style> with the first box'}
       </Box>
     </>
   );

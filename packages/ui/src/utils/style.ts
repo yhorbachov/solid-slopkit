@@ -14,9 +14,8 @@ function styleToString(style: JSX.CSSProperties): string {
  * all are joined into one CSS string instead, since parsing CSS text back into an object is lossy.
  */
 export function mergeStyles(...styles: StyleValue[]): JSX.CSSProperties | string | undefined {
-  const values = styles.filter(
-    (style): style is JSX.CSSProperties | string =>
-      typeof style === 'string' ? style.trim() !== '' : !!style && Object.keys(style).length > 0,
+  const values = styles.filter((style): style is JSX.CSSProperties | string =>
+    typeof style === 'string' ? style.trim() !== '' : !!style && Object.keys(style).length > 0,
   );
 
   if (values.length === 0) return undefined;

@@ -25,11 +25,7 @@
     --slp-radius-box: 1rem;
     --slp-size-selector: 0.25rem;
     --slp-size-field: 0.25rem;
-    --slp-spacing-xs: 0.625rem;
-    --slp-spacing-sm: 0.75rem;
-    --slp-spacing-md: 1rem;
-    --slp-spacing-lg: 1.25rem;
-    --slp-spacing-xl: 2rem;
+    --slp-spacing: 0.25rem;
     --slp-border: 1px;
     --slp-depth: 0;
     --slp-noise: 0;

@@ -1,9 +1,10 @@
 import { createMemo, omit } from 'solid-js';
+import { Style } from '@solidjs/meta';
 import { Polymorphic, type PolymorphicProps } from '../polymorphic';
 import { type JSX, type ValidComponent } from '@solidjs/web';
-import { PADDING_PROPS, resolvePaddingClasses, type BoxPaddingProps } from './style-props';
+import { hash } from '../../utils';
+import { PADDING_PROPS, paddingCss, resolvePadding, type BoxPaddingProps } from './style-props';
 import style from './box.module.css';
-import { Style } from '@solidjs/meta';
 
 type BoxCommonProps = BoxPaddingProps & {
   children?: JSX.Element;
@@ -12,16 +13,23 @@ type BoxCommonProps = BoxPaddingProps & {
 
 export function Box<T extends ValidComponent = 'div'>(props: PolymorphicProps<T, BoxCommonProps>) {
   const others = omit(props, 'class', ...PADDING_PROPS);
-  const KEY = 'hash_key';
 
-  const paddingClasses = createMemo(() => resolvePaddingClasses(props).map((name) => style[name]), {
-    name: 'Box.paddingClasses',
-  });
+  // One class per distinct set of declarations. Boxes with the same padding share the class, and the
+  // shared `key` makes the head registry keep a single <style> for it.
+  const styles = createMemo(
+    () => {
+      const declarations = resolvePadding(props);
+      if (Object.keys(declarations).length === 0) return undefined;
+      const className = `slp-box-${hash(JSON.stringify(declarations))}`;
+      return { className, css: paddingCss(`.${className}`, declarations) };
+    },
+    { name: 'Box.styles' },
+  );
 
   return (
     <>
-      <Style key={KEY}>{`.slp-box { background: yellow; }`}</Style>
-      <Polymorphic as="div" class={['slp-box', style.box, paddingClasses(), props.class]} {...others} />
+      {styles() && <Style key={styles()!.className}>{styles()!.css}</Style>}
+      <Polymorphic as="div" class={['slp-box', style.box, styles()?.className, props.class]} {...others} />
     </>
   );
 }
