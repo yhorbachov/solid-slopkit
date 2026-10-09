@@ -2,7 +2,7 @@ import { createMemo, omit } from 'solid-js';
 import { Polymorphic, type PolymorphicProps } from '../polymorphic';
 import { type JSX, type ValidComponent } from '@solidjs/web';
 import { useSlopkitUi } from '../provider/slopkit-ui';
-import { STYLE_PROPS, resolveStyleClass, type BoxStyleProps, type StyleGroup } from './style-props';
+import { STYLE_GROUP_NAMES, STYLE_PROPS, resolveStyleClass, type BoxStyleProps, type StyleGroup } from './style-props';
 import style from './box.module.css';
 
 type BoxCommonProps = BoxStyleProps & {
@@ -37,13 +37,16 @@ export function Box<T extends ValidComponent = 'div'>(props: PolymorphicProps<T,
 
   const { registerStyle } = useSlopkitUi('Box');
 
-  // Both groups in one memo: each Box pays for one computation, and a change in one group re-resolves the
-  // other from the cache. Returns a string, so the class only updates when the result changes.
+  // All groups in one memo: each Box pays for one computation, and a change in one group re-resolves the
+  // others from the cache. Returns a string, so the class only updates when the result changes.
   const styleClasses = createMemo(
     () => {
-      const spacing = registerStyleClass(props, 'spacing', registerStyle);
-      const size = registerStyleClass(props, 'size', registerStyle);
-      return spacing && size ? `${spacing} ${size}` : (spacing ?? size);
+      let result: string | undefined;
+      for (const group of STYLE_GROUP_NAMES) {
+        const className = registerStyleClass(props, group, registerStyle);
+        if (className) result = result ? `${result} ${className}` : className;
+      }
+      return result;
     },
     { name: 'Box.styleClasses' },
   );

@@ -44,7 +44,45 @@ export interface BoxSizeProps {
   mah?: ResponsiveValue<SizeValue>;
 }
 
-export type BoxStyleProps = BoxPaddingProps & BoxMarginProps & BoxSizeProps;
+export type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
+export type FlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse';
+export type FlexAlign =
+  | 'normal'
+  | 'stretch'
+  | 'center'
+  | 'start'
+  | 'end'
+  | 'flex-start'
+  | 'flex-end'
+  | 'baseline'
+  | (string & {});
+export type FlexJustify =
+  | 'normal'
+  | 'start'
+  | 'end'
+  | 'center'
+  | 'flex-start'
+  | 'flex-end'
+  | 'space-between'
+  | 'space-around'
+  | 'space-evenly'
+  | 'stretch'
+  | (string & {});
+
+/** Flex container props. Setting any of them also makes the element `display: flex`. */
+export interface BoxFlexProps {
+  direction?: ResponsiveValue<FlexDirection>;
+  wrap?: ResponsiveValue<FlexWrap>;
+  /** `align-items`. */
+  align?: ResponsiveValue<FlexAlign>;
+  /** `justify-content`. */
+  justify?: ResponsiveValue<FlexJustify>;
+  gap?: ResponsiveValue<SpacingValue>;
+  rowGap?: ResponsiveValue<SpacingValue>;
+  columnGap?: ResponsiveValue<SpacingValue>;
+}
+
+export type BoxStyleProps = BoxPaddingProps & BoxMarginProps & BoxSizeProps & BoxFlexProps;
 
 export const STYLE_PROPS = [
   'p',
@@ -67,6 +105,13 @@ export const STYLE_PROPS = [
   'maw',
   'mih',
   'mah',
+  'direction',
+  'wrap',
+  'align',
+  'justify',
+  'gap',
+  'rowGap',
+  'columnGap',
 ] as const satisfies (keyof BoxStyleProps)[];
 
 // Each CSS property and the props that set it, most specific first: a side prop wins over its axis, the
@@ -91,9 +136,24 @@ const STYLE_GROUPS = {
     'min-height': ['mih'],
     'max-height': ['mah'],
   },
+  flex: {
+    'flex-direction': ['direction'],
+    'flex-wrap': ['wrap'],
+    'align-items': ['align'],
+    'justify-content': ['justify'],
+    'row-gap': ['rowGap', 'gap'],
+    'column-gap': ['columnGap', 'gap'],
+  },
 } as const satisfies Record<string, Record<string, (keyof BoxStyleProps)[]>>;
 
 export type StyleGroup = keyof typeof STYLE_GROUPS;
+export const STYLE_GROUP_NAMES = Object.keys(STYLE_GROUPS) as StyleGroup[];
+
+// Declarations a group adds below every breakpoint whenever it emits anything: flex props only work on a flex
+// container.
+const GROUP_BASE: Partial<Record<StyleGroup, string>> = {
+  flex: 'display:flex',
+};
 
 // The props each group reads, for the cache key and the early exit.
 const GROUP_PROPS = Object.fromEntries(
@@ -146,6 +206,13 @@ export function resolveStyleProps(props: BoxStyleProps, group: StyleGroup): Styl
       (declarations[key] ??= []).push(`${property}:${css}`);
       previous = css;
     }
+  }
+
+  // Rebuilt with `base` first, so the hash input only depends on the CSS, not on which breakpoint came first.
+  const base = GROUP_BASE[group];
+  if (base && Object.keys(declarations).length > 0) {
+    const { base: existing, ...rest } = declarations;
+    return { base: [base, ...(existing ?? [])], ...rest };
   }
 
   return declarations;
