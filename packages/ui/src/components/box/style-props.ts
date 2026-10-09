@@ -69,7 +69,24 @@ export type FlexJustify =
   | 'stretch'
   | (string & {});
 
-/** Flex container props. Setting any of them also makes the element `display: flex`. */
+export type DisplayValue =
+  | 'none'
+  | 'block'
+  | 'inline'
+  | 'inline-block'
+  | 'flex'
+  | 'inline-flex'
+  | 'grid'
+  | 'inline-grid'
+  | 'contents'
+  | (string & {});
+
+export interface BoxDisplayProps {
+  /** Overrides the `display: flex` that flex props imply, e.g. `display={{ base: 'none', md: 'flex' }}`. */
+  display?: ResponsiveValue<DisplayValue>;
+}
+
+/** Flex container props. Without a `display` below the first breakpoint, they make the element `display: flex`. */
 export interface BoxFlexProps {
   direction?: ResponsiveValue<FlexDirection>;
   wrap?: ResponsiveValue<FlexWrap>;
@@ -82,7 +99,7 @@ export interface BoxFlexProps {
   columnGap?: ResponsiveValue<SpacingValue>;
 }
 
-export type BoxStyleProps = BoxPaddingProps & BoxMarginProps & BoxSizeProps & BoxFlexProps;
+export type BoxStyleProps = BoxPaddingProps & BoxMarginProps & BoxSizeProps & BoxDisplayProps & BoxFlexProps;
 
 export const STYLE_PROPS = [
   'p',
@@ -105,6 +122,7 @@ export const STYLE_PROPS = [
   'maw',
   'mih',
   'mah',
+  'display',
   'direction',
   'wrap',
   'align',
@@ -136,7 +154,10 @@ const STYLE_GROUPS = {
     'min-height': ['mih'],
     'max-height': ['mah'],
   },
-  flex: {
+  // `display` shares the class with the flex props: in separate classes of equal specificity, which one wins
+  // would depend on registration order.
+  layout: {
+    display: ['display'],
     'flex-direction': ['direction'],
     'flex-wrap': ['wrap'],
     'align-items': ['align'],
@@ -149,10 +170,12 @@ const STYLE_GROUPS = {
 export type StyleGroup = keyof typeof STYLE_GROUPS;
 export const STYLE_GROUP_NAMES = Object.keys(STYLE_GROUPS) as StyleGroup[];
 
-// Declarations a group adds below every breakpoint whenever it emits anything: flex props only work on a flex
-// container.
-const GROUP_BASE: Partial<Record<StyleGroup, string>> = {
-  flex: 'display:flex',
+const FLEX_PROPS = ['direction', 'wrap', 'align', 'justify', 'gap', 'rowGap', 'columnGap'] as const;
+
+// Values a property takes below the first breakpoint when no prop sets one there: flex props only work on a
+// flex container, so they imply `display: flex` unless `display` says otherwise.
+const PROPERTY_FALLBACKS: Record<string, (props: BoxStyleProps) => SizeValue | undefined> = {
+  display: (props) => (FLEX_PROPS.some((name) => props[name] !== undefined) ? 'flex' : undefined),
 };
 
 // The props each group reads, for the cache key and the early exit.
@@ -191,6 +214,9 @@ export function resolveStyleProps(props: BoxStyleProps, group: StyleGroup): Styl
 
   for (const [property, sourceKeys] of properties) {
     const sources = sourceKeys.map((source) => toBreakpoints<SizeValue>(props[source]));
+    const fallback = PROPERTY_FALLBACKS[property]?.(props);
+    // Least specific, so any prop value wins over it.
+    if (fallback !== undefined) sources.push({ base: fallback });
     const current: (SizeValue | undefined)[] = sources.map(() => undefined);
     let previous: string | undefined;
 
@@ -206,13 +232,6 @@ export function resolveStyleProps(props: BoxStyleProps, group: StyleGroup): Styl
       (declarations[key] ??= []).push(`${property}:${css}`);
       previous = css;
     }
-  }
-
-  // Rebuilt with `base` first, so the hash input only depends on the CSS, not on which breakpoint came first.
-  const base = GROUP_BASE[group];
-  if (base && Object.keys(declarations).length > 0) {
-    const { base: existing, ...rest } = declarations;
-    return { base: [base, ...(existing ?? [])], ...rest };
   }
 
   return declarations;
