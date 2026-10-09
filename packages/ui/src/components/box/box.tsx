@@ -12,16 +12,15 @@ type BoxCommonProps = BoxStyleProps & {
 
 // One class per distinct set of declarations in a group. Boxes with the same declarations share the class,
 // and the provider adds its CSS once.
-function createStyleClass(props: BoxStyleProps, group: StyleGroup, registerStyle: (className: string, css: string) => void) {
-  return createMemo(
-    () => {
-      const styleClass = resolveStyleClass(props, group);
-      if (styleClass === undefined) return undefined;
-      registerStyle(styleClass.className, styleClass.css);
-      return styleClass.className;
-    },
-    { name: `Box.${group}` },
-  );
+function registerStyleClass(
+  props: BoxStyleProps,
+  group: StyleGroup,
+  registerStyle: (className: string, css: string) => void,
+): string | undefined {
+  const styleClass = resolveStyleClass(props, group);
+  if (styleClass === undefined) return undefined;
+  registerStyle(styleClass.className, styleClass.css);
+  return styleClass.className;
 }
 
 // A string class is applied in one write; an array is normalized and applied entry by entry, which costs
@@ -38,8 +37,16 @@ export function Box<T extends ValidComponent = 'div'>(props: PolymorphicProps<T,
 
   const { registerStyle } = useSlopkitUi('Box');
 
-  const spacing = createStyleClass(props, 'spacing', registerStyle);
-  const size = createStyleClass(props, 'size', registerStyle);
+  // Both groups in one memo: each Box pays for one computation, and a change in one group re-resolves the
+  // other from the cache. Returns a string, so the class only updates when the result changes.
+  const styleClasses = createMemo(
+    () => {
+      const spacing = registerStyleClass(props, 'spacing', registerStyle);
+      const size = registerStyleClass(props, 'size', registerStyle);
+      return spacing && size ? `${spacing} ${size}` : (spacing ?? size);
+    },
+    { name: 'Box.styleClasses' },
+  );
 
-  return <Polymorphic as="div" class={joinClass(['slp-box', style.box, spacing(), size()], props.class)} {...others} />;
+  return <Polymorphic as="div" class={joinClass(['slp-box', style.box, styleClasses()], props.class)} {...others} />;
 }
