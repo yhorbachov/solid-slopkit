@@ -47,6 +47,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/aspect-ratio";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/aspect-ratio")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/box";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/box")>;
@@ -59,45 +65,9 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/flex";
+      path: "/ui/center";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/flex")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/theming";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/index")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/stack";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/stack")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/group";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/group")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/simple-grid";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/simple-grid")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/grid";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/grid")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/center")>;
       $$route?: undefined;
     },
     {
@@ -107,21 +77,57 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/center";
+      path: "/ui/flex";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/center")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/flex")>;
       $$route?: undefined;
     },
     {
-      path: "/ui/aspect-ratio";
+      path: "/ui/grid";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/aspect-ratio")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/grid")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/group";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/group")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/index")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/segmented-control";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/segmented-control")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/simple-grid";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/simple-grid")>;
       $$route?: undefined;
     },
     {
       path: "/ui/space";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/space")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/stack";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/stack")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/theming";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
       $$route?: undefined;
     }
   ];
@@ -246,6 +252,14 @@ declare module "virtual:file-routes" {
       id: "/ui/aspect-ratio";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/aspect-ratio")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/segmented-control";
+      id: "/ui/segmented-control";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/segmented-control")>;
       $$route?: undefined;
       children?: undefined;
     }

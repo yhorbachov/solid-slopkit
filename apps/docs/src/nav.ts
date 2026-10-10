@@ -49,6 +49,10 @@ export const nav: NavSection[] = [
         title: 'Buttons',
         items: [{ title: 'Button', href: '/ui/button' }],
       },
+      {
+        title: 'Inputs',
+        items: [{ title: 'SegmentedControl', href: '/ui/segmented-control' }],
+      },
     ],
   },
 ];
