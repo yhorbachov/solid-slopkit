@@ -33,6 +33,7 @@ export const nav: NavSection[] = [
       {
         title: 'Layout',
         items: [
+          { title: 'AspectRatio', href: '/ui/aspect-ratio' },
           { title: 'Box', href: '/ui/box' },
           { title: 'Center', href: '/ui/center' },
           { title: 'Container', href: '/ui/container' },

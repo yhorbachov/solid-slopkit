@@ -140,12 +140,19 @@ export interface ContainerSizeProps {
   size?: ContainerSize | SizeValue;
 }
 
+/** AspectRatio props, for `AspectRatio`. */
+export interface AspectRatioRatioProps {
+  /** Width divided by height, e.g. `16 / 9`. */
+  ratio?: number;
+}
+
 export type BoxStyleProps = BoxPaddingProps & BoxMarginProps & BoxSizeProps & BoxDisplayProps;
 export type FlexStyleProps = FlexDisplayProps & FlexContainerProps;
 export type SimpleGridStyleProps = SimpleGridContainerProps;
 export type GridStyleProps = GridContainerProps;
 export type GridColStyleProps = GridColItemProps;
 export type ContainerStyleProps = ContainerSizeProps;
+export type AspectRatioStyleProps = AspectRatioRatioProps;
 
 /** Every style prop any component reads; each component only declares and passes its own. */
 export type AllStyleProps = Omit<BoxStyleProps, 'display'> &
@@ -153,7 +160,8 @@ export type AllStyleProps = Omit<BoxStyleProps, 'display'> &
   SimpleGridContainerProps &
   Omit<GridContainerProps, 'justify' | 'align'> &
   GridColItemProps &
-  ContainerSizeProps & { display?: ResponsiveValue<BoxDisplayValue | FlexDisplayValue> };
+  ContainerSizeProps &
+  AspectRatioRatioProps & { display?: ResponsiveValue<BoxDisplayValue | FlexDisplayValue> };
 
 export const BOX_STYLE_PROPS = [
   'p',
@@ -195,6 +203,8 @@ export const SIMPLE_GRID_STYLE_PROPS = ['cols', 'spacing', 'verticalSpacing'] as
 export const GRID_STYLE_PROPS = ['gutter', 'columns', 'justify', 'align'] as const satisfies (keyof GridStyleProps)[];
 
 export const GRID_COL_STYLE_PROPS = ['span', 'offset', 'order'] as const satisfies (keyof GridColStyleProps)[];
+
+export const ASPECT_RATIO_STYLE_PROPS = ['ratio'] as const satisfies (keyof AspectRatioStyleProps)[];
 
 export const CONTAINER_STYLE_PROPS = ['size'] as const satisfies (keyof ContainerStyleProps)[];
 
@@ -257,6 +267,10 @@ const STYLE_GROUPS = {
   container: {
     'max-width': ['size'],
   },
+  // The ratio is applied to the children by aspect-ratio.module.css.
+  aspectRatio: {
+    '--_aspect-ratio': ['ratio'],
+  },
 } as const satisfies Record<string, Record<string, (keyof AllStyleProps)[]>>;
 
 export type StyleGroup = keyof typeof STYLE_GROUPS;
@@ -268,6 +282,7 @@ const PROPERTY_FALLBACKS: Partial<Record<StyleGroup, Record<string, SizeValue>>>
   simpleGrid: { display: 'grid', 'grid-template-columns': 1, 'row-gap': 4, 'column-gap': 4 },
   grid: { '--_grid-gutter': 4, '--_grid-columns': 12 },
   container: { 'max-width': 'md' },
+  aspectRatio: { '--_aspect-ratio': 1 },
   gridCol: { 'flex-basis': '100%', 'flex-grow': 'var(--_grid-grow)', 'max-width': '100%' },
 };
 
@@ -279,6 +294,9 @@ const spanWidth = (span: number) => `calc((100% + var(--_grid-gutter)) * ${span}
 const CONTAINER_SIZES = new Set<SizeValue>(['xs', 'sm', 'md', 'lg', 'xl'] satisfies ContainerSize[]);
 
 const VALUE_FORMATS: Partial<Record<StyleGroup, Record<string, (value: SizeValue) => string | undefined>>> = {
+  aspectRatio: {
+    '--_aspect-ratio': (ratio) => (typeof ratio === 'number' ? String(ratio) : undefined),
+  },
   container: {
     'max-width': (size) => (CONTAINER_SIZES.has(size) ? `var(--slp-container-size-${size})` : undefined),
   },
