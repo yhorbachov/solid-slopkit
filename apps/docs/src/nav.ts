@@ -34,6 +34,7 @@ export const nav: NavSection[] = [
         title: 'Layout',
         items: [
           { title: 'Box', href: '/ui/box' },
+          { title: 'Center', href: '/ui/center' },
           { title: 'Container', href: '/ui/container' },
           { title: 'Flex', href: '/ui/flex' },
           { title: 'Grid', href: '/ui/grid' },

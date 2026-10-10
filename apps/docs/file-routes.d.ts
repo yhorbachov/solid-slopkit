@@ -105,6 +105,12 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/container")>;
       $$route?: undefined;
+    },
+    {
+      path: "/ui/center";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/center")>;
+      $$route?: undefined;
     }
   ];
   export default routes;
@@ -180,6 +186,14 @@ declare module "virtual:file-routes" {
       id: "/ui/button";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/button")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/center";
+      id: "/ui/center";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/center")>;
       $$route?: undefined;
       children?: undefined;
     },
