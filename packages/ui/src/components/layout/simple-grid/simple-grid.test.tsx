@@ -6,11 +6,11 @@ import { SlopkitUi } from '../../provider';
 import { resolveStyleClass, resolveStyleProps } from '../../../style-props';
 import { SimpleGrid } from './simple-grid';
 
-const gridClass = (props: Parameters<typeof resolveStyleClass>[0]) => resolveStyleClass(props, 'grid')!.className;
+const gridClass = (props: Parameters<typeof resolveStyleClass>[0]) => resolveStyleClass(props, 'simpleGrid')!.className;
 
 describe('<SimpleGrid />', () => {
   test('defaults to one column with a gap of 4', () => {
-    expect(resolveStyleProps({}, 'grid')).toEqual({
+    expect(resolveStyleProps({}, 'simpleGrid')).toEqual({
       base: [
         'display:grid',
         'grid-template-columns:repeat(1,minmax(0,1fr))',
@@ -21,7 +21,7 @@ describe('<SimpleGrid />', () => {
   });
 
   test('cols are equal columns per breakpoint, and verticalSpacing wins over spacing for rows', () => {
-    expect(resolveStyleProps({ cols: { base: 1, sm: 2, lg: 4 }, spacing: 2, verticalSpacing: { md: 6 } }, 'grid')).toEqual({
+    expect(resolveStyleProps({ cols: { base: 1, sm: 2, lg: 4 }, spacing: 2, verticalSpacing: { md: 6 } }, 'simpleGrid')).toEqual({
       base: [
         'display:grid',
         'grid-template-columns:repeat(1,minmax(0,1fr))',

@@ -10,7 +10,7 @@ import {
 
 export type SimpleGridProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof SimpleGridStyleProps> & SimpleGridStyleProps;
 
-const GRID_GROUPS: StyleGroup[] = ['grid'];
+const GRID_GROUPS: StyleGroup[] = ['simpleGrid'];
 
 /** A `div` grid of equal-width columns: 1 column with a gap of 4 unless `cols` and `spacing` say otherwise. */
 export function SimpleGrid(props: SimpleGridProps) {

@@ -107,14 +107,43 @@ export interface SimpleGridContainerProps {
   verticalSpacing?: ResponsiveValue<SpacingValue>;
 }
 
+/** Grid container props, for `Grid`. Only `gutter` is responsive. */
+export interface GridContainerProps {
+  /** Space between columns and rows. */
+  gutter?: ResponsiveValue<SpacingValue>;
+  /** Number of columns a row is divided into. */
+  columns?: number;
+  /** `justify-content`. */
+  justify?: FlexJustify;
+  /** `align-items`. */
+  align?: FlexAlign;
+}
+
+/** A column's width: a number of the grid's columns, `'auto'` to fill the space left, or `'content'` to fit its content. */
+export type GridSpan = number | 'auto' | 'content';
+
+/** Grid column props, for `Grid.Col`. */
+export interface GridColItemProps {
+  /** Width in columns. Defaults to the full row. */
+  span?: ResponsiveValue<GridSpan>;
+  /** Columns left empty before this one. */
+  offset?: ResponsiveValue<number>;
+  /** `order`. */
+  order?: ResponsiveValue<number>;
+}
+
 export type BoxStyleProps = BoxPaddingProps & BoxMarginProps & BoxSizeProps & BoxDisplayProps;
 export type FlexStyleProps = FlexDisplayProps & FlexContainerProps;
 export type SimpleGridStyleProps = SimpleGridContainerProps;
+export type GridStyleProps = GridContainerProps;
+export type GridColStyleProps = GridColItemProps;
 
 /** Every style prop any component reads; each component only declares and passes its own. */
 export type AllStyleProps = Omit<BoxStyleProps, 'display'> &
   FlexContainerProps &
-  SimpleGridContainerProps & { display?: ResponsiveValue<BoxDisplayValue | FlexDisplayValue> };
+  SimpleGridContainerProps &
+  Omit<GridContainerProps, 'justify' | 'align'> &
+  GridColItemProps & { display?: ResponsiveValue<BoxDisplayValue | FlexDisplayValue> };
 
 export const BOX_STYLE_PROPS = [
   'p',
@@ -153,6 +182,10 @@ export const FLEX_STYLE_PROPS = [
 
 export const SIMPLE_GRID_STYLE_PROPS = ['cols', 'spacing', 'verticalSpacing'] as const satisfies (keyof SimpleGridStyleProps)[];
 
+export const GRID_STYLE_PROPS = ['gutter', 'columns', 'justify', 'align'] as const satisfies (keyof GridStyleProps)[];
+
+export const GRID_COL_STYLE_PROPS = ['span', 'offset', 'order'] as const satisfies (keyof GridColStyleProps)[];
+
 // Each CSS property and the props that set it, most specific first: a side prop wins over its axis, the
 // axis over the shorthand. Each group gets its own class and <style>, so the common spacing combinations
 // stay shared between boxes that differ only in size.
@@ -189,11 +222,25 @@ const STYLE_GROUPS = {
     'row-gap': ['rowGap', 'gap'],
     'column-gap': ['columnGap', 'gap'],
   },
-  grid: {
+  simpleGrid: {
     display: [],
     'grid-template-columns': ['cols'],
     'row-gap': ['verticalSpacing', 'spacing'],
     'column-gap': ['spacing'],
+  },
+  // Grid only sets the variables its columns size themselves from; grid.module.css has the static layout.
+  grid: {
+    '--_grid-gutter': ['gutter'],
+    '--_grid-columns': ['columns'],
+    'justify-content': ['justify'],
+    'align-items': ['align'],
+  },
+  gridCol: {
+    'flex-basis': ['span'],
+    'flex-grow': ['span'],
+    'max-width': ['span'],
+    'margin-inline-start': ['offset'],
+    order: ['order'],
   },
 } as const satisfies Record<string, Record<string, (keyof AllStyleProps)[]>>;
 
@@ -203,12 +250,43 @@ export type StyleGroup = keyof typeof STYLE_GROUPS;
 // always emits a class, even without props: every Flex is `display: flex` unless `display` says otherwise.
 const PROPERTY_FALLBACKS: Partial<Record<StyleGroup, Record<string, SizeValue>>> = {
   flex: { display: 'flex' },
-  grid: { display: 'grid', 'grid-template-columns': 1, 'row-gap': 4, 'column-gap': 4 },
+  simpleGrid: { display: 'grid', 'grid-template-columns': 1, 'row-gap': 4, 'column-gap': 4 },
+  grid: { '--_grid-gutter': 4, '--_grid-columns': 12 },
+  gridCol: { 'flex-basis': '100%', 'flex-grow': 'var(--_grid-grow)', 'max-width': '100%' },
 };
 
-// Properties whose numbers are not spacing units.
-const NUMBER_FORMATS: Partial<Record<string, (value: number) => string>> = {
-  'grid-template-columns': (cols) => `repeat(${cols},minmax(0,1fr))`,
+// `n` columns of the parent Grid and the n - 1 gutters between them.
+const spanWidth = (span: number) => `calc((100% + var(--_grid-gutter)) * ${span} / var(--_grid-columns) - var(--_grid-gutter))`;
+
+// Properties whose values are not spacing units. A format returns undefined to leave the value to the default
+// handling, which is how the string fallbacks above get through.
+const VALUE_FORMATS: Partial<Record<StyleGroup, Record<string, (value: SizeValue) => string | undefined>>> = {
+  simpleGrid: {
+    'grid-template-columns': (cols) => (typeof cols === 'number' ? `repeat(${cols},minmax(0,1fr))` : undefined),
+  },
+  grid: {
+    '--_grid-columns': (columns) => (typeof columns === 'number' ? String(columns) : undefined),
+  },
+  gridCol: {
+    'flex-basis': (span) =>
+      span === 'auto' ? '0' : span === 'content' ? 'auto' : typeof span === 'number' ? spanWidth(span) : undefined,
+    'flex-grow': (span) =>
+      span === 'auto' ? '1' : span === 'content' ? '0' : typeof span === 'number' ? 'var(--_grid-grow)' : undefined,
+    // In a growing Grid, `--_grid-grow` is 1 and lifts the cap, so a column can fill a row that is not full.
+    'max-width': (span) =>
+      span === 'auto' || span === 'content'
+        ? '100%'
+        : typeof span === 'number'
+          ? `max(${spanWidth(span)},var(--_grid-grow) * 100%)`
+          : undefined,
+    'margin-inline-start': (offset) =>
+      typeof offset === 'number'
+        ? offset === 0
+          ? '0'
+          : `calc((100% + var(--_grid-gutter)) * ${offset} / var(--_grid-columns))`
+        : undefined,
+    order: (order) => (typeof order === 'number' ? String(order) : undefined),
+  },
 };
 
 // The props each group reads, for the cache key and the early exit.
@@ -229,10 +307,8 @@ function toBreakpoints<T>(value: ResponsiveValue<T> | undefined): Partial<Record
 // The CSS goes into a generated <style>, so a string must not be able to close the rule or the tag.
 const UNSAFE_VALUE = /[;{}<>]/;
 
-function cssValue(value: SizeValue, property: string): string | undefined {
+function cssValue(value: SizeValue): string | undefined {
   if (typeof value === 'string') return UNSAFE_VALUE.test(value) ? undefined : value;
-  const format = NUMBER_FORMATS[property];
-  if (format) return format(value);
   return value === 0 ? '0' : `calc(var(--slp-spacing) * ${value})`;
 }
 
@@ -252,6 +328,7 @@ export function resolveStyleProps(props: AllStyleProps, group: StyleGroup): Styl
     const fallback = PROPERTY_FALLBACKS[group]?.[property];
     // Least specific, so any prop value wins over it.
     if (fallback !== undefined) sources.push({ base: fallback });
+    const format = VALUE_FORMATS[group]?.[property];
     const current: (SizeValue | undefined)[] = sources.map(() => undefined);
     let previous: string | undefined;
 
@@ -261,7 +338,7 @@ export function resolveStyleProps(props: AllStyleProps, group: StyleGroup): Styl
       });
 
       const value = current.find((value) => value !== undefined);
-      const css = value === undefined ? undefined : cssValue(value, property);
+      const css = value === undefined ? undefined : (format?.(value) ?? cssValue(value));
       if (css === undefined || css === previous) continue;
 
       (declarations[key] ??= []).push(`${property}:${css}`);
