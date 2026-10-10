@@ -16,14 +16,20 @@ const SlopkitUiContext = createContext<SlopkitUiContextValue | null>(null);
  */
 export function SlopkitUi(props: { children?: JSX.Element }) {
   const styles = new Map<string, string>();
-  // Bumped when a class is added. Components register while rendering, which is an intentional write in an
-  // owned scope.
-  const [version, setVersion] = createSignal(0, { ownedWrite: true, name: 'SlopkitUi.styles' });
+  // Client only: tells the head registry's effect that a class was added, so it re-reads the CSS. Components
+  // register while rendering, which is an intentional write in an owned scope. Never written on the server,
+  // where nothing re-renders and the head reads the CSS when it flushes.
+  const [stylesAdded, notifyStylesAdded] = createSignal(undefined, {
+    equals: false,
+    ownedWrite: true,
+    name: 'SlopkitUi.stylesAdded',
+  });
 
-  let joined = { version: -1, css: '' };
+  // Joined once per change rather than per registration. The map only grows, so its size is the cache key.
+  let joined = { size: -1, css: '' };
   const css = () => {
-    const current = version();
-    if (joined.version !== current) joined = { version: current, css: [...styles.values()].join('') };
+    stylesAdded();
+    if (joined.size !== styles.size) joined = { size: styles.size, css: [...styles.values()].join('') };
     return joined.css;
   };
 
@@ -41,10 +47,10 @@ export function SlopkitUi(props: { children?: JSX.Element }) {
     registerStyle(className, value) {
       if (styles.has(className)) return;
       styles.set(className, value);
-      setVersion((current) => current + 1);
       // The server flushes head tags per streamed boundary. Registering the same key again from the boundary
       // that added the class makes its flush replace the <style> with the full CSS.
       if (isServer) useHead(tag);
+      else notifyStylesAdded();
     },
   };
 
