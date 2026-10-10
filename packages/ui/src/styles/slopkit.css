@@ -179,3 +179,18 @@
     font-family: var(--slp-font-family);
   }
 }
+
+/*
+ * Container widths, in rem so they follow the root font size. Layout, not look, so they live here rather
+ * than in a theme; a theme (a later layer) can still override them.
+ */
+@layer slopkit.base {
+  :root {
+    --slp-container-size-xs: 33.75rem;
+    --slp-container-size-sm: 45rem;
+    --slp-container-size-md: 60rem;
+    --slp-container-size-lg: 71.25rem;
+    --slp-container-size-xl: 82.5rem;
+    --slp-container-padding: calc(var(--slp-spacing) * 4);
+  }
+}

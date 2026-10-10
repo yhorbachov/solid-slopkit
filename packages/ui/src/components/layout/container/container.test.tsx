@@ -1,0 +1,52 @@
+import { render } from '@solidjs/testing-library';
+import { createSignal, flush } from 'solid-js';
+import { captureArtifact } from '@solidjs/diagnostics';
+import { describe, expect, test } from 'vitest';
+import { SlopkitUi } from '../../provider';
+import { resolveStyleClass, resolveStyleProps } from '../../../style-props';
+import { Container } from './container';
+
+const containerClass = (size: string | number) => resolveStyleClass({ size }, 'container')!.className;
+
+describe('<Container />', () => {
+  test('sizes: presets read the size variables, numbers are spacing units, strings are CSS lengths', () => {
+    expect(resolveStyleProps({}, 'container')).toEqual({ base: ['max-width:var(--slp-container-size-md)'] });
+    expect(resolveStyleProps({ size: 'xl' }, 'container')).toEqual({ base: ['max-width:var(--slp-container-size-xl)'] });
+    expect(resolveStyleProps({ size: 200 }, 'container')).toEqual({ base: ['max-width:calc(var(--slp-spacing) * 200)'] });
+    expect(resolveStyleProps({ size: '40rem' }, 'container')).toEqual({ base: ['max-width:40rem'] });
+  });
+
+  test('renders a div with the container classes and passes other props through', () => {
+    const { getByTestId } = render(() => (
+      <SlopkitUi>
+        <Container data-testid="c" size="sm" class="mine" id="c" />
+      </SlopkitUi>
+    ));
+    flush();
+    const container = getByTestId('c');
+
+    expect(container).toHaveClass('slp-container', 'mine', containerClass('sm'));
+    expect(container).toHaveAttribute('id', 'c');
+    expect(container).not.toHaveAttribute('size');
+  });
+
+  test('fluid is full width, ignoring size, and updates without diagnostics or waste', async () => {
+    const [fluid, setFluid] = createSignal(false, { name: 'fluid' });
+    const { getByTestId } = render(() => (
+      <SlopkitUi>
+        <Container data-testid="c" size="lg" fluid={fluid()} />
+      </SlopkitUi>
+    ));
+    flush();
+    const container = getByTestId('c');
+    expect(container).toHaveClass(containerClass('lg'));
+    expect(container).not.toHaveAttribute('fluid');
+
+    const { artifact } = await captureArtifact(() => setFluid(true), { scenario: 'container-fluid' });
+
+    expect(container).toHaveClass(containerClass('100%'));
+    expect(container).not.toHaveClass(containerClass('lg'));
+    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoWaste();
+  });
+});
