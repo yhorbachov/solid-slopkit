@@ -8,4 +8,4 @@ export type {
   FlexWrap,
   FlexAlign,
   FlexJustify,
-} from '../../style-props';
+} from '../../../style-props';

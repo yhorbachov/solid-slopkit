@@ -11,4 +11,4 @@ export type {
   SizeValue,
   ResponsiveValue,
   Breakpoint,
-} from '../../style-props';
+} from '../../../style-props';

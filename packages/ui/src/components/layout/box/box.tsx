@@ -1,7 +1,7 @@
 import { omit } from 'solid-js';
 import { type JSX } from '@solidjs/web';
 import style from './box.module.css';
-import { BOX_STYLE_PROPS, createStyleClasses, joinClass, type BoxStyleProps, type StyleGroup } from '../../style-props';
+import { BOX_STYLE_PROPS, createStyleClasses, joinClass, type BoxStyleProps, type StyleGroup } from '../../../style-props';
 
 export type BoxProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof BoxStyleProps> & BoxStyleProps;
 

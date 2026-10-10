@@ -3,7 +3,7 @@ import { captureArtifact } from '@solidjs/diagnostics';
 import { createSignal, flush } from 'solid-js';
 import axe from 'axe-core';
 import { describe, expect, test, vi } from 'vitest';
-import type { SlopColor, SlopSize } from '../../core';
+import type { SlopColor, SlopSize } from '../../../core';
 import { Button, type ButtonVariant } from './button';
 
 describe('<Button />', () => {

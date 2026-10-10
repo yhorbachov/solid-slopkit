@@ -1,6 +1,6 @@
 import { omit } from 'solid-js';
 import { type JSX } from '@solidjs/web';
-import { FLEX_STYLE_PROPS, createStyleClasses, joinClass, type FlexStyleProps, type StyleGroup } from '../../style-props';
+import { FLEX_STYLE_PROPS, createStyleClasses, joinClass, type FlexStyleProps, type StyleGroup } from '../../../style-props';
 
 export type FlexProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof FlexStyleProps> & FlexStyleProps;
 

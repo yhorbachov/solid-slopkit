@@ -1,12 +1,12 @@
 import { createMemo, omit, untrack, type Accessor } from 'solid-js';
-import { Polymorphic, type ElementOf, type PolymorphicProps } from '../polymorphic';
+import { Polymorphic, type ElementOf, type PolymorphicProps } from '../../polymorphic';
 import style from './button.module.css';
 import { type JSX, type ValidComponent } from '@solidjs/web';
-import { mergeDefaultProps, mergeRefs } from '../../utils';
-import { createTagName } from '../primitives';
-import { joinClass } from '../../style-props';
+import { mergeDefaultProps, mergeRefs } from '../../../utils';
+import { createTagName } from '../../primitives';
+import { joinClass } from '../../../style-props';
 import { isButton } from './is-button';
-import type { SlopColor, SlopSize } from '../../core';
+import type { SlopColor, SlopSize } from '../../../core';
 
 export interface ButtonRootOptions {}
 
