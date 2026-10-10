@@ -52,6 +52,16 @@ export default function Theming() {
             default: '0.25rem',
             description: 'Base unit for control heights. A medium button is 10 units tall.',
           },
+          {
+            name: '--slp-spacing',
+            default: '0.25rem',
+            description: 'Unit for Box and Flex spacing props: p={4} is 4 units.',
+          },
+          {
+            name: '--slp-font-family',
+            default: 'system-ui, …, emoji fonts',
+            description: 'Font of the page body. Set in slopkit.css, not the theme.',
+          },
           { name: '--slp-border', default: '1px', description: 'Border width.' },
           { name: '--slp-depth', default: '0', description: 'Set to 1 for subtle shadows and highlights on controls.' },
         ]}
