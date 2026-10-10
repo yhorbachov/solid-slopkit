@@ -35,6 +35,8 @@ export const nav: NavSection[] = [
         items: [
           { title: 'Box', href: '/ui/box' },
           { title: 'Flex', href: '/ui/flex' },
+          { title: 'Group', href: '/ui/group' },
+          { title: 'Stack', href: '/ui/stack' },
         ],
       },
       {

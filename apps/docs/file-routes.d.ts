@@ -59,15 +59,33 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/";
+      path: "/ui/flex";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/index")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/flex")>;
       $$route?: undefined;
     },
     {
       path: "/ui/theming";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/index")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/stack";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/stack")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/group";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/group")>;
       $$route?: undefined;
     }
   ];
@@ -104,6 +122,30 @@ declare module "virtual:file-routes" {
       id: "/ui/box";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/box")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/flex";
+      id: "/ui/flex";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/flex")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/group";
+      id: "/ui/group";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/group")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/stack";
+      id: "/ui/stack";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/stack")>;
       $$route?: undefined;
       children?: undefined;
     },
