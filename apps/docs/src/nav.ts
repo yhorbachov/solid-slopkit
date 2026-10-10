@@ -41,6 +41,7 @@ export const nav: NavSection[] = [
           { title: 'Grid', href: '/ui/grid' },
           { title: 'Group', href: '/ui/group' },
           { title: 'SimpleGrid', href: '/ui/simple-grid' },
+          { title: 'Space', href: '/ui/space' },
           { title: 'Stack', href: '/ui/stack' },
         ],
       },

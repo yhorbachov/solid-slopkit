@@ -6,4 +6,5 @@ export * from './flex';
 export * from './grid';
 export * from './group';
 export * from './simple-grid';
+export * from './space';
 export * from './stack';

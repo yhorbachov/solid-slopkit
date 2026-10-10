@@ -117,6 +117,12 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/aspect-ratio")>;
       $$route?: undefined;
+    },
+    {
+      path: "/ui/space";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/space")>;
+      $$route?: undefined;
     }
   ];
   export default routes;
@@ -176,6 +182,14 @@ declare module "virtual:file-routes" {
       id: "/ui/group";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/group")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/space";
+      id: "/ui/space";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/space")>;
       $$route?: undefined;
       children?: undefined;
     },
