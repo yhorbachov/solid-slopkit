@@ -1,6 +1,11 @@
+import { For } from 'solid-js';
 import { Title } from '@solidjs/meta';
 import { CodeBlock } from '../../components/CodeBlock';
 import { H2 } from '../../components/Heading';
+import { nav } from '../../nav';
+
+// The same groups as the sidebar, so the two never drift apart.
+const componentGroups = nav.find((section) => section.title === 'UI')?.groups ?? [];
 
 export default function UiOverview() {
   return (
@@ -50,11 +55,22 @@ export function Toolbar() {
       />
 
       <H2 id="components">Components</H2>
-      <ul>
-        <li>
-          <a href="/ui/button">Button</a>
-        </li>
-      </ul>
+      <For each={componentGroups}>
+        {(group) => (
+          <>
+            <h3>{group.title}</h3>
+            <ul>
+              <For each={group.items}>
+                {(item) => (
+                  <li>
+                    <a href={item.href}>{item.title}</a>
+                  </li>
+                )}
+              </For>
+            </ul>
+          </>
+        )}
+      </For>
     </article>
   );
 }
