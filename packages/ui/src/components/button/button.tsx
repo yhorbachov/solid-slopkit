@@ -1,4 +1,4 @@
-import { createMemo, omit } from 'solid-js';
+import { createMemo, omit, untrack } from 'solid-js';
 import { Polymorphic, type ElementOf, type PolymorphicProps } from '../polymorphic';
 import style from './button.module.css';
 import { type JSX, type ValidComponent } from '@solidjs/web';
@@ -84,6 +84,43 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
     'fullWidth',
     'active',
   );
+
+  // Without `as`, the element is a native <button>: rendered directly, so the compiler binds each attribute
+  // instead of going through Polymorphic's spread, and the tag-name detection below is not needed. Read once,
+  // like `as` in Polymorphic; `dynamicAs` keeps the polymorphic path for an `as` that appears later.
+  const isPolymorphic = untrack(
+    () => (props as { as?: ValidComponent }).as !== undefined || !!(props as { dynamicAs?: boolean }).dynamicAs,
+  );
+
+  if (!isPolymorphic) {
+    // Loading blocks interaction like `disabled`, but keeps the button's own look.
+    const disabled = createMemo(() => !!mergedProps.disabled || !!mergedProps.loading);
+
+    return (
+      <button
+        ref={mergedProps.ref as any}
+        type={mergedProps.type as 'button' | 'submit' | 'reset' | undefined}
+        disabled={disabled()}
+        aria-busy={mergedProps.loading ? 'true' : undefined}
+        data-disabled={mergedProps.disabled ? '' : undefined}
+        data-loading={mergedProps.loading ? '' : undefined}
+        data-active={mergedProps.active ? '' : undefined}
+        data-full-width={mergedProps.fullWidth ? '' : undefined}
+        data-size={mergedProps.size}
+        data-color={mergedProps.color}
+        data-variant={mergedProps.variant}
+        data-shape={mergedProps.shape}
+        class={['slp-button', style.button, mergedProps.class]}
+        {...(others as JSX.ButtonHTMLAttributes<HTMLButtonElement>)}
+      >
+        <span data-slot="loader" aria-hidden="true" />
+        <span data-slot="icon">{mergedProps.leftSection}</span>
+        <span data-slot="label">{mergedProps.children}</span>
+        <span data-slot="icon">{mergedProps.rightSection}</span>
+      </button>
+    );
+  }
+
   const tagName = createTagName(
     () => ref,
     () => (props as { as?: ValidComponent }).as ?? 'button',
