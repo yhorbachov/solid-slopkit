@@ -4,6 +4,7 @@ import style from './button.module.css';
 import { type JSX, type ValidComponent } from '@solidjs/web';
 import { mergeDefaultProps, mergeRefs } from '../../utils';
 import { createTagName } from '../primitives';
+import { joinClass } from '../../style-props';
 import { isButton } from './is-button';
 import type { SlopColor, SlopSize } from '../../core';
 
@@ -110,7 +111,7 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
         data-color={mergedProps.color}
         data-variant={mergedProps.variant}
         data-shape={mergedProps.shape}
-        class={['slp-button', style.button, mergedProps.class]}
+        class={joinClass(['slp-button', style.button], mergedProps.class)}
         {...(others as JSX.ButtonHTMLAttributes<HTMLButtonElement>)}
       >
         <span data-slot="loader" aria-hidden="true" />
@@ -166,7 +167,7 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
       data-color={mergedProps.color}
       data-variant={mergedProps.variant}
       data-shape={mergedProps.shape}
-      class={['slp-button', style.button, mergedProps.class]}
+      class={joinClass(['slp-button', style.button], mergedProps.class)}
       {...others}
     >
       <span data-slot="loader" aria-hidden="true" />
