@@ -97,12 +97,24 @@ export interface FlexContainerProps {
   columnGap?: ResponsiveValue<SpacingValue>;
 }
 
+/** Grid props, for `SimpleGrid`. */
+export interface SimpleGridContainerProps {
+  /** Number of equal-width columns. */
+  cols?: ResponsiveValue<number>;
+  /** Space between columns, and between rows unless `verticalSpacing` is set. */
+  spacing?: ResponsiveValue<SpacingValue>;
+  /** Space between rows. */
+  verticalSpacing?: ResponsiveValue<SpacingValue>;
+}
+
 export type BoxStyleProps = BoxPaddingProps & BoxMarginProps & BoxSizeProps & BoxDisplayProps;
 export type FlexStyleProps = FlexDisplayProps & FlexContainerProps;
+export type SimpleGridStyleProps = SimpleGridContainerProps;
 
 /** Every style prop any component reads; each component only declares and passes its own. */
 export type AllStyleProps = Omit<BoxStyleProps, 'display'> &
-  FlexContainerProps & { display?: ResponsiveValue<BoxDisplayValue | FlexDisplayValue> };
+  FlexContainerProps &
+  SimpleGridContainerProps & { display?: ResponsiveValue<BoxDisplayValue | FlexDisplayValue> };
 
 export const BOX_STYLE_PROPS = [
   'p',
@@ -138,6 +150,8 @@ export const FLEX_STYLE_PROPS = [
   'rowGap',
   'columnGap',
 ] as const satisfies (keyof FlexStyleProps)[];
+
+export const SIMPLE_GRID_STYLE_PROPS = ['cols', 'spacing', 'verticalSpacing'] as const satisfies (keyof SimpleGridStyleProps)[];
 
 // Each CSS property and the props that set it, most specific first: a side prop wins over its axis, the
 // axis over the shorthand. Each group gets its own class and <style>, so the common spacing combinations
@@ -175,6 +189,12 @@ const STYLE_GROUPS = {
     'row-gap': ['rowGap', 'gap'],
     'column-gap': ['columnGap', 'gap'],
   },
+  grid: {
+    display: [],
+    'grid-template-columns': ['cols'],
+    'row-gap': ['verticalSpacing', 'spacing'],
+    'column-gap': ['spacing'],
+  },
 } as const satisfies Record<string, Record<string, (keyof AllStyleProps)[]>>;
 
 export type StyleGroup = keyof typeof STYLE_GROUPS;
@@ -183,6 +203,12 @@ export type StyleGroup = keyof typeof STYLE_GROUPS;
 // always emits a class, even without props: every Flex is `display: flex` unless `display` says otherwise.
 const PROPERTY_FALLBACKS: Partial<Record<StyleGroup, Record<string, SizeValue>>> = {
   flex: { display: 'flex' },
+  grid: { display: 'grid', 'grid-template-columns': 1, 'row-gap': 4, 'column-gap': 4 },
+};
+
+// Properties whose numbers are not spacing units.
+const NUMBER_FORMATS: Partial<Record<string, (value: number) => string>> = {
+  'grid-template-columns': (cols) => `repeat(${cols},minmax(0,1fr))`,
 };
 
 // The props each group reads, for the cache key and the early exit.
@@ -203,8 +229,10 @@ function toBreakpoints<T>(value: ResponsiveValue<T> | undefined): Partial<Record
 // The CSS goes into a generated <style>, so a string must not be able to close the rule or the tag.
 const UNSAFE_VALUE = /[;{}<>]/;
 
-function cssValue(value: SizeValue): string | undefined {
+function cssValue(value: SizeValue, property: string): string | undefined {
   if (typeof value === 'string') return UNSAFE_VALUE.test(value) ? undefined : value;
+  const format = NUMBER_FORMATS[property];
+  if (format) return format(value);
   return value === 0 ? '0' : `calc(var(--slp-spacing) * ${value})`;
 }
 
@@ -233,7 +261,7 @@ export function resolveStyleProps(props: AllStyleProps, group: StyleGroup): Styl
       });
 
       const value = current.find((value) => value !== undefined);
-      const css = value === undefined ? undefined : cssValue(value);
+      const css = value === undefined ? undefined : cssValue(value, property);
       if (css === undefined || css === previous) continue;
 
       (declarations[key] ??= []).push(`${property}:${css}`);

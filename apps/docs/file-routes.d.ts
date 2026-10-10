@@ -87,6 +87,12 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/group")>;
       $$route?: undefined;
+    },
+    {
+      path: "/ui/simple-grid";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/simple-grid")>;
+      $$route?: undefined;
     }
   ];
   export default routes;
@@ -162,6 +168,14 @@ declare module "virtual:file-routes" {
       id: "/ui/theming";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/simple-grid";
+      id: "/ui/simple-grid";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/simple-grid")>;
       $$route?: undefined;
       children?: undefined;
     }

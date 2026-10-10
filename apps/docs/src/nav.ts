@@ -36,6 +36,7 @@ export const nav: NavSection[] = [
           { title: 'Box', href: '/ui/box' },
           { title: 'Flex', href: '/ui/flex' },
           { title: 'Group', href: '/ui/group' },
+          { title: 'SimpleGrid', href: '/ui/simple-grid' },
           { title: 'Stack', href: '/ui/stack' },
         ],
       },
