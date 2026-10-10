@@ -1,4 +1,4 @@
-import { createMemo, omit, untrack } from 'solid-js';
+import { createMemo, omit, untrack, type Accessor } from 'solid-js';
 import { Polymorphic, type ElementOf, type PolymorphicProps } from '../polymorphic';
 import style from './button.module.css';
 import { type JSX, type ValidComponent } from '@solidjs/web';
@@ -60,6 +60,19 @@ export interface ButtonRootRenderProps extends ButtonRootCommonProps {
 export type ButtonRootProps<T extends ValidComponent | HTMLElement = HTMLElement> = ButtonRootOptions &
   Partial<ButtonRootCommonProps<ElementOf<T>>>;
 
+// A section prop is read once, through a memo: a JSX prop is a getter that creates its element on every read,
+// and a section is read both for its data attribute and as a child. Only buttons that pass the prop pay for it.
+function createSection(props: object, key: 'leftSection' | 'rightSection'): Accessor<JSX.Element> | undefined {
+  if (!untrack(() => key in props)) return undefined;
+  return createMemo(() => (props as Record<string, JSX.Element>)[key], { name: `Button.${key}` });
+}
+
+// Marks a side with content, so the CSS can pull that side's padding in.
+function sectionAttribute(section: Accessor<JSX.Element> | undefined): '' | undefined {
+  const value = section?.();
+  return value != null && value !== false ? '' : undefined;
+}
+
 export function Button<T extends ValidComponent = 'button'>(props: PolymorphicProps<T, ButtonRootProps<T>>) {
   let ref: HTMLElement | undefined;
 
@@ -93,6 +106,9 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
     () => (props as { as?: ValidComponent }).as !== undefined || !!(props as { dynamicAs?: boolean }).dynamicAs,
   );
 
+  const leftSection = createSection(props, 'leftSection');
+  const rightSection = createSection(props, 'rightSection');
+
   if (!isPolymorphic) {
     // Loading blocks interaction like `disabled`, but keeps the button's own look.
     const disabled = createMemo(() => !!mergedProps.disabled || !!mergedProps.loading);
@@ -111,13 +127,14 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
         data-color={mergedProps.color}
         data-variant={mergedProps.variant}
         data-shape={mergedProps.shape}
+        data-with-left-section={sectionAttribute(leftSection)}
+        data-with-right-section={sectionAttribute(rightSection)}
         class={joinClass(['slp-button', style.button], mergedProps.class)}
         {...(others as JSX.ButtonHTMLAttributes<HTMLButtonElement>)}
       >
-        <span data-slot="loader" aria-hidden="true" />
-        <span data-slot="icon">{mergedProps.leftSection}</span>
-        <span data-slot="label">{mergedProps.children}</span>
-        <span data-slot="icon">{mergedProps.rightSection}</span>
+        {leftSection?.()}
+        {mergedProps.children}
+        {rightSection?.()}
       </button>
     );
   }
@@ -167,13 +184,14 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
       data-color={mergedProps.color}
       data-variant={mergedProps.variant}
       data-shape={mergedProps.shape}
+      data-with-left-section={sectionAttribute(leftSection)}
+      data-with-right-section={sectionAttribute(rightSection)}
       class={joinClass(['slp-button', style.button], mergedProps.class)}
       {...others}
     >
-      <span data-slot="loader" aria-hidden="true" />
-      <span data-slot="icon">{mergedProps.leftSection}</span>
-      <span data-slot="label">{mergedProps.children}</span>
-      <span data-slot="icon">{mergedProps.rightSection}</span>
+      {leftSection?.()}
+      {mergedProps.children}
+      {rightSection?.()}
     </Polymorphic>
   );
 }
