@@ -16,3 +16,13 @@ minimumReleaseAgeExclude:
   - solid-js
   - '@solidjs/*'
   - filesystem-routing
+
+# eslint-plugin-solid (used by oxlint) pulls in @typescript-eslint/* 8.x, which declares
+# typescript <6.1. We run TypeScript 7; oxlint parses the code itself, so the solid rules
+# still work (verified in M0.07). Drop this once eslint-plugin-solid supports TS 7.
+peerDependencyRules:
+  allowedVersions:
+    '@typescript-eslint/utils>typescript': '7'
+    '@typescript-eslint/typescript-estree>typescript': '7'
+    '@typescript-eslint/tsconfig-utils>typescript': '7'
+    '@typescript-eslint/project-service>typescript': '7'
