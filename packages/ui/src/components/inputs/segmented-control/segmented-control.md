@@ -70,6 +70,7 @@ Other props are passed to the root `div`.
 Write plain CSS against these selectors. Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root class: `.slp-segmented-control`. It is a `role="radiogroup"` `div`.
+- Slots: `[data-slot="segmented-control-indicator"]` (the sliding indicator), and per option `[data-slot="segmented-control-item"]` (with `data-active` and `data-disabled`), holding `[data-slot="segmented-control-input"]` (the visually hidden radio) and `[data-slot="segmented-control-label"]`.
 - State attributes on the root: `data-orientation`, `data-size`, `data-color`, `data-full-width`, `data-disabled`, `data-read-only`, `data-with-items-borders`, and `data-ready` once the indicator has been placed (the indicator only animates after that).
 - The indicator does not animate under `prefers-reduced-motion: reduce`. Before hydration the selected label draws the indicator's look itself, so server-rendered HTML shows the selection.
 
@@ -77,7 +78,7 @@ CSS variables, set on the control or any ancestor:
 
 | Variable                          | Default                            | Description                                                                                                       |
 | --------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `--slp-segmented-control-radius`  | `var(--slp-radius-field)`          | Corner radius.                                                                                                    |
+| `--slp-segmented-control-radius`  | `var(--slp-radius-field)`          | Corner radius. The indicator and labels follow, inset by the padding.                                             |
 | `--slp-segmented-control-color`   | `var(--slp-color-<color>)`         | Indicator color. Base surface color when there is no `color`. Use it for a one-off color that isn't a color role. |
 | `--slp-segmented-control-content` | `var(--slp-color-<color>-content)` | Text color of the selected option on a colored indicator.                                                         |
 

@@ -176,6 +176,7 @@ export function SegmentedControl<T extends string = string>(props: SegmentedCont
       <div
         ref={(el) => (indicator = el)}
         class={style.indicator}
+        data-slot="segmented-control-indicator"
         style={{
           'transition-duration': `${mergedProps.transitionDuration}ms`,
           'transition-timing-function': mergedProps.transitionTimingFunction,
@@ -188,9 +189,15 @@ export function SegmentedControl<T extends string = string>(props: SegmentedCont
           const disabled = () => !!mergedProps.disabled || !!item().disabled;
 
           return (
-            <div class={style.control} data-active={active() ? '' : undefined} data-disabled={disabled() ? '' : undefined}>
+            <div
+              class={style.control}
+              data-slot="segmented-control-item"
+              data-active={active() ? '' : undefined}
+              data-disabled={disabled() ? '' : undefined}
+            >
               <input
                 class={style.input}
+                data-slot="segmented-control-input"
                 type="radio"
                 id={inputId()}
                 name={mergedProps.name ?? id}
@@ -199,7 +206,7 @@ export function SegmentedControl<T extends string = string>(props: SegmentedCont
                 disabled={disabled()}
                 onChange={() => select(item().value)}
               />
-              <label class={style.label} for={inputId()}>
+              <label class={style.label} data-slot="segmented-control-label" for={inputId()}>
                 {item().label}
               </label>
             </div>

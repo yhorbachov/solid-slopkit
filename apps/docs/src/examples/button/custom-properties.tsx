@@ -7,7 +7,7 @@ export default function CustomProperties() {
       <Button variant="outline" style={{ '--slp-button-color': '#7048e8' }}>
         Brand outline
       </Button>
-      <Button color="primary" style={{ '--slp-button-border-radius': '0' }}>
+      <Button color="primary" style={{ 'border-radius': '0' }}>
         Square corners
       </Button>
     </>

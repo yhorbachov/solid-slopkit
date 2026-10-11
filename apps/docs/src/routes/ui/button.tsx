@@ -99,14 +99,12 @@ export default function ButtonPage() {
       <Example component={Polymorphic} code={polymorphicCode} />
 
       <H2 id="css-variables">CSS variables</H2>
-      <p>Set these on the button or any ancestor to customize without a new theme color.</p>
+      <p>
+        Set these on the button or any ancestor to customize without a new theme color. For a value that maps to one declaration,
+        such as the corner radius, write CSS against <code>.slp-button</code> or use <code>style</code>.
+      </p>
       <CssVarsTable
         rows={[
-          {
-            name: '--slp-button-border-radius',
-            default: 'var(--slp-radius-field)',
-            description: 'Corner radius. Ignored by circle buttons.',
-          },
           {
             name: '--slp-button-color',
             default: 'var(--slp-color-<color>)',
@@ -164,7 +162,8 @@ export default function ButtonPage() {
         The root has the class <code>.slp-button</code>. State and variant are attributes on it: <code>data-variant</code>,{' '}
         <code>data-color</code>, <code>data-size</code>, <code>data-shape</code>, <code>data-disabled</code>,{' '}
         <code>data-loading</code>, <code>data-active</code>, <code>data-full-width</code>, <code>data-with-left-section</code> and{' '}
-        <code>data-with-right-section</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>data-with-right-section</code>. Button renders no inner elements of its own, so it has no slots: sections and the
+        label are direct children. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

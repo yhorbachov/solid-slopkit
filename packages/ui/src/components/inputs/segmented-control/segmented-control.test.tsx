@@ -146,6 +146,18 @@ describe('<SegmentedControl />', () => {
     expect(artifact).toStayWithinRerunBudget(2, { scope: /SegmentedControl/ });
   });
 
+  test('marks its parts with namespaced slots', () => {
+    const { container } = render(() => <SegmentedControl aria-label="View" data={['List', 'Grid']} />);
+    flush();
+    const slots = (name: string) => container.querySelectorAll(`[data-slot="segmented-control-${name}"]`);
+
+    expect(slots('indicator')).toHaveLength(1);
+    expect(slots('item')).toHaveLength(2);
+    expect(slots('input')[0]).toHaveAttribute('type', 'radio');
+    expect(slots('label')[1]).toHaveTextContent('Grid');
+    expect(slots('item')[0]).toHaveAttribute('data-active', '');
+  });
+
   test('hydrates the server render without mismatches or diagnostics', async () => {
     await expectHydration('./segmented-control.fixtures.tsx', 'variants');
   });

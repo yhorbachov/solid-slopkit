@@ -73,7 +73,11 @@ export default function SegmentedControlPage() {
       <p>Set these on the control or any ancestor.</p>
       <CssVarsTable
         rows={[
-          { name: '--slp-segmented-control-radius', default: 'var(--slp-radius-field)', description: 'Corner radius.' },
+          {
+            name: '--slp-segmented-control-radius',
+            default: 'var(--slp-radius-field)',
+            description: 'Corner radius. The indicator and labels follow, inset by the padding.',
+          },
           {
             name: '--slp-segmented-control-color',
             default: 'var(--slp-color-<color>)',
@@ -136,8 +140,10 @@ export default function SegmentedControlPage() {
       <p>
         The root has the class <code>.slp-segmented-control</code>. State and variant are attributes on it:{' '}
         <code>data-orientation</code>, <code>data-size</code>, <code>data-color</code>, <code>data-full-width</code>,{' '}
-        <code>data-disabled</code>, <code>data-read-only</code> and <code>data-with-items-borders</code>. Its rules live in{' '}
-        <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>data-disabled</code>, <code>data-read-only</code> and <code>data-with-items-borders</code>. Its parts are slots, as{' '}
+        <code>[data-slot="…"]</code>: <code>segmented-control-indicator</code>, and per option <code>segmented-control-item</code>{' '}
+        (with <code>data-active</code> and <code>data-disabled</code>) holding <code>segmented-control-input</code> and{' '}
+        <code>segmented-control-label</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

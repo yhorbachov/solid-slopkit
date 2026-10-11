@@ -15,9 +15,8 @@ describe('<SegmentedControl /> in a browser', () => {
       <SegmentedControl aria-label="Framework" data={['React', 'Solid', 'Svelte']} transitionDuration={0} />
     ));
     const group = getByRole('radiogroup');
-    // The first child, until slots land in M0.29.
-    const indicator = group.firstElementChild!;
-    const item = (label: string) => getByText(label).parentElement!;
+    const indicator = group.querySelector('[data-slot="segmented-control-indicator"]')!;
+    const item = (label: string) => getByText(label).closest('[data-slot="segmented-control-item"]')!;
 
     await expect.poll(() => box(indicator)).toEqual(box(item('React')));
 

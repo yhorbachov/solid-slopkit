@@ -2,7 +2,6 @@
  * Button.
  *
  * Public custom properties (set on the button or any ancestor):
- *   --slp-button-border-radius  corner radius, defaults to var(--slp-radius-field)
  *   --slp-button-color          accent color, defaults to the `color` prop's theme token
  *   --slp-button-content        text color on a solid accent, defaults to the token's `-content`
  *
@@ -45,7 +44,7 @@
     border-width: var(--slp-border);
     border-style: solid;
     border-color: var(--_btn-border);
-    border-radius: var(--slp-button-border-radius, var(--slp-radius-field));
+    border-radius: var(--slp-radius-field);
     background-color: var(--_btn-bg);
     box-shadow:
       0 0.5px 0 0.5px oklch(100% 0 0 / calc(var(--slp-depth) * 6%)) inset,

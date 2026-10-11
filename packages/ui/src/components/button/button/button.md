@@ -75,15 +75,15 @@ Other props are passed to the rendered element.
 Write plain CSS against these selectors. Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root class: `.slp-button`.
+- No slots: Button renders no inner elements of its own. Sections and the label are direct children.
 - State and variant attributes on the root: `data-variant`, `data-color`, `data-size`, `data-shape`, `data-disabled`, `data-loading`, `data-active`, `data-full-width`, `data-with-left-section`, `data-with-right-section`.
 
-CSS variables, set on the button or any ancestor:
+CSS variables, set on the button or any ancestor. A value that maps to one declaration, such as the corner radius, has no variable: use a selector (`.slp-button { border-radius: 0 }`).
 
-| Variable                     | Default                            | Description                                                                                                                         |
-| ---------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `--slp-button-border-radius` | `var(--slp-radius-field)`          | Corner radius. Ignored by circle buttons.                                                                                           |
-| `--slp-button-color`         | `var(--slp-color-<color>)`         | Accent color: the background for solid, text and border for the other variants. Use it for a one-off color that isn't a color role. |
-| `--slp-button-content`       | `var(--slp-color-<color>-content)` | Text color on a solid accent background.                                                                                            |
+| Variable               | Default                            | Description                                                                                                                         |
+| ---------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `--slp-button-color`   | `var(--slp-color-<color>)`         | Accent color: the background for solid, text and border for the other variants. Use it for a one-off color that isn't a color role. |
+| `--slp-button-content` | `var(--slp-color-<color>-content)` | Text color on a solid accent background.                                                                                            |
 
 ```tsx
 <Button style={{ '--slp-button-color': '#7048e8', '--slp-button-content': '#fff' }}>Brand color</Button>

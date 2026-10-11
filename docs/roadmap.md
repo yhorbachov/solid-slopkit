@@ -59,7 +59,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.26** Space meets the definition of done.
 - [x] **M0.27** Button meets the definition of done.
 - [x] **M0.28** SegmentedControl meets the definition of done.
-- [ ] **M0.29** Align Button and SegmentedControl with the styling contract (ADR 0013): add `data-slot` to their inner parts, and remove `--slp-button-border-radius` and `--slp-segmented-control-radius` in favor of selectors.
+- [x] **M0.29** Align Button and SegmentedControl with the styling contract (ADR 0013): add `data-slot` to SegmentedControl's inner parts (Button has none), and remove `--slp-button-border-radius` in favor of selectors. `--slp-segmented-control-radius` stays: it also drives the indicator's and labels' radius.
 
 ## Gate — Styling contract for parts
 
