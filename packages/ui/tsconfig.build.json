@@ -5,6 +5,7 @@
     "allowImportingTsExtensions": false,
     "declaration": true,
     "declarationDir": "dist/types",
+    "rootDir": "src",
     "outDir": "dist/source",
     "types": ["vite/client"]
   },
