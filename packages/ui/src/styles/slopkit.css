@@ -199,8 +199,9 @@
 }
 
 /*
- * Type scale, in rem so it follows the root font size. Each size has a line height on a 0.25rem grid. Like
- * the container widths, these live here rather than in a theme; a theme (a later layer) can still override them.
+ * Type scale and heading scale, in rem so they follow the root font size. Each size has a line height on a
+ * 0.25rem grid. Like the container widths, these live here rather than in a theme; a theme (a later layer) can
+ * still override them.
  */
 @layer slopkit.base {
   :root {
@@ -214,6 +215,21 @@
     --slp-line-height-md: 1.5rem;
     --slp-line-height-lg: 1.75rem;
     --slp-line-height-xl: 1.75rem;
+
+    /* Headings, h1 to h6. */
+    --slp-heading-weight: 700;
+    --slp-heading-size-h1: 2.125rem;
+    --slp-heading-size-h2: 1.625rem;
+    --slp-heading-size-h3: 1.375rem;
+    --slp-heading-size-h4: 1.125rem;
+    --slp-heading-size-h5: 1rem;
+    --slp-heading-size-h6: 0.875rem;
+    --slp-heading-line-height-h1: 2.5rem;
+    --slp-heading-line-height-h2: 2rem;
+    --slp-heading-line-height-h3: 1.75rem;
+    --slp-heading-line-height-h4: 1.75rem;
+    --slp-heading-line-height-h5: 1.5rem;
+    --slp-heading-line-height-h6: 1.25rem;
   }
 }
 

@@ -48,7 +48,10 @@ export const nav: NavSection[] = [
       },
       {
         title: 'Typography',
-        items: [{ title: 'Text', href: '/ui/text' }],
+        items: [
+          { title: 'Text', href: '/ui/text' },
+          { title: 'Title', href: '/ui/title' },
+        ],
       },
       {
         title: 'Inputs',
