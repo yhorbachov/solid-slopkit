@@ -51,7 +51,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.18** Box and Flex meet the definition of done.
 - [x] **M0.19** Stack meets the definition of done.
 - [x] **M0.20** Group meets the definition of done.
-- [ ] **M0.21** SimpleGrid meets the definition of done.
+- [x] **M0.21** SimpleGrid meets the definition of done.
 - [ ] **M0.22** Grid meets the definition of done.
 - [ ] **M0.23** Container meets the definition of done.
 - [ ] **M0.24** Center meets the definition of done.

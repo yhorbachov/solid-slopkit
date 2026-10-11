@@ -1,9 +1,11 @@
 import { render } from '@solidjs/testing-library';
 import { createSignal, flush } from 'solid-js';
 import { captureArtifact } from '@solidjs/diagnostics';
+import axe from 'axe-core';
 import { describe, expect, test } from 'vitest';
 import { SlopkitUi } from '../../provider';
 import { resolveStyleClass, resolveStyleProps } from '../../../style-props';
+import { expectHydration } from '../../../../test/ssr';
 import { SimpleGrid } from './simple-grid';
 
 const gridClass = (props: Parameters<typeof resolveStyleClass>[0]) => resolveStyleClass(props, 'simpleGrid')!.className;
@@ -66,5 +68,30 @@ describe('<SimpleGrid />', () => {
     expect(grid).not.toHaveClass(gridClass({ cols: 2 }));
     expect(artifact).toHaveNoDiagnostics();
     expect(artifact).toHaveNoWaste();
+    expect(artifact).toStayWithinRerunBudget(1, { scope: /SimpleGrid/ });
+  });
+
+  test('has no axe violations', async () => {
+    const { container } = render(() => (
+      <SlopkitUi>
+        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing={2}>
+          <p>a</p>
+          <p>b</p>
+          <p>c</p>
+        </SimpleGrid>
+        <SimpleGrid role="list" aria-label="Products" cols={2} verticalSpacing={8}>
+          <div role="listitem">One</div>
+          <div role="listitem">Two</div>
+        </SimpleGrid>
+      </SlopkitUi>
+    ));
+    flush();
+
+    const results = await axe.run(container);
+    expect(results.violations).toEqual([]);
+  });
+
+  test('hydrates the server render without mismatches or diagnostics', async () => {
+    await expectHydration('./simple-grid.fixtures.tsx', 'responsive');
   });
 });

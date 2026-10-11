@@ -33,7 +33,9 @@ export default function SimpleGridPage() {
       <Example component={Responsive} code={responsiveCode} column />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the rendered div.</p>
+      <p>
+        Must be rendered inside <code>&lt;SlopkitUi&gt;</code>. Other props are passed to the <code>div</code>.
+      </p>
       <PropsTable
         rows={[
           { name: 'cols', type: 'ResponsiveValue<number>', default: '1', description: 'Number of equal-width columns.' },
@@ -41,7 +43,11 @@ export default function SimpleGridPage() {
             name: 'spacing',
             type: 'ResponsiveValue<number>',
             default: '4',
-            description: 'Space between columns, in spacing units. Also between rows unless verticalSpacing is set.',
+            description: (
+              <>
+                Space between columns, in spacing units. Also between rows unless <code>verticalSpacing</code> is set.
+              </>
+            ),
           },
           {
             name: 'verticalSpacing',
@@ -51,6 +57,12 @@ export default function SimpleGridPage() {
           },
         ]}
       />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        The root has the class <code>.slp-simple-grid</code>, and no data attributes. Its layout is generated into{' '}
+        <code>@layer slopkit.components</code>, so unlayered CSS wins.
+      </p>
     </article>
   );
 }
