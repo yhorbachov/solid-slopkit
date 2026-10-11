@@ -4,7 +4,7 @@ import { ArrowRight } from '@lucide/solid';
 export default function Polymorphic() {
   return (
     <>
-      <Button as="a" href="/ui/theming" rightSection={<ArrowRight />}>
+      <Button as="a" href="/ui" rightSection={<ArrowRight />}>
         Link styled as a button
       </Button>
       <Button as="div" color="primary" variant="soft">

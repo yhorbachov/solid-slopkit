@@ -25,10 +25,7 @@ export const nav: NavSection[] = [
   },
   {
     title: 'UI',
-    items: [
-      { title: 'Overview', href: '/ui' },
-      { title: 'Theming', href: '/ui/theming' },
-    ],
+    items: [{ title: 'Overview', href: '/ui' }],
     groups: [
       {
         title: 'Layout',
