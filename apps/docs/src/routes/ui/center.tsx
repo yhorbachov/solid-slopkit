@@ -33,7 +33,9 @@ export default function CenterPage() {
       <Example component={Inline} code={inlineCode} column />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the rendered div.</p>
+      <p>
+        Must be rendered inside <code>&lt;SlopkitUi&gt;</code>. Other props are passed to the <code>div</code>.
+      </p>
       <PropsTable
         rows={[
           {
@@ -42,12 +44,18 @@ export default function CenterPage() {
             default: 'false',
             description: (
               <>
-                Uses <code>inline-flex</code>.
+                Uses <code>inline-flex</code> instead of <code>flex</code>.
               </>
             ),
           },
         ]}
       />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        The root has the classes <code>.slp-center</code> and <code>.slp-flex</code>, and no data attributes. Its layout is
+        generated into <code>@layer slopkit.components</code>, so unlayered CSS wins.
+      </p>
     </article>
   );
 }
