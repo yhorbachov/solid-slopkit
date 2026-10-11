@@ -19,12 +19,9 @@
 - Tests that need the top layer, focus, layout, positioning or real key events go in the browser project (`*.browser.test.tsx`), the rest in jsdom.
 - CSS uses only logical properties, reads only tokens (no `light-dark()`, no hard-coded colors), and goes in `@layer slopkit.components` (ADR 0005).
 - Built-in strings (accessible names, empty states) are props with English defaults.
+- Styling contract (ADR 0013): `.slp-<component>` on the root, `data-slot="<component>-<part>"` on every inner part, state and variant as `data-*` attributes, public custom properties only for values that feed several derived declarations (e.g. color).
 - A docs page with examples and the props, verified in light and dark and in LTR and RTL. The LLM reference is generated from it (ADR 0012), and the relevant skill is updated.
 - Exported from the package entry, and listed in the docs sidebar and the UI overview.
-
-## Open decisions
-
-- **Styling contract for component parts** (static part classes, data attributes, custom properties, a `classes` prop, a `styles` prop). Parked by the maintainer to explore options. It's the gate before M1.
 
 ## Done
 
@@ -56,10 +53,11 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [ ] **M0.20** Space meets the definition of done.
 - [ ] **M0.21** Button meets the definition of done.
 - [ ] **M0.22** SegmentedControl meets the definition of done.
+- [ ] **M0.23** Align Button and SegmentedControl with the styling contract (ADR 0013): add `data-slot` to their inner parts, and remove `--slp-button-border-radius` and `--slp-segmented-control-radius` in favor of selectors.
 
 ## Gate — Styling contract for parts
 
-- [ ] **G1** Maintainer decides the styling contract for component parts. Record it as an ADR. This blocks M1.
+- [x] **G1** Maintainer decides the styling contract for component parts. Decided in ADR 0013.
 
 ## M1 — Display and typography
 

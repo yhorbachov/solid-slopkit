@@ -21,6 +21,10 @@ _Avoid_: system prop, utility prop
 The `<SlopkitUi>` component at the root of an app, which holds everything shared by the components under it (generated styles, color scheme preference, notifications, overlays).
 _Avoid_: context, root, app wrapper
 
+**Slot**:
+A named inner part of a component that users can target with CSS, such as `select-dropdown` or `card-title`. Always prefixed with the component's name.
+_Avoid_: part, element, section (which is a Button prop)
+
 **Primitive**:
 A reusable piece of behavior with no markup or look of its own, such as a focus trap, dismissal or list keyboard navigation. Components are built by composing primitives.
 _Avoid_: hook, behavior, utility, headless component
