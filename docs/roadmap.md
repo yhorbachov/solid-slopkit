@@ -12,7 +12,7 @@
 
 ## Definition of done (every component step)
 
-- Keyboard and ARIA behavior tested, including arrow keys flipping under `dir="rtl"`.
+- Keyboard and ARIA behavior tested.
 - `axe-core` passes for each variant and state the tests render.
 - `toHaveNoDiagnostics()`, plus a re-run budget on the main interaction (`@solidjs/diagnostics/vitest`).
 - An SSR test: the server render hydrates without a mismatch, and the server log has no Solid diagnostics (e.g. `SERVER_WRITE`). Put the scenarios in `<component>.fixtures.tsx` (functions returning JSX) and assert each one with `expectHydration('./<component>.fixtures.tsx', '<name>')` from `packages/ui/test/ssr.tsx`.
@@ -20,7 +20,7 @@
 - CSS uses only logical properties, reads only tokens (no `light-dark()`, no hard-coded colors), and goes in `@layer slopkit.components` (ADR 0005).
 - Built-in strings (accessible names, empty states) are props with English defaults.
 - Styling contract (ADR 0013): `.slp-<component>` on the root, `data-slot="<component>-<part>"` on every inner part, state and variant as `data-*` attributes, public custom properties only for values that feed several derived declarations (e.g. color).
-- A docs page with examples and the props, verified in light and dark and in LTR and RTL. The LLM reference is generated from it (ADR 0012), and the relevant skill is updated.
+- A docs page with examples and the props, verified in light and dark. The LLM reference is generated from it (ADR 0012), and the relevant skill is updated.
 - Exported from the package entry, and listed in the docs sidebar and the UI overview.
 
 ## Done
@@ -44,7 +44,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.11** The default theme gets a dark set with `light-dark()`. Add `color-scheme` and `[data-slp-color-scheme]` in `slopkit.base` (ADR 0005).
 - [x] **M0.12** `useColorScheme()` on the provider: preference plus resolved scheme, persistence, and the pre-hydration head script.
 - [x] **M0.13** `locale` on the provider, used by `Intl` (ADR 0009).
-- [ ] **M0.15** Docs site: color scheme toggle and RTL toggle on every page.
+- [x] **M0.15** Docs site: color scheme toggle on every page.
 - [ ] **M0.16** LLM reference generator: docs pages plus props from types → `llm/<name>.md` and `llm/index.md`. Docs site serves `/llms.txt` and `/llms-full.txt` (ADR 0012).
 - [ ] **M0.17** `skills/` scaffold with the first skills: theming and color scheme, layout and style props.
 - [ ] **M0.18** Box and Flex meet the definition of done.
@@ -106,7 +106,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 ## M2 — Inputs
 
-- [ ] **M2.01** Primitive: list/arrow navigation (direction-aware, RTL); move SegmentedControl onto it
+- [ ] **M2.01** Primitive: list/arrow navigation (horizontal and vertical); move SegmentedControl onto it
 - [ ] **M2.02** Input and InputWrapper (label, description, error, sections)
 - [ ] **M2.03** Fieldset
 - [ ] **M2.04** TextInput
@@ -183,7 +183,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 ## M7 — Dates (`@solid-slopkit/ui/dates`, native `Date` + `Intl`, ADR 0003)
 
 - [ ] **M7.01** Add the `./dates` subpath export, plus date utilities on `Date` and `Intl` (week start, month grid, formatting by provider `locale`)
-- [ ] **M7.02** Primitive: grid keyboard navigation (days, months, years; RTL)
+- [ ] **M7.02** Primitive: grid keyboard navigation (days, months, years)
 - [ ] **M7.03** Calendar
 - [ ] **M7.04** MiniCalendar
 - [ ] **M7.05** DatePicker
