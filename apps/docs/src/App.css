@@ -57,7 +57,10 @@ body {
   text-decoration: none;
 }
 
-.docs-scheme-toggle {
+.docs-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-inline-start: auto;
 }
 

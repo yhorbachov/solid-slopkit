@@ -4,6 +4,7 @@ import { Router } from './router';
 import { Shell } from './layout/Shell';
 import '@solid-slopkit/ui/styles/slopkit.css';
 import '@solid-slopkit/ui/styles/default-theme.css';
+import './themes.css';
 
 import './App.css';
 
