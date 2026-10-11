@@ -45,6 +45,10 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 - [Button](components/button/button/button.md)
 
+## Surfaces
+
+- [Paper](components/surfaces/paper/paper.md)
+
 ## Typography
 
 - [Anchor](components/typography/anchor/anchor.md)

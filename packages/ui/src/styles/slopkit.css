@@ -234,6 +234,20 @@
 }
 
 /*
+ * Shadows, from black at low alpha so they read on light and dark surfaces alike. Like the scales above, a
+ * theme (a later layer) can override them.
+ */
+@layer slopkit.base {
+  :root {
+    --slp-shadow-xs: 0 1px 2px oklch(0% 0 0 / 0.08);
+    --slp-shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.1), 0 1px 2px oklch(0% 0 0 / 0.06);
+    --slp-shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.1), 0 2px 4px -2px oklch(0% 0 0 / 0.1);
+    --slp-shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 0.1), 0 4px 6px -4px oklch(0% 0 0 / 0.1);
+    --slp-shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / 0.1), 0 8px 10px -6px oklch(0% 0 0 / 0.1);
+  }
+}
+
+/*
  * Container widths, in rem so they follow the root font size. Layout, not look, so they live here rather
  * than in a theme; a theme (a later layer) can still override them.
  */
