@@ -1,9 +1,11 @@
 import { render } from '@solidjs/testing-library';
 import { createSignal, flush } from 'solid-js';
 import { captureArtifact } from '@solidjs/diagnostics';
+import axe from 'axe-core';
 import { describe, expect, test } from 'vitest';
 import { SlopkitUi } from '../../provider';
 import { resolveStyleClass, resolveStyleProps } from '../../../style-props';
+import { expectHydration } from '../../../../test/ssr';
 import { AspectRatio } from './aspect-ratio';
 
 const ratioClass = (ratio: number) => resolveStyleClass({ ratio }, 'aspectRatio')!.className;
@@ -47,5 +49,28 @@ describe('<AspectRatio />', () => {
     expect(wrapper).not.toHaveClass(ratioClass(1));
     expect(artifact).toHaveNoDiagnostics();
     expect(artifact).toHaveNoWaste();
+    expect(artifact).toStayWithinRerunBudget(1, { scope: /AspectRatio/ });
+  });
+
+  test('has no axe violations', async () => {
+    const { container } = render(() => (
+      <SlopkitUi>
+        <AspectRatio ratio={16 / 9}>
+          <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="A landscape" />
+        </AspectRatio>
+        <AspectRatio>
+          <iframe src="about:blank" title="Embedded video" />
+        </AspectRatio>
+      </SlopkitUi>
+    ));
+    flush();
+
+    // jsdom can't host axe inside the iframe; the iframe's own title is still checked.
+    const results = await axe.run(container, { iframes: false });
+    expect(results.violations).toEqual([]);
+  });
+
+  test('hydrates the server render without mismatches or diagnostics', async () => {
+    await expectHydration('./aspect-ratio.fixtures.tsx', 'ratios');
   });
 });

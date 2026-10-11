@@ -55,7 +55,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.22** Grid meets the definition of done.
 - [x] **M0.23** Container meets the definition of done.
 - [x] **M0.24** Center meets the definition of done.
-- [ ] **M0.25** AspectRatio meets the definition of done.
+- [x] **M0.25** AspectRatio meets the definition of done.
 - [ ] **M0.26** Space meets the definition of done.
 - [ ] **M0.27** Button meets the definition of done.
 - [ ] **M0.28** SegmentedControl meets the definition of done.

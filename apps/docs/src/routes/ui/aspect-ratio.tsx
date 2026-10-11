@@ -42,7 +42,9 @@ export default function AspectRatioPage() {
       </p>
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the rendered div.</p>
+      <p>
+        Must be rendered inside <code>&lt;SlopkitUi&gt;</code>. Other props are passed to the <code>div</code>.
+      </p>
       <PropsTable
         rows={[
           {
@@ -51,12 +53,18 @@ export default function AspectRatioPage() {
             default: '1',
             description: (
               <>
-                Width divided by height, e.g. <code>16 / 9</code>.
+                Width divided by height, e.g. <code>16 / 9</code>. Not responsive.
               </>
             ),
           },
         ]}
       />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        The root has the class <code>.slp-aspect-ratio</code>, and no data attributes. Its rules live in{' '}
+        <code>@layer slopkit.components</code> at zero specificity, so unlayered CSS and a child's own classes win.
+      </p>
     </article>
   );
 }
