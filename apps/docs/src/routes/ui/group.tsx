@@ -34,22 +34,46 @@ export default function GroupPage() {
       <Example component={Grow} code={growCode} column />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the rendered div.</p>
+      <p>
+        Must be rendered inside <code>&lt;SlopkitUi&gt;</code>. Other props are passed to the <code>div</code>.
+      </p>
       <PropsTable
         rows={[
           { name: 'gap', type: 'number', default: '4', description: 'Space between children, in spacing units.' },
-          { name: 'align', type: 'FlexAlign', default: "'center'", description: <code>align-items</code> },
-          { name: 'justify', type: 'FlexJustify', default: "'flex-start'", description: <code>justify-content</code> },
-          { name: 'wrap', type: 'FlexWrap', default: "'wrap'", description: <code>flex-wrap</code> },
+          {
+            name: 'align',
+            type: "'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'baseline' | string",
+            default: "'center'",
+            description: <code>align-items</code>,
+          },
+          {
+            name: 'justify',
+            type: "'normal' | 'start' | 'end' | 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly' | 'stretch' | string",
+            default: "'flex-start'",
+            description: <code>justify-content</code>,
+          },
+          { name: 'wrap', type: "'nowrap' | 'wrap' | 'wrap-reverse'", default: "'wrap'", description: <code>flex-wrap</code> },
           { name: 'grow', type: 'boolean', default: 'false', description: 'Children grow to fill the row.' },
           {
             name: 'preventGrowOverflow',
             type: 'boolean',
             default: 'true',
-            description: 'With grow, children share the row equally and their content cannot widen them.',
+            description: (
+              <>
+                With <code>grow</code>, children share the row equally and their content cannot widen them.
+              </>
+            ),
           },
         ]}
       />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        The root has the classes <code>.slp-group</code> and <code>.slp-flex</code>, with <code>data-grow</code> when{' '}
+        <code>grow</code> is set and <code>data-prevent-grow-overflow</code> unless <code>preventGrowOverflow</code> is{' '}
+        <code>false</code>. Its rules live in <code>@layer slopkit.components</code>, and the grow rules on children have zero
+        specificity, so unlayered CSS and a child's own classes win.
+      </p>
     </article>
   );
 }
