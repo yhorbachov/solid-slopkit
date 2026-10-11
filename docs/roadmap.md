@@ -44,7 +44,6 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.11** The default theme gets a dark set with `light-dark()`. Add `color-scheme` and `[data-slp-color-scheme]` in `slopkit.base` (ADR 0005).
 - [x] **M0.12** `useColorScheme()` on the provider: preference plus resolved scheme, persistence, and the pre-hydration head script.
 - [x] **M0.13** `locale` on the provider, used by `Intl` (ADR 0009).
-- [ ] **M0.14** Palette shorthand and raw colors in `color` (ADR 0004), applied to Button and SegmentedControl.
 - [ ] **M0.15** Docs site: color scheme toggle and RTL toggle on every page.
 - [ ] **M0.16** LLM reference generator: docs pages plus props from types → `llm/<name>.md` and `llm/index.md`. Docs site serves `/llms.txt` and `/llms-full.txt` (ADR 0012).
 - [ ] **M0.17** `skills/` scaffold with the first skills: theming and color scheme, layout and style props.

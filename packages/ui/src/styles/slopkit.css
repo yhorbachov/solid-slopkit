@@ -3,7 +3,6 @@
 /*
  * Named palettes: 14 colors × 10 shades.
  * Values from Open Color (MIT, https://yeun.github.io/open-color/) plus a "dark" scale.
- * --slp-primary-* aliases a palette; switch it with [data-slp-primary="<color>"] on any element.
  */
 @layer slopkit.base {
   :root {
