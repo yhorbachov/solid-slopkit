@@ -32,29 +32,29 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 ## M0 — Foundations
 
 - [x] **M0.01** Clean up `package.json`: remove the `./dates` export until M7, make `./slopkit.css` / `./slopkit.min.css` / `./styles/*` point at files the build actually produces (or remove them), and keep `files` in line with ADR 0012 (`dist`, `llm`, `skills`).
-- [ ] **M0.02** `pnpm release:pack`: build and `pnpm pack` into `release/`. Add a workflow that attaches the tarball to a GitHub Release tagged `ui-v<version>` (ADR 0001). Write install docs, including the token needed while the repo is private.
-- [ ] **M0.03** A vitest browser project (Chromium via `@vitest/browser-playwright`) next to jsdom, for `*.browser.test.tsx`.
-- [ ] **M0.04** An SSR/hydration test helper that every component's SSR test uses.
-- [ ] **M0.05** The default theme gets a dark set with `light-dark()`. Add `color-scheme` and `[data-slp-color-scheme]` in `slopkit.base` (ADR 0005).
-- [ ] **M0.06** `useColorScheme()` on the provider: preference plus resolved scheme, persistence, and the pre-hydration head script.
-- [ ] **M0.07** `locale` on the provider, used by `Intl` (ADR 0009).
-- [ ] **M0.08** Palette shorthand and raw colors in `color` (ADR 0004), applied to Button and SegmentedControl.
-- [ ] **M0.09** Docs site: color scheme toggle and RTL toggle on every page.
-- [ ] **M0.10** LLM reference generator: docs pages plus props from types → `llm/<name>.md` and `llm/index.md`. Docs site serves `/llms.txt` and `/llms-full.txt` (ADR 0012).
-- [ ] **M0.11** `skills/` scaffold with the first skills: theming and color scheme, layout and style props.
-- [ ] **M0.12** Box and Flex meet the definition of done.
-- [ ] **M0.13** Stack meets the definition of done.
-- [ ] **M0.14** Group meets the definition of done.
-- [ ] **M0.15** SimpleGrid meets the definition of done.
-- [ ] **M0.16** Grid meets the definition of done.
-- [ ] **M0.17** Container meets the definition of done.
-- [ ] **M0.18** Center meets the definition of done.
-- [ ] **M0.19** AspectRatio meets the definition of done.
-- [ ] **M0.20** Space meets the definition of done.
-- [ ] **M0.21** Button meets the definition of done.
-- [ ] **M0.22** SegmentedControl meets the definition of done.
-- [ ] **M0.23** Align Button and SegmentedControl with the styling contract (ADR 0013): add `data-slot` to their inner parts, and remove `--slp-button-border-radius` and `--slp-segmented-control-radius` in favor of selectors.
-- [ ] **M0.24** Stop the `$$moduleUrl` `NAMESPACE_CONFLICT` warning in consumer builds. The consumer's Solid plugin adds `export const $$moduleUrl` to each compiled module, and our `export *` index files re-export it from several modules. Reproduce with the docs production build (`pnpm build` in `packages/ui`, then in `apps/docs`).
+- [ ] **M0.02** Stop the `$$moduleUrl` `NAMESPACE_CONFLICT` warning in consumer builds. The consumer's Solid plugin adds `export const $$moduleUrl` to each compiled module, and our `export *` index files re-export it from several modules. Reproduce with the docs production build (`pnpm build` in `packages/ui`, then in `apps/docs`).
+- [ ] **M0.03** `pnpm release:pack`: build and `pnpm pack` into `release/`. Add a workflow that attaches the tarball to a GitHub Release tagged `ui-v<version>` (ADR 0001). Write install docs, including the token needed while the repo is private.
+- [ ] **M0.04** A vitest browser project (Chromium via `@vitest/browser-playwright`) next to jsdom, for `*.browser.test.tsx`.
+- [ ] **M0.05** An SSR/hydration test helper that every component's SSR test uses.
+- [ ] **M0.06** The default theme gets a dark set with `light-dark()`. Add `color-scheme` and `[data-slp-color-scheme]` in `slopkit.base` (ADR 0005).
+- [ ] **M0.07** `useColorScheme()` on the provider: preference plus resolved scheme, persistence, and the pre-hydration head script.
+- [ ] **M0.08** `locale` on the provider, used by `Intl` (ADR 0009).
+- [ ] **M0.09** Palette shorthand and raw colors in `color` (ADR 0004), applied to Button and SegmentedControl.
+- [ ] **M0.10** Docs site: color scheme toggle and RTL toggle on every page.
+- [ ] **M0.11** LLM reference generator: docs pages plus props from types → `llm/<name>.md` and `llm/index.md`. Docs site serves `/llms.txt` and `/llms-full.txt` (ADR 0012).
+- [ ] **M0.12** `skills/` scaffold with the first skills: theming and color scheme, layout and style props.
+- [ ] **M0.13** Box and Flex meet the definition of done.
+- [ ] **M0.14** Stack meets the definition of done.
+- [ ] **M0.15** Group meets the definition of done.
+- [ ] **M0.16** SimpleGrid meets the definition of done.
+- [ ] **M0.17** Grid meets the definition of done.
+- [ ] **M0.18** Container meets the definition of done.
+- [ ] **M0.19** Center meets the definition of done.
+- [ ] **M0.20** AspectRatio meets the definition of done.
+- [ ] **M0.21** Space meets the definition of done.
+- [ ] **M0.22** Button meets the definition of done.
+- [ ] **M0.23** SegmentedControl meets the definition of done.
+- [ ] **M0.24** Align Button and SegmentedControl with the styling contract (ADR 0013): add `data-slot` to their inner parts, and remove `--slp-button-border-radius` and `--slp-segmented-control-radius` in favor of selectors.
 
 ## Gate — Styling contract for parts
 
