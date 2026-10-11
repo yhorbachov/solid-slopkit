@@ -25,14 +25,32 @@ export default function StackPage() {
       <Example component={Basic} code={basicCode} column />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the rendered div.</p>
+      <p>
+        Must be rendered inside <code>&lt;SlopkitUi&gt;</code>. Other props are passed to the <code>div</code>.
+      </p>
       <PropsTable
         rows={[
           { name: 'gap', type: 'number', default: '4', description: 'Space between children, in spacing units.' },
-          { name: 'align', type: 'FlexAlign', default: "'stretch'", description: <code>align-items</code> },
-          { name: 'justify', type: 'FlexJustify', default: "'flex-start'", description: <code>justify-content</code> },
+          {
+            name: 'align',
+            type: "'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'baseline' | string",
+            default: "'stretch'",
+            description: <code>align-items</code>,
+          },
+          {
+            name: 'justify',
+            type: "'normal' | 'start' | 'end' | 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly' | 'stretch' | string",
+            default: "'flex-start'",
+            description: <code>justify-content</code>,
+          },
         ]}
       />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        The root has the classes <code>.slp-stack</code> and <code>.slp-flex</code>, and no data attributes. Its layout is
+        generated into <code>@layer slopkit.components</code>, so unlayered CSS wins.
+      </p>
     </article>
   );
 }

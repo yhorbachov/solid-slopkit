@@ -49,7 +49,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.16** LLM references: a handwritten `<component>.md` next to each component and the provider, an index in `src/llms.md`, and the build ships them in `dist/source/` (ADR 0012).
 - [x] **M0.17** `skills/` scaffold with the first skills: theming and color scheme, layout and style props.
 - [x] **M0.18** Box and Flex meet the definition of done.
-- [ ] **M0.19** Stack meets the definition of done.
+- [x] **M0.19** Stack meets the definition of done.
 - [ ] **M0.20** Group meets the definition of done.
 - [ ] **M0.21** SimpleGrid meets the definition of done.
 - [ ] **M0.22** Grid meets the definition of done.
