@@ -35,13 +35,21 @@ export default function SpacePage() {
       <Example component={Horizontal} code={horizontalCode} column />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the rendered div.</p>
+      <p>
+        Must be rendered inside <code>&lt;SlopkitUi&gt;</code>. Other props are passed to the <code>div</code>.
+      </p>
       <PropsTable
         rows={[
           { name: 'h', type: 'ResponsiveValue<number | string>', description: 'Height: spacing units or a CSS length.' },
           { name: 'w', type: 'ResponsiveValue<number | string>', description: 'Width: spacing units or a CSS length.' },
         ]}
       />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        The root has the class <code>.slp-space</code>, and no data attributes. Its rules live in{' '}
+        <code>@layer slopkit.components</code>, so unlayered CSS wins.
+      </p>
     </article>
   );
 }
