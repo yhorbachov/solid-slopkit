@@ -35,6 +35,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm --filter @solid-slopkit/ui exec tsc --noEmit -p tsconfig.json
       - run: pnpm --filter docs exec tsc --noEmit -p tsconfig.json
+      # The browser test project runs in Chromium.
+      - run: pnpm --filter @solid-slopkit/ui exec playwright install --with-deps chromium
       - run: pnpm --filter @solid-slopkit/ui test
       - run: pnpm release:pack
       # The docs site is a real consumer of the built package: its production build resolves
