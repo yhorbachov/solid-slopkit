@@ -15,7 +15,7 @@
 - Keyboard and ARIA behavior tested, including arrow keys flipping under `dir="rtl"`.
 - `axe-core` passes for each variant and state the tests render.
 - `toHaveNoDiagnostics()`, plus a re-run budget on the main interaction (`@solidjs/diagnostics/vitest`).
-- An SSR test: the server render hydrates without a mismatch, and the server log has no Solid diagnostics (e.g. `SERVER_WRITE`).
+- An SSR test: the server render hydrates without a mismatch, and the server log has no Solid diagnostics (e.g. `SERVER_WRITE`). Put the scenarios in `<component>.fixtures.tsx` (functions returning JSX) and assert each one with `expectHydration('./<component>.fixtures.tsx', '<name>')` from `packages/ui/test/ssr.tsx`.
 - Tests that need the top layer, focus, layout, positioning or real key events go in the browser project (`*.browser.test.tsx`), the rest in jsdom.
 - CSS uses only logical properties, reads only tokens (no `light-dark()`, no hard-coded colors), and goes in `@layer slopkit.components` (ADR 0005).
 - Built-in strings (accessible names, empty states) are props with English defaults.
@@ -40,7 +40,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.07** Upgrade jsdom 25 → 30. The 20 "Could not parse CSS stylesheet" messages are gone (jsdom 25 rejected the provider's generated `@layer` rules), and the tests still pass. `engines.node` is now jsdom 30's range, `^22.22.2 || >=24.15.0`.
 - [x] **M0.08** `pnpm release:pack`: build and `pnpm pack` into `release/`, refusing to overwrite an existing tarball. `.github/workflows/release-ui.yml` runs on a `ui-v<version>` tag: it checks the tag against the package version, runs every check, packs, and attaches the tarball to a GitHub Release (ADR 0001). The install docs on the UI overview point at the release URL (the repo is public, so no token is needed).
 - [x] **M0.09** A vitest browser project (Chromium via `@vitest/browser-playwright`) next to jsdom, for `*.browser.test.tsx`. It loads the real stylesheets. The first browser test checks that the SegmentedControl indicator covers the selected item, and the release workflow installs Chromium.
-- [ ] **M0.10** An SSR/hydration test helper that every component's SSR test uses.
+- [x] **M0.10** An SSR/hydration test helper that every component's SSR test uses: `packages/ui/test/ssr.tsx`. Its own Vite server compiles each fixture for the server and, hydratably, for the client (Vitest's transform never produces hydratable code). It fails on any console message or thrown error on either side, and on any server element hydration didn't reuse.
 - [ ] **M0.11** The default theme gets a dark set with `light-dark()`. Add `color-scheme` and `[data-slp-color-scheme]` in `slopkit.base` (ADR 0005).
 - [ ] **M0.12** `useColorScheme()` on the provider: preference plus resolved scheme, persistence, and the pre-hydration head script.
 - [ ] **M0.13** `locale` on the provider, used by `Intl` (ADR 0009).
