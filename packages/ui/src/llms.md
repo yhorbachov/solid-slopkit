@@ -45,6 +45,10 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 - [Button](components/button/button/button.md)
 
+## Typography
+
+- [Text](components/typography/text/text.md)
+
 ## Inputs
 
 - [SegmentedControl](components/inputs/segmented-control/segmented-control.md)

@@ -199,6 +199,25 @@
 }
 
 /*
+ * Type scale, in rem so it follows the root font size. Each size has a line height on a 0.25rem grid. Like
+ * the container widths, these live here rather than in a theme; a theme (a later layer) can still override them.
+ */
+@layer slopkit.base {
+  :root {
+    --slp-font-size-xs: 0.75rem;
+    --slp-font-size-sm: 0.875rem;
+    --slp-font-size-md: 1rem;
+    --slp-font-size-lg: 1.125rem;
+    --slp-font-size-xl: 1.25rem;
+    --slp-line-height-xs: 1rem;
+    --slp-line-height-sm: 1.25rem;
+    --slp-line-height-md: 1.5rem;
+    --slp-line-height-lg: 1.75rem;
+    --slp-line-height-xl: 1.75rem;
+  }
+}
+
+/*
  * Container widths, in rem so they follow the root font size. Layout, not look, so they live here rather
  * than in a theme; a theme (a later layer) can still override them.
  */
