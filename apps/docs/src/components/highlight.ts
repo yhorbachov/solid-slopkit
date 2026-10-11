@@ -10,7 +10,7 @@ function getHighlighter() {
   highlighter ??= Promise.all([import('shiki/core'), import('shiki/engine/javascript')]).then(
     ([{ createHighlighterCore }, { createJavaScriptRegexEngine }]) =>
       createHighlighterCore({
-        themes: [import('shiki/themes/github-light.mjs')],
+        themes: [import('shiki/themes/github-light.mjs'), import('shiki/themes/github-dark.mjs')],
         langs: [import('shiki/langs/tsx.mjs'), import('shiki/langs/css.mjs'), import('shiki/langs/bash.mjs')],
         engine: createJavaScriptRegexEngine(),
       }),
@@ -19,5 +19,10 @@ function getHighlighter() {
 }
 
 export async function highlight(code: string, lang: CodeLang): Promise<string> {
-  return (await getHighlighter()).codeToHtml(code, { lang, theme: 'github-light' });
+  // light-dark() colors follow the color scheme of the code block, so a scheme switch needs no re-highlighting.
+  return (await getHighlighter()).codeToHtml(code, {
+    lang,
+    themes: { light: 'github-light', dark: 'github-dark' },
+    defaultColor: 'light-dark()',
+  });
 }

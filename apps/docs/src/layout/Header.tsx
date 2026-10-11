@@ -1,5 +1,6 @@
 import { Button } from '@solid-slopkit/ui';
 import { Menu, X } from '@lucide/solid';
+import { ColorSchemeToggle } from './ColorSchemeToggle';
 
 export function Header(props: { navOpen: boolean; onToggleNav: () => void }) {
   return (
@@ -19,6 +20,7 @@ export function Header(props: { navOpen: boolean; onToggleNav: () => void }) {
       <a class="docs-wordmark" href="/">
         slopkit
       </a>
+      <ColorSchemeToggle />
     </header>
   );
 }

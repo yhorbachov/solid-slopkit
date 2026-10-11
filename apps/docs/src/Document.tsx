@@ -1,5 +1,6 @@
 import type { ParentProps } from 'solid-js';
 import { HydrationScript } from '@solidjs/web';
+import { colorSchemeScript } from './layout/ColorSchemeToggle';
 
 // The document shell (the index.html replacement), picked up by the
 // src/Document.* convention; it must render the full <html> and ships no
@@ -14,6 +15,8 @@ export default function Document(props: ParentProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <title>slopkit</title>
+        {/* oxlint-disable-next-line solid/no-innerhtml -- a constant script of our own, no input in it */}
+        <script innerHTML={colorSchemeScript} />
         <HydrationScript />
       </head>
       <body>{props.children}</body>

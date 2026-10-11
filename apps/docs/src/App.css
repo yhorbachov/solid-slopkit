@@ -57,6 +57,37 @@ body {
   text-decoration: none;
 }
 
+.docs-scheme-toggle {
+  margin-inline-start: auto;
+}
+
+/* Show the icon of the scheme a click switches to. */
+.docs-scheme-icon-dark {
+  display: none;
+}
+
+:root[data-slp-color-scheme='dark'] {
+  & .docs-scheme-icon-light {
+    display: none;
+  }
+
+  & .docs-scheme-icon-dark {
+    display: inline;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-slp-color-scheme='light']) {
+    & .docs-scheme-icon-light {
+      display: none;
+    }
+
+    & .docs-scheme-icon-dark {
+      display: inline;
+    }
+  }
+}
+
 .docs-menu-button {
   display: none;
 }
