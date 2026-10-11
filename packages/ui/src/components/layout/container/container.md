@@ -35,7 +35,7 @@ Write plain CSS against these selectors. Component rules live in `@layer slopkit
 
 - Root class: `.slp-container`.
 
-CSS variables. The presets are set on `:root` in `slopkit.css`; override them there or in a theme to change every container. Set `--slp-container-padding` on a container or any ancestor.
+CSS variables. The presets are set on `:root` in `slopkit.css`; override them there or in a theme to change every container. `--slp-container-padding` is a theme token too, and can also be set on a container or any ancestor.
 
 | Variable                  | Default                        | Description                    |
 | ------------------------- | ------------------------------ | ------------------------------ |

@@ -26,7 +26,7 @@ export default function ContainerPage() {
       <H2 id="size">Size</H2>
       <p>
         A preset from <code>xs</code> to <code>xl</code>, spacing units, or any CSS length. The size is the outer width, padding
-        included. The default is <code>md</code>.
+        included. The default is <code>md</code>. <code>size</code> is not responsive.
       </p>
       <Example component={Sizes} code={sizesCode} column />
 
@@ -39,7 +39,7 @@ export default function ContainerPage() {
       <H2 id="css-variables">CSS variables</H2>
       <p>
         The presets are set on <code>:root</code> in <code>slopkit.css</code>. Override them there or in a theme to change every
-        container; set <code>--slp-container-padding</code> on a container or any ancestor.
+        container. <code>--slp-container-padding</code> is a theme token too, and can also be set on a container or any ancestor.
       </p>
       <CssVarsTable
         rows={[
@@ -53,7 +53,9 @@ export default function ContainerPage() {
       />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the rendered div.</p>
+      <p>
+        Must be rendered inside <code>&lt;SlopkitUi&gt;</code>. Other props are passed to the <code>div</code>.
+      </p>
       <PropsTable
         rows={[
           {
@@ -62,9 +64,24 @@ export default function ContainerPage() {
             default: "'md'",
             description: 'Max width: a preset, spacing units, or a CSS length.',
           },
-          { name: 'fluid', type: 'boolean', default: 'false', description: 'Full width, ignoring size.' },
+          {
+            name: 'fluid',
+            type: 'boolean',
+            default: 'false',
+            description: (
+              <>
+                Full width, ignoring <code>size</code>. The padding stays.
+              </>
+            ),
+          },
         ]}
       />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        The root has the class <code>.slp-container</code>, and no data attributes. Its rules live in{' '}
+        <code>@layer slopkit.components</code> at zero specificity, so unlayered CSS wins.
+      </p>
     </article>
   );
 }

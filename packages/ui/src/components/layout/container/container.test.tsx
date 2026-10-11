@@ -1,9 +1,11 @@
 import { render } from '@solidjs/testing-library';
 import { createSignal, flush } from 'solid-js';
 import { captureArtifact } from '@solidjs/diagnostics';
+import axe from 'axe-core';
 import { describe, expect, test } from 'vitest';
 import { SlopkitUi } from '../../provider';
 import { resolveStyleClass, resolveStyleProps } from '../../../style-props';
+import { expectHydration } from '../../../../test/ssr';
 import { Container } from './container';
 
 const containerClass = (size: string | number) => resolveStyleClass({ size }, 'container')!.className;
@@ -48,5 +50,27 @@ describe('<Container />', () => {
     expect(container).not.toHaveClass(containerClass('lg'));
     expect(artifact).toHaveNoDiagnostics();
     expect(artifact).toHaveNoWaste();
+    expect(artifact).toStayWithinRerunBudget(1, { scope: /Container/ });
+  });
+
+  test('has no axe violations', async () => {
+    const { container } = render(() => (
+      <SlopkitUi>
+        <Container>
+          <p>Content</p>
+        </Container>
+        <Container role="main" size="sm" fluid>
+          <h1>Title</h1>
+        </Container>
+      </SlopkitUi>
+    ));
+    flush();
+
+    const results = await axe.run(container);
+    expect(results.violations).toEqual([]);
+  });
+
+  test('hydrates the server render without mismatches or diagnostics', async () => {
+    await expectHydration('./container.fixtures.tsx', 'sizes');
   });
 });
