@@ -49,7 +49,7 @@ export default function ButtonPage() {
 
       <H2 id="colors">Colors</H2>
       <p>
-        Any theme color. Without <code>color</code> the button uses the base surface colors.
+        Any color role. Without <code>color</code> the button uses the base surface colors.
       </p>
       <Example component={Colors} code={colorsCode} />
       <p>Every variant works with every color.</p>
@@ -93,8 +93,8 @@ export default function ButtonPage() {
       <H2 id="polymorphic">Polymorphic</H2>
       <p>
         <code>as</code> renders another element. A link with <code>href</code> stays a link; other elements get{' '}
-        <code>role="button"</code> and a tab stop. <code>disabled</code> becomes <code>aria-disabled</code> on non-button
-        elements.
+        <code>role="button"</code>, a tab stop, and a button's keys: Enter presses on key down, Space on key up.{' '}
+        <code>disabled</code> becomes <code>aria-disabled</code> on non-button elements, which then ignore clicks and keys.
       </p>
       <Example component={Polymorphic} code={polymorphicCode} />
 
@@ -122,7 +122,7 @@ export default function ButtonPage() {
       <Example component={CustomProperties} code={customPropertiesCode} />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the rendered element.</p>
+      <p>Other props, including event handlers, are passed to the rendered element.</p>
       <PropsTable
         rows={[
           {
@@ -158,6 +158,14 @@ export default function ButtonPage() {
           },
         ]}
       />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        The root has the class <code>.slp-button</code>. State and variant are attributes on it: <code>data-variant</code>,{' '}
+        <code>data-color</code>, <code>data-size</code>, <code>data-shape</code>, <code>data-disabled</code>,{' '}
+        <code>data-loading</code>, <code>data-active</code>, <code>data-full-width</code>, <code>data-with-left-section</code> and{' '}
+        <code>data-with-right-section</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+      </p>
     </article>
   );
 }

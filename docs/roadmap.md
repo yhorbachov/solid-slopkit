@@ -18,7 +18,7 @@
 - `toHaveNoDiagnostics()`, plus a re-run budget on the main interaction (`@solidjs/diagnostics/vitest`).
 - An SSR test: the server render hydrates without a mismatch, and the server log has no Solid diagnostics (e.g. `SERVER_WRITE`). Put the scenarios in `<component>.fixtures.tsx` (functions returning JSX) and assert each one with `expectHydration('./<component>.fixtures.tsx', '<name>')` from `packages/ui/test/ssr.tsx`.
 - Tests that need the top layer, focus, layout, positioning or real key events go in the browser project (`*.browser.test.tsx`), the rest in jsdom.
-- CSS reads only tokens (no `light-dark()`, no hard-coded colors), and goes in `@layer slopkit.components` (ADR 0005).
+- CSS reads only tokens (no `light-dark()`, no hard-coded colors; black, white and transparent as mixing primitives for shading are fine), and goes in `@layer slopkit.components` (ADR 0005).
 - Built-in strings (accessible names, empty states) are props with English defaults.
 - Styling contract (ADR 0013): `.slp-<component>` on the root, `data-slot="<component>-<part>"` on every inner part, state and variant as `data-*` attributes, public custom properties only for values that feed several derived declarations (e.g. color).
 - A docs page with examples and the props, verified in light and dark. The LLM reference (`<component>.md` next to the source, ADR 0012) and the relevant skill are updated.
@@ -57,7 +57,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.24** Center meets the definition of done.
 - [x] **M0.25** AspectRatio meets the definition of done.
 - [x] **M0.26** Space meets the definition of done.
-- [ ] **M0.27** Button meets the definition of done.
+- [x] **M0.27** Button meets the definition of done.
 - [ ] **M0.28** SegmentedControl meets the definition of done.
 - [ ] **M0.29** Align Button and SegmentedControl with the styling contract (ADR 0013): add `data-slot` to their inner parts, and remove `--slp-button-border-radius` and `--slp-segmented-control-radius` in favor of selectors.
 

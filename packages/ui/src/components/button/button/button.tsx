@@ -2,7 +2,7 @@ import { createMemo, omit, untrack, type Accessor } from 'solid-js';
 import { Polymorphic, type ElementOf, type PolymorphicProps } from '../../polymorphic';
 import style from './button.module.css';
 import { type JSX, type ValidComponent } from '@solidjs/web';
-import { mergeDefaultProps, mergeRefs } from '../../../utils';
+import { callHandler, mergeDefaultProps, mergeRefs } from '../../../utils';
 import { createTagName } from '../../primitives';
 import { joinClass } from '../../../style-props';
 import { isButton } from './is-button';
@@ -55,6 +55,9 @@ export interface ButtonRootRenderProps extends ButtonRootCommonProps {
   'aria-disabled': 'true' | undefined;
   'aria-busy': 'true' | undefined;
   'data-disabled': string | undefined;
+  onClick: (event: MouseEvent) => void;
+  onKeyDown: (event: KeyboardEvent) => void;
+  onKeyUp: (event: KeyboardEvent) => void;
 }
 
 export type ButtonRootProps<T extends ValidComponent | HTMLElement = HTMLElement> = ButtonRootOptions &
@@ -167,6 +170,42 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
   // lazily-created memo on the server, which shifts hydration keys against the client.
   const nativeDisabled = createMemo(() => (isNativeControl() ? isInert() : undefined));
 
+  // An element that only has `role="button"` gets a button's keyboard behavior: Enter clicks on key down,
+  // Space on key up. Disabled or loading, it ignores clicks, like a native button.
+  const isRoleButton = createMemo(() => !isNativeButton() && !isNativeLink());
+  const handlers = props as { onClick?: unknown; onKeyDown?: unknown; onKeyUp?: unknown };
+  let spacePressed = false;
+  const polymorphicOthers = omit(others as Record<string, unknown>, 'onClick', 'onKeyDown', 'onKeyUp');
+
+  const onClick = (event: MouseEvent) => {
+    if (!isNativeControl() && isInert()) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
+    callHandler(handlers.onClick, event);
+  };
+
+  const onKeyDown = (event: KeyboardEvent) => {
+    callHandler(handlers.onKeyDown, event);
+    if (event.defaultPrevented || event.target !== event.currentTarget || !isRoleButton() || isInert()) return;
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      (event.currentTarget as HTMLElement).click();
+    } else if (event.key === ' ') {
+      // Stops the page from scrolling; the click comes on key up.
+      event.preventDefault();
+      spacePressed = true;
+    }
+  };
+
+  const onKeyUp = (event: KeyboardEvent) => {
+    callHandler(handlers.onKeyUp, event);
+    if (event.key !== ' ' || !spacePressed) return;
+    spacePressed = false;
+    if (!event.defaultPrevented && isRoleButton() && !isInert()) (event.currentTarget as HTMLElement).click();
+  };
+
   return (
     <Polymorphic<ButtonRootRenderProps>
       as="button"
@@ -188,7 +227,10 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
       data-with-left-section={sectionAttribute(leftSection)}
       data-with-right-section={sectionAttribute(rightSection)}
       class={joinClass(['slp-button', style.button], mergedProps.class)}
-      {...others}
+      {...polymorphicOthers}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      onKeyUp={onKeyUp}
     >
       {leftSection?.()}
       {mergedProps.children}

@@ -43,7 +43,7 @@ const [bold, setBold] = createSignal(false);
 </Button>;
 ```
 
-- **Polymorphic:** `as` renders another element. A link with `href` stays a link. Other elements get `role="button"` and a tab stop, and `disabled` becomes `aria-disabled` on them.
+- **Polymorphic:** `as` renders another element. A link with `href` stays a link. Other elements get `role="button"`, a tab stop, and a button's keys: Enter presses on key down, Space on key up. `disabled` becomes `aria-disabled` on them, and they then ignore clicks and keys.
 
 ```tsx
 <Button as="a" href="/settings">

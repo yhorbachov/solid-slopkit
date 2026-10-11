@@ -10,3 +10,11 @@ export function chain<Args extends [] | any[]>(callbacks: {
     }
   };
 }
+
+/**
+ * Calls a JSX event handler prop, which is either a function or a `[handler, data]` tuple.
+ */
+export function callHandler<E extends Event>(handler: unknown, event: E): void {
+  if (typeof handler === 'function') handler(event);
+  else if (Array.isArray(handler) && typeof handler[0] === 'function') handler[0](handler[1], event);
+}

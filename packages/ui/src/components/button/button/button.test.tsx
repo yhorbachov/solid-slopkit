@@ -4,7 +4,9 @@ import { createSignal, flush } from 'solid-js';
 import axe from 'axe-core';
 import { describe, expect, test, vi } from 'vitest';
 import type { SlopColor, SlopSize } from '../../../core';
+import { expectHydration } from '../../../../test/ssr';
 import { Button, type ButtonVariant } from './button';
+import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 describe('<Button />', () => {
   test('renders a native button with defaults', () => {
@@ -107,6 +109,90 @@ describe('<Button />', () => {
     expect(button).not.toHaveAttribute('tabindex');
   });
 
+  test('a role="button" element clicks on Enter key down and on Space key up', () => {
+    const onClick = vi.fn();
+    const onKeyDown = vi.fn();
+    const { getByRole } = render(() => (
+      <Button as="div" onClick={onClick} onKeyDown={onKeyDown}>
+        Div
+      </Button>
+    ));
+    flush();
+    const button = getByRole('button', { name: 'Div' });
+
+    expect(fireEvent.keyDown(button, { key: 'Enter' })).toBe(false);
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
+
+    // Space doesn't scroll the page, and clicks when released.
+    expect(fireEvent.keyDown(button, { key: ' ' })).toBe(false);
+    expect(onClick).toHaveBeenCalledTimes(1);
+    fireEvent.keyUp(button, { key: ' ' });
+    expect(onClick).toHaveBeenCalledTimes(2);
+
+    // A key up without its key down, e.g. after focus moved here, does nothing.
+    fireEvent.keyUp(button, { key: ' ' });
+    expect(onClick).toHaveBeenCalledTimes(2);
+  });
+
+  test('a handler that prevents the default keeps the key from clicking', () => {
+    const onClick = vi.fn();
+    const { getByRole } = render(() => (
+      <Button as="div" onClick={onClick} onKeyDown={(event) => event.preventDefault()}>
+        Div
+      </Button>
+    ));
+    flush();
+
+    fireEvent.keyDown(getByRole('button', { name: 'Div' }), { key: 'Enter' });
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  test('a disabled or loading role="button" element ignores clicks and keys', () => {
+    const onClick = vi.fn();
+    const { getByRole } = render(() => (
+      <>
+        <Button as="div" disabled onClick={onClick}>
+          Disabled
+        </Button>
+        <Button as="span" loading onClick={onClick}>
+          Loading
+        </Button>
+      </>
+    ));
+    flush();
+
+    for (const name of ['Disabled', 'Loading']) {
+      const button = getByRole('button', { name });
+      fireEvent.click(button);
+      fireEvent.keyDown(button, { key: 'Enter' });
+      fireEvent.keyDown(button, { key: ' ' });
+      fireEvent.keyUp(button, { key: ' ' });
+    }
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  test('native buttons and links keep their own key handling, and still get onClick', () => {
+    const onClick = vi.fn();
+    const { getByRole } = render(() => (
+      <Button as="a" href="#here" onClick={onClick}>
+        Link
+      </Button>
+    ));
+    flush();
+    const link = getByRole('link', { name: 'Link' });
+
+    // Only the browser turns Enter on a link into a click.
+    expect(fireEvent.keyDown(link, { key: 'Enter' })).toBe(true);
+    expect(onClick).not.toHaveBeenCalled();
+    fireEvent.click(link);
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  test('hydrates the server render without mismatches or diagnostics', async () => {
+    await expectHydration('./button.fixtures.tsx', 'variants');
+  });
+
   test('style prop changes update attributes without diagnostics or waste', async () => {
     const [variant, setVariant] = createSignal<ButtonVariant>('solid', { name: 'variant' });
     const [color, setColor] = createSignal<SlopColor>('neutral', { name: 'color' });
@@ -131,7 +217,7 @@ describe('<Button />', () => {
     expect(button).toHaveAttribute('data-variant', 'ghost');
     expect(button).toHaveAttribute('data-color', 'error');
     expect(button).toHaveAttribute('data-size', 'lg');
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
     expect(artifact).toStayWithinRerunBudget(3);
   });
