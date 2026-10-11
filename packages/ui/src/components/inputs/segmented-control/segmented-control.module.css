@@ -1,5 +1,5 @@
 /*
- * SegmentedControl, modeled on Mantine's. Each item is a visually hidden radio input and its label; the
+ * SegmentedControl. Each item is a visually hidden radio input and its label; the
  * indicator is one element under the labels, moved over the active item by the component. Until it has been
  * placed (server render, before hydration), the active label draws the indicator's look itself.
  *

@@ -8,7 +8,7 @@ import { Group } from './group';
 const flexClass = (props: Parameters<typeof resolveStyleClass>[0]) => resolveStyleClass(props, 'flex')!.className;
 
 describe('<Group />', () => {
-  test('is a wrapping row flex with Mantine defaults', () => {
+  test('is a wrapping row flex with its default gap and alignment', () => {
     const { getByTestId } = render(() => (
       <SlopkitUi>
         <Group data-testid="group" />

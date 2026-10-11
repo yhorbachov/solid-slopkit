@@ -27,3 +27,7 @@ Name your signals/memos/effects (the `{ name: "..." }` option) — attribution r
 - `docs/roadmap.md`: the ordered steps to 0.0.1. **Implement only the step you were asked for, by its ID.** Never continue into the next step or a whole milestone on your own.
 - `docs/adr/`: architecture decisions. Read the relevant ones before designing a component, and don't silently go against one.
 - `CONTEXT.md`: the project's vocabulary. Use its terms in code, docs and replies.
+
+## This library stands alone
+
+Never mention or reference other UI libraries (by name, as a model, or in a comparison) in docs, LLM references, skills, code comments, test names or commit messages. Write "the soft variant", not "daisyUI's soft variant". Describe what the library does on its own terms. Two exceptions: naming an actual dependency (`@floating-ui/dom`), and license notices such as the palette's attribution in `slopkit.css`.

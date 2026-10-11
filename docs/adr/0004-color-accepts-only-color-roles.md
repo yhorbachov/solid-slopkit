@@ -7,7 +7,7 @@ A one-off color is a styling decision, so it goes through CSS: each colored comp
 ## Considered Options
 
 - **Roles, plus palette names and any CSS color** (`color="grape"`, `color="#ff00aa"`): rejected. A palette or raw color has no content color, so the component would have to compute a readable one. That needs relative color syntax, which is newer than our browser baseline (ADR 0010). A palette name would also need a shade per color scheme. And raw colors in props bypass the theme, so switching themes or schemes wouldn't restyle them.
-- **Palette-first (Mantine):** rejected. Every variant must know which shade to use in light and dark, and a theme becomes 14 × 10 values.
+- **Palette-first** (variants pick shades from 10-shade palettes): rejected. Every variant must know which shade to use in light and dark, and a theme becomes 14 × 10 values.
 
 ## Consequences
 

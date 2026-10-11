@@ -1,6 +1,6 @@
 # slopkit UI
 
-A component library for SolidJS 2.x. Its component set is modeled on Mantine's; its API and look borrow freely from Mantine, daisyUI, Chakra and others without following any one of them.
+A component library for SolidJS 2.x. Each component's API and look are chosen on their own merits.
 
 ## Language
 

@@ -35,7 +35,7 @@ export default function ButtonPage() {
       <Title>Button · slopkit</Title>
       <p class="docs-eyebrow">UI</p>
       <h1>Button</h1>
-      <p class="docs-lead">Triggers an action. Styled after daisyUI's button and driven entirely by theme CSS variables.</p>
+      <p class="docs-lead">Triggers an action. Its look comes entirely from theme CSS variables.</p>
 
       <H2 id="import">Import</H2>
       <CodeBlock code={`import { Button } from '@solid-slopkit/ui';`} />

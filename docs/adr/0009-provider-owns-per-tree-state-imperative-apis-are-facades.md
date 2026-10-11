@@ -6,7 +6,7 @@ Imperative APIs follow one pattern. The real store lives in the provider and is 
 
 ## Considered Options
 
-- **Global module stores (Mantine):** the most convenient, but on the server they are shared across requests, and two roots (tests, micro-frontends) share one queue.
+- **Global module stores:** the most convenient, but on the server they are shared across requests, and two roots (tests, micro-frontends) share one queue.
 - **Provider-scoped only:** correct, but code outside the component tree can't show a notification unless the app passes the hook's result into it.
 
 ## Consequences

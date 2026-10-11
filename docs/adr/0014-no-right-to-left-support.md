@@ -6,7 +6,7 @@ Component CSS may still use logical properties (`padding-inline-start`, `margin-
 
 ## Considered Options
 
-- **Full RTL support (Mantine):** rejected for now. It adds a check to every component's definition of done (layout and arrow keys under `dir="rtl"`, docs pages verified in both directions), plus direction handling in the keyboard primitives and in positioning, for languages this library's users don't target.
+- **Full RTL support:** rejected for now. It adds a check to every component's definition of done (layout and arrow keys under `dir="rtl"`, docs pages verified in both directions), plus direction handling in the keyboard primitives and in positioning, for languages this library's users don't target.
 
 ## Consequences
 

@@ -8,7 +8,7 @@ import { Stack } from './stack';
 const flexClass = (props: Parameters<typeof resolveStyleClass>[0]) => resolveStyleClass(props, 'flex')!.className;
 
 describe('<Stack />', () => {
-  test('is a column flex with Mantine defaults', () => {
+  test('is a column flex with its default gap and alignment', () => {
     const { getByTestId } = render(() => (
       <SlopkitUi>
         <Stack data-testid="stack" />

@@ -9,9 +9,9 @@ A theme is a CSS rule, `[data-slp-theme="<name>"]` (or `:root` for the default),
 
 `<SlopkitUi>` provides `useColorScheme()`. It returns the stored preference (`light | dark | auto`) and the scheme actually showing, persists the choice, and uses `useHead` to render a small pre-hydration script so a saved choice applies before first paint.
 
-Tokens are CSS-only. There is no Mantine-style `createTheme()` object for colors, radius or spacing. Anything CSS can express is themed in CSS. There are no app-wide default props either: an app that wants every `Button` small writes a one-line wrapper component.
+Tokens are CSS-only. There is no JS theme object for colors, radius or spacing. Anything CSS can express is themed in CSS. There are no app-wide default props either: an app that wants every `Button` small writes a one-line wrapper component.
 
 ## Considered Options
 
-- **Mantine's model** (one theme in JS via `createTheme`, plus a global color scheme): rejected because it puts tokens in JS, needs the provider to render them into CSS, and can't scope a different theme to a subtree.
-- **daisyUI's model** (dark mode is just another theme): the base of this design, but on its own it can't follow the OS without JS. `light-dark()` adds that.
+- **One theme object in JS, plus a global color scheme:** rejected because it puts tokens in JS, needs the provider to render them into CSS, and can't scope a different theme to a subtree.
+- **Dark mode as just another theme:** the base of this design, but on its own it can't follow the OS without JS. `light-dark()` adds that.

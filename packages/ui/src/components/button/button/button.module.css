@@ -1,5 +1,5 @@
 /*
- * Button, modeled on daisyUI's `btn`.
+ * Button.
  *
  * Public custom properties (set on the button or any ancestor):
  *   --slp-button-border-radius  corner radius, defaults to var(--slp-radius-field)
@@ -157,7 +157,7 @@
       --_btn-theme-content: var(--slp-color-error-content);
     }
 
-    /* Variants. Like daisyUI, soft/outline/dash/ghost fall back to the solid look while
+    /* Variants. soft/outline/dash/ghost fall back to the solid look while
        hovered, focused, pressed or active. */
     &:is([data-variant='soft'], [data-variant='outline'], [data-variant='dash'], [data-variant='ghost']):not(
         :hover,
@@ -186,7 +186,7 @@
       border-style: dashed;
     }
 
-    /* Unlike daisyUI, ghost never turns solid: hover and press only add a light tint. */
+    /* Ghost never turns solid: hover and press only add a light tint. */
     &[data-variant='ghost'] {
       --_btn-fg: var(--_btn-color, currentColor);
       --_btn-bg: transparent;

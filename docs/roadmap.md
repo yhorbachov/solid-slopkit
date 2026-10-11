@@ -1,6 +1,6 @@
 # @solid-slopkit/ui roadmap to 0.0.1
 
-0.0.1 is the first release. It ships nearly every component in Mantine's set (ADR 0006). Decisions live in [docs/adr](./adr) and vocabulary in [CONTEXT.md](../CONTEXT.md).
+0.0.1 is the first release. It ships the components listed below (ADR 0006). Decisions live in [docs/adr](./adr) and vocabulary in [CONTEXT.md](../CONTEXT.md).
 
 ## Rules for agents
 
@@ -8,7 +8,7 @@
 - A step that needs a primitive or component that doesn't exist yet is **blocked**. Say so and stop; don't build the dependency inside the step.
 - A step marked **Gate** is a decision the maintainer makes. Don't implement anything that depends on it until the gate is marked decided.
 - When a step is done, tick its box in this file in the same commit.
-- The API of each component is chosen on its merits, comparing Mantine, daisyUI, Chakra and others (ADR 0006). Propose deviations; don't copy one library.
+- The API of each component is chosen on its merits (ADR 0006). Compare options and recommend one; don't copy another library.
 
 ## Definition of done (every component step)
 
@@ -206,4 +206,4 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 ## Not in 0.0.1
 
-Charts, CodeHighlight, RichTextEditor and NavigationProgress (ADR 0006). Portal and a FocusTrap component are replaced by the top layer and primitives (ADR 0011, ADR 0007). Style props on non-layout components (ADR 0008), app-wide default props (ADR 0005), translation dictionaries (ADR 0009), Mantine's generic utility hooks (ADR 0006) and configurable breakpoints are deferred or out.
+Charts, CodeHighlight, RichTextEditor and NavigationProgress (ADR 0006). Portal and a FocusTrap component are replaced by the top layer and primitives (ADR 0011, ADR 0007). Style props on non-layout components (ADR 0008), app-wide default props (ADR 0005), translation dictionaries (ADR 0009), generic utility hooks (ADR 0006) and configurable breakpoints are deferred or out.
