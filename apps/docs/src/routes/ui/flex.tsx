@@ -2,6 +2,7 @@ import { Title } from '@solidjs/meta';
 import { CodeBlock } from '../../components/CodeBlock';
 import { Example } from '../../components/Example';
 import { H2 } from '../../components/Heading';
+import { PropsTable } from '../../components/PropsTable';
 
 import Basic from '../../examples/flex/basic';
 import basicCode from '../../examples/flex/basic.tsx?raw';
@@ -16,7 +17,7 @@ export default function FlexPage() {
       <h1>Flex</h1>
       <p class="docs-lead">
         A <code>div</code> that is a flex container. It only takes flex props and <code>display</code>; for spacing and size, use
-        a <a href="/ui/box">Box</a>. Work in progress.
+        a <a href="/ui/box">Box</a>. Must be rendered inside <code>&lt;SlopkitUi&gt;</code>.
       </p>
 
       <H2 id="import">Import</H2>
@@ -36,6 +37,75 @@ export default function FlexPage() {
         hidden at some breakpoints.
       </p>
       <Example component={Display} code={displayCode} column />
+
+      <H2 id="props">Props</H2>
+      <p>
+        Gaps are in spacing units (multiples of <code>--slp-spacing</code>). Every prop is responsive. Other props are passed to
+        the <code>div</code>.
+      </p>
+      <PropsTable
+        rows={[
+          {
+            name: 'direction',
+            type: "ResponsiveValue<'row' | 'column' | 'row-reverse' | 'column-reverse'>",
+            description: <code>flex-direction</code>,
+          },
+          { name: 'wrap', type: "ResponsiveValue<'nowrap' | 'wrap' | 'wrap-reverse'>", description: <code>flex-wrap</code> },
+          {
+            name: 'align',
+            type: "ResponsiveValue<'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'baseline' | string>",
+            description: <code>align-items</code>,
+          },
+          {
+            name: 'justify',
+            type: "ResponsiveValue<'normal' | 'start' | 'end' | 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly' | 'stretch' | string>",
+            description: <code>justify-content</code>,
+          },
+          {
+            name: 'gap',
+            type: 'ResponsiveValue<number>',
+            description: (
+              <>
+                <code>row-gap</code> and <code>column-gap</code>.
+              </>
+            ),
+          },
+          {
+            name: 'rowGap',
+            type: 'ResponsiveValue<number>',
+            description: (
+              <>
+                <code>row-gap</code>. Wins over <code>gap</code>.
+              </>
+            ),
+          },
+          {
+            name: 'columnGap',
+            type: 'ResponsiveValue<number>',
+            description: (
+              <>
+                <code>column-gap</code>. Wins over <code>gap</code>.
+              </>
+            ),
+          },
+          {
+            name: 'display',
+            type: "ResponsiveValue<'flex' | 'inline-flex' | 'none'>",
+            default: "'flex'",
+            description: (
+              <>
+                Overrides <code>display: flex</code>.
+              </>
+            ),
+          },
+        ]}
+      />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        The root has the class <code>.slp-flex</code>, and no data attributes. Stack, Group and Center render a Flex, so they
+        carry it too. Style props are generated into <code>@layer slopkit.components</code>, so unlayered CSS wins.
+      </p>
     </article>
   );
 }

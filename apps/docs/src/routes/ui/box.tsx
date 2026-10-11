@@ -2,6 +2,7 @@ import { Title } from '@solidjs/meta';
 import { CodeBlock } from '../../components/CodeBlock';
 import { Example } from '../../components/Example';
 import { H2 } from '../../components/Heading';
+import { PropsTable } from '../../components/PropsTable';
 
 import Basic from '../../examples/box/basic';
 import basicCode from '../../examples/box/basic.tsx?raw';
@@ -24,7 +25,10 @@ export default function BoxPage() {
       <Title>Box · slopkit</Title>
       <p class="docs-eyebrow">UI</p>
       <h1>Box</h1>
-      <p class="docs-lead">Work in progress. This page is a sandbox for the component.</p>
+      <p class="docs-lead">
+        A <code>div</code> with padding, margin, size and display style props. The base of the layout components. Must be rendered
+        inside <code>&lt;SlopkitUi&gt;</code>.
+      </p>
 
       <H2 id="import">Import</H2>
       <CodeBlock code={`import { Box } from '@solid-slopkit/ui';`} />
@@ -35,8 +39,9 @@ export default function BoxPage() {
       <H2 id="padding">Padding</H2>
       <p>
         <code>p</code>, <code>px</code>, <code>py</code>, <code>pt</code>, <code>pr</code>, <code>pb</code> and <code>pl</code>.
-        Values are multiples of <code>--slp-spacing</code> (0.25rem), so <code>4</code> is 1rem. The more specific prop wins. Box
-        generates one class per distinct padding and injects its CSS once with <code>&lt;Style&gt;</code>.
+        Values are multiples of <code>--slp-spacing</code> (0.25rem), so <code>4</code> is 1rem. The more specific prop wins: a
+        side over its axis, the axis over <code>p</code>. Boxes with the same values share one generated class, whose CSS{' '}
+        <code>&lt;SlopkitUi&gt;</code> adds once.
       </p>
       <Example component={Padding} code={paddingCode} />
 
@@ -60,22 +65,75 @@ export default function BoxPage() {
 
       <H2 id="display">Display</H2>
       <p>
-        <code>display</code> takes any CSS display value, per breakpoint. For flex layouts, use <a href="/ui/flex">Flex</a>.
+        <code>display</code> takes <code>'none'</code>, <code>'block'</code>, <code>'inline'</code>, <code>'inline-block'</code>,{' '}
+        <code>'grid'</code>, <code>'inline-grid'</code> or <code>'contents'</code>, per breakpoint. There is no{' '}
+        <code>'flex'</code>: for flex layouts, use <a href="/ui/flex">Flex</a>.
       </p>
       <Example component={Display} code={displayCode} column />
 
       <H2 id="responsive">Responsive</H2>
       <p>
-        Pass an object of breakpoints. Mobile-first: each value applies from its min-width up (xs 36em, sm 48em, md 62em, lg 75em,
-        xl 88em).
+        Every prop takes a value or an object of breakpoints. Mobile-first: <code>base</code> applies at every width, and each
+        breakpoint from its min-width up (xs 36em, sm 48em, md 62em, lg 75em, xl 88em). Each prop carries its value up the
+        breakpoints before the more specific prop wins, so{' '}
+        <code>
+          p={'{{'} md: 8 {'}}'} pl={'{'}2{'}'}
+        </code>{' '}
+        keeps the left padding at 2 at every width.
       </p>
       <Example component={ResponsivePadding} code={responsivePaddingCode} />
 
-      <H2 id="style">Style</H2>
+      <H2 id="class-and-style">Class and style</H2>
       <p>
-        <code>style</code> accepts an object or a string, and is merged with the box's own CSS variables.
+        <code>class</code> and <code>style</code> work as on a plain <code>div</code>. <code>style</code> takes an object or a
+        string. Other props, such as <code>id</code>, <code>role</code> and <code>aria-*</code>, are passed to the{' '}
+        <code>div</code>.
       </p>
       <Example component={Style} code={styleCode} />
+
+      <H2 id="props">Props</H2>
+      <p>
+        Numbers are spacing units (multiples of <code>--slp-spacing</code>). Every prop is responsive. Other props are passed to
+        the <code>div</code>.
+      </p>
+      <PropsTable
+        rows={[
+          {
+            name: 'p, px, py, pt, pr, pb, pl',
+            type: 'ResponsiveValue<number>',
+            description: 'Padding: all sides, an axis, or one side.',
+          },
+          {
+            name: 'm, mx, my, mt, mr, mb, ml',
+            type: "ResponsiveValue<number | 'auto'>",
+            description: (
+              <>
+                Margin. Negative values pull, <code>'auto'</code> centers.
+              </>
+            ),
+          },
+          {
+            name: 'w, h, miw, maw, mih, mah',
+            type: 'ResponsiveValue<number | string>',
+            description: 'Width, height and their min/max. A string is any CSS length.',
+          },
+          {
+            name: 'display',
+            type: "ResponsiveValue<'none' | 'block' | 'inline' | 'inline-block' | 'grid' | 'inline-grid' | 'contents'>",
+            description: (
+              <>
+                CSS <code>display</code>.
+              </>
+            ),
+          },
+        ]}
+      />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        The root has the class <code>.slp-box</code>, and no data attributes. Style props are generated into{' '}
+        <code>@layer slopkit.components</code>, so unlayered CSS wins.
+      </p>
     </article>
   );
 }
