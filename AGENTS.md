@@ -21,3 +21,9 @@ Use these whenever you are debugging reactivity (something doesn't update, updat
   - `{"method":"costs"}` — running cost tables for the open session
 
 Name your signals/memos/effects (the `{ name: "..." }` option) — attribution reports scopes by name.
+
+## Roadmap, decisions and vocabulary
+
+- `docs/roadmap.md`: the ordered steps to 0.0.1. **Implement only the step you were asked for, by its ID.** Never continue into the next step or a whole milestone on your own.
+- `docs/adr/`: architecture decisions. Read the relevant ones before designing a component, and don't silently go against one.
+- `CONTEXT.md`: the project's vocabulary. Use its terms in code, docs and replies.
