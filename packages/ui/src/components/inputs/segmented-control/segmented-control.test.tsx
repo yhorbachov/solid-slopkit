@@ -4,6 +4,7 @@ import { createSignal, flush } from 'solid-js';
 import axe from 'axe-core';
 import { describe, expect, test, vi } from 'vitest';
 import { SegmentedControl } from './segmented-control';
+import { expectHydration } from '../../../../test/ssr';
 import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 const radios = (container: HTMLElement) => [...container.querySelectorAll<HTMLInputElement>('input[type="radio"]')];
@@ -142,6 +143,11 @@ describe('<SegmentedControl />', () => {
 
     expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
+    expect(artifact).toStayWithinRerunBudget(2, { scope: /SegmentedControl/ });
+  });
+
+  test('hydrates the server render without mismatches or diagnostics', async () => {
+    await expectHydration('./segmented-control.fixtures.tsx', 'variants');
   });
 
   test('has no axe violations', async () => {

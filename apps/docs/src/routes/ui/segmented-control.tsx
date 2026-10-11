@@ -88,20 +88,35 @@ export default function SegmentedControlPage() {
       />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the root div.</p>
+      <p>
+        Other props are passed to the root <code>div</code>.
+      </p>
       <PropsTable
         rows={[
           {
             name: 'data',
-            type: '(T | { value: T; label: JSX.Element; disabled?: boolean })[]',
-            description: 'The options. Required.',
+            type: 'readonly (T | { value: T; label: JSX.Element; disabled?: boolean })[]',
+            description: (
+              <>
+                The options. Required. <code>T extends string</code>; a string is both value and label.
+              </>
+            ),
           },
           { name: 'value', type: 'T', description: 'Selected value, for a controlled control.' },
           { name: 'defaultValue', type: 'T', description: 'Initial value. Defaults to the first enabled option.' },
           { name: 'onChange', type: '(value: T) => void', description: 'Called with the newly selected value.' },
           { name: 'name', type: 'string', description: 'Name of the radio inputs, for forms. A unique id by default.' },
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables every option.' },
-          { name: 'readOnly', type: 'boolean', default: 'false', description: 'Shows the value but does not change it.' },
+          {
+            name: 'readOnly',
+            type: 'boolean',
+            default: 'false',
+            description: (
+              <>
+                Shows the value but does not let the user change it. <code>onChange</code> is not called.
+              </>
+            ),
+          },
           { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Fills the container width.' },
           { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Direction.' },
           { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Size.' },
@@ -113,8 +128,17 @@ export default function SegmentedControlPage() {
           { name: 'withItemsBorders', type: 'boolean', default: 'true', description: 'Separators between options.' },
           { name: 'transitionDuration', type: 'number', default: '200', description: 'Indicator animation, in ms.' },
           { name: 'transitionTimingFunction', type: 'string', default: "'ease'", description: 'Indicator easing.' },
+          { name: 'ref', type: 'Ref<HTMLDivElement>', description: 'The root element.' },
         ]}
       />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        The root has the class <code>.slp-segmented-control</code>. State and variant are attributes on it:{' '}
+        <code>data-orientation</code>, <code>data-size</code>, <code>data-color</code>, <code>data-full-width</code>,{' '}
+        <code>data-disabled</code>, <code>data-read-only</code> and <code>data-with-items-borders</code>. Its rules live in{' '}
+        <code>@layer slopkit.components</code>, so unlayered CSS wins.
+      </p>
     </article>
   );
 }
