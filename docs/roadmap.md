@@ -54,6 +54,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [ ] **M0.21** Button meets the definition of done.
 - [ ] **M0.22** SegmentedControl meets the definition of done.
 - [ ] **M0.23** Align Button and SegmentedControl with the styling contract (ADR 0013): add `data-slot` to their inner parts, and remove `--slp-button-border-radius` and `--slp-segmented-control-radius` in favor of selectors.
+- [ ] **M0.24** Stop the `$$moduleUrl` `NAMESPACE_CONFLICT` warning in consumer builds. The consumer's Solid plugin adds `export const $$moduleUrl` to each compiled module, and our `export *` index files re-export it from several modules. Reproduce with the docs production build (`pnpm build` in `packages/ui`, then in `apps/docs`).
 
 ## Gate — Styling contract for parts
 
