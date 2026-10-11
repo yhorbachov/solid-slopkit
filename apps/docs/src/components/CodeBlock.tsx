@@ -21,6 +21,7 @@ export function CodeBlock(props: { code: string; lang?: CodeLang }) {
   return (
     <div class="docs-code">
       <Loading fallback={<pre class="docs-code-plain">{code()}</pre>}>
+        {/* oxlint-disable-next-line solid/no-innerhtml -- the highlighter's output for our own example source, never user input */}
         <div class="docs-code-highlighted" innerHTML={html()} />
       </Loading>
       <Button

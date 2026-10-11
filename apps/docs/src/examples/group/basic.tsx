@@ -1,3 +1,4 @@
+import { For } from 'solid-js';
 import { Box, Group } from '@slopkit/ui';
 
 const surface = { background: 'var(--slp-color-base-200)', padding: '0.5rem' };
@@ -26,11 +27,13 @@ export default function Basic() {
         </Box>
       </Group>
       <Group gap={2} style={{ ...surface, width: '20rem' }}>
-        {['wraps by default', 'b', 'c', 'd', 'e', 'f'].map((label) => (
-          <Box p={2} w={24} style={item}>
-            {label}
-          </Box>
-        ))}
+        <For each={['wraps by default', 'b', 'c', 'd', 'e', 'f']}>
+          {(label) => (
+            <Box p={2} w={24} style={item}>
+              {label}
+            </Box>
+          )}
+        </For>
       </Group>
     </>
   );

@@ -1,3 +1,4 @@
+import { For } from 'solid-js';
 import { Box, SimpleGrid } from '@slopkit/ui';
 
 const surface = { background: 'var(--slp-color-base-200)', padding: '0.5rem', width: '100%' };
@@ -11,11 +12,13 @@ export default function Responsive() {
       verticalSpacing={{ base: 4, sm: 8 }}
       style={surface}
     >
-      {['1 → 2 → 4 columns', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((label) => (
-        <Box p={2} style={item}>
-          {label}
-        </Box>
-      ))}
+      <For each={['1 → 2 → 4 columns', 'b', 'c', 'd', 'e', 'f', 'g', 'h']}>
+        {(label) => (
+          <Box p={2} style={item}>
+            {label}
+          </Box>
+        )}
+      </For>
     </SimpleGrid>
   );
 }

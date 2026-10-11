@@ -78,6 +78,7 @@ describe('<SegmentedControl />', () => {
 
     fireEvent.click(getByLabelText('b'));
     flush();
+    // oxlint-disable-next-line solid/reactivity -- the test reads the signal's current value on purpose
     expect(value()).toBe('b');
     expect(checkedValue(container)).toBe('b');
   });

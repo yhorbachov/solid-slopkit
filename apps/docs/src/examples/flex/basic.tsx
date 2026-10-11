@@ -1,3 +1,4 @@
+import { For } from 'solid-js';
 import { Box, Flex } from '@slopkit/ui';
 
 const surface = { background: 'var(--slp-color-base-200)', padding: '0.5rem' };
@@ -34,11 +35,13 @@ export default function Basic() {
         </Box>
       </Flex>
       <Flex wrap="wrap" gap={2} rowGap={4} style={{ ...surface, width: '20rem' }}>
-        {['wrap="wrap"', 'gap={2}', 'rowGap={4}', 'd', 'e', 'f'].map((label) => (
-          <Box p={2} w={24} style={item}>
-            {label}
-          </Box>
-        ))}
+        <For each={['wrap="wrap"', 'gap={2}', 'rowGap={4}', 'd', 'e', 'f']}>
+          {(label) => (
+            <Box p={2} w={24} style={item}>
+              {label}
+            </Box>
+          )}
+        </For>
       </Flex>
     </>
   );

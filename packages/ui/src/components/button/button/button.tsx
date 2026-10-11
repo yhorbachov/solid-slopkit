@@ -113,6 +113,7 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
     // Loading blocks interaction like `disabled`, but keeps the button's own look.
     const disabled = createMemo(() => !!mergedProps.disabled || !!mergedProps.loading);
 
+    // oxlint-disable-next-line solid/components-return-once -- the branch is decided once, untracked, above
     return (
       <button
         ref={mergedProps.ref as any}
