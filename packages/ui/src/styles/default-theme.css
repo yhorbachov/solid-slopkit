@@ -1,24 +1,28 @@
+/*
+ * The default theme supports both color schemes: colors that differ are written as light-dark(<light>, <dark>),
+ * and the theme does not set color-scheme, so slopkit.base (the OS, or [data-slp-color-scheme]) picks one.
+ */
 @layer slopkit.themes {
   :root {
-    --slp-color-base-100: #ffffff;
-    --slp-color-base-200: #f4f7fa;
-    --slp-color-base-300: #e8eef5;
-    --slp-color-base-content: #242424;
+    --slp-color-base-100: light-dark(#ffffff, #242424);
+    --slp-color-base-200: light-dark(#f4f7fa, #2e2e2e);
+    --slp-color-base-300: light-dark(#e8eef5, #3b3b3b);
+    --slp-color-base-content: light-dark(#242424, #c9c9c9);
     --slp-color-primary: #fc6f3c;
     --slp-color-primary-content: #ffffff;
     --slp-color-secondary: oklch(70% 0.213 47.604);
     --slp-color-secondary-content: oklch(26% 0.051 172.552);
-    --slp-color-accent: oklch(0% 0 0);
-    --slp-color-accent-content: oklch(100% 0 0);
-    --slp-color-neutral: #242424;
+    --slp-color-accent: light-dark(oklch(0% 0 0), oklch(100% 0 0));
+    --slp-color-accent-content: light-dark(oklch(100% 0 0), oklch(0% 0 0));
+    --slp-color-neutral: light-dark(#242424, #424242);
     --slp-color-neutral-content: #ffffff;
-    --slp-color-info: #223ebb;
+    --slp-color-info: light-dark(#223ebb, #4263eb);
     --slp-color-info-content: #ffffff;
-    --slp-color-success: #0c9b4e;
+    --slp-color-success: light-dark(#0c9b4e, #2f9e44);
     --slp-color-success-content: #ffffff;
     --slp-color-warning: #d99c07;
     --slp-color-warning-content: #242424;
-    --slp-color-error: #cb2824;
+    --slp-color-error: light-dark(#cb2824, #e03131);
     --slp-color-error-content: #ffffff;
     --slp-radius-selector: 0.25rem;
     --slp-radius-field: 10px;

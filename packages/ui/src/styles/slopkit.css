@@ -164,6 +164,25 @@
 }
 
 /*
+ * Color scheme. Follow the OS by default; [data-slp-color-scheme="light" | "dark"] on any element forces one
+ * scheme for its subtree. Themes resolve their light-dark() tokens against it. A single-scheme theme sets
+ * color-scheme itself in slopkit.themes, a later layer, which pins it.
+ */
+@layer slopkit.base {
+  :root {
+    color-scheme: light dark;
+  }
+
+  [data-slp-color-scheme='light'] {
+    color-scheme: light;
+  }
+
+  [data-slp-color-scheme='dark'] {
+    color-scheme: dark;
+  }
+}
+
+/*
  * Default font. A system stack that ends with emoji fonts, so symbols and emoji do not send the browser
  * hunting for a fallback font (the browser default, often Times, lacks most of them). Override
  * --slp-font-family, or set font-family on body in your own unlayered CSS.
