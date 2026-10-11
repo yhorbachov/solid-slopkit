@@ -43,7 +43,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.10** An SSR/hydration test helper that every component's SSR test uses: `packages/ui/test/ssr.tsx`. Its own Vite server compiles each fixture for the server and, hydratably, for the client (Vitest's transform never produces hydratable code). It fails on any console message or thrown error on either side, and on any server element hydration didn't reuse.
 - [x] **M0.11** The default theme gets a dark set with `light-dark()`. Add `color-scheme` and `[data-slp-color-scheme]` in `slopkit.base` (ADR 0005).
 - [x] **M0.12** `useColorScheme()` on the provider: preference plus resolved scheme, persistence, and the pre-hydration head script.
-- [ ] **M0.13** `locale` on the provider, used by `Intl` (ADR 0009).
+- [x] **M0.13** `locale` on the provider, used by `Intl` (ADR 0009).
 - [ ] **M0.14** Palette shorthand and raw colors in `color` (ADR 0004), applied to Button and SegmentedControl.
 - [ ] **M0.15** Docs site: color scheme toggle and RTL toggle on every page.
 - [ ] **M0.16** LLM reference generator: docs pages plus props from types → `llm/<name>.md` and `llm/index.md`. Docs site serves `/llms.txt` and `/llms-full.txt` (ADR 0012).

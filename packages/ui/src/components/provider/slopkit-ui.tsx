@@ -1,4 +1,4 @@
-import { createContext, createSignal, untrack, useContext } from 'solid-js';
+import { createContext, createMemo, createSignal, untrack, useContext, type Accessor } from 'solid-js';
 import { isServer, useHead, type HeadTag, type JSX } from '@solidjs/web';
 import { createColorScheme, type ColorSchemeOptions, type UseColorScheme } from './color-scheme';
 
@@ -6,10 +6,27 @@ interface SlopkitUiContextValue {
   /** Adds a class's CSS to the provider's stylesheet. Registering a class that is already there is a no-op. */
   registerStyle(className: string, css: string): void;
   colorScheme: UseColorScheme;
+  locale: Accessor<string>;
 }
 
 export interface SlopkitUiProps extends ColorSchemeOptions {
+  /**
+   * The BCP 47 locale components format numbers and dates with, through `Intl`. Defaults to the enclosing
+   * provider's, or `en-US` at the root, never the runtime's: the server and the browser would format
+   * differently and break hydration.
+   */
+  locale?: string;
   children?: JSX.Element;
+}
+
+const DEFAULT_LOCALE = 'en-US';
+
+function canonicalLocale(locale: string): string {
+  try {
+    return Intl.getCanonicalLocales(locale)[0];
+  } catch {
+    throw new RangeError(`<SlopkitUi> got an invalid locale: "${locale}". Pass a BCP 47 tag like "de-DE".`);
+  }
 }
 
 const SlopkitUiContext = createContext<SlopkitUiContextValue | null>(null);
@@ -20,10 +37,18 @@ const SlopkitUiContext = createContext<SlopkitUiContextValue | null>(null);
  * whose last component unmounts keeps its rule. On the server, each request renders its own provider, so
  * styles never leak between requests.
  *
+ * It holds the locale (`useLocale()`), which a nested provider inherits unless it sets its own.
+ *
  * It also owns the color scheme preference (`useColorScheme()`), stored in localStorage and applied as
  * `data-slp-color-scheme` on <html>, by a head script before first paint and by the hook afterwards.
  */
 export function SlopkitUi(props: SlopkitUiProps) {
+  const parent = useContext(SlopkitUiContext);
+  const locale = createMemo(
+    () => (props.locale !== undefined ? canonicalLocale(props.locale) : (parent?.locale() ?? DEFAULT_LOCALE)),
+    { name: 'SlopkitUi.locale' },
+  );
+
   // Read once: the head script and the stored preference are keyed by them.
   const colorScheme = untrack(() =>
     createColorScheme({ defaultColorScheme: props.defaultColorScheme, colorSchemeStorageKey: props.colorSchemeStorageKey }),
@@ -60,6 +85,7 @@ export function SlopkitUi(props: SlopkitUiProps) {
 
   const context: SlopkitUiContextValue = {
     colorScheme: colorScheme.api,
+    locale,
     registerStyle(className, value) {
       if (styles.has(className)) return;
       styles.set(className, value);
@@ -84,4 +110,11 @@ export function useColorScheme(): UseColorScheme {
   const context = useContext(SlopkitUiContext);
   if (!context) throw new Error('useColorScheme() must be called inside <SlopkitUi>.');
   return context.colorScheme;
+}
+
+/** The locale of the nearest <SlopkitUi>, for `Intl` formatters. */
+export function useLocale(): Accessor<string> {
+  const context = useContext(SlopkitUiContext);
+  if (!context) throw new Error('useLocale() must be called inside <SlopkitUi>.');
+  return context.locale;
 }
