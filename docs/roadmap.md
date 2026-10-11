@@ -32,7 +32,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 ## M0 — Foundations
 
 - [x] **M0.01** Clean up `package.json`: remove the `./dates` export until M7, make `./slopkit.css` / `./slopkit.min.css` / `./styles/*` point at files the build actually produces (or remove them), and keep `files` in line with ADR 0012 (`dist`, `llm`, `skills`).
-- [ ] **M0.02** Stop the `$$moduleUrl` `NAMESPACE_CONFLICT` warning in consumer builds. The consumer's Solid plugin adds `export const $$moduleUrl` to each compiled module, and our `export *` index files re-export it from several modules. Reproduce with the docs production build (`pnpm build` in `packages/ui`, then in `apps/docs`).
+- [x] **M0.02** Silence the `$$moduleUrl` `NAMESPACE_CONFLICT` warning in the docs production build. The Solid plugin adds `export const $$moduleUrl` to every module it compiles for the server except under `node_modules`. The docs app resolves `@slopkit/ui` through a workspace symlink to `packages/ui`, so our `export *` index files re-export several. Consumers install the tarball under `node_modules` and never get it, which was verified with a packed tarball in a scratch SSR app. Fixed with a narrow warning filter in `apps/docs/vite.config.ts`.
 - [ ] **M0.03** `pnpm release:pack`: build and `pnpm pack` into `release/`. Add a workflow that attaches the tarball to a GitHub Release tagged `ui-v<version>` (ADR 0001). Write install docs, including the token needed while the repo is private.
 - [ ] **M0.04** A vitest browser project (Chromium via `@vitest/browser-playwright`) next to jsdom, for `*.browser.test.tsx`.
 - [ ] **M0.05** An SSR/hydration test helper that every component's SSR test uses.
