@@ -6,7 +6,6 @@ Each link below is the reference for one component: its props, examples, and the
 
 Task guides live next to `dist/` in the package, at `node_modules/@solid-slopkit/ui/skills/<area>/SKILL.md`:
 
-- `skills/theming/SKILL.md`: change the look, write themes, light/dark toggle, customize one component.
 - `skills/layout/SKILL.md`: pick a layout component, style props, responsive values.
 
 ## Setup
