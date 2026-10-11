@@ -4,6 +4,11 @@ A component library for SolidJS 2.x, styled with plain CSS and CSS variables. So
 
 Each link below is the reference for one component: its props, examples, and the selectors and CSS variables to customize it with. Paths are relative to this file.
 
+Task guides live next to `dist/` in the package, at `node_modules/@solid-slopkit/ui/skills/<area>/SKILL.md`:
+
+- `skills/theming/SKILL.md`: change the look, write themes, light/dark toggle, customize one component.
+- `skills/layout/SKILL.md`: pick a layout component, style props, responsive values.
+
 ## Setup
 
 ```tsx

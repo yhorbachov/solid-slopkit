@@ -1,6 +1,8 @@
 /*
  * The default theme supports both color schemes: colors that differ are written as light-dark(<light>, <dark>),
  * and the theme does not set color-scheme, so slopkit.base (the OS, or [data-slp-color-scheme]) picks one.
+ *
+ * The values are a work in progress, to be decided before 0.0.1 (roadmap M8.02).
  */
 @layer slopkit.themes {
   :root {

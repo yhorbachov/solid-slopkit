@@ -9,6 +9,6 @@ The package isn't on npm and the docs site may stay private (ADR 0001), so docs 
 
 ## Considered Options
 
-- **Generated from the docs pages and the TypeScript types:** rejected as too much machinery: rendering or parsing the docs pages, and extracting props needs a compiler API that TypeScript 7 only offers as unstable. A handwritten file is a third copy of the props after the types and the docs page, so it can drift. Reviewing the reference with every API change, and the docs audit before a release (M8.02), keep it in line.
+- **Generated from the docs pages and the TypeScript types:** rejected as too much machinery: rendering or parsing the docs pages, and extracting props needs a compiler API that TypeScript 7 only offers as unstable. A handwritten file is a third copy of the props after the types and the docs page, so it can drift. Reviewing the reference with every API change, and the docs audit before a release (M8.03), keep it in line.
 - **Serving `/llms.txt` from the docs site:** dropped. The files in the package are the ones an agent can reach, and they match the installed version.
 - **Docs site only:** rejected, because it is unreachable for agents while the repo is private and isn't versioned with the installed package.

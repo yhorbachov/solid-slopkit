@@ -9,6 +9,7 @@
 - A step marked **Gate** is a decision the maintainer makes. Don't implement anything that depends on it until the gate is marked decided.
 - When a step is done, tick its box in this file in the same commit.
 - The API of each component is chosen on its merits (ADR 0006). Compare options and recommend one; don't copy another library.
+- The default theme's values are a work in progress until M8.02. Don't tune them inside other steps; components read only tokens, so they follow whatever the theme ends up being.
 
 ## Definition of done (every component step)
 
@@ -46,7 +47,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.13** `locale` on the provider, used by `Intl` (ADR 0009).
 - [x] **M0.15** Docs site: color scheme toggle on every page.
 - [x] **M0.16** LLM references: a handwritten `<component>.md` next to each component and the provider, an index in `src/llms.md`, and the build ships them in `dist/source/` (ADR 0012).
-- [ ] **M0.17** `skills/` scaffold with the first skills: theming and color scheme, layout and style props.
+- [x] **M0.17** `skills/` scaffold with the first skills: theming and color scheme, layout and style props.
 - [ ] **M0.18** Box and Flex meet the definition of done.
 - [ ] **M0.19** Stack meets the definition of done.
 - [ ] **M0.20** Group meets the definition of done.
@@ -201,8 +202,9 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 ## M8 — Release 0.0.1
 
 - [ ] **M8.01** Export the stable primitives from `@solid-slopkit/ui/primitives` (ADR 0007)
-- [ ] **M8.02** Audit the docs, LLM references and skills against the shipped API
-- [ ] **M8.03** Tag `ui-v0.0.1` and publish the GitHub Release
+- [ ] **M8.02** Decide the default theme's values (it is a work in progress until then), then update everything that quotes them: the docs Theming page, the theming skill and the LLM references.
+- [ ] **M8.03** Audit the docs, LLM references and skills against the shipped API
+- [ ] **M8.04** Tag `ui-v0.0.1` and publish the GitHub Release
 
 ## Not in 0.0.1
 

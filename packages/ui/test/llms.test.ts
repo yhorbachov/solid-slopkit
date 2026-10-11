@@ -1,5 +1,5 @@
-// The LLM references are handwritten (ADR 0012). This keeps the index and the files in step: every link in
-// src/llms.md resolves, and every component folder has its reference and is linked from the index.
+// The LLM references and skills are handwritten (ADR 0012). This keeps the index and the files in step: every
+// link in src/llms.md resolves, every component folder has its reference, and every skill is listed.
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -32,5 +32,18 @@ describe('LLM references', () => {
 
   test('the provider has a reference, linked from llms.md', () => {
     expect(links).toContain('components/provider/slopkit-ui.md');
+  });
+});
+
+const skills = join(src, '../skills');
+const skillNames = readdirSync(skills, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name);
+
+describe('skills', () => {
+  test.each(skillNames)('%s has a SKILL.md with a name and description, listed in llms.md', (name) => {
+    const skill = readFileSync(join(skills, name, 'SKILL.md'), 'utf8');
+    expect(skill).toMatch(/^---\nname: slopkit-[a-z-]+\ndescription: .+\n---\n/);
+    expect(index).toContain(`skills/${name}/SKILL.md`);
   });
 });
