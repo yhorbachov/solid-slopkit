@@ -304,6 +304,8 @@ const VALUE_FORMATS: Partial<Record<StyleGroup, Record<string, (value: SizeValue
     'grid-template-columns': (cols) => (typeof cols === 'number' ? `repeat(${cols},minmax(0,1fr))` : undefined),
   },
   grid: {
+    // The gutter is used inside calc(), where a unitless 0 is invalid.
+    '--_grid-gutter': (gutter) => (gutter === 0 ? '0px' : undefined),
     '--_grid-columns': (columns) => (typeof columns === 'number' ? String(columns) : undefined),
   },
   gridCol: {

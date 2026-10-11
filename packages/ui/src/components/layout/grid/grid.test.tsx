@@ -1,9 +1,11 @@
 import { render } from '@solidjs/testing-library';
 import { createSignal, flush } from 'solid-js';
 import { captureArtifact } from '@solidjs/diagnostics';
+import axe from 'axe-core';
 import { describe, expect, test } from 'vitest';
 import { SlopkitUi } from '../../provider';
 import { resolveStyleClass, resolveStyleProps } from '../../../style-props';
+import { expectHydration } from '../../../../test/ssr';
 import { Grid } from './grid';
 
 const maxWidth = (span: number) => `max(${width(span)},var(--_grid-grow) * 100%)`;
@@ -21,6 +23,10 @@ describe('<Grid />', () => {
       base: ['--_grid-gutter:calc(var(--slp-spacing) * 2)', '--_grid-columns:24', 'justify-content:center'],
       md: ['--_grid-gutter:calc(var(--slp-spacing) * 6)'],
     });
+  });
+
+  test('a gutter of 0 has a unit, since it is used in calc()', () => {
+    expect(resolveStyleProps({ gutter: 0 }, 'grid')).toEqual({ base: ['--_grid-gutter:0px', '--_grid-columns:12'] });
   });
 
   test('renders a div with the grid classes and passes other props through', () => {
@@ -81,5 +87,81 @@ describe('<Grid.Col />', () => {
     expect(col).toHaveClass('slp-grid-col', resolveStyleClass({ span: 4 }, 'gridCol')!.className);
     expect(artifact).toHaveNoDiagnostics();
     expect(artifact).toHaveNoWaste();
+    expect(artifact).toStayWithinRerunBudget(1, { scope: /Grid\.Col/ });
+  });
+
+  test('passes other props through', () => {
+    const { getByTestId } = render(() => (
+      <SlopkitUi>
+        <Grid>
+          <Grid.Col data-testid="col" span={6} class="mine" id="c" />
+        </Grid>
+      </SlopkitUi>
+    ));
+    flush();
+    const col = getByTestId('col');
+
+    expect(col).toHaveClass('slp-grid-col', 'mine');
+    expect(col).toHaveAttribute('id', 'c');
+    expect(col).not.toHaveAttribute('span');
+  });
+});
+
+describe('<Grid /> with columns', () => {
+  test('changing the gutter and grow updates the grid without diagnostics or waste', async () => {
+    const [gutter, setGutter] = createSignal(4, { name: 'gutter' });
+    const [grow, setGrow] = createSignal(false, { name: 'grow' });
+    const { getByTestId } = render(() => (
+      <SlopkitUi>
+        <Grid data-testid="grid" gutter={gutter()} grow={grow()}>
+          <Grid.Col span={6} />
+        </Grid>
+      </SlopkitUi>
+    ));
+    flush();
+    const grid = getByTestId('grid');
+
+    const { artifact } = await captureArtifact(
+      () => {
+        setGutter(8);
+        setGrow(true);
+      },
+      { scenario: 'grid-gutter-grow' },
+    );
+
+    expect(grid).toHaveClass(resolveStyleClass({ gutter: 8 }, 'grid')!.className);
+    expect(grid).toHaveAttribute('data-grow', '');
+    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoWaste();
+    expect(artifact).toStayWithinRerunBudget(1, { scope: /^Grid\./ });
+  });
+
+  test('has no axe violations', async () => {
+    const { container } = render(() => (
+      <SlopkitUi>
+        <Grid>
+          <Grid.Col span={{ base: 12, md: 6 }}>a</Grid.Col>
+          <Grid.Col span={6} offset={{ md: 2 }}>
+            b
+          </Grid.Col>
+        </Grid>
+        <Grid role="list" aria-label="Plans" grow columns={24} justify="center" align="start">
+          <Grid.Col role="listitem" span="auto">
+            One
+          </Grid.Col>
+          <Grid.Col role="listitem" span="content" order={-1}>
+            Two
+          </Grid.Col>
+        </Grid>
+      </SlopkitUi>
+    ));
+    flush();
+
+    const results = await axe.run(container);
+    expect(results.violations).toEqual([]);
+  });
+
+  test('hydrates the server render without mismatches or diagnostics', async () => {
+    await expectHydration('./grid.fixtures.tsx', 'columns');
   });
 });

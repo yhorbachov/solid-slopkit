@@ -38,7 +38,8 @@ export default function GridPage() {
       <H2 id="responsive">Responsive</H2>
       <p>
         <code>span</code>, <code>offset</code>, <code>order</code> and the grid's <code>gutter</code> take a value per breakpoint,
-        like <a href="/ui/box">Box</a>'s props.
+        like <a href="/ui/box">Box</a>'s props. <code>columns</code>, <code>justify</code> and <code>align</code> are not
+        responsive.
       </p>
       <Example component={Responsive} code={responsiveCode} column />
 
@@ -61,7 +62,9 @@ export default function GridPage() {
       <Example component={Grow} code={growCode} column />
 
       <H2 id="grid-props">Grid props</H2>
-      <p>Other props are passed to the rendered div.</p>
+      <p>
+        Must be rendered inside <code>&lt;SlopkitUi&gt;</code>. Other props are passed to the <code>div</code>.
+      </p>
       <PropsTable
         rows={[
           {
@@ -72,13 +75,23 @@ export default function GridPage() {
           },
           { name: 'columns', type: 'number', default: '12', description: 'Number of columns a row is divided into.' },
           { name: 'grow', type: 'boolean', default: 'false', description: 'Columns in a row that is not full grow to fill it.' },
-          { name: 'justify', type: 'FlexJustify', description: <code>justify-content</code> },
-          { name: 'align', type: 'FlexAlign', description: <code>align-items</code> },
+          {
+            name: 'justify',
+            type: "'normal' | 'start' | 'end' | 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly' | 'stretch' | string",
+            description: <code>justify-content</code>,
+          },
+          {
+            name: 'align',
+            type: "'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'baseline' | string",
+            description: <code>align-items</code>,
+          },
         ]}
       />
 
       <H2 id="grid-col-props">Grid.Col props</H2>
-      <p>Other props are passed to the rendered div.</p>
+      <p>
+        Other props are passed to the <code>div</code>.
+      </p>
       <PropsTable
         rows={[
           {
@@ -91,6 +104,13 @@ export default function GridPage() {
           { name: 'order', type: 'ResponsiveValue<number>', description: <code>order</code> },
         ]}
       />
+
+      <H2 id="styling">Styling</H2>
+      <p>
+        Grid's root has the class <code>.slp-grid</code>, with <code>data-grow</code> when <code>grow</code> is set.{' '}
+        <code>Grid.Col</code> has its own root class, <code>.slp-grid-col</code>. Their rules live in{' '}
+        <code>@layer slopkit.components</code>, so unlayered CSS wins.
+      </p>
     </article>
   );
 }
