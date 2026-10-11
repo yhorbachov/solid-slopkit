@@ -1,6 +1,6 @@
 import type { ParentProps } from 'solid-js';
 import { HydrationScript } from '@solidjs/web';
-import { preferencesScript } from './layout/preferences';
+import { themeScript } from './layout/preferences';
 
 // The document shell (the index.html replacement), picked up by the
 // src/Document.* convention; it must render the full <html> and ships no
@@ -16,7 +16,7 @@ export default function Document(props: ParentProps) {
         <link rel="icon" href="/favicon.ico" />
         <title>slopkit</title>
         {/* oxlint-disable-next-line solid/no-innerhtml -- a constant script of our own, no input in it */}
-        <script innerHTML={preferencesScript} />
+        <script innerHTML={themeScript} />
         <HydrationScript />
       </head>
       <body>{props.children}</body>
