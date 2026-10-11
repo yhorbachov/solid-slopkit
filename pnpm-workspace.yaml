@@ -14,5 +14,5 @@ packages:
 # release and the policy can protect these packages like any other.
 minimumReleaseAgeExclude:
   - solid-js
-  - "@solidjs/*"
+  - '@solidjs/*'
   - filesystem-routing

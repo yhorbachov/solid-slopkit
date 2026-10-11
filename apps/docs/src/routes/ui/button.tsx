@@ -42,8 +42,8 @@ export default function ButtonPage() {
 
       <H2 id="variants">Variants</H2>
       <p>
-        <code>solid</code> is the default. <code>soft</code>, <code>outline</code> and <code>dash</code> switch to the
-        solid look on hover and focus; <code>ghost</code> only gets a light tint.
+        <code>solid</code> is the default. <code>soft</code>, <code>outline</code> and <code>dash</code> switch to the solid look
+        on hover and focus; <code>ghost</code> only gets a light tint.
       </p>
       <Example component={Variants} code={variantsCode} />
 

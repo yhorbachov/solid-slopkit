@@ -1,24 +1,24 @@
 {
-    "name": "slopkit",
-    "version": "0.0.0",
-    "description": "",
-    "type": "module",
-    "scripts": {
-        "dev": "pnpm --filter docs dev",
-        "build": "pnpm -r build",
-        "lint": "oxlint apps packages",
-        "test": "pnpm -r --if-present test",
-        "format": "oxfmt",
-        "format:check": "oxfmt --check"
-    },
-    "license": "MIT",
-    "engines": {
-        "node": ">=22.18"
-    },
-    "devDependencies": {
-        "eslint-plugin-solid": "~0.18.1",
-        "oxlint": "~1.87.0",
-        "oxfmt": "^0.72.0",
-        "typescript": "^5.9.2"
-    }
+  "name": "slopkit",
+  "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter docs dev",
+    "build": "pnpm -r build",
+    "lint": "oxlint apps packages",
+    "test": "pnpm -r --if-present test",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check"
+  },
+  "devDependencies": {
+    "eslint-plugin-solid": "~0.18.1",
+    "oxfmt": "^0.72.0",
+    "oxlint": "~1.87.0",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=22.18"
+  }
 }
