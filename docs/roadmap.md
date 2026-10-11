@@ -31,7 +31,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 ## M0 — Foundations
 
-- [ ] **M0.01** Clean up `package.json`: remove the `./dates` export until M7, make `./slopkit.css` / `./slopkit.min.css` / `./styles/*` point at files the build actually produces (or remove them), and keep `files` in line with ADR 0012 (`dist`, `llm`, `skills`).
+- [x] **M0.01** Clean up `package.json`: remove the `./dates` export until M7, make `./slopkit.css` / `./slopkit.min.css` / `./styles/*` point at files the build actually produces (or remove them), and keep `files` in line with ADR 0012 (`dist`, `llm`, `skills`).
 - [ ] **M0.02** `pnpm release:pack`: build and `pnpm pack` into `release/`. Add a workflow that attaches the tarball to a GitHub Release tagged `ui-v<version>` (ADR 0001). Write install docs, including the token needed while the repo is private.
 - [ ] **M0.03** A vitest browser project (Chromium via `@vitest/browser-playwright`) next to jsdom, for `*.browser.test.tsx`.
 - [ ] **M0.04** An SSR/hydration test helper that every component's SSR test uses.
