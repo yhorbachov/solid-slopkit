@@ -6,7 +6,7 @@ Documentation site for the slopkit packages: header + sidebar + main content, bu
 pnpm dev
 ```
 
-In dev, `@slopkit/ui` and its CSS resolve to the package source (`slopkit-from-source.ts`), so edits to components show up immediately.
+In dev, `@solid-slopkit/ui` and its CSS resolve to the package source (`slopkit-from-source.ts`), so edits to components show up immediately.
 
 ## Structure
 

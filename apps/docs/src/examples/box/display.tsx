@@ -1,4 +1,4 @@
-import { Box } from '@slopkit/ui';
+import { Box } from '@solid-slopkit/ui';
 
 const surface = { background: 'var(--slp-color-base-200)' };
 const item = { background: 'var(--slp-color-base-300)' };

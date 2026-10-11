@@ -9,11 +9,11 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest run",
-    "typecheck": "pnpm --filter @slopkit/i18n build:plugin && node ../../packages/i18n/dist/cli.js typegen && tsc --noEmit"
+    "typecheck": "pnpm --filter @solid-slopkit/i18n build:plugin && node ../../packages/i18n/dist/cli.js typegen && tsc --noEmit"
   },
   "dependencies": {
     "@lucide/solid": "^1.52.0",
-    "@slopkit/ui": "workspace:*",
+    "@solid-slopkit/ui": "workspace:*",
     "@solidjs/meta": "^1.0.0-next.2",
     "@solidjs/router": "^2.0.0-next.30",
     "@solidjs/web": "^2.0.0-rc.13",

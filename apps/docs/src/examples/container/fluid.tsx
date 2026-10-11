@@ -1,4 +1,4 @@
-import { Container } from '@slopkit/ui';
+import { Container } from '@solid-slopkit/ui';
 
 const content = { background: 'var(--slp-color-base-300)', padding: '0.5rem' };
 

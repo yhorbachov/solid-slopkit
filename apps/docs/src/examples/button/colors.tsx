@@ -1,5 +1,5 @@
 import { For } from 'solid-js';
-import { Button } from '@slopkit/ui';
+import { Button } from '@solid-slopkit/ui';
 
 const colors = ['neutral', 'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'] as const;
 

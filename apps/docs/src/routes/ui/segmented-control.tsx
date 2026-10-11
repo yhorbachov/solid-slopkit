@@ -29,7 +29,7 @@ export default function SegmentedControlPage() {
       </p>
 
       <H2 id="import">Import</H2>
-      <CodeBlock code={`import { SegmentedControl } from '@slopkit/ui';`} />
+      <CodeBlock code={`import { SegmentedControl } from '@solid-slopkit/ui';`} />
 
       <H2 id="usage">Usage</H2>
       <p>

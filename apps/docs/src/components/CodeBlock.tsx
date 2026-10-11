@@ -1,5 +1,5 @@
 import { createMemo, createSignal, Loading, onCleanup } from 'solid-js';
-import { Button } from '@slopkit/ui';
+import { Button } from '@solid-slopkit/ui';
 import { Check, Copy } from '@lucide/solid';
 import { highlight, type CodeLang } from './highlight';
 

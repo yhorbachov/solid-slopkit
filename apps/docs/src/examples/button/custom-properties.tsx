@@ -1,4 +1,4 @@
-import { Button } from '@slopkit/ui';
+import { Button } from '@solid-slopkit/ui';
 
 export default function CustomProperties() {
   return (

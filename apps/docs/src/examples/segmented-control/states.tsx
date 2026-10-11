@@ -1,4 +1,4 @@
-import { SegmentedControl } from '@slopkit/ui';
+import { SegmentedControl } from '@solid-slopkit/ui';
 
 export default function States() {
   return (

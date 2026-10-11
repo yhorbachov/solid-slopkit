@@ -8,7 +8,7 @@ const packageDir = fileURLToPath(new URL('..', import.meta.url));
 const releaseDir = fileURLToPath(new URL('../../../release/', import.meta.url));
 const { name, version } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 
-// `pnpm pack` names the file after the package: @slopkit/ui@1.2.3 -> slopkit-ui-1.2.3.tgz.
+// `pnpm pack` names the file after the package: @solid-slopkit/ui@1.2.3 -> solid-slopkit-ui-1.2.3.tgz.
 const tarball = `${releaseDir}${name.replace('@', '').replace('/', '-')}-${version}.tgz`;
 if (existsSync(tarball)) {
   console.error(`${tarball} already exists. Bump the version in package.json or delete the file.`);

@@ -1,4 +1,4 @@
-# @slopkit/ui roadmap to 0.0.1
+# @solid-slopkit/ui roadmap to 0.0.1
 
 0.0.1 is the first release. It ships nearly every component in Mantine's set (ADR 0006). Decisions live in [docs/adr](./adr) and vocabulary in [CONTEXT.md](../CONTEXT.md).
 
@@ -32,7 +32,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 ## M0 — Foundations
 
 - [x] **M0.01** Clean up `package.json`: remove the `./dates` export until M7, make `./slopkit.css` / `./slopkit.min.css` / `./styles/*` point at files the build actually produces (or remove them), and keep `files` in line with ADR 0012 (`dist`, `llm`, `skills`).
-- [x] **M0.02** Silence the `$$moduleUrl` `NAMESPACE_CONFLICT` warning in the docs production build. The Solid plugin adds `export const $$moduleUrl` to every module it compiles for the server except under `node_modules`. The docs app resolves `@slopkit/ui` through a workspace symlink to `packages/ui`, so our `export *` index files re-export several. Consumers install the tarball under `node_modules` and never get it, which was verified with a packed tarball in a scratch SSR app. Fixed with a narrow warning filter in `apps/docs/vite.config.ts`.
+- [x] **M0.02** Silence the `$$moduleUrl` `NAMESPACE_CONFLICT` warning in the docs production build. The Solid plugin adds `export const $$moduleUrl` to every module it compiles for the server except under `node_modules`. The docs app resolves `@solid-slopkit/ui` through a workspace symlink to `packages/ui`, so our `export *` index files re-export several. Consumers install the tarball under `node_modules` and never get it, which was verified with a packed tarball in a scratch SSR app. Fixed with a narrow warning filter in `apps/docs/vite.config.ts`.
 - [x] **M0.03** Make `pnpm lint` run. oxlint fails to load `oxlint.config.ts` ("Unknown file extension .ts") on Node 22.17, so linting is currently off. Make it work on the Node versions the repo supports, then fix or report what the restored lint finds.
 - [x] **M0.04** Move to pnpm 12 and refresh dependencies. The `packageManager` pin is gone, and the lockfile was regenerated from scratch: Solid rc.14, vite-plugin next.49, router next.38, vite 8.3.4, oxlint 1.87, playwright 1.64, and `@types/node` ^24 to match the Node pin.
 - [x] **M0.05** Make `pnpm format:check` pass. Eight files predate it and aren't formatted: root `package.json`, `.zed/settings.json`, `file-routes.d.ts`, `pnpm-workspace.yaml`, `apps/docs/src/routes/ui/button.tsx`, `packages/ui/src/styles/slopkit.css`, and both `packages/ui` tsconfigs. Run `oxfmt`, or ignore generated files, and keep the result committed.
@@ -179,9 +179,9 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [ ] **M6.02** Modals manager: provider store, `useModals()`, the `modals` facade, confirm modal
 - [ ] **M6.03** Spotlight
 - [ ] **M6.04** Dropzone (own implementation, no dependency)
-- [ ] **M6.05** Carousel at `@slopkit/ui/carousel`, with `embla-carousel` as an optional peer (ADR 0002)
+- [ ] **M6.05** Carousel at `@solid-slopkit/ui/carousel`, with `embla-carousel` as an optional peer (ADR 0002)
 
-## M7 — Dates (`@slopkit/ui/dates`, native `Date` + `Intl`, ADR 0003)
+## M7 — Dates (`@solid-slopkit/ui/dates`, native `Date` + `Intl`, ADR 0003)
 
 - [ ] **M7.01** Add the `./dates` subpath export, plus date utilities on `Date` and `Intl` (week start, month grid, formatting by provider `locale`)
 - [ ] **M7.02** Primitive: grid keyboard navigation (days, months, years; RTL)
@@ -201,7 +201,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 ## M8 — Release 0.0.1
 
-- [ ] **M8.01** Export the stable primitives from `@slopkit/ui/primitives` (ADR 0007)
+- [ ] **M8.01** Export the stable primitives from `@solid-slopkit/ui/primitives` (ADR 0007)
 - [ ] **M8.02** Audit the docs, LLM references and skills against the shipped API
 - [ ] **M8.03** Tag `ui-v0.0.1` and publish the GitHub Release
 

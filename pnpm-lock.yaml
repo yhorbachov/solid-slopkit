@@ -26,7 +26,7 @@ importers:
       '@lucide/solid':
         specifier: ^1.52.0
         version: 1.52.0(solid-js@2.0.0-rc.14)
-      '@slopkit/ui':
+      '@solid-slopkit/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@solidjs/meta':

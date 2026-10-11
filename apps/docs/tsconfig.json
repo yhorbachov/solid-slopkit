@@ -19,7 +19,7 @@
     "skipLibCheck": true,
     "types": ["vite/client"],
     "paths": {
-      "@slopkit/ui": ["../../packages/ui/src/index.ts"]
+      "@solid-slopkit/ui": ["../../packages/ui/src/index.ts"]
     }
   },
   "include": ["src", "*.ts", "file-routes.d.ts"]

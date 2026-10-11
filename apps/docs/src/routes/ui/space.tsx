@@ -20,7 +20,7 @@ export default function SpacePage() {
       </p>
 
       <H2 id="import">Import</H2>
-      <CodeBlock code={`import { Space } from '@slopkit/ui';`} />
+      <CodeBlock code={`import { Space } from '@solid-slopkit/ui';`} />
 
       <H2 id="vertical">Vertical</H2>
       <p>

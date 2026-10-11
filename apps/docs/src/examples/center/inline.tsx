@@ -1,4 +1,4 @@
-import { Center } from '@slopkit/ui';
+import { Center } from '@solid-slopkit/ui';
 
 export default function Inline() {
   return (

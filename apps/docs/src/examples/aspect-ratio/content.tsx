@@ -1,4 +1,4 @@
-import { AspectRatio, Center } from '@slopkit/ui';
+import { AspectRatio, Center } from '@solid-slopkit/ui';
 
 export default function Content() {
   return (

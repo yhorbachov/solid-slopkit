@@ -11,4 +11,4 @@ Interactive behavior (focus trapping, dismissal, list and grid keyboard navigati
 
 - The roadmap has to build the primitives before the components that need them, and ARIA correctness is our responsibility. Every interactive component gets keyboard and axe-core tests.
 - The primitive set is finite and shared, so after it exists, most components are composition plus CSS.
-- Primitives stay internal until 0.0.1, so they can change shape as more components use them. At 0.0.1, the stable, generally useful ones are exported from a `@slopkit/ui/primitives` subpath.
+- Primitives stay internal until 0.0.1, so they can change shape as more components use them. At 0.0.1, the stable, generally useful ones are exported from a `@solid-slopkit/ui/primitives` subpath.

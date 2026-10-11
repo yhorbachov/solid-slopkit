@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { SegmentedControl } from '@slopkit/ui';
+import { SegmentedControl } from '@solid-slopkit/ui';
 
 type View = 'list' | 'grid' | 'board';
 

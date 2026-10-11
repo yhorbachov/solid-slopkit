@@ -21,7 +21,7 @@ export default function ContainerPage() {
       </p>
 
       <H2 id="import">Import</H2>
-      <CodeBlock code={`import { Container } from '@slopkit/ui';`} />
+      <CodeBlock code={`import { Container } from '@solid-slopkit/ui';`} />
 
       <H2 id="size">Size</H2>
       <p>

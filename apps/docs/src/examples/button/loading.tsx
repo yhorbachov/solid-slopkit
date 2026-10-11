@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { Button } from '@slopkit/ui';
+import { Button } from '@solid-slopkit/ui';
 
 export default function Loading() {
   const [saving, setSaving] = createSignal(false);

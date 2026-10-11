@@ -1,5 +1,5 @@
 import { Title } from '@solidjs/meta';
-import { Button } from '@slopkit/ui';
+import { Button } from '@solid-slopkit/ui';
 import { ArrowRight } from '@lucide/solid';
 
 export default function Home() {

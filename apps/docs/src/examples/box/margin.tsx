@@ -1,4 +1,4 @@
-import { Box } from '@slopkit/ui';
+import { Box } from '@solid-slopkit/ui';
 
 const container = { border: '1px dashed currentColor', 'align-self': 'stretch' };
 const surface = { background: 'var(--slp-color-base-200)' };

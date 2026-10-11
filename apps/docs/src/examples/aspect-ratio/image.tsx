@@ -1,5 +1,5 @@
 import { For } from 'solid-js';
-import { AspectRatio, SimpleGrid } from '@slopkit/ui';
+import { AspectRatio, SimpleGrid } from '@solid-slopkit/ui';
 
 export default function Image() {
   return (

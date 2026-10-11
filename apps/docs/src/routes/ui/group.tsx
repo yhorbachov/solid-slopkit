@@ -21,7 +21,7 @@ export default function GroupPage() {
       </p>
 
       <H2 id="import">Import</H2>
-      <CodeBlock code={`import { Group } from '@slopkit/ui';`} />
+      <CodeBlock code={`import { Group } from '@solid-slopkit/ui';`} />
 
       <H2 id="usage">Usage</H2>
       <Example component={Basic} code={basicCode} column />

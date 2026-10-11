@@ -20,7 +20,7 @@ export default function FlexPage() {
       </p>
 
       <H2 id="import">Import</H2>
-      <CodeBlock code={`import { Flex } from '@slopkit/ui';`} />
+      <CodeBlock code={`import { Flex } from '@solid-slopkit/ui';`} />
 
       <H2 id="flex-props">Flex props</H2>
       <p>

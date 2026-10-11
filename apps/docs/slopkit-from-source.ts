@@ -11,9 +11,9 @@ export function slopkitFromSource(): Plugin {
     apply: 'serve',
     enforce: 'pre',
     resolveId(id) {
-      if (id === '@slopkit/ui') return librarySource;
-      if (id === '@slopkit/ui/styles/slopkit.css') return slopkitStylesCss;
-      if (id === '@slopkit/ui/styles/default-theme.css') return slopkitThemeCss;
+      if (id === '@solid-slopkit/ui') return librarySource;
+      if (id === '@solid-slopkit/ui/styles/slopkit.css') return slopkitStylesCss;
+      if (id === '@solid-slopkit/ui/styles/default-theme.css') return slopkitThemeCss;
     },
   };
 }

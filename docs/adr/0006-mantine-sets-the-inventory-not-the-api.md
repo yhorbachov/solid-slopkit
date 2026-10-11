@@ -10,4 +10,4 @@ A reader will see Mantine's component names (`Group`, `SimpleGrid`, `SegmentedCo
 - Choosing a component's API means comparing several libraries, not copying one.
 - Mantine's generic utility hooks (`useLocalStorage`, `useDebouncedValue`, `useIdle`, …) are out of scope. Solid and its ecosystem cover them. We only export primitives our own components are built from.
 - Out of 0.0.1: charts, CodeHighlight and RichTextEditor. Each is mostly a wrapper around a large third-party engine and is a library of its own, which apps that need it usually pick already. NavigationProgress is out too, because it isn't useful enough.
-- In, beyond Mantine core: dates, notifications, the modals manager, Spotlight, Dropzone and Carousel (`@slopkit/ui/carousel`, on `embla-carousel`).
+- In, beyond Mantine core: dates, notifications, the modals manager, Spotlight, Dropzone and Carousel (`@solid-slopkit/ui/carousel`, on `embla-carousel`).

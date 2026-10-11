@@ -32,7 +32,7 @@ export default defineConfig({
     rolldownOptions: {
       onwarn(warning, warn) {
         // The Solid plugin appends `export const $$moduleUrl` to every module it compiles for the
-        // server, except under node_modules. Here @slopkit/ui is a workspace symlink resolved to
+        // server, except under node_modules. Here @solid-slopkit/ui is a workspace symlink resolved to
         // packages/ui, so its modules get one each and the `export *` index files re-export several.
         // Consumers install it under node_modules and never see this.
         if (warning.code === 'NAMESPACE_CONFLICT' && warning.message.includes('"$$moduleUrl"')) return;

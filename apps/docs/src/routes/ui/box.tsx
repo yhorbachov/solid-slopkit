@@ -27,7 +27,7 @@ export default function BoxPage() {
       <p class="docs-lead">Work in progress. This page is a sandbox for the component.</p>
 
       <H2 id="import">Import</H2>
-      <CodeBlock code={`import { Box } from '@slopkit/ui';`} />
+      <CodeBlock code={`import { Box } from '@solid-slopkit/ui';`} />
 
       <H2 id="basic">Basic</H2>
       <Example component={Basic} code={basicCode} />

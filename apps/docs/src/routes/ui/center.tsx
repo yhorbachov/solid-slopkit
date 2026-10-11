@@ -21,7 +21,7 @@ export default function CenterPage() {
       </p>
 
       <H2 id="import">Import</H2>
-      <CodeBlock code={`import { Center } from '@slopkit/ui';`} />
+      <CodeBlock code={`import { Center } from '@solid-slopkit/ui';`} />
 
       <H2 id="usage">Usage</H2>
       <Example component={Basic} code={basicCode} column />

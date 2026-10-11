@@ -1,9 +1,9 @@
 import { Loading } from 'solid-js';
-import { SlopkitUi } from '@slopkit/ui';
+import { SlopkitUi } from '@solid-slopkit/ui';
 import { Router } from './router';
 import { Shell } from './layout/Shell';
-import '@slopkit/ui/styles/slopkit.css';
-import '@slopkit/ui/styles/default-theme.css';
+import '@solid-slopkit/ui/styles/slopkit.css';
+import '@solid-slopkit/ui/styles/default-theme.css';
 
 import './App.css';
 

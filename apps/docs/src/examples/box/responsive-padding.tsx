@@ -1,4 +1,4 @@
-import { Box } from '@slopkit/ui';
+import { Box } from '@solid-slopkit/ui';
 
 export default function ResponsivePadding() {
   return (

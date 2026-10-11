@@ -7,7 +7,7 @@ A component library for SolidJS 2.x. Its component set is modeled on Mantine's; 
 ### Building blocks
 
 **Component**:
-Something an app renders from `@slopkit/ui`, such as `Button` or `Select`. It has a look and a public prop API.
+Something an app renders from `@solid-slopkit/ui`, such as `Button` or `Select`. It has a look and a public prop API.
 
 **Layout component**:
 A component whose job is arranging other content (Box, Flex, Stack, Group, Grid, …). Only layout components take style props.

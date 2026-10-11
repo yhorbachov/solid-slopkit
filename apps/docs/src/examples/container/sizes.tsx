@@ -1,5 +1,5 @@
 import { For } from 'solid-js';
-import { Container, Stack } from '@slopkit/ui';
+import { Container, Stack } from '@solid-slopkit/ui';
 
 const content = { background: 'var(--slp-color-base-300)', padding: '0.5rem' };
 

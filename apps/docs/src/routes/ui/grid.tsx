@@ -27,7 +27,7 @@ export default function GridPage() {
       </p>
 
       <H2 id="import">Import</H2>
-      <CodeBlock code={`import { Grid } from '@slopkit/ui';`} />
+      <CodeBlock code={`import { Grid } from '@solid-slopkit/ui';`} />
       <p>
         <code>Grid.Col</code> is also exported as <code>GridCol</code>.
       </p>

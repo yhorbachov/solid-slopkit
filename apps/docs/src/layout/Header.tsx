@@ -1,4 +1,4 @@
-import { Button } from '@slopkit/ui';
+import { Button } from '@solid-slopkit/ui';
 import { Menu, X } from '@lucide/solid';
 
 export function Header(props: { navOpen: boolean; onToggleNav: () => void }) {

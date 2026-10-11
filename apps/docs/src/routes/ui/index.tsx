@@ -16,17 +16,17 @@ export default function UiOverview() {
       <p class="docs-eyebrow">UI</p>
       <h1>Overview</h1>
       <p class="docs-lead">
-        <code>@slopkit/ui</code> is a component library for SolidJS 2, styled with plain CSS and CSS variables. No CSS-in-JS and
-        no utility framework.
+        <code>@solid-slopkit/ui</code> is a component library for SolidJS 2, styled with plain CSS and CSS variables. No CSS-in-JS
+        and no utility framework.
       </p>
 
       <H2 id="installation">Installation</H2>
       <p>
-        <code>@slopkit/ui</code> isn't published to npm. Each version is a tarball attached to a{' '}
+        <code>@solid-slopkit/ui</code> isn't published to npm. Each version is a tarball attached to a{' '}
         <a href={RELEASES_URL}>GitHub Release</a>, and you install it from there. Replace <code>0.0.1</code> with the version you
         want.
       </p>
-      <CodeBlock lang="bash" code={`pnpm add ${RELEASES_URL}/download/ui-v0.0.1/slopkit-ui-0.0.1.tgz`} />
+      <CodeBlock lang="bash" code={`pnpm add ${RELEASES_URL}/download/ui-v0.0.1/solid-slopkit-ui-0.0.1.tgz`} />
       <p>
         It needs <code>solid-js</code> and <code>@solidjs/web</code> 2.x. The package ships uncompiled JSX, so the app must
         compile it with <code>@solidjs/vite-plugin</code>, the same way it compiles its own components.
@@ -38,8 +38,8 @@ export default function UiOverview() {
         palettes. The theme sets the <code>--slp-color-*</code> tokens components read.
       </p>
       <CodeBlock
-        code={`import '@slopkit/ui/styles/slopkit.css';
-import '@slopkit/ui/styles/default-theme.css';`}
+        code={`import '@solid-slopkit/ui/styles/slopkit.css';
+import '@solid-slopkit/ui/styles/default-theme.css';`}
       />
       <p>
         Everything lives in <code>@layer slopkit.*</code> cascade layers, so your own unlayered CSS always wins without
@@ -51,14 +51,14 @@ import '@slopkit/ui/styles/default-theme.css';`}
         Wrap the app in <code>&lt;SlopkitUi&gt;</code> once. Components that generate CSS at runtime, such as Box, add it there.
       </p>
       <CodeBlock
-        code={`import { SlopkitUi } from '@slopkit/ui';
+        code={`import { SlopkitUi } from '@solid-slopkit/ui';
 
 export function Root() {
   return <SlopkitUi>{/* your app */}</SlopkitUi>;
 }`}
       />
       <CodeBlock
-        code={`import { Button } from '@slopkit/ui';
+        code={`import { Button } from '@solid-slopkit/ui';
 
 export function Toolbar() {
   return <Button color="primary">Save</Button>;

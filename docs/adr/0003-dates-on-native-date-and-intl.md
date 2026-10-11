@@ -1,6 +1,6 @@
 # Dates on native Date and Intl, no date library
 
-The date components (`@slopkit/ui/dates`) work on native `Date` and format and localize with `Intl` (`DateTimeFormat`, `Locale` week info). Mantine uses `dayjs` instead. Most of what dayjs gives Mantine is locale formatting, which `Intl` now covers without shipping per-locale data, and dropping it keeps the package free of a date-library dependency.
+The date components (`@solid-slopkit/ui/dates`) work on native `Date` and format and localize with `Intl` (`DateTimeFormat`, `Locale` week info). Mantine uses `dayjs` instead. Most of what dayjs gives Mantine is locale formatting, which `Intl` now covers without shipping per-locale data, and dropping it keeps the package free of a date-library dependency.
 
 ## Considered Options
 

@@ -21,7 +21,7 @@ export default function AspectRatioPage() {
       </p>
 
       <H2 id="import">Import</H2>
-      <CodeBlock code={`import { AspectRatio } from '@slopkit/ui';`} />
+      <CodeBlock code={`import { AspectRatio } from '@solid-slopkit/ui';`} />
 
       <H2 id="image">Image</H2>
       <p>
