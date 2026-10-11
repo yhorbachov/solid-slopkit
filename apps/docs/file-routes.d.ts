@@ -47,6 +47,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/anchor";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/anchor")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/aspect-ratio";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/aspect-ratio")>;
@@ -226,6 +232,14 @@ declare module "virtual:file-routes" {
       id: "/ui/title";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/title")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/anchor";
+      id: "/ui/anchor";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/anchor")>;
       $$route?: undefined;
       children?: undefined;
     },

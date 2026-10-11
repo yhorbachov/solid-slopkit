@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button. Inputs: SegmentedControl. Typography: Text, Title. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button. Inputs: SegmentedControl. Typography: Text, Title, Anchor. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -69,7 +69,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 - [x] **M1.01** Text
 - [x] **M1.02** Title
-- [ ] **M1.03** Anchor
+- [x] **M1.03** Anchor
 - [ ] **M1.04** Paper
 - [ ] **M1.05** Card (with sections)
 - [ ] **M1.06** Divider
