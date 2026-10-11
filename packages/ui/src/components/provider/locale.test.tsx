@@ -4,6 +4,7 @@ import { createSignal, flush } from 'solid-js';
 import { describe, expect, test } from 'vitest';
 import { SlopkitUi, useLocale } from '.';
 import { renderAndHydrate } from '../../../test/ssr';
+import { NO_DIAGNOSTICS } from '../../../test/diagnostics';
 
 const Probe = (props: { id: string }) => {
   const locale = useLocale();
@@ -40,7 +41,7 @@ describe('useLocale()', () => {
     const { artifact } = await captureArtifact(() => setLocale('fr-FR'), { scenario: 'provider-locale' });
 
     expect(getByTestId('p')).toHaveTextContent('fr-FR');
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
   });
 

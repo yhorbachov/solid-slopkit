@@ -7,6 +7,7 @@ import { SlopkitUi } from '../../provider';
 import { resolveStyleClass, resolveStyleProps } from '../../../style-props';
 import { expectHydration } from '../../../../test/ssr';
 import { Grid } from './grid';
+import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 const maxWidth = (span: number) => `max(${width(span)},var(--_grid-grow) * 100%)`;
 const width = (span: number) => `calc((100% + var(--_grid-gutter)) * ${span} / var(--_grid-columns) - var(--_grid-gutter))`;
@@ -85,7 +86,7 @@ describe('<Grid.Col />', () => {
     const { artifact } = await captureArtifact(() => setSpan(4), { scenario: 'grid-col-span' });
 
     expect(col).toHaveClass('slp-grid-col', resolveStyleClass({ span: 4 }, 'gridCol')!.className);
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
     expect(artifact).toStayWithinRerunBudget(1, { scope: /Grid\.Col/ });
   });
@@ -131,7 +132,7 @@ describe('<Grid /> with columns', () => {
 
     expect(grid).toHaveClass(resolveStyleClass({ gutter: 8 }, 'grid')!.className);
     expect(grid).toHaveAttribute('data-grow', '');
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
     expect(artifact).toStayWithinRerunBudget(1, { scope: /^Grid\./ });
   });

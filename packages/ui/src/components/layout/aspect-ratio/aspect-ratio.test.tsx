@@ -7,6 +7,7 @@ import { SlopkitUi } from '../../provider';
 import { resolveStyleClass, resolveStyleProps } from '../../../style-props';
 import { expectHydration } from '../../../../test/ssr';
 import { AspectRatio } from './aspect-ratio';
+import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 const ratioClass = (ratio: number) => resolveStyleClass({ ratio }, 'aspectRatio')!.className;
 
@@ -47,7 +48,7 @@ describe('<AspectRatio />', () => {
 
     expect(wrapper).toHaveClass(ratioClass(21 / 9));
     expect(wrapper).not.toHaveClass(ratioClass(1));
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
     expect(artifact).toStayWithinRerunBudget(1, { scope: /AspectRatio/ });
   });

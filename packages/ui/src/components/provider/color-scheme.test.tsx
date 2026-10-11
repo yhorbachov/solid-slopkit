@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, test } from 'vitest';
 import { SlopkitUi, useColorScheme, type SlopkitUiProps, type UseColorScheme } from '.';
 import { colorSchemeScript } from './color-scheme';
 import { expectHydration, renderAndHydrate } from '../../../test/ssr';
+import { NO_DIAGNOSTICS } from '../../../test/diagnostics';
 
 const root = document.documentElement;
 const attribute = () => root.getAttribute('data-slp-color-scheme');
@@ -85,7 +86,7 @@ describe('useColorScheme()', () => {
     expect(text()).toBe('dark dark');
     expect(attribute()).toBe('dark');
     expect(localStorage.getItem('slp-color-scheme')).toBe('dark');
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
 
     scheme.setColorScheme('auto');

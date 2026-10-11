@@ -7,6 +7,7 @@ import { SlopkitUi } from '../../provider';
 import { resolveStyleClass } from '../../../style-props';
 import { expectHydration } from '../../../../test/ssr';
 import { Center } from './center';
+import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 const flexClass = (props: Parameters<typeof resolveStyleClass>[0]) => resolveStyleClass(props, 'flex')!.className;
 
@@ -39,7 +40,7 @@ describe('<Center />', () => {
 
     expect(center).toHaveClass(flexClass({ display: 'inline-flex', align: 'center', justify: 'center' }));
     expect(center).not.toHaveAttribute('inline');
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
     expect(artifact).toStayWithinRerunBudget(1, { scope: /Flex/ });
   });

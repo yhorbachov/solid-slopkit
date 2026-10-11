@@ -7,6 +7,7 @@ import { SlopkitUi } from '../../provider';
 import { resolveStyleClass, resolveStyleProps, type AllStyleProps } from '../../../style-props';
 import { expectHydration } from '../../../../test/ssr';
 import { Box } from './box';
+import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 const spacingClass = (props: AllStyleProps) => resolveStyleClass(props, 'spacing')!.className;
 
@@ -162,7 +163,7 @@ describe('<Box />', () => {
     expect(box).toHaveClass(spacingClass({ p: 6 }), resolveStyleClass({ w: 40 }, 'size')!.className);
     expect(box).not.toHaveClass(spacingClass({ p: 2 }));
     expect(box).toHaveClass(resolveStyleClass({ display: 'block' }, 'display')!.className);
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
     expect(artifact).toStayWithinRerunBudget(1, { scope: /Box/ });
   });

@@ -7,6 +7,7 @@ import { SlopkitUi } from '../../provider';
 import { resolveStyleClass } from '../../../style-props';
 import { expectHydration } from '../../../../test/ssr';
 import { Space } from './space';
+import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 describe('<Space />', () => {
   test('renders an empty div sized by w and h', () => {
@@ -55,7 +56,7 @@ describe('<Space />', () => {
 
     expect(space).toHaveClass(resolveStyleClass({ h: 10 }, 'size')!.className);
     expect(space).not.toHaveClass(resolveStyleClass({ h: 4 }, 'size')!.className);
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
     expect(artifact).toStayWithinRerunBudget(1, { scope: /Space/ });
   });

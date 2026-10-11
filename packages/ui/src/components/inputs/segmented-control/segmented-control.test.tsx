@@ -4,6 +4,7 @@ import { createSignal, flush } from 'solid-js';
 import axe from 'axe-core';
 import { describe, expect, test, vi } from 'vitest';
 import { SegmentedControl } from './segmented-control';
+import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 const radios = (container: HTMLElement) => [...container.querySelectorAll<HTMLInputElement>('input[type="radio"]')];
 const checkedValue = (container: HTMLElement) => radios(container).find((input) => input.checked)?.value;
@@ -139,7 +140,7 @@ describe('<SegmentedControl />', () => {
       { scenario: 'segmented-control-select' },
     );
 
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
   });
 

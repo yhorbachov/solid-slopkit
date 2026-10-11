@@ -7,6 +7,7 @@ import { SlopkitUi } from '../../provider';
 import { resolveStyleClass, resolveStyleProps } from '../../../style-props';
 import { expectHydration } from '../../../../test/ssr';
 import { Container } from './container';
+import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 const containerClass = (size: string | number) => resolveStyleClass({ size }, 'container')!.className;
 
@@ -48,7 +49,7 @@ describe('<Container />', () => {
 
     expect(container).toHaveClass(containerClass('100%'));
     expect(container).not.toHaveClass(containerClass('lg'));
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
     expect(artifact).toStayWithinRerunBudget(1, { scope: /Container/ });
   });

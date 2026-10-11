@@ -7,6 +7,7 @@ import { SlopkitUi } from '../../provider';
 import { resolveStyleClass, resolveStyleProps, type AllStyleProps, type FlexDirection } from '../../../style-props';
 import { expectHydration } from '../../../../test/ssr';
 import { Flex } from './flex';
+import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 const flexClass = (props: AllStyleProps) => resolveStyleClass(props, 'flex')!.className;
 
@@ -114,7 +115,7 @@ describe('<Flex />', () => {
 
     expect(flex).toHaveClass(flexClass({ direction: 'column', gap: 6 }));
     expect(flex).not.toHaveClass(flexClass({ direction: 'row', gap: 2 }));
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
     expect(artifact).toStayWithinRerunBudget(1, { scope: /Flex/ });
   });

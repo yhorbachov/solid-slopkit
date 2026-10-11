@@ -7,6 +7,7 @@ import { SlopkitUi } from '../../provider';
 import { resolveStyleClass, resolveStyleProps } from '../../../style-props';
 import { expectHydration } from '../../../../test/ssr';
 import { SimpleGrid } from './simple-grid';
+import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 const gridClass = (props: Parameters<typeof resolveStyleClass>[0]) => resolveStyleClass(props, 'simpleGrid')!.className;
 
@@ -66,7 +67,7 @@ describe('<SimpleGrid />', () => {
 
     expect(grid).toHaveClass(gridClass({ cols: 5 }));
     expect(grid).not.toHaveClass(gridClass({ cols: 2 }));
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
     expect(artifact).toStayWithinRerunBudget(1, { scope: /SimpleGrid/ });
   });

@@ -7,6 +7,7 @@ import { SlopkitUi } from '../../provider';
 import { resolveStyleClass } from '../../../style-props';
 import { expectHydration } from '../../../../test/ssr';
 import { Group } from './group';
+import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 const flexClass = (props: Parameters<typeof resolveStyleClass>[0]) => resolveStyleClass(props, 'flex')!.className;
 
@@ -61,7 +62,7 @@ describe('<Group />', () => {
 
     expect(group).toHaveAttribute('data-grow', '');
     expect(group).not.toHaveAttribute('data-prevent-grow-overflow');
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
   });
 
@@ -78,7 +79,7 @@ describe('<Group />', () => {
     const { artifact } = await captureArtifact(() => setGap(8), { scenario: 'group-gap' });
 
     expect(group).toHaveClass(flexClass({ gap: 8, align: 'center', justify: 'flex-start', wrap: 'wrap' }));
-    expect(artifact).toHaveNoDiagnostics();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
     expect(artifact).toHaveNoWaste();
     expect(artifact).toStayWithinRerunBudget(1, { scope: /Flex/ });
   });
