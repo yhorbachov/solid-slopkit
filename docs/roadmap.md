@@ -33,28 +33,29 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 - [x] **M0.01** Clean up `package.json`: remove the `./dates` export until M7, make `./slopkit.css` / `./slopkit.min.css` / `./styles/*` point at files the build actually produces (or remove them), and keep `files` in line with ADR 0012 (`dist`, `llm`, `skills`).
 - [x] **M0.02** Silence the `$$moduleUrl` `NAMESPACE_CONFLICT` warning in the docs production build. The Solid plugin adds `export const $$moduleUrl` to every module it compiles for the server except under `node_modules`. The docs app resolves `@slopkit/ui` through a workspace symlink to `packages/ui`, so our `export *` index files re-export several. Consumers install the tarball under `node_modules` and never get it, which was verified with a packed tarball in a scratch SSR app. Fixed with a narrow warning filter in `apps/docs/vite.config.ts`.
-- [ ] **M0.03** `pnpm release:pack`: build and `pnpm pack` into `release/`. Add a workflow that attaches the tarball to a GitHub Release tagged `ui-v<version>` (ADR 0001). Write install docs, including the token needed while the repo is private.
-- [ ] **M0.04** A vitest browser project (Chromium via `@vitest/browser-playwright`) next to jsdom, for `*.browser.test.tsx`.
-- [ ] **M0.05** An SSR/hydration test helper that every component's SSR test uses.
-- [ ] **M0.06** The default theme gets a dark set with `light-dark()`. Add `color-scheme` and `[data-slp-color-scheme]` in `slopkit.base` (ADR 0005).
-- [ ] **M0.07** `useColorScheme()` on the provider: preference plus resolved scheme, persistence, and the pre-hydration head script.
-- [ ] **M0.08** `locale` on the provider, used by `Intl` (ADR 0009).
-- [ ] **M0.09** Palette shorthand and raw colors in `color` (ADR 0004), applied to Button and SegmentedControl.
-- [ ] **M0.10** Docs site: color scheme toggle and RTL toggle on every page.
-- [ ] **M0.11** LLM reference generator: docs pages plus props from types → `llm/<name>.md` and `llm/index.md`. Docs site serves `/llms.txt` and `/llms-full.txt` (ADR 0012).
-- [ ] **M0.12** `skills/` scaffold with the first skills: theming and color scheme, layout and style props.
-- [ ] **M0.13** Box and Flex meet the definition of done.
-- [ ] **M0.14** Stack meets the definition of done.
-- [ ] **M0.15** Group meets the definition of done.
-- [ ] **M0.16** SimpleGrid meets the definition of done.
-- [ ] **M0.17** Grid meets the definition of done.
-- [ ] **M0.18** Container meets the definition of done.
-- [ ] **M0.19** Center meets the definition of done.
-- [ ] **M0.20** AspectRatio meets the definition of done.
-- [ ] **M0.21** Space meets the definition of done.
-- [ ] **M0.22** Button meets the definition of done.
-- [ ] **M0.23** SegmentedControl meets the definition of done.
-- [ ] **M0.24** Align Button and SegmentedControl with the styling contract (ADR 0013): add `data-slot` to their inner parts, and remove `--slp-button-border-radius` and `--slp-segmented-control-radius` in favor of selectors.
+- [ ] **M0.03** Make `pnpm lint` run. oxlint fails to load `oxlint.config.ts` ("Unknown file extension .ts") on Node 22.17, so linting is currently off. Make it work on the Node versions the repo supports, then fix or report what the restored lint finds.
+- [ ] **M0.04** `pnpm release:pack`: build and `pnpm pack` into `release/`. Add a workflow that attaches the tarball to a GitHub Release tagged `ui-v<version>` (ADR 0001). Write install docs, including the token needed while the repo is private.
+- [ ] **M0.05** A vitest browser project (Chromium via `@vitest/browser-playwright`) next to jsdom, for `*.browser.test.tsx`.
+- [ ] **M0.06** An SSR/hydration test helper that every component's SSR test uses.
+- [ ] **M0.07** The default theme gets a dark set with `light-dark()`. Add `color-scheme` and `[data-slp-color-scheme]` in `slopkit.base` (ADR 0005).
+- [ ] **M0.08** `useColorScheme()` on the provider: preference plus resolved scheme, persistence, and the pre-hydration head script.
+- [ ] **M0.09** `locale` on the provider, used by `Intl` (ADR 0009).
+- [ ] **M0.10** Palette shorthand and raw colors in `color` (ADR 0004), applied to Button and SegmentedControl.
+- [ ] **M0.11** Docs site: color scheme toggle and RTL toggle on every page.
+- [ ] **M0.12** LLM reference generator: docs pages plus props from types → `llm/<name>.md` and `llm/index.md`. Docs site serves `/llms.txt` and `/llms-full.txt` (ADR 0012).
+- [ ] **M0.13** `skills/` scaffold with the first skills: theming and color scheme, layout and style props.
+- [ ] **M0.14** Box and Flex meet the definition of done.
+- [ ] **M0.15** Stack meets the definition of done.
+- [ ] **M0.16** Group meets the definition of done.
+- [ ] **M0.17** SimpleGrid meets the definition of done.
+- [ ] **M0.18** Grid meets the definition of done.
+- [ ] **M0.19** Container meets the definition of done.
+- [ ] **M0.20** Center meets the definition of done.
+- [ ] **M0.21** AspectRatio meets the definition of done.
+- [ ] **M0.22** Space meets the definition of done.
+- [ ] **M0.23** Button meets the definition of done.
+- [ ] **M0.24** SegmentedControl meets the definition of done.
+- [ ] **M0.25** Align Button and SegmentedControl with the styling contract (ADR 0013): add `data-slot` to their inner parts, and remove `--slp-button-border-radius` and `--slp-segmented-control-radius` in favor of selectors.
 
 ## Gate — Styling contract for parts
 
