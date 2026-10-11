@@ -87,9 +87,6 @@ importers:
       '@floating-ui/dom':
         specifier: ^1.7.0
         version: 1.8.0
-      '@solidjs/meta':
-        specifier: ^1.0.0-next.2
-        version: 1.0.0-next.2(@solidjs/web@2.0.0-rc.14(solid-js@2.0.0-rc.14))(solid-js@2.0.0-rc.14)
       '@solidjs/web':
         specifier: '>=2.0.0-rc.11 <3'
         version: 2.0.0-rc.14(solid-js@2.0.0-rc.14)

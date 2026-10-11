@@ -1,0 +1,47 @@
+# Publishes @slopkit/ui as a GitHub Release (ADR 0001). Push a tag named ui-v<version>, where
+# <version> matches packages/ui/package.json, e.g. `git tag ui-v0.0.1 && git push origin ui-v0.0.1`.
+name: Release @slopkit/ui
+
+on:
+  push:
+    tags: ['ui-v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Node from mise.toml; pnpm 12 to match the lockfile.
+      - uses: jdx/mise-action@v2
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Tag matches the package version
+        run: |
+          version=$(node -p "require('./packages/ui/package.json').version")
+          if [ "${GITHUB_REF_NAME#ui-v}" != "$version" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match packages/ui/package.json version $version"
+            exit 1
+          fi
+
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm --filter @slopkit/ui exec tsc --noEmit -p tsconfig.json
+      - run: pnpm --filter docs exec tsc --noEmit -p tsconfig.json
+      - run: pnpm --filter @slopkit/ui test
+      - run: pnpm release:pack
+      # The docs site is a real consumer of the built package: its production build resolves
+      # @slopkit/ui through the package's exports.
+      - run: pnpm --filter docs build
+
+      - name: Create the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" release/*.tgz --title "@slopkit/ui ${GITHUB_REF_NAME#ui-v}" --generate-notes

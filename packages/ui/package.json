@@ -27,7 +27,8 @@
     "build:clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "build:source": "tsc -p tsconfig.build.json",
     "build:css": "node -e \"require('fs').cpSync('src','dist/source',{recursive:true,filter:s=>!require('path').extname(s)||s.endsWith('.css')})\"",
-    "test": "vitest run"
+    "test": "vitest run",
+    "release:pack": "node scripts/release-pack.mjs"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.0"
@@ -47,7 +48,6 @@
     "vitest": "^5.0.0"
   },
   "peerDependencies": {
-    "@solidjs/meta": "^1.0.0-next.2",
     "@solidjs/web": ">=2.0.0-rc.11 <3",
     "solid-js": ">=2.0.0-rc.11 <3"
   }
