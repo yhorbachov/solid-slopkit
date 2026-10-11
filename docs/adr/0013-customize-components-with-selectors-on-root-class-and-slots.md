@@ -10,7 +10,7 @@ This works without specificity fights because every component rule lives in `@la
 
 Public custom properties (`--slp-<component>-*`) exist only where one value feeds several derived declarations. Mostly that's color, which drives background, border, hover and active tints, shadow and text. Overriding the background directly would also override those states. A value that maps to a single declaration, like border radius, is not a custom property. Use a selector. Internal custom properties are named `--_*` and are not part of the contract.
 
-The root class, slot names, state attributes and public custom properties are public API. Renaming one is a breaking change. They're listed per component in the generated LLM reference (ADR 0012).
+The root class, slot names, state attributes and public custom properties are public API. Renaming one is a breaking change. They're listed per component in its LLM reference (ADR 0012).
 
 ## Considered Options
 

@@ -20,7 +20,7 @@
 - CSS uses only logical properties, reads only tokens (no `light-dark()`, no hard-coded colors), and goes in `@layer slopkit.components` (ADR 0005).
 - Built-in strings (accessible names, empty states) are props with English defaults.
 - Styling contract (ADR 0013): `.slp-<component>` on the root, `data-slot="<component>-<part>"` on every inner part, state and variant as `data-*` attributes, public custom properties only for values that feed several derived declarations (e.g. color).
-- A docs page with examples and the props, verified in light and dark. The LLM reference is generated from it (ADR 0012), and the relevant skill is updated.
+- A docs page with examples and the props, verified in light and dark. The LLM reference (`<component>.md` next to the source, ADR 0012) and the relevant skill are updated.
 - Exported from the package entry, and listed in the docs sidebar and the UI overview.
 
 ## Done
@@ -45,7 +45,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.12** `useColorScheme()` on the provider: preference plus resolved scheme, persistence, and the pre-hydration head script.
 - [x] **M0.13** `locale` on the provider, used by `Intl` (ADR 0009).
 - [x] **M0.15** Docs site: color scheme toggle on every page.
-- [ ] **M0.16** LLM reference generator: docs pages plus props from types → `llm/<name>.md` and `llm/index.md`. Docs site serves `/llms.txt` and `/llms-full.txt` (ADR 0012).
+- [x] **M0.16** LLM references: a handwritten `<component>.md` next to each component and the provider, an index in `src/llms.md`, and the build ships them in `dist/source/` (ADR 0012).
 - [ ] **M0.17** `skills/` scaffold with the first skills: theming and color scheme, layout and style props.
 - [ ] **M0.18** Box and Flex meet the definition of done.
 - [ ] **M0.19** Stack meets the definition of done.

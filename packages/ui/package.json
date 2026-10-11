@@ -5,7 +5,6 @@
   "license": "MIT",
   "files": [
     "dist",
-    "llm",
     "skills"
   ],
   "type": "module",
@@ -23,10 +22,10 @@
     "./styles/default-theme.css": "./dist/source/styles/default-theme.css"
   },
   "scripts": {
-    "build": "pnpm build:clean && pnpm build:source && pnpm build:css",
+    "build": "pnpm build:clean && pnpm build:source && pnpm build:assets",
     "build:clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "build:source": "tsc -p tsconfig.build.json",
-    "build:css": "node -e \"require('fs').cpSync('src','dist/source',{recursive:true,filter:s=>!require('path').extname(s)||s.endsWith('.css')})\"",
+    "build:assets": "node -e \"require('fs').cpSync('src','dist/source',{recursive:true,filter:s=>!require('path').extname(s)||/\\.(css|md)$/.test(s)})\"",
     "test": "vitest run",
     "release:pack": "node scripts/release-pack.mjs"
   },

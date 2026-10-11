@@ -36,7 +36,7 @@ A task-oriented guide for coding agents (`skills/<area>/SKILL.md`), shipped in t
 _Avoid_: guide, recipe
 
 **LLM reference**:
-The generated Markdown page for one component, provider or primitive (`llm/<name>.md`), shipped in the package.
+The handwritten Markdown page for one component or the provider (`<component>.md`, next to its source), shipped in the package. `llms.md` is their index.
 _Avoid_: llms.txt (that is only the index), API docs
 
 ### Color
