@@ -12,13 +12,12 @@
         "format:check": "oxfmt --check"
     },
     "license": "MIT",
-    "packageManager": "pnpm@10.14.0",
     "engines": {
         "node": ">=22.18"
     },
     "devDependencies": {
         "eslint-plugin-solid": "~0.18.1",
-        "oxlint": "~1.79.0",
+        "oxlint": "~1.87.0",
         "oxfmt": "^0.72.0",
         "typescript": "^5.9.2"
     }
