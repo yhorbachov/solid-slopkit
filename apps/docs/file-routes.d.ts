@@ -125,6 +125,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/checkbox";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/checkbox")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/close-button";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/close-button")>;
@@ -616,6 +622,14 @@ declare module "virtual:file-routes" {
       id: "/ui/divider";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/divider")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/checkbox";
+      id: "/ui/checkbox";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/checkbox")>;
       $$route?: undefined;
       children?: undefined;
     },

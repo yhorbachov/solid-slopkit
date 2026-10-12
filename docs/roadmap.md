@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: Fieldset, Input, InputWrapper, NativeSelect, NumberInput, PasswordInput, SegmentedControl, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: Checkbox, Fieldset, Input, InputWrapper, NativeSelect, NumberInput, PasswordInput, SegmentedControl, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -115,7 +115,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M2.06** PasswordInput
 - [x] **M2.07** NumberInput (uses provider `locale`)
 - [x] **M2.08** NativeSelect
-- [ ] **M2.09** Checkbox (with Checkbox.Group and Checkbox.Card)
+- [x] **M2.09** Checkbox (with Checkbox.Group and Checkbox.Card)
 - [ ] **M2.10** Radio (with Radio.Group and Radio.Card)
 - [ ] **M2.11** Switch (with Switch.Group)
 - [ ] **M2.12** Chip (with Chip.Group)
