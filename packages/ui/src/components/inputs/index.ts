@@ -7,5 +7,6 @@ export * from './number-input';
 export * from './password-input';
 export * from './radio';
 export * from './segmented-control';
+export * from './switch';
 export * from './text-input';
 export * from './textarea';

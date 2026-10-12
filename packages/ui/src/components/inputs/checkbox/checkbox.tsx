@@ -1,52 +1,11 @@
-import { createContext, createEffect, createSignal, createUniqueId, flush, omit, Show, untrack, useContext } from 'solid-js';
+import { createEffect, createUniqueId, flush, omit, Show, untrack } from 'solid-js';
 import { type JSX } from '@solidjs/web';
 import style from './checkbox.module.css';
 import { mergeRefs, type ElementProps, type Ref } from '../../../utils';
 import { joinClass } from '../../../style-props';
 import { choiceClass, createChoiceText, type ChoiceLabelPosition, type ChoiceTextProps } from '../choice';
-import { InputWrapper, useInputWrapper, type InputWrapperOwnProps } from '../input-wrapper';
+import { ChoiceGroup, createCheckedState, type ChoiceGroupOwnProps, type ChoiceGroupProps } from '../choice-group';
 import type { SlopColor, SlopSize } from '../../../core';
-
-// ---------------------------------------------------------------------------------------------------------------
-// Group context
-
-interface CheckboxGroupContextValue {
-  value: () => readonly string[];
-  toggle: (value: string) => void;
-  name: () => string | undefined;
-  disabled: () => boolean;
-  size: () => SlopSize | undefined;
-}
-
-// `null` rather than `undefined`: a context without a provider and without a default value throws when read.
-const CheckboxGroupContext = createContext<CheckboxGroupContextValue | null>(null);
-
-/**
- * The checked state of one checkbox: from its group when it's in one, else from `checked` when controlled, else its
- * own. `set` reports a change and applies it when uncontrolled.
- */
-function createCheckedState(props: {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  value?: string;
-  onChange?: (checked: boolean) => void;
-}) {
-  const group = useContext(CheckboxGroupContext);
-  const [own, setOwn] = createSignal(
-    untrack(() => !!props.defaultChecked),
-    { name: 'Checkbox.checked' },
-  );
-  const checked = () => {
-    if (group && props.value !== undefined) return group.value().includes(props.value);
-    return props.checked ?? own();
-  };
-  const set = (next: boolean) => {
-    if (group && props.value !== undefined) group.toggle(props.value);
-    else if (props.checked === undefined) setOwn(next);
-    props.onChange?.(next);
-  };
-  return { group, checked, set };
-}
 
 function CheckIcon(props: { indeterminate?: boolean }) {
   return (
@@ -194,70 +153,15 @@ export function Checkbox(props: CheckboxProps) {
 // ---------------------------------------------------------------------------------------------------------------
 // Checkbox.Group
 
-export interface CheckboxGroupOwnProps extends Omit<InputWrapperOwnProps, 'labelElement' | 'required' | 'children'> {
-  /** The checked values, for a controlled group. */
-  value?: readonly string[];
-  /** The values checked at first, for an uncontrolled group. */
-  defaultValue?: readonly string[];
-  /** Called with the new checked values, in the order they were checked. */
-  onChange?: (value: string[]) => void;
-  /** The `name` of every checkbox in the group, for forms. */
-  name?: string;
-  /** Disables every checkbox in the group. */
-  disabled?: boolean;
-  /** Checkboxes, laid out however you like (a Stack, a Group, …). */
-  children?: JSX.Element;
-}
-
-export type CheckboxGroupProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, CheckboxGroupOwnProps>;
-
-function CheckboxGroupItems(props: { invalid: boolean; children: JSX.Element }) {
-  const wrapper = useInputWrapper();
-  return (
-    <div
-      role="group"
-      data-slot="checkbox-group-items"
-      aria-labelledby={wrapper?.labelId()}
-      aria-describedby={wrapper?.describedBy()}
-      aria-invalid={props.invalid ? 'true' : undefined}
-    >
-      {props.children}
-    </div>
-  );
-}
+export type CheckboxGroupOwnProps = ChoiceGroupOwnProps;
+export type CheckboxGroupProps = ChoiceGroupProps;
 
 /**
  * A labelled group of checkboxes with one value: the array of the checked ones' `value`s. A `role="group"` named
  * by the label, in an InputWrapper.
  */
 export function CheckboxGroup(props: CheckboxGroupProps) {
-  const others = omit(props, 'value', 'defaultValue', 'onChange', 'name', 'disabled', 'children', 'class', 'size');
-  const [own, setOwn] = createSignal<readonly string[]>(
-    untrack(() => props.defaultValue ?? []),
-    { name: 'CheckboxGroup.value' },
-  );
-  const value = () => props.value ?? own();
-
-  const context: CheckboxGroupContextValue = {
-    value,
-    toggle: (item) => {
-      const current = value();
-      const next = current.includes(item) ? current.filter((entry) => entry !== item) : [...current, item];
-      if (props.value === undefined) setOwn(next);
-      props.onChange?.(next);
-    },
-    name: () => props.name,
-    disabled: () => !!props.disabled,
-    size: () => props.size,
-  };
-
-  return (
-    <InputWrapper {...others} labelElement="div" size={props.size ?? 'md'} class={joinClass(['slp-checkbox-group'], props.class)}>
-      <CheckboxGroupContext value={context}>
-        <CheckboxGroupItems invalid={props.error != null && props.error !== false}>{props.children}</CheckboxGroupItems>
-      </CheckboxGroupContext>
-    </InputWrapper>
-  );
+  return <ChoiceGroup {...props} rootClass="slp-checkbox-group" itemsSlot="checkbox-group-items" />;
 }
 
 // ---------------------------------------------------------------------------------------------------------------

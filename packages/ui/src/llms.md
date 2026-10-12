@@ -108,5 +108,6 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [PasswordInput](components/inputs/password-input/password-input.md)
 - [Radio](components/inputs/radio/radio.md): with Radio.Group and Radio.Card
 - [SegmentedControl](components/inputs/segmented-control/segmented-control.md)
+- [Switch](components/inputs/switch/switch.md): with Switch.Group
 - [TextInput](components/inputs/text-input/text-input.md)
 - [Textarea](components/inputs/textarea/textarea.md): with autosize
