@@ -118,6 +118,7 @@ export const nav: NavSection[] = [
           { title: 'Radio', href: '/ui/radio' },
           { title: 'Rating', href: '/ui/rating' },
           { title: 'SegmentedControl', href: '/ui/segmented-control' },
+          { title: 'Slider', href: '/ui/slider' },
           { title: 'Switch', href: '/ui/switch' },
           { title: 'TextInput', href: '/ui/text-input' },
           { title: 'Textarea', href: '/ui/textarea' },

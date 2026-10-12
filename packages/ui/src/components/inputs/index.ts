@@ -10,6 +10,7 @@ export * from './pin-input';
 export * from './radio';
 export * from './rating';
 export * from './segmented-control';
+export * from './slider';
 export * from './switch';
 export * from './text-input';
 export * from './textarea';
