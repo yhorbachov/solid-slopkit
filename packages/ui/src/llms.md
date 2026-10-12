@@ -65,6 +65,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 - [Alert](components/feedback/alert/alert.md)
 - [Loader](components/feedback/loader/loader.md)
+- [Notification](components/feedback/notification/notification.md)
 - [Progress](components/feedback/progress/progress.md)
 - [RingProgress](components/feedback/ring-progress/ring-progress.md)
 - [SemiCircleProgress](components/feedback/semi-circle-progress/semi-circle-progress.md)
