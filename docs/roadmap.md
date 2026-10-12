@@ -97,7 +97,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M1.28** Table
 - [x] **M1.29** NumberFormatter (uses provider `locale`)
 - [x] **M1.30** VisuallyHidden
-- [ ] **M1.31** UnstyledButton
+- [x] ~~**M1.31** UnstyledButton~~ Dropped by the maintainer's decision: a plain `button` does the job, and later buttons build on it directly.
 - [ ] **M1.32** CloseButton
 - [ ] **M1.33** ActionIcon
 - [ ] **M1.34** CopyButton

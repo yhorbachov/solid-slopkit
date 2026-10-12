@@ -6,7 +6,8 @@ For the next agent picking up the roadmap. Written 2026-10-12. Read `AGENTS.md`,
 
 - `main` is clean, nothing pushed. The last commit is `81c460c feat: NumberFormatter (M1.29)`.
 - Done this session, one commit each: M1.07 Badge, M1.08 Kbd (and `--slp-font-family-monospace`), M1.09 Code, M1.10 Blockquote, M1.11 List, M1.12 Mark, M1.13 Highlight, M1.14 Image, M1.15 BackgroundImage, M1.16 Avatar (and Avatar.Group), M1.17 ThemeIcon, M1.18 ColorSwatch, M1.19 Indicator, M1.20 Loader, M1.21 Skeleton, M1.22 Progress, M1.23 RingProgress, M1.24 SemiCircleProgress, M1.25 Alert, M1.26 Notification, M1.27 Timeline, M1.28 Table, M1.29 NumberFormatter. Plus `0c5719b fix: Indicator builds its label only while the mark is shown`.
-- **Next step: M1.30 VisuallyHidden.** Then M1.31 UnstyledButton, M1.32 CloseButton, M1.33 ActionIcon, M1.34 CopyButton, M1.35 FileButton, M1.36 Burger, M1.37 AppShell.
+- M1.30 VisuallyHidden is done too (`d08a779`). M1.31 UnstyledButton is dropped by the maintainer's decision.
+- **Next step: M1.32 CloseButton.** Then M1.33 ActionIcon, M1.34 CopyButton, M1.35 FileButton, M1.36 Burger, M1.37 AppShell.
 
 ## How the maintainer works
 
