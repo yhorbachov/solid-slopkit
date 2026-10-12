@@ -109,6 +109,7 @@ export const nav: NavSection[] = [
           { title: 'Fieldset', href: '/ui/fieldset' },
           { title: 'Input', href: '/ui/input' },
           { title: 'InputWrapper', href: '/ui/input-wrapper' },
+          { title: 'NumberInput', href: '/ui/number-input' },
           { title: 'PasswordInput', href: '/ui/password-input' },
           { title: 'SegmentedControl', href: '/ui/segmented-control' },
           { title: 'TextInput', href: '/ui/text-input' },
