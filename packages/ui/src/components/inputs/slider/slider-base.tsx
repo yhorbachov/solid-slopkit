@@ -17,6 +17,8 @@ export interface SliderBaseProps {
   /** How many thumbs: fixed for a component, so the thumbs are built once. */
   thumbCount: number;
   values: () => readonly number[];
+  /** One thumb's value, read on its own so a thumb only updates when its value changes. */
+  valueAt: (index: number) => number;
   /** Called with all the values when one changes, and the index of the thumb that moved. */
   onValues: (values: number[], index: number) => void;
   /** Called with all the values when the user lets go: a drag ends, or a key press. */
@@ -168,6 +170,9 @@ export function SliderBase(props: SliderBaseProps) {
 
   return (
     <div
+      // Several thumbs, each with its own name ("Minimum"), sit in a group named by the field's label.
+      role={props.thumbLabels ? 'group' : undefined}
+      aria-labelledby={props.thumbLabels ? wrapper?.labelId() : undefined}
       data-slot="slider-root"
       data-size={props.size}
       data-disabled={props.disabled ? '' : undefined}
@@ -204,7 +209,7 @@ export function SliderBase(props: SliderBaseProps) {
         </For>
         <For each={indexes}>
           {(index) => {
-            const value = () => props.values()[index];
+            const value = () => props.valueAt(index);
             return (
               <div
                 ref={(el) => (thumbs[index] = el)}
@@ -221,7 +226,7 @@ export function SliderBase(props: SliderBaseProps) {
                 aria-valuetext={text(value())}
                 aria-orientation="horizontal"
                 aria-label={props.thumbLabels?.[index]}
-                aria-labelledby={props.thumbLabels?.[index] ? undefined : wrapper?.labelId()}
+                aria-labelledby={props.thumbLabels ? undefined : wrapper?.labelId()}
                 aria-describedby={wrapper?.describedBy()}
                 aria-invalid={wrapper?.invalid() ? 'true' : undefined}
                 aria-disabled={props.disabled ? 'true' : undefined}

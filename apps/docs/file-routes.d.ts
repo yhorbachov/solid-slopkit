@@ -317,6 +317,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/range-slider";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/range-slider")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/rating";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/rating")>;
@@ -874,6 +880,14 @@ declare module "virtual:file-routes" {
       id: "/ui/number-input";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/number-input")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/range-slider";
+      id: "/ui/range-slider";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/range-slider")>;
       $$route?: undefined;
       children?: undefined;
     },

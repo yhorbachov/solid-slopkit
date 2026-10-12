@@ -116,6 +116,7 @@ export const nav: NavSection[] = [
           { title: 'PasswordInput', href: '/ui/password-input' },
           { title: 'PinInput', href: '/ui/pin-input' },
           { title: 'Radio', href: '/ui/radio' },
+          { title: 'RangeSlider', href: '/ui/range-slider' },
           { title: 'Rating', href: '/ui/rating' },
           { title: 'SegmentedControl', href: '/ui/segmented-control' },
           { title: 'Slider', href: '/ui/slider' },

@@ -71,6 +71,7 @@ export function Slider(props: SliderProps) {
       <SliderBase
         thumbCount={1}
         values={() => [value()]}
+        valueAt={value}
         onValues={([next]) => {
           if (!controlled) setOwn(next);
           props.onChange?.(next);
