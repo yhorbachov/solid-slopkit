@@ -111,6 +111,7 @@ export const nav: NavSection[] = [
           { title: 'InputWrapper', href: '/ui/input-wrapper' },
           { title: 'SegmentedControl', href: '/ui/segmented-control' },
           { title: 'TextInput', href: '/ui/text-input' },
+          { title: 'Textarea', href: '/ui/textarea' },
         ],
       },
     ],
