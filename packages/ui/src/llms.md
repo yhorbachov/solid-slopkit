@@ -102,6 +102,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [AngleSlider](components/inputs/angle-slider/angle-slider.md)
 - [Checkbox](components/inputs/checkbox/checkbox.md): with Checkbox.Group and Checkbox.Card
 - [Chip](components/inputs/chip/chip.md): with Chip.Group
+- [ColorPicker](components/inputs/color-picker/color-picker.md)
 - [Fieldset](components/inputs/fieldset/fieldset.md)
 - [FileInput](components/inputs/file-input/file-input.md)
 - [Input](components/inputs/input/input.md): the field box, with sections

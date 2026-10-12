@@ -109,6 +109,7 @@ export const nav: NavSection[] = [
           { title: 'AngleSlider', href: '/ui/angle-slider' },
           { title: 'Checkbox', href: '/ui/checkbox' },
           { title: 'Chip', href: '/ui/chip' },
+          { title: 'ColorPicker', href: '/ui/color-picker' },
           { title: 'Fieldset', href: '/ui/fieldset' },
           { title: 'FileInput', href: '/ui/file-input' },
           { title: 'Input', href: '/ui/input' },
