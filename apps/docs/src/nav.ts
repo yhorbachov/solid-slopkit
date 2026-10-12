@@ -51,6 +51,7 @@ export const nav: NavSection[] = [
         items: [
           { title: 'Badge', href: '/ui/badge' },
           { title: 'Divider', href: '/ui/divider' },
+          { title: 'Image', href: '/ui/image' },
         ],
       },
       {
