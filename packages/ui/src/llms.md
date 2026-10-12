@@ -55,6 +55,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Avatar](components/data-display/avatar/avatar.md): with Avatar.Group
 - [BackgroundImage](components/data-display/background-image/background-image.md)
 - [Badge](components/data-display/badge/badge.md)
+- [ColorSwatch](components/data-display/color-swatch/color-swatch.md)
 - [Divider](components/data-display/divider/divider.md)
 - [Image](components/data-display/image/image.md)
 - [ThemeIcon](components/data-display/theme-icon/theme-icon.md)

@@ -113,6 +113,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/color-swatch";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/color-swatch")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/container";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/container")>;
@@ -468,6 +474,14 @@ declare module "virtual:file-routes" {
       id: "/ui/aspect-ratio";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/aspect-ratio")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/color-swatch";
+      id: "/ui/color-swatch";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/color-swatch")>;
       $$route?: undefined;
       children?: undefined;
     },
