@@ -45,7 +45,7 @@ const stubViteClient: Plugin = {
   name: 'slopkit-test:stub-vite-client',
   enforce: 'pre',
   load: (id) =>
-    /\/vite\/dist\/client\/client\.mjs$/.test(id)
+    id.endsWith('/vite/dist/client/client.mjs')
       ? `export const createHotContext = () => ({ accept() {}, dispose() {}, prune() {}, invalidate() {}, on() {}, off() {}, send() {}, data: {} });
 export const updateStyle = () => {};
 export const removeStyle = () => {};
