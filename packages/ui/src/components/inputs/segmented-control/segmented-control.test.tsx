@@ -146,6 +146,39 @@ describe('<SegmentedControl />', () => {
     expect(artifact).toStayWithinRerunBudget(2, { scope: /SegmentedControl/ });
   });
 
+  test('an arrow key moves the selection without diagnostics or waste', async () => {
+    const { getByLabelText } = render(() => <SegmentedControl data={['a', 'b', 'c']} />);
+    flush();
+    getByLabelText('a').focus();
+
+    const { artifact } = await captureArtifact(
+      () => {
+        fireEvent.keyDown(getByLabelText('a'), { key: 'ArrowRight' });
+      },
+      { scenario: 'segmented-control-arrow' },
+    );
+
+    expect(getByLabelText('b')).toBeChecked();
+    expect(getByLabelText('b')).toHaveFocus();
+    expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
+    expect(artifact).toHaveNoWaste();
+    expect(artifact).toStayWithinRerunBudget(2, { scope: /SegmentedControl/ });
+  });
+
+  test('onKeyDown runs first, and preventDefault in it keeps the selection', () => {
+    const onChange = vi.fn();
+    const { getByLabelText } = render(() => (
+      <SegmentedControl data={['a', 'b']} onChange={onChange} onKeyDown={(event) => event.preventDefault()} />
+    ));
+    getByLabelText('a').focus();
+
+    fireEvent.keyDown(getByLabelText('a'), { key: 'ArrowRight' });
+    flush();
+
+    expect(getByLabelText('a')).toBeChecked();
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
   test('marks its parts with namespaced slots', () => {
     const { container } = render(() => <SegmentedControl aria-label="View" data={['List', 'Grid']} />);
     flush();

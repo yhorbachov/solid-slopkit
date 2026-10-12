@@ -1,9 +1,10 @@
 import { createEffect, createMemo, createSignal, createUniqueId, flush, For, omit, onSettled, untrack } from 'solid-js';
 import { type JSX } from '@solidjs/web';
 import style from './segmented-control.module.css';
-import { mergeDefaultProps, mergeRefs, type Ref, type ElementProps } from '../../../utils';
+import { callHandler, mergeDefaultProps, mergeRefs, type Ref, type ElementProps } from '../../../utils';
 import { joinClass } from '../../../style-props';
 import type { SlopColor, SlopSize } from '../../../core';
+import { createListNavigation } from '../../primitives';
 
 export interface SegmentedControlItem<T extends string = string> {
   value: T;
@@ -56,7 +57,7 @@ function toItem<T extends string>(item: T | SegmentedControlItem<T>): SegmentedC
 
 /**
  * A row of options of which one is selected, with an indicator that slides to the selection. Each option is a
- * native radio input, so arrow keys move the selection and the value is submitted with a form.
+ * native radio input, so the value is submitted with a form; arrow keys, Home and End move the selection.
  */
 export function SegmentedControl<T extends string = string>(props: SegmentedControlProps<T>) {
   let root: HTMLDivElement | undefined;
@@ -91,6 +92,7 @@ export function SegmentedControl<T extends string = string>(props: SegmentedCont
     'withItemsBorders',
     'transitionDuration',
     'transitionTimingFunction',
+    'onKeyDown',
   );
 
   const id = createUniqueId();
@@ -104,6 +106,26 @@ export function SegmentedControl<T extends string = string>(props: SegmentedCont
       untrack(() => mergedProps.defaultValue ?? (items().find((item) => !item.disabled) ?? items()[0])?.value),
     { name: 'SegmentedControl.value' },
   );
+
+  const inputs = () => Array.from(root?.querySelectorAll<HTMLInputElement>(`.${style.input}`) ?? []);
+
+  // Arrows in either axis, as in a native radio group, plus Home and End, which radios don't have. The keys are
+  // handled here rather than by the browser, so a read-only control only moves focus.
+  const navigation = createListNavigation({
+    orientation: () => 'both',
+    count: () => items().length,
+    current: () => inputs().indexOf(document.activeElement as HTMLInputElement),
+    isDisabled: (index) => !!mergedProps.disabled || !!items()[index]?.disabled,
+    onMove: (index) => {
+      inputs()[index]?.focus();
+      select(items()[index].value);
+    },
+  });
+
+  const onKeyDown = (event: KeyboardEvent) => {
+    callHandler(props.onKeyDown, event);
+    navigation.onKeyDown(event);
+  };
 
   // The browser checks a clicked radio before we decide. When the value did not change (controlled and not
   // updated by the parent, or read-only), put the checks back.
@@ -171,6 +193,7 @@ export function SegmentedControl<T extends string = string>(props: SegmentedCont
       data-with-items-borders={mergedProps.withItemsBorders ? '' : undefined}
       class={joinClass(['slp-segmented-control', style.root], mergedProps.class)}
       {...others}
+      onKeyDown={onKeyDown}
     >
       <div
         ref={(el) => (indicator = el)}

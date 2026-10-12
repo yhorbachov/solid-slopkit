@@ -107,7 +107,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 ## M2 — Inputs
 
-- [ ] **M2.01** Primitive: list/arrow navigation (horizontal and vertical); move SegmentedControl onto it
+- [x] **M2.01** Primitive: list/arrow navigation (horizontal and vertical); move SegmentedControl onto it
 - [ ] **M2.02** Input and InputWrapper (label, description, error, sections)
 - [ ] **M2.03** Fieldset
 - [ ] **M2.04** TextInput

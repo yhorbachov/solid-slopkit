@@ -51,6 +51,56 @@ describe('<SegmentedControl /> in a browser', () => {
     expect(onChange).toHaveBeenLastCalledWith('React');
   });
 
+  test('both arrow axes move it, and it wraps around the ends', async () => {
+    const { getByLabelText } = render(() => (
+      <SegmentedControl aria-label="Framework" data={['React', 'Solid', 'Svelte']} transitionDuration={0} />
+    ));
+
+    await userEvent.tab();
+    await userEvent.keyboard('{ArrowDown}');
+    expect(getByLabelText('Solid')).toBeChecked();
+    await userEvent.keyboard('{ArrowUp}{ArrowUp}');
+    expect(getByLabelText('Svelte')).toBeChecked();
+    expect(getByLabelText('Svelte')).toHaveFocus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(getByLabelText('React')).toBeChecked();
+  });
+
+  test('Home and End select the first and last enabled items', async () => {
+    const onChange = vi.fn();
+    const { getByLabelText } = render(() => (
+      <SegmentedControl
+        aria-label="Framework"
+        data={[{ value: 'React', label: 'React', disabled: true }, 'Solid', 'Svelte', 'Vue']}
+        defaultValue="Svelte"
+        onChange={onChange}
+        transitionDuration={0}
+      />
+    ));
+
+    await userEvent.tab();
+    await userEvent.keyboard('{End}');
+    expect(getByLabelText('Vue')).toBeChecked();
+    expect(getByLabelText('Vue')).toHaveFocus();
+    await userEvent.keyboard('{Home}');
+    expect(getByLabelText('Solid')).toBeChecked();
+    expect(onChange.mock.calls.map(([value]) => value)).toEqual(['Vue', 'Solid']);
+  });
+
+  test('a handled key does not scroll the page', async () => {
+    const { getByLabelText } = render(() => (
+      <div style={{ height: '300vh' }}>
+        <SegmentedControl aria-label="Framework" data={['React', 'Solid']} transitionDuration={0} />
+      </div>
+    ));
+
+    await userEvent.tab();
+    await userEvent.keyboard('{End}{ArrowDown}');
+
+    expect(getByLabelText('React')).toBeChecked();
+    expect(window.scrollY).toBe(0);
+  });
+
   test('read-only: arrow keys move focus but the selection stays', async () => {
     const onChange = vi.fn();
     const { getByLabelText } = render(() => (
@@ -60,6 +110,7 @@ describe('<SegmentedControl /> in a browser', () => {
     await userEvent.tab();
     await userEvent.keyboard('{ArrowRight}');
 
+    expect(getByLabelText('Solid')).toHaveFocus();
     expect(getByLabelText('React')).toBeChecked();
     expect(getByLabelText('Solid')).not.toBeChecked();
     expect(onChange).not.toHaveBeenCalled();

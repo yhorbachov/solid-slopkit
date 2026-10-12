@@ -36,7 +36,7 @@ const [view, setView] = createSignal<View>('grid');
 - **Separators:** shown between options by default and hidden next to the selection. `withItemsBorders={false}` removes them.
 - **Sizes:** `xs` to `xl`. Heights match Button's, so the two line up in a toolbar.
 - **Layout:** `fullWidth` fills the container and gives every option an equal share. `orientation="vertical"` stacks the options.
-- **States:** `disabled` disables every option. `readOnly` shows the value but ignores clicks and arrow keys, and does not call `onChange`.
+- **States:** `disabled` disables every option. `readOnly` shows the value but ignores clicks, and keys only move focus; it does not call `onChange`.
 - **Value with no match:** if `value` matches no option, nothing is selected and the indicator is hidden.
 
 ```tsx
@@ -84,7 +84,8 @@ CSS variables, set on the control or any ancestor:
 
 ## Accessibility
 
-- Each option is a native radio input with a label, so Tab focuses the selection, arrow keys move it, and disabled options are skipped.
+- Each option is a native radio input with a label. Tab focuses the selection. The arrow keys move it, in either axis whatever the `orientation`, wrapping around the ends; Home and End move it to the first and last option. Disabled options are skipped.
+- An `onKeyDown` you pass runs first; `event.preventDefault()` in it keeps the key from moving the selection.
 - Label the group with `aria-label` or `aria-labelledby`.
 - The root has `aria-orientation`, and `aria-disabled="true"` when `disabled`.
 - With a `name` inside a form, the selected value is submitted.

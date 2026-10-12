@@ -64,9 +64,10 @@ export default function SegmentedControlPage() {
 
       <H2 id="accessibility">Accessibility</H2>
       <p>
-        The control is a <code>radiogroup</code> of native radio inputs: Tab focuses the selection, arrow keys move it, and
-        disabled options are skipped. Label the group with <code>aria-label</code> or <code>aria-labelledby</code>. With a{' '}
-        <code>name</code>, the selected value is submitted with its form.
+        The control is a <code>radiogroup</code> of native radio inputs. Tab focuses the selection; the arrow keys move it, in
+        either axis, wrapping around the ends, and Home and End move it to the first and last option. Disabled options are
+        skipped. Label the group with <code>aria-label</code> or <code>aria-labelledby</code>. With a <code>name</code>, the
+        selected value is submitted with its form.
       </p>
 
       <H2 id="css-variables">CSS variables</H2>
