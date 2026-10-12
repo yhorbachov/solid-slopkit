@@ -65,6 +65,7 @@ export const nav: NavSection[] = [
           { title: 'Loader', href: '/ui/loader' },
           { title: 'Progress', href: '/ui/progress' },
           { title: 'RingProgress', href: '/ui/ring-progress' },
+          { title: 'SemiCircleProgress', href: '/ui/semi-circle-progress' },
           { title: 'Skeleton', href: '/ui/skeleton' },
         ],
       },

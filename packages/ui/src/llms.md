@@ -66,6 +66,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Loader](components/feedback/loader/loader.md)
 - [Progress](components/feedback/progress/progress.md)
 - [RingProgress](components/feedback/ring-progress/ring-progress.md)
+- [SemiCircleProgress](components/feedback/semi-circle-progress/semi-circle-progress.md)
 - [Skeleton](components/feedback/skeleton/skeleton.md)
 
 ## Surfaces

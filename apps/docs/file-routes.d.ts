@@ -221,6 +221,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/semi-circle-progress";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/semi-circle-progress")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/simple-grid";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/simple-grid")>;
@@ -568,6 +574,14 @@ declare module "virtual:file-routes" {
       id: "/ui/segmented-control";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/segmented-control")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/semi-circle-progress";
+      id: "/ui/semi-circle-progress";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/semi-circle-progress")>;
       $$route?: undefined;
       children?: undefined;
     }
