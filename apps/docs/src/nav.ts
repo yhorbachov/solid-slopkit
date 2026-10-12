@@ -48,6 +48,7 @@ export const nav: NavSection[] = [
           { title: 'ActionIcon', href: '/ui/action-icon' },
           { title: 'Button', href: '/ui/button' },
           { title: 'CloseButton', href: '/ui/close-button' },
+          { title: 'CopyButton', href: '/ui/copy-button' },
         ],
       },
       {

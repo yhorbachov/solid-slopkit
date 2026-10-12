@@ -143,6 +143,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/copy-button";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/copy-button")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/divider";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/divider")>;
@@ -606,6 +612,14 @@ declare module "virtual:file-routes" {
       id: "/ui/action-icon";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/action-icon")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/copy-button";
+      id: "/ui/copy-button";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/copy-button")>;
       $$route?: undefined;
       children?: undefined;
     },
