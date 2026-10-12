@@ -50,6 +50,10 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 - [Button](components/button/button/button.md)
 
+## Data display
+
+- [Divider](components/data-display/divider/divider.md)
+
 ## Surfaces
 
 - [Card](components/surfaces/card/card.md)

@@ -47,6 +47,10 @@ export const nav: NavSection[] = [
         items: [{ title: 'Button', href: '/ui/button' }],
       },
       {
+        title: 'Data display',
+        items: [{ title: 'Divider', href: '/ui/divider' }],
+      },
+      {
         title: 'Surfaces',
         items: [
           { title: 'Card', href: '/ui/card' },
