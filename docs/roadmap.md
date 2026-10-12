@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button. Inputs: SegmentedControl. Typography: Text, Title, Anchor. Surfaces: Paper, Card. Data display: Divider. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button. Inputs: SegmentedControl. Typography: Text, Title, Anchor. Surfaces: Paper, Card. Data display: Badge, Divider. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -73,7 +73,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M1.04** Paper
 - [x] **M1.05** Card (with sections)
 - [x] **M1.06** Divider
-- [ ] **M1.07** Badge
+- [x] **M1.07** Badge
 - [ ] **M1.08** Kbd
 - [ ] **M1.09** Code
 - [ ] **M1.10** Blockquote
