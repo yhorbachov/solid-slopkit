@@ -106,6 +106,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [FileInput](components/inputs/file-input/file-input.md)
 - [Input](components/inputs/input/input.md): the field box, with sections
 - [InputWrapper](components/inputs/input-wrapper/input-wrapper.md): label, description and error around a field; `useInputWrapper()`
+- [JsonInput](components/inputs/json-input/json-input.md)
 - [NativeSelect](components/inputs/native-select/native-select.md)
 - [NumberInput](components/inputs/number-input/number-input.md): uses the provider locale
 - [PasswordInput](components/inputs/password-input/password-input.md)

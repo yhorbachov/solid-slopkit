@@ -113,6 +113,7 @@ export const nav: NavSection[] = [
           { title: 'FileInput', href: '/ui/file-input' },
           { title: 'Input', href: '/ui/input' },
           { title: 'InputWrapper', href: '/ui/input-wrapper' },
+          { title: 'JsonInput', href: '/ui/json-input' },
           { title: 'NativeSelect', href: '/ui/native-select' },
           { title: 'NumberInput', href: '/ui/number-input' },
           { title: 'PasswordInput', href: '/ui/password-input' },

@@ -251,6 +251,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/json-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/json-input")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/kbd";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/kbd")>;
@@ -812,6 +818,14 @@ declare module "virtual:file-routes" {
       id: "/ui/file-input";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/file-input")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/json-input";
+      id: "/ui/json-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/json-input")>;
       $$route?: undefined;
       children?: undefined;
     },
