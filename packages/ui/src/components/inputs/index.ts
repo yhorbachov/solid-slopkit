@@ -5,6 +5,7 @@ export * from './input-wrapper';
 export * from './native-select';
 export * from './number-input';
 export * from './password-input';
+export * from './radio';
 export * from './segmented-control';
 export * from './text-input';
 export * from './textarea';
