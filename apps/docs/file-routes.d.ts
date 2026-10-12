@@ -209,6 +209,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/ring-progress";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/ring-progress")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/segmented-control";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/segmented-control")>;
@@ -538,6 +544,14 @@ declare module "virtual:file-routes" {
       id: "/ui/color-swatch";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/color-swatch")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/ring-progress";
+      id: "/ui/ring-progress";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/ring-progress")>;
       $$route?: undefined;
       children?: undefined;
     },

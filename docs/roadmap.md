@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button. Inputs: SegmentedControl. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator. Feedback: Loader, Skeleton, Progress. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button. Inputs: SegmentedControl. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator. Feedback: Loader, Skeleton, Progress, RingProgress. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -89,7 +89,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M1.20** Loader. Button's `loading` keeps its own spinner, by the maintainer's decision.
 - [x] **M1.21** Skeleton
 - [x] **M1.22** Progress
-- [ ] **M1.23** RingProgress
+- [x] **M1.23** RingProgress
 - [ ] **M1.24** SemiCircleProgress
 - [ ] **M1.25** Alert
 - [ ] **M1.26** Notification (the visual component only; the manager is M6)
