@@ -8,6 +8,7 @@ export * from './number-input';
 export * from './password-input';
 export * from './pin-input';
 export * from './radio';
+export * from './rating';
 export * from './segmented-control';
 export * from './switch';
 export * from './text-input';
