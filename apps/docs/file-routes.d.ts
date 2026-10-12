@@ -251,6 +251,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/native-select";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/native-select")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/notification";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/notification")>;
@@ -778,6 +784,14 @@ declare module "virtual:file-routes" {
       id: "/ui/input-wrapper";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/input-wrapper")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/native-select";
+      id: "/ui/native-select";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/native-select")>;
       $$route?: undefined;
       children?: undefined;
     },

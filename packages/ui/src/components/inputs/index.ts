@@ -1,6 +1,7 @@
 export * from './fieldset';
 export * from './input';
 export * from './input-wrapper';
+export * from './native-select';
 export * from './number-input';
 export * from './password-input';
 export * from './segmented-control';
