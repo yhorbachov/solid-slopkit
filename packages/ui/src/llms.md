@@ -63,6 +63,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 ## Typography
 
 - [Anchor](components/typography/anchor/anchor.md)
+- [Blockquote](components/typography/blockquote/blockquote.md)
 - [Code](components/typography/code/code.md)
 - [Kbd](components/typography/kbd/kbd.md)
 - [Text](components/typography/text/text.md)
