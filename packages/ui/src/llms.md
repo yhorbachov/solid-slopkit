@@ -64,6 +64,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 ## Feedback
 
 - [Loader](components/feedback/loader/loader.md)
+- [Progress](components/feedback/progress/progress.md)
 - [Skeleton](components/feedback/skeleton/skeleton.md)
 
 ## Surfaces
