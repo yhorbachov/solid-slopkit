@@ -8,7 +8,7 @@ import type { SlopSize } from '../../../core';
 export type PaperPadding = 'none' | SlopSize;
 export type PaperShadow = 'none' | SlopSize;
 export type PaperSurface = 'base-100' | 'base-200' | 'base-300';
-export type PaperRadius = 'none' | 'selector' | 'field' | 'box';
+export type PaperRadius = 'default' | 'none';
 
 export interface PaperOwnProps {
   /** Inner padding: `none`, or `xs` to `xl` (0.5 to 2rem). Defaults to `md` (1rem). */
@@ -19,7 +19,7 @@ export interface PaperOwnProps {
   withBorder?: boolean;
   /** Background, from the base colors. Defaults to `base-100`. */
   surface?: PaperSurface;
-  /** Corner radius, from the radius tokens. Defaults to `box`. */
+  /** Corner radius: `default` (1rem) or `none`. Defaults to `default`. */
   radius?: PaperRadius;
 }
 
@@ -27,7 +27,10 @@ export type PaperProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, PaperO
 
 /** A surface that groups content: a `div` with a background, padding, radius, and optionally a border and shadow. */
 export function Paper(props: PaperProps) {
-  const mergedProps = mergeDefaultProps({ padding: 'md', shadow: 'none', surface: 'base-100', radius: 'box' } as const, props);
+  const mergedProps = mergeDefaultProps(
+    { padding: 'md', shadow: 'none', surface: 'base-100', radius: 'default' } as const,
+    props,
+  );
   const others = omit(mergedProps, 'class', 'padding', 'shadow', 'withBorder', 'surface', 'radius');
 
   return (

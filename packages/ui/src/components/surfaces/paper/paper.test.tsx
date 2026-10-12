@@ -17,7 +17,7 @@ describe('<Paper />', () => {
     expect(paper).toHaveAttribute('data-padding', 'md');
     expect(paper).toHaveAttribute('data-shadow', 'none');
     expect(paper).toHaveAttribute('data-surface', 'base-100');
-    expect(paper).toHaveAttribute('data-radius', 'box');
+    expect(paper).toHaveAttribute('data-radius', 'default');
     expect(paper).not.toHaveAttribute('data-with-border');
   });
 
@@ -27,7 +27,7 @@ describe('<Paper />', () => {
         padding="none"
         shadow="lg"
         surface="base-200"
-        radius="field"
+        radius="none"
         withBorder
         role="region"
         aria-label="Billing"
@@ -42,7 +42,7 @@ describe('<Paper />', () => {
     expect(paper).toHaveAttribute('data-padding', 'none');
     expect(paper).toHaveAttribute('data-shadow', 'lg');
     expect(paper).toHaveAttribute('data-surface', 'base-200');
-    expect(paper).toHaveAttribute('data-radius', 'field');
+    expect(paper).toHaveAttribute('data-radius', 'none');
     expect(paper).toHaveAttribute('data-with-border', '');
     expect(paper).not.toHaveAttribute('shadow');
   });

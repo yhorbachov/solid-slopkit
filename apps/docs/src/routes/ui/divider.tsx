@@ -71,8 +71,8 @@ export default function DividerPage() {
       <p>
         The root has the class <code>.slp-divider</code>, and no slots. State and variant are attributes on it:{' '}
         <code>data-orientation</code>, <code>data-variant</code> and <code>data-color</code>. The line is a border (
-        <code>border-top</code>, or <code>border-inline-start</code> when vertical), <code>--slp-border</code> wide. Its rules
-        live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>border-top</code>, or <code>border-inline-start</code> when vertical), 1px wide. Its rules live in{' '}
+        <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

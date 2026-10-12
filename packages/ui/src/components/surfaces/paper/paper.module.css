@@ -5,13 +5,13 @@
   .paper {
     display: block;
     box-sizing: border-box;
-    border-radius: var(--slp-radius-box);
+    border-radius: 1rem;
     background-color: var(--slp-color-base-100);
     color: var(--slp-color-base-content);
     padding: calc(var(--slp-spacing) * 4);
 
     &[data-with-border] {
-      border: var(--slp-border) solid color-mix(in oklab, var(--slp-color-base-content) 12%, transparent);
+      border: 1px solid color-mix(in oklab, var(--slp-color-base-content) 12%, transparent);
     }
 
     /* Surfaces */
@@ -56,15 +56,9 @@
       box-shadow: var(--slp-shadow-xl);
     }
 
-    /* Radii */
+    /* Radius */
     &[data-radius='none'] {
       border-radius: 0;
-    }
-    &[data-radius='selector'] {
-      border-radius: var(--slp-radius-selector);
-    }
-    &[data-radius='field'] {
-      border-radius: var(--slp-radius-field);
     }
   }
 }

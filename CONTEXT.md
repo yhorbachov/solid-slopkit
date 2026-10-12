@@ -58,7 +58,7 @@ A named scale of ten shades (`red-0` … `red-9`) that app authors can use direc
 _Avoid_: swatch, color scale
 
 **Theme**:
-A complete set of values for the color roles, content colors, base colors and shape tokens (radius, size, border, depth), applied to a page or any part of it.
+A complete set of values for the color roles, content colors, base colors and shape tokens (size, depth), applied to a page or any part of it.
 _Avoid_: skin, color scheme (a color scheme is the light/dark choice)
 
 **Color scheme**:

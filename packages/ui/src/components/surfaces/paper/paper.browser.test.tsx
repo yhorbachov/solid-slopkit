@@ -3,21 +3,18 @@ import { describe, expect, test } from 'vitest';
 import { Paper } from './paper';
 
 describe('<Paper /> in a browser', () => {
-  test('defaults: base-100 background, 1rem padding, the box radius, no border or shadow', () => {
+  test('defaults: base-100 background, 1rem padding, a 1rem radius, no border or shadow', () => {
     const { getByText, getByTestId } = render(() => (
       <>
         <Paper>Default</Paper>
-        <div
-          data-testid="token"
-          style={{ 'background-color': 'var(--slp-color-base-100)', 'border-radius': 'var(--slp-radius-box)' }}
-        />
+        <div data-testid="token" style={{ 'background-color': 'var(--slp-color-base-100)' }} />
       </>
     ));
     const css = getComputedStyle(getByText('Default'));
     const token = getComputedStyle(getByTestId('token'));
 
     expect(css.backgroundColor).toBe(token.backgroundColor);
-    expect(css.borderTopLeftRadius).toBe(token.borderTopLeftRadius);
+    expect(css.borderTopLeftRadius).toBe('16px');
     expect(css.paddingTop).toBe('16px');
     expect(css.borderTopStyle).toBe('none');
     expect(css.boxShadow).toBe('none');

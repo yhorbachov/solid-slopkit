@@ -26,7 +26,7 @@ import { Divider } from '@solid-slopkit/ui';
 - **Orientation:** `horizontal` (the default) fills the width of its container, also in a Stack that centers its items. `vertical` is as tall as its row in a flex container (Group, Flex), and 1em tall next to inline content in a `div`. HTML doesn't allow an `hr` inside a `p`, so put a vertical divider in a row or a `div`, not in a paragraph.
 - **Variant:** `solid` (the default), `dashed` or `dotted`.
 - **Color:** `color` takes a color role. Without it, the line is the base text color at 12%, the same as Card's borders.
-- **Thickness:** `--slp-border`, like other borders. Divider has no margin; space it with the gap of a Stack or Group.
+- **Thickness:** 1px. Divider has no margin; space it with the gap of a Stack or Group.
 - Divider has no label. For a line with text in it, put two Dividers and a Text with `style={{ 'flex-shrink': '0' }}` in a Group with `wrap="nowrap"`: the Dividers share the space the text leaves.
 
 ## Props

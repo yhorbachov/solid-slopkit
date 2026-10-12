@@ -51,8 +51,8 @@ export default function PaperPage() {
       <H2 id="surface-and-radius">Surface and radius</H2>
       <p>
         <code>surface</code> picks the background from the base colors; nest a lighter Paper on a darker one to layer them.{' '}
-        <code>radius</code> picks a radius token: <code>box</code> (the default), <code>field</code>, <code>selector</code> or{' '}
-        <code>none</code>.
+        <code>radius</code> is <code>default</code> (1rem) or <code>none</code>; any other radius goes through a selector or{' '}
+        <code>style</code>.
       </p>
       <Example component={Surfaces} code={surfacesCode} column />
 
@@ -71,7 +71,7 @@ export default function PaperPage() {
             default: "'base-100'",
             description: 'Background color.',
           },
-          { name: 'radius', type: "'none' | 'selector' | 'field' | 'box'", default: "'box'", description: 'Corner radius.' },
+          { name: 'radius', type: "'default' | 'none'", default: "'default'", description: 'Corner radius.' },
         ]}
       />
 

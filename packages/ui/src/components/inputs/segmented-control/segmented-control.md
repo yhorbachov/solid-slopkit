@@ -78,7 +78,7 @@ CSS variables, set on the control or any ancestor:
 
 | Variable                          | Default                            | Description                                                                                                       |
 | --------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `--slp-segmented-control-radius`  | `var(--slp-radius-field)`          | Corner radius. The indicator and labels follow, inset by the padding.                                             |
+| `--slp-segmented-control-radius`  | `10px`                             | Corner radius. The indicator and labels follow, inset by the padding.                                             |
 | `--slp-segmented-control-color`   | `var(--slp-color-<color>)`         | Indicator color. Base surface color when there is no `color`. Use it for a one-off color that isn't a color role. |
 | `--slp-segmented-control-content` | `var(--slp-color-<color>-content)` | Text color of the selected option on a colored indicator.                                                         |
 

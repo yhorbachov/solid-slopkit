@@ -4,7 +4,7 @@
  * placed (server render, before hydration), the active label draws the indicator's look itself.
  *
  * Public custom properties (set on the control or any ancestor):
- *   --slp-segmented-control-radius   corner radius, defaults to var(--slp-radius-field)
+ *   --slp-segmented-control-radius   corner radius, defaults to 10px
  *   --slp-segmented-control-color    indicator color, defaults to the `color` prop's theme token
  *   --slp-segmented-control-content  text color on a colored indicator, defaults to the token's `-content`
  *
@@ -14,7 +14,7 @@
   .root {
     --_sc-color: var(--slp-segmented-control-color, var(--_sc-theme-color));
     --_sc-content: var(--slp-segmented-control-content, var(--_sc-theme-content));
-    --_sc-radius: var(--slp-segmented-control-radius, var(--slp-radius-field));
+    --_sc-radius: var(--slp-segmented-control-radius, 10px);
     /* Same heights as Button, so the two line up. */
     --_sc-size: calc(var(--slp-size-field) * 8);
     --_sc-padding: 0.25rem;

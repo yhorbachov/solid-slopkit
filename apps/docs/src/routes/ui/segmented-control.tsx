@@ -75,7 +75,7 @@ export default function SegmentedControlPage() {
         rows={[
           {
             name: '--slp-segmented-control-radius',
-            default: 'var(--slp-radius-field)',
+            default: '10px',
             description: 'Corner radius. The indicator and labels follow, inset by the padding.',
           },
           {

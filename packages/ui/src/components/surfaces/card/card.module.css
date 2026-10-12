@@ -16,8 +16,8 @@
     min-width: 0;
     /* Clips a flush image to the rounded corners. */
     overflow: hidden;
-    border: var(--slp-border) solid var(--_card-divider);
-    border-radius: var(--slp-radius-box);
+    border: 1px solid var(--_card-divider);
+    border-radius: 1rem;
     background-color: var(--slp-color-base-100);
     color: var(--slp-color-base-content);
 
@@ -82,7 +82,7 @@
     align-items: center;
     justify-content: flex-end;
     gap: calc(var(--_card-padding) / 2);
-    border-top: var(--slp-border) solid var(--_card-divider);
+    border-top: 1px solid var(--_card-divider);
 
     .card[data-orientation='horizontal'] > & {
       grid-area: footer;

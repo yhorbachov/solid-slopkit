@@ -9,8 +9,8 @@ export default function Surfaces() {
         <Paper surface="base-300">base-300</Paper>
       </Group>
       <Paper surface="base-200" padding="lg">
-        <Paper radius="field" padding="sm">
-          A base-100 Paper with the field radius, on a base-200 Paper
+        <Paper radius="none" padding="sm">
+          A base-100 Paper with no radius, on a base-200 Paper
         </Paper>
       </Paper>
     </Stack>

@@ -41,10 +41,10 @@
     height: var(--_btn-size);
     padding-inline-start: calc(var(--_btn-px) - var(--_btn-pl-modifier));
     padding-inline-end: calc(var(--_btn-px) - var(--_btn-pr-modifier));
-    border-width: var(--slp-border);
+    border-width: 1px;
     border-style: solid;
     border-color: var(--_btn-border);
-    border-radius: var(--slp-radius-field);
+    border-radius: 10px;
     background-color: var(--_btn-bg);
     box-shadow:
       0 0.5px 0 0.5px oklch(100% 0 0 / calc(var(--slp-depth) * 6%)) inset,
