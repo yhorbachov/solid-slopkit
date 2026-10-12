@@ -106,6 +106,7 @@ export const nav: NavSection[] = [
       {
         title: 'Inputs',
         items: [
+          { title: 'AngleSlider', href: '/ui/angle-slider' },
           { title: 'Checkbox', href: '/ui/checkbox' },
           { title: 'Chip', href: '/ui/chip' },
           { title: 'Fieldset', href: '/ui/fieldset' },

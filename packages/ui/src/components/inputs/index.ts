@@ -1,3 +1,4 @@
+export * from './angle-slider';
 export * from './checkbox';
 export * from './chip';
 export * from './fieldset';
