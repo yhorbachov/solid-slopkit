@@ -1,6 +1,7 @@
 export * from './layout';
 export * from './button';
 export * from './data-display';
+export * from './feedback';
 export * from './inputs';
 export * from './provider';
 export * from './surfaces';

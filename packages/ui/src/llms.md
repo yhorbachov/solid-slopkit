@@ -61,6 +61,10 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Indicator](components/data-display/indicator/indicator.md)
 - [ThemeIcon](components/data-display/theme-icon/theme-icon.md)
 
+## Feedback
+
+- [Loader](components/feedback/loader/loader.md)
+
 ## Surfaces
 
 - [Card](components/surfaces/card/card.md)
