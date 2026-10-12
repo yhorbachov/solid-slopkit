@@ -45,6 +45,7 @@ export const nav: NavSection[] = [
       {
         title: 'Buttons',
         items: [
+          { title: 'ActionIcon', href: '/ui/action-icon' },
           { title: 'Button', href: '/ui/button' },
           { title: 'CloseButton', href: '/ui/close-button' },
         ],

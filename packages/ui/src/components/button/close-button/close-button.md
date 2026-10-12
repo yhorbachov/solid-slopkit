@@ -22,6 +22,7 @@ import { CloseButton } from '@solid-slopkit/ui';
 - **Icon:** the built-in X is an inline SVG that Button sizes. Children replace it, for an icon from your own set; mark it `aria-hidden="true"`.
 - **Behavior:** a native `button` with `type="button"`, so it never submits a form by accident. It takes Button's keyboard behavior, focus ring and `disabled`.
 - Alert and Notification render one for you when you pass `onClose`.
+- For other icon-only actions, use [ActionIcon](../action-icon/action-icon.md).
 
 ## Props
 
