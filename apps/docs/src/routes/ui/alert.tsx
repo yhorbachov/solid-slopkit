@@ -56,7 +56,11 @@ export default function AlertPage() {
       </p>
 
       <H2 id="dismiss">Dismissing</H2>
-      <p>Alert has no close button yet. Render it conditionally, and put your own button in the message.</p>
+      <p>
+        Passing <code>onClose</code> shows a close button at the end edge, and pressing it calls <code>onClose</code>. The alert
+        doesn't remove itself: render it conditionally and hide it there. <code>closeButtonLabel</code> names the button for
+        screen readers, <code>'Close'</code> by default.
+      </p>
       <Example component={Dismiss} code={dismissCode} />
 
       <H2 id="props">Props</H2>
@@ -74,14 +78,17 @@ export default function AlertPage() {
             description: 'Color role.',
           },
           { name: 'variant', type: "'soft' | 'solid' | 'outline'", default: "'soft'", description: 'Visual style.' },
+          { name: 'onClose', type: '() => void', description: "Shows a close button, and is called when it's pressed." },
+          { name: 'closeButtonLabel', type: 'string', default: "'Close'", description: 'Accessible name of the close button.' },
         ]}
       />
 
       <H2 id="styling">Styling</H2>
       <p>
         The root has the class <code>.slp-alert</code>, with <code>data-color</code>, <code>data-variant</code> and{' '}
-        <code>data-with-icon</code>. Its slots are <code>alert-icon</code>, <code>alert-content</code>, <code>alert-title</code>{' '}
-        and <code>alert-message</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>data-with-icon</code>. Its slots are <code>alert-icon</code>, <code>alert-content</code>, <code>alert-title</code>,{' '}
+        <code>alert-message</code> and <code>alert-close-button</code>. Its rules live in <code>@layer slopkit.components</code>,
+        so unlayered CSS wins.
       </p>
       <CssVarsTable
         rows={[

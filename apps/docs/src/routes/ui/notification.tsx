@@ -43,7 +43,8 @@ export default function NotificationPage() {
       <H2 id="showing">Showing and dismissing</H2>
       <p>
         Notification is only the card. Put it where it should appear, such as a region fixed to a corner, and remove it when it's
-        done. It has no close button yet.
+        done. Passing <code>onClose</code> shows a close button at the end edge, and pressing it calls <code>onClose</code>.
+        <code>closeButtonLabel</code> names it for screen readers, <code>'Close'</code> by default.
       </p>
       <Example component={Corner} code={cornerCode} />
 
@@ -67,15 +68,17 @@ export default function NotificationPage() {
             default: 'false',
             description: 'Shows a Loader in place of the icon; sets aria-busy.',
           },
+          { name: 'onClose', type: '() => void', description: "Shows a close button, and is called when it's pressed." },
+          { name: 'closeButtonLabel', type: 'string', default: "'Close'", description: 'Accessible name of the close button.' },
         ]}
       />
 
       <H2 id="styling">Styling</H2>
       <p>
         The root has the class <code>.slp-notification</code>, with <code>data-color</code> and <code>data-loading</code>. Its
-        slots are <code>notification-icon</code>, <code>notification-content</code>, <code>notification-title</code> and{' '}
-        <code>notification-message</code>. The bar is the root's <code>::before</code>. Its rules live in{' '}
-        <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        slots are <code>notification-icon</code>, <code>notification-content</code>, <code>notification-title</code>,{' '}
+        <code>notification-message</code> and <code>notification-close-button</code>. The bar is the root's <code>::before</code>.
+        Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
       <CssVarsTable
         rows={[

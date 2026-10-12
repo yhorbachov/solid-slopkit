@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button. Inputs: SegmentedControl. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button, CloseButton. Inputs: SegmentedControl. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -91,14 +91,14 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M1.22** Progress
 - [x] **M1.23** RingProgress
 - [x] **M1.24** SemiCircleProgress
-- [x] **M1.25** Alert. No close button until CloseButton (M1.32).
-- [x] **M1.26** Notification (the visual component only; the manager is M6). No close button until CloseButton (M1.32).
+- [x] **M1.25** Alert. The close button came with CloseButton (M1.32).
+- [x] **M1.26** Notification (the visual component only; the manager is M6). The close button came with CloseButton (M1.32).
 - [x] **M1.27** Timeline
 - [x] **M1.28** Table
 - [x] **M1.29** NumberFormatter (uses provider `locale`)
 - [x] **M1.30** VisuallyHidden
 - [x] ~~**M1.31** UnstyledButton~~ Dropped by the maintainer's decision: a plain `button` does the job, and later buttons build on it directly.
-- [ ] **M1.32** CloseButton
+- [x] **M1.32** CloseButton. Alert and Notification got their close button with it (`onClose`, `closeButtonLabel`).
 - [ ] **M1.33** ActionIcon
 - [ ] **M1.34** CopyButton
 - [ ] **M1.35** FileButton

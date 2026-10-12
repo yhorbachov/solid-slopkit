@@ -14,6 +14,9 @@ export const notifications = () => (
     <Notification loading title="Uploading">
       3 of 5 files
     </Notification>
+    <Notification icon={<Icon />} title="Closable" onClose={() => {}} closeButtonLabel="Dismiss">
+      With a close button.
+    </Notification>
     {/* An icon that isn't shown while loading must not be created: hydration would look for it in the page. */}
     <Notification loading icon={<Icon />} title="Saving">
       Almost done

@@ -25,25 +25,27 @@ import { Notification } from '@solid-slopkit/ui';
 - **Color:** `color` takes a color role and defaults to `primary`. Without an icon, a bar of the color runs down the start edge; with one, the icon sits in a circle of the color. Mark the icon `aria-hidden="true"`: the text carries the meaning.
 - **Icon or bar:** passing the `icon` prop at all chooses the circle, even as `icon={undefined}`; leave the prop out for the bar. The icon is created only while it's shown, so a notification that starts out loading doesn't build an icon it won't show.
 - **Loading:** `loading` shows a Loader in place of the icon, in the color, and sets `aria-busy`. When it ends, the icon (or the bar) comes back.
-- **Showing and dismissing:** Notification is only the card. Put it where it should appear, such as a fixed region in a corner, and remove it when it's done. It has no close button yet; put your own button in the message if the reader should dismiss it.
+- **Showing and dismissing:** Notification is only the card. Put it where it should appear, such as a fixed region in a corner, and remove it when it's done. Passing `onClose` shows a [CloseButton](../../button/close-button/close-button.md) at the end edge, and pressing it calls `onClose`; the notification doesn't remove itself. `closeButtonLabel` names the button for screen readers, `'Close'` by default.
 
 ## Props
 
 Other props, such as `role`, are passed to the `div`.
 
-| Prop      | Type                                                                                               | Default     | Description                                                      |
-| --------- | -------------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------- |
-| `title`   | `JSX.Element`                                                                                      | —           | A short heading above the message.                               |
-| `icon`    | `JSX.Element`                                                                                      | —           | An icon in a circle of the color. A bar if the prop is left out. |
-| `color`   | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'` | Color role of the circle or the bar.                             |
-| `loading` | `boolean`                                                                                          | `false`     | Shows a Loader in place of the icon; sets `aria-busy`.           |
+| Prop               | Type                                                                                               | Default     | Description                                                      |
+| ------------------ | -------------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------- |
+| `title`            | `JSX.Element`                                                                                      | —           | A short heading above the message.                               |
+| `icon`             | `JSX.Element`                                                                                      | —           | An icon in a circle of the color. A bar if the prop is left out. |
+| `color`            | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'` | Color role of the circle or the bar.                             |
+| `loading`          | `boolean`                                                                                          | `false`     | Shows a Loader in place of the icon; sets `aria-busy`.           |
+| `onClose`          | `() => void`                                                                                       | —           | Shows a close button, and is called when it's pressed.           |
+| `closeButtonLabel` | `string`                                                                                           | `'Close'`   | Accessible name of the close button.                             |
 
 ## Styling
 
 Write plain CSS against these selectors. Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root class: `.slp-notification`.
-- Slots: `[data-slot="notification-icon"]` (the circle, or the Loader while loading), `[data-slot="notification-content"]`, `[data-slot="notification-title"]`, `[data-slot="notification-message"]`.
+- Slots: `[data-slot="notification-icon"]` (the circle, or the Loader while loading), `[data-slot="notification-content"]`, `[data-slot="notification-title"]`, `[data-slot="notification-message"]`, `[data-slot="notification-close-button"]` (a CloseButton).
 - State and variant attributes on the root: `data-color`, `data-loading`.
 - The bar is the root's `::before`, drawn when there's no icon slot.
 

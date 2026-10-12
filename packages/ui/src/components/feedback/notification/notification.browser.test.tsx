@@ -50,6 +50,22 @@ describe('<Notification /> in a browser', () => {
     expect(icon.getBoundingClientRect().right).toBeLessThanOrEqual(slot(notification, 'title').getBoundingClientRect().left);
   });
 
+  test('the close button sits at the end edge, centered on the icon', () => {
+    const { getByRole } = render(() => (
+      <Notification icon={<svg viewBox="0 0 24 24" />} title="Deployed" onClose={() => {}}>
+        Version 0.0.1 is live.
+      </Notification>
+    ));
+    const notification = getByRole('status');
+    const box = notification.getBoundingClientRect();
+    const icon = slot(notification, 'icon').getBoundingClientRect();
+    const button = getByRole('button', { name: 'Close' }).getBoundingClientRect();
+
+    expect(button.left).toBeGreaterThanOrEqual(slot(notification, 'content').getBoundingClientRect().right);
+    expect(button.right).toBeLessThan(box.right);
+    expect(Math.round(button.top + button.height / 2)).toBe(Math.round(icon.top + icon.height / 2));
+  });
+
   test('loading: the Loader in the role color, with no circle', () => {
     const { getByRole, getByTestId } = render(() => (
       <>

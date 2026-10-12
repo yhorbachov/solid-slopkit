@@ -116,6 +116,14 @@
     font-weight: 600;
   }
 
+  /* Centered on the icon's row (a `sm` Button is `--slp-size-field` × 7 tall), and pulled toward the end edge so
+     the X lines up with the padding rather than the button's box. */
+  .closeButton {
+    align-self: flex-start;
+    margin-block: calc((2rem - var(--slp-size-field) * 7) / 2);
+    margin-inline-end: calc(var(--slp-spacing) * -2);
+  }
+
   .message {
     color: color-mix(in oklab, var(--slp-color-base-content) 75%, transparent);
 

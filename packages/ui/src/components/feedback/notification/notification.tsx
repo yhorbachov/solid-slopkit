@@ -5,6 +5,7 @@ import { mergeDefaultProps, type ElementProps } from '../../../utils';
 import { joinClass } from '../../../style-props';
 import { Loader } from '../loader';
 import type { SlopColor } from '../../../core';
+import { CloseButton } from '../../button/close-button';
 
 export interface NotificationOwnProps {
   /** A short heading, above the message. */
@@ -15,6 +16,10 @@ export interface NotificationOwnProps {
   color?: SlopColor;
   /** Shows a Loader in place of the icon, and marks the notification busy. */
   loading?: boolean;
+  /** Called when the close button is pressed. Passing it shows the button; removing the notification is up to the app. */
+  onClose?: () => void;
+  /** Accessible name of the close button. Defaults to `'Close'`. */
+  closeButtonLabel?: string;
 }
 
 export type NotificationProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, NotificationOwnProps>;
@@ -23,11 +28,11 @@ const hasContent = (value: JSX.Element) => value != null && value !== false;
 
 /**
  * A short message about something that happened: a card with `role="status"`, a title, and an icon or a colored bar.
- * The look only; showing, stacking and dismissing notifications is up to the app.
+ * With `onClose`, a close button. The look only; showing, stacking and removing notifications is up to the app.
  */
 export function Notification(props: NotificationProps) {
   const mergedProps = mergeDefaultProps({ color: 'primary' as SlopColor }, props);
-  const others = omit(mergedProps, 'class', 'children', 'title', 'icon', 'color', 'loading');
+  const others = omit(mergedProps, 'class', 'children', 'title', 'icon', 'color', 'loading', 'onClose', 'closeButtonLabel');
 
   // Read once: a JSX prop is a getter that creates its elements on every read.
   const title = createMemo(() => props.title, { name: 'Notification.title' });
@@ -71,6 +76,15 @@ export function Notification(props: NotificationProps) {
           {mergedProps.children}
         </div>
       </div>
+      <Show when={!!props.onClose}>
+        <CloseButton
+          data-slot="notification-close-button"
+          size="sm"
+          label={props.closeButtonLabel}
+          class={style.closeButton}
+          onClick={() => props.onClose?.()}
+        />
+      </Show>
     </div>
   );
 }

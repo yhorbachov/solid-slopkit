@@ -1,5 +1,5 @@
 import { createSignal, Show } from 'solid-js';
-import { Alert, Button, Group } from '@solid-slopkit/ui';
+import { Alert, Button } from '@solid-slopkit/ui';
 
 export default function Dismiss() {
   const [open, setOpen] = createSignal(true);
@@ -13,13 +13,8 @@ export default function Dismiss() {
         </Button>
       }
     >
-      <Alert color="warning" title="Unsaved changes" style={{ width: '100%' }}>
-        <Group justify="space-between" wrap="nowrap" gap={3}>
-          <span>You have changes that aren't saved yet.</span>
-          <Button size="sm" variant="ghost" onClick={() => setOpen(false)}>
-            Dismiss
-          </Button>
-        </Group>
+      <Alert color="warning" title="Unsaved changes" style={{ width: '100%' }} onClose={() => setOpen(false)}>
+        You have changes that aren't saved yet.
       </Alert>
     </Show>
   );

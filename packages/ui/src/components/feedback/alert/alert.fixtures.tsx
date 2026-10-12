@@ -14,5 +14,8 @@ export const alerts = () => (
     <Alert color="success" variant="outline" role="status">
       Saved.
     </Alert>
+    <Alert title="Closable" onClose={() => {}} closeButtonLabel="Dismiss">
+      With a close button.
+    </Alert>
   </div>
 );

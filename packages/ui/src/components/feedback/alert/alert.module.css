@@ -104,6 +104,14 @@
     font-weight: 600;
   }
 
+  /* Centered on the first line of text, like the icon (a `sm` Button is `--slp-size-field` × 7 tall), and pulled
+     toward the end edge so the X lines up with the padding rather than the button's box. */
+  .closeButton {
+    align-self: flex-start;
+    margin-block: calc((var(--slp-line-height-sm) - var(--slp-size-field) * 7) / 2);
+    margin-inline-end: calc(var(--slp-spacing) * -2);
+  }
+
   /* Paragraphs inside the message space themselves; its edges stay flush with the box. */
   .message {
     & > :first-child {

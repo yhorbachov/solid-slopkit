@@ -113,6 +113,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/close-button";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/close-button")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/code";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/code")>;
@@ -602,6 +608,14 @@ declare module "virtual:file-routes" {
       id: "/ui/aspect-ratio";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/aspect-ratio")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/close-button";
+      id: "/ui/close-button";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/close-button")>;
       $$route?: undefined;
       children?: undefined;
     },

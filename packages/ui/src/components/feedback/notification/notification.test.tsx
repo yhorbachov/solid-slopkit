@@ -2,7 +2,7 @@ import { render } from '@solidjs/testing-library';
 import { captureArtifact } from '@solidjs/diagnostics';
 import { createSignal, flush } from 'solid-js';
 import axe from 'axe-core';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { expectHydration } from '../../../../test/ssr';
 import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 import { Notification } from './notification';
@@ -38,6 +38,28 @@ describe('<Notification />', () => {
     expect(notification).toHaveAttribute('id', 'n');
     expect(notification).toHaveClass('slp-notification', 'mine');
     expect(notification).not.toHaveAttribute('title');
+  });
+
+  test('onClose shows a close button at the end, which calls it; closeButtonLabel names it', () => {
+    const onClose = vi.fn();
+    const { getAllByRole, getByRole } = render(() => (
+      <>
+        <Notification onClose={onClose} closeButtonLabel="Dismiss">
+          Closable.
+        </Notification>
+        <Notification>Not closable.</Notification>
+      </>
+    ));
+    const [closable, plain] = getAllByRole('status');
+    const button = getByRole('button', { name: 'Dismiss' });
+
+    expect(slot(closable, 'close-button')).toBe(button);
+    expect(closable.lastElementChild).toBe(button);
+    expect(button).toHaveAttribute('data-size', 'sm');
+    expect(slot(plain, 'close-button')).toBeNull();
+
+    button.click();
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   test('loading shows a hidden Loader in place of the icon and marks it busy', () => {
@@ -79,7 +101,7 @@ describe('<Notification />', () => {
     const { container } = render(() => (
       <>
         <Notification title="Saved">Your changes are saved.</Notification>
-        <Notification color="success" icon={<Icon />} title="Deployed">
+        <Notification color="success" icon={<Icon />} title="Deployed" onClose={() => {}}>
           Version 0.0.1 is live.
         </Notification>
         <Notification loading title="Uploading">

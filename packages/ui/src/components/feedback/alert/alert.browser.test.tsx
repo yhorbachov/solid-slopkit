@@ -28,6 +28,25 @@ describe('<Alert /> in a browser', () => {
     expect(getComputedStyle(slot(alert, 'title')).fontWeight).toBe('600');
   });
 
+  test('the close button sits at the end edge, centered on the first line', () => {
+    const { getByRole } = render(() => (
+      <div style={{ width: '320px' }}>
+        <Alert title="Heads up" onClose={() => {}}>
+          A message long enough to wrap onto a second line in a narrow box.
+        </Alert>
+      </div>
+    ));
+    const alert = getByRole('alert');
+    const box = alert.getBoundingClientRect();
+    const button = getByRole('button', { name: 'Close' }).getBoundingClientRect();
+    const title = slot(alert, 'title').getBoundingClientRect();
+
+    expect(button.left).toBeGreaterThanOrEqual(title.right);
+    expect(button.right).toBeLessThan(box.right);
+    expect(button.top).toBeGreaterThan(box.top);
+    expect(Math.round(button.top + button.height / 2)).toBe(Math.round(title.top + title.height / 2));
+  });
+
   test('soft: a tint and edge of the role, base-colored text, a role-colored icon', () => {
     const { getByRole, getByTestId } = render(() => (
       <>

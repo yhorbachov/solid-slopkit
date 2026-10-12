@@ -2,7 +2,7 @@ import { render } from '@solidjs/testing-library';
 import { captureArtifact } from '@solidjs/diagnostics';
 import { createSignal, flush, For } from 'solid-js';
 import axe from 'axe-core';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { expectHydration } from '../../../../test/ssr';
 import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 import type { SlopColor } from '../../../core';
@@ -56,6 +56,38 @@ describe('<Alert />', () => {
     expect(getByRole('note')).toHaveClass('slp-alert');
   });
 
+  test('onClose shows a close button at the end, which calls it', () => {
+    const onClose = vi.fn();
+    const { getAllByRole, getByRole } = render(() => (
+      <>
+        <Alert onClose={onClose}>Closable.</Alert>
+        <Alert closeButtonLabel="Dismiss">Not closable.</Alert>
+      </>
+    ));
+    const [closable, plain] = getAllByRole('alert');
+    const button = getByRole('button', { name: 'Close' });
+
+    expect(slot(closable, 'close-button')).toBe(button);
+    expect(closable.lastElementChild).toBe(button);
+    expect(button).toHaveClass('slp-close-button');
+    expect(button).toHaveAttribute('data-size', 'sm');
+    expect(slot(plain, 'close-button')).toBeNull();
+    expect(closable).not.toHaveAttribute('closebuttonlabel');
+
+    button.click();
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  test('closeButtonLabel names the close button', () => {
+    const { getByRole } = render(() => (
+      <Alert onClose={() => {}} closeButtonLabel="Dismiss">
+        Closable.
+      </Alert>
+    ));
+
+    expect(getByRole('button', { name: 'Dismiss' })).toHaveAttribute('data-slot', 'alert-close-button');
+  });
+
   test('title and icon elements are created once', () => {
     let created = 0;
     const Counted = () => {
@@ -93,7 +125,7 @@ describe('<Alert />', () => {
     const { container } = render(() => (
       <For each={variants}>
         {(variant) => (
-          <Alert variant={variant} color="warning" title="Heads up" icon={<Icon />}>
+          <Alert variant={variant} color="warning" title="Heads up" icon={<Icon />} onClose={() => {}}>
             <p>The default theme may still change.</p>
           </Alert>
         )}
