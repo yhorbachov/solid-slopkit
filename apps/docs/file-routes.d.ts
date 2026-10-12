@@ -47,51 +47,9 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/";
+      path: "/ui/anchor";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/index")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/flex";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/flex")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/stack";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/stack")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/group";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/group")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/simple-grid";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/simple-grid")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/grid";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/grid")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/container";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/container")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/center";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/center")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/anchor")>;
       $$route?: undefined;
     },
     {
@@ -101,63 +59,15 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/space";
+      path: "/ui/avatar";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/space")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/avatar")>;
       $$route?: undefined;
     },
     {
-      path: "/ui/button";
+      path: "/ui/background-image";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/button")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/text";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/text")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/title";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/title")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/anchor";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/anchor")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/box";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/box")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/card";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/card")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/divider";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/divider")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/paper";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/paper")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/segmented-control";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/segmented-control")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/background-image")>;
       $$route?: undefined;
     },
     {
@@ -167,9 +77,33 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/kbd";
+      path: "/ui/blockquote";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/kbd")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/blockquote")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/box";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/box")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/button";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/button")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/card";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/card")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/center";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/center")>;
       $$route?: undefined;
     },
     {
@@ -179,21 +113,33 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/blockquote";
+      path: "/ui/container";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/blockquote")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/container")>;
       $$route?: undefined;
     },
     {
-      path: "/ui/list";
+      path: "/ui/divider";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/list")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/divider")>;
       $$route?: undefined;
     },
     {
-      path: "/ui/mark";
+      path: "/ui/flex";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/mark")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/flex")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/grid";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/grid")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/group";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/group")>;
       $$route?: undefined;
     },
     {
@@ -209,9 +155,69 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/background-image";
+      path: "/ui/";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/background-image")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/index")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/kbd";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/kbd")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/list";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/list")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/mark";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/mark")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/paper";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/paper")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/segmented-control";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/segmented-control")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/simple-grid";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/simple-grid")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/space";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/space")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/stack";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/stack")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/text";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/text")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/title";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/title")>;
       $$route?: undefined;
     }
   ];
@@ -376,6 +382,14 @@ declare module "virtual:file-routes" {
       id: "/ui/anchor";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/anchor")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/avatar";
+      id: "/ui/avatar";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/avatar")>;
       $$route?: undefined;
       children?: undefined;
     },

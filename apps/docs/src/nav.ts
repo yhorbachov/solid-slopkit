@@ -49,6 +49,7 @@ export const nav: NavSection[] = [
       {
         title: 'Data display',
         items: [
+          { title: 'Avatar', href: '/ui/avatar' },
           { title: 'BackgroundImage', href: '/ui/background-image' },
           { title: 'Badge', href: '/ui/badge' },
           { title: 'Divider', href: '/ui/divider' },

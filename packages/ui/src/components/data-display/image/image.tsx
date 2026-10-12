@@ -1,8 +1,9 @@
-import { createSignal, omit, onSettled } from 'solid-js';
+import { omit } from 'solid-js';
 import { type JSX } from '@solidjs/web';
 import style from './image.module.css';
 import { callHandler, mergeDefaultProps, mergeRefs, type ElementProps, type Ref } from '../../../utils';
 import { joinClass } from '../../../style-props';
+import { createImageFailure } from '../../primitives';
 
 export type ImageFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
 
@@ -26,25 +27,16 @@ export function Image(props: ImageProps) {
   const mergedProps = mergeDefaultProps({ fit: 'cover' as ImageFit }, props);
   const others = omit(mergedProps, 'ref', 'class', 'src', 'fit', 'fallbackSrc', 'onError');
 
-  // The source that failed, so a new `src` gets its own try.
-  const [failedSrc, setFailedSrc] = createSignal<string | undefined>(undefined, { name: 'Image.failedSrc' });
-  const failed = () => props.src != null && failedSrc() === props.src;
+  const { failed, onError: markFailed } = createImageFailure(
+    () => props.src,
+    () => img,
+  );
   const src = () => (failed() && props.fallbackSrc ? props.fallbackSrc : props.src);
 
   const onError: JSX.EventHandler<HTMLImageElement, Event> = (event) => {
-    if (!failed()) setFailedSrc(props.src);
+    markFailed();
     callHandler(props.onError, event);
   };
-
-  // A server-rendered image can fail before hydration adds the error listener. A zero width alone isn't proof:
-  // an SVG without a size has none either, so decode() decides.
-  onSettled(() => {
-    if (!img?.complete || img.naturalWidth > 0 || !img.getAttribute('src')) return;
-    const failedAtMount = props.src;
-    img.decode().catch(() => {
-      if (props.src === failedAtMount) setFailedSrc(failedAtMount);
-    });
-  });
 
   return (
     <img
