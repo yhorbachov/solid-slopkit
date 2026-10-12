@@ -56,6 +56,7 @@ export const nav: NavSection[] = [
           { title: 'Divider', href: '/ui/divider' },
           { title: 'Image', href: '/ui/image' },
           { title: 'Indicator', href: '/ui/indicator' },
+          { title: 'NumberFormatter', href: '/ui/number-formatter' },
           { title: 'Table', href: '/ui/table' },
           { title: 'ThemeIcon', href: '/ui/theme-icon' },
           { title: 'Timeline', href: '/ui/timeline' },

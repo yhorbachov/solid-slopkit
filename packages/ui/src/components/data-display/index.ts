@@ -5,6 +5,7 @@ export * from './color-swatch';
 export * from './divider';
 export * from './image';
 export * from './indicator';
+export * from './number-formatter';
 export * from './table';
 export * from './theme-icon';
 export * from './timeline';

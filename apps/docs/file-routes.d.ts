@@ -209,6 +209,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/number-formatter";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/number-formatter")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/paper";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/paper")>;
@@ -622,6 +628,14 @@ declare module "virtual:file-routes" {
       id: "/ui/background-image";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/background-image")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/number-formatter";
+      id: "/ui/number-formatter";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/number-formatter")>;
       $$route?: undefined;
       children?: undefined;
     },
