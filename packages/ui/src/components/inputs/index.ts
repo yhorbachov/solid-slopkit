@@ -6,6 +6,7 @@ export * from './input-wrapper';
 export * from './native-select';
 export * from './number-input';
 export * from './password-input';
+export * from './pin-input';
 export * from './radio';
 export * from './segmented-control';
 export * from './switch';

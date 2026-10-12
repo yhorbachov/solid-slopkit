@@ -299,6 +299,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/pin-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/pin-input")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/progress";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/progress")>;
@@ -736,6 +742,14 @@ declare module "virtual:file-routes" {
       id: "/ui/indicator";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/indicator")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/pin-input";
+      id: "/ui/pin-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/pin-input")>;
       $$route?: undefined;
       children?: undefined;
     },
