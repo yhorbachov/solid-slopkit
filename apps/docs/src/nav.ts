@@ -57,6 +57,7 @@ export const nav: NavSection[] = [
           { title: 'Image', href: '/ui/image' },
           { title: 'Indicator', href: '/ui/indicator' },
           { title: 'ThemeIcon', href: '/ui/theme-icon' },
+          { title: 'Timeline', href: '/ui/timeline' },
         ],
       },
       {
