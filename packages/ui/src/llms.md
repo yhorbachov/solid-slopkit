@@ -52,6 +52,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 ## Data display
 
+- [BackgroundImage](components/data-display/background-image/background-image.md)
 - [Badge](components/data-display/badge/badge.md)
 - [Divider](components/data-display/divider/divider.md)
 - [Image](components/data-display/image/image.md)
