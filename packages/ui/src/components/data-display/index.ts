@@ -4,4 +4,5 @@ export * from './badge';
 export * from './color-swatch';
 export * from './divider';
 export * from './image';
+export * from './indicator';
 export * from './theme-icon';

@@ -55,6 +55,7 @@ export const nav: NavSection[] = [
           { title: 'ColorSwatch', href: '/ui/color-swatch' },
           { title: 'Divider', href: '/ui/divider' },
           { title: 'Image', href: '/ui/image' },
+          { title: 'Indicator', href: '/ui/indicator' },
           { title: 'ThemeIcon', href: '/ui/theme-icon' },
         ],
       },

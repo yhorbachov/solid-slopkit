@@ -58,6 +58,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [ColorSwatch](components/data-display/color-swatch/color-swatch.md)
 - [Divider](components/data-display/divider/divider.md)
 - [Image](components/data-display/image/image.md)
+- [Indicator](components/data-display/indicator/indicator.md)
 - [ThemeIcon](components/data-display/theme-icon/theme-icon.md)
 
 ## Surfaces

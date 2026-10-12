@@ -167,6 +167,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/indicator";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/indicator")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/kbd";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/kbd")>;
@@ -442,6 +448,14 @@ declare module "virtual:file-routes" {
       id: "/ui/highlight";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/highlight")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/indicator";
+      id: "/ui/indicator";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/indicator")>;
       $$route?: undefined;
       children?: undefined;
     },
