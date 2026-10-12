@@ -1,4 +1,4 @@
-# Handoff: slopkit UI, after M1.29
+# Handoff: slopkit UI, after M2
 
 For the next agent picking up the roadmap. Written 2026-10-12. Read `AGENTS.md`, `docs/roadmap.md` (rules and definition of done), `CONTEXT.md` and the relevant ADRs first; this file only adds what those don't say.
 
@@ -7,7 +7,16 @@ For the next agent picking up the roadmap. Written 2026-10-12. Read `AGENTS.md`,
 - `main` is clean, nothing pushed.
 - Done this session, one commit each: M1.07 Badge, M1.08 Kbd (and `--slp-font-family-monospace`), M1.09 Code, M1.10 Blockquote, M1.11 List, M1.12 Mark, M1.13 Highlight, M1.14 Image, M1.15 BackgroundImage, M1.16 Avatar (and Avatar.Group), M1.17 ThemeIcon, M1.18 ColorSwatch, M1.19 Indicator, M1.20 Loader, M1.21 Skeleton, M1.22 Progress, M1.23 RingProgress, M1.24 SemiCircleProgress, M1.25 Alert, M1.26 Notification, M1.27 Timeline, M1.28 Table, M1.29 NumberFormatter. Plus `0c5719b fix: Indicator builds its label only while the mark is shown`.
 - Since then, one commit each: M1.30 VisuallyHidden, M1.32 CloseButton (with close buttons on Alert and Notification), M1.33 ActionIcon, M1.34 CopyButton (and the internal `createClipboard` primitive), M1.35 FileButton, M1.36 Burger. M1.31 UnstyledButton is dropped and M1.37 AppShell is postponed until the overlays (M3), both by the maintainer's decision.
-- **Next step: M2.01**, the list/arrow navigation primitive, unless the maintainer names another.
+- Then all of M2, one commit each, at the maintainer's request to finish the milestone (with a commit per step and API decisions recorded rather than asked): M2.01 list navigation primitive (SegmentedControl on it), M2.02 Input and InputWrapper, M2.03 Fieldset, M2.04 TextInput, M2.05 Textarea, M2.06 PasswordInput, M2.07 NumberInput, M2.08 NativeSelect, M2.09 Checkbox, M2.10 Radio, M2.11 Switch, M2.12 Chip, M2.13 PinInput, M2.14 Rating, M2.15 Slider, M2.16 RangeSlider, M2.17 AngleSlider, M2.18 FileInput, M2.19 JsonInput, M2.20 ColorPicker. The reasons for each API are in the commit bodies.
+- **Next step: M3.01**, the floating positioning primitive, unless the maintainer names another. M1.37 AppShell waits for M3.
+
+## Shared internals in `components/inputs` (not exported)
+
+- `field.tsx`: `FieldWrapper` and `controlProps` split one props object between an InputWrapper (label, description, error, required, withAsterisk, size, id, class, style) and the control. TextInput, Textarea, PasswordInput, NumberInput, NativeSelect and FileInput use it.
+- `choice.tsx`: the label, description and error column next to a small control, with ids (`createChoiceText`), and the shared sizes (`--_choice-size`). Checkbox, Radio, Switch.
+- `choice-group.tsx`: `ChoiceGroup` and `createCheckedState`, a `string[]` group; Checkbox.Group and Switch.Group.
+- `slider/slider-base.tsx`: track, bar, marks, thumbs, drag and keys; Slider and RangeSlider. `valueAt(index)` lets a thumb read only its own value.
+- Value-based fields (`onChange(value)`) are those that rewrite or own their value (NumberInput, Slider, JsonInput, ColorPicker, the choices); text fields keep the native `value`/`onInput`/`onChange(event)`.
 
 ## How the maintainer works
 
@@ -56,10 +65,18 @@ Conventions that recur:
 11. **Docs router types.** At ~44 pages, inferring the router from the generated route tuple hit TS2589; `apps/docs/src/router.ts` now widens `pageRoutes` to an array. Don't undo it.
 12. **Events in jsdom tests need `flush()`** before asserting on state they change (`fireEvent.click(...)`, then `flush()`).
 13. **Script against the docs page only after hydration.** A click sent right after `navigate` is replayed after hydration, so reads look one step behind; wait about a second first. With the browser pane hidden, screenshots and real clicks fail and CSS transitions don't advance: verify through the DOM.
+14. **A signal write isn't visible until flush.** In an event handler that writes and then reads again in the same tick (two quick clicks, a commit right after a move), call `flush()` after the write. NumberInput's `commit` and the slider base's `move` do.
+15. **`createContext(undefined)` throws when read without a provider.** Use `null` as the default and map it to `undefined` (InputWrapper, the groups).
+16. **Read a `ref` prop with `untrack`.** Through a field's props proxy it's a reactive getter, and reading it in `ref=` warns STRICT_READ_UNTRACKED.
+17. **A `Show` passed as a section always counts as content**: decide such sections once (NumberInput's `hideControls`), or the box draws an empty section.
+18. **A `Show` that flips on a shared value is waste** for every item whose own state didn't change (a group's chips): render the element and hide it with CSS instead.
+19. **Visual checks without the pane:** a throwaway browser test with `page.getByTestId(...).screenshot({ path: 'zz-shot.png' })` saves next to the test (paths outside the package are refused); move it to the scratchpad, read it, delete the test. The test viewport is 414px wide.
+20. **jsdom toggles a disabled checkbox** on a synthetic click; assert `toBeDisabled()` instead.
 
 ## Verifying in the browser
 
 - The docs dev server on port 3100 usually belongs to another session; the browser tools reach it, but you can't restart it, and its server-side modules can go stale. The `PostToolUse` hook warns about this.
+- When nothing listens on 3100 (the app stops idle servers), start it yourself with `preview_start` and the `docs` config; no change to `launch.json` is needed.
 - When you need a fresh server: add a temporary entry to `.claude/launch.json` (it's tracked) on another port, e.g. `"docs-verify"` on 3101 with `--port 3101 --strictPort`, start it with `preview_start`, and afterwards `preview_stop` it and restore the file exactly (back it up to the scratchpad first).
 - Check each page in light and dark: the "Toggle color scheme" button (find it with `find`; screenshot coordinates drift). Leave the scheme as you found it.
 - The SSR test helper (`packages/ui/test/ssr.tsx`, `expectHydration`) can't resolve `@lucide/solid` from `packages/ui`. To reproduce with a real icon, import its source file from `node_modules/.pnpm/@lucide+solid@.../dist/source/icons/<name>.jsx` in a scratch fixture.
