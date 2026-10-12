@@ -67,6 +67,7 @@ export const nav: NavSection[] = [
           { title: 'Blockquote', href: '/ui/blockquote' },
           { title: 'Code', href: '/ui/code' },
           { title: 'Kbd', href: '/ui/kbd' },
+          { title: 'List', href: '/ui/list' },
           { title: 'Text', href: '/ui/text' },
           { title: 'Title', href: '/ui/title' },
         ],
