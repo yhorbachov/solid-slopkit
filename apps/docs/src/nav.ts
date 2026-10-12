@@ -61,7 +61,10 @@ export const nav: NavSection[] = [
       },
       {
         title: 'Feedback',
-        items: [{ title: 'Loader', href: '/ui/loader' }],
+        items: [
+          { title: 'Loader', href: '/ui/loader' },
+          { title: 'Skeleton', href: '/ui/skeleton' },
+        ],
       },
       {
         title: 'Surfaces',
