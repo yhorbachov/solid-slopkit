@@ -4,17 +4,17 @@ For the next agent picking up the roadmap. Written 2026-10-12. Read `AGENTS.md`,
 
 ## Where things stand
 
-- `main` is clean, nothing pushed. The last commit is `81c460c feat: NumberFormatter (M1.29)`.
+- `main` is clean, nothing pushed.
 - Done this session, one commit each: M1.07 Badge, M1.08 Kbd (and `--slp-font-family-monospace`), M1.09 Code, M1.10 Blockquote, M1.11 List, M1.12 Mark, M1.13 Highlight, M1.14 Image, M1.15 BackgroundImage, M1.16 Avatar (and Avatar.Group), M1.17 ThemeIcon, M1.18 ColorSwatch, M1.19 Indicator, M1.20 Loader, M1.21 Skeleton, M1.22 Progress, M1.23 RingProgress, M1.24 SemiCircleProgress, M1.25 Alert, M1.26 Notification, M1.27 Timeline, M1.28 Table, M1.29 NumberFormatter. Plus `0c5719b fix: Indicator builds its label only while the mark is shown`.
-- M1.30 VisuallyHidden is done too (`d08a779`). M1.31 UnstyledButton is dropped by the maintainer's decision.
-- **Next step: M1.32 CloseButton.** Then M1.33 ActionIcon, M1.34 CopyButton, M1.35 FileButton, M1.36 Burger, M1.37 AppShell.
+- Since then, one commit each: M1.30 VisuallyHidden, M1.32 CloseButton (with close buttons on Alert and Notification), M1.33 ActionIcon, M1.34 CopyButton (and the internal `createClipboard` primitive), M1.35 FileButton, M1.36 Burger. M1.31 UnstyledButton is dropped and M1.37 AppShell is postponed until the overlays (M3), both by the maintainer's decision.
+- **Next step: M2.01**, the list/arrow navigation primitive, unless the maintainer names another.
 
 ## How the maintainer works
 
 - One roadmap step per request, named by ID ("go ahead with M1.30"). Never start the next step on your own.
 - After a step: report what was built, decisions with their reasons, anything found or left open, then **ask before committing**. Commit only when told. Message: `feat: <Component> (M1.xx)`; add `, and the <thing>` to the subject when the step also added something, like a token; put notable decisions in the body. End with the `Co-Authored-By` line. Don't push.
 - The maintainer may change course mid-step (for M1.20 they said to leave Button's spinner alone). Follow it and record it on the roadmap line when it changes what the line says.
-- When a step needs a component from a later step, ship without that part and say so on the roadmap line. Alert and Notification have no close button until CloseButton (M1.32); revisit both then.
+- When a step needs a component from a later step, ship without that part and say so on the roadmap line.
 - Never name other UI libraries anywhere (docs, comments, tests, commits). Write "the soft variant", not "X's soft variant".
 
 ## What every step contains (the pattern to copy)
@@ -53,6 +53,9 @@ Conventions that recur:
 8. **`For keyed={false}`** re-running its own memo is counted as waste by `toHaveNoWaste()`; Highlight documents why it asserts a re-run budget instead. Before dropping the waste check, find the wasted scope (dump `artifact.attribution.reruns`) and restructure first: Notification's waste went away with one memo and a `Switch`.
 9. **A positioned `::before` paints over in-flow text.** For a layer under the children, give the root `isolation: isolate` and the layer `z-index: -1` (ColorSwatch, the Notification ping).
 10. **An `aria-label` on a role-less `span`** is prohibited ARIA (axe fails). Give it `role="img"` or put the name in the text.
+11. **Docs router types.** At ~44 pages, inferring the router from the generated route tuple hit TS2589; `apps/docs/src/router.ts` now widens `pageRoutes` to an array. Don't undo it.
+12. **Events in jsdom tests need `flush()`** before asserting on state they change (`fireEvent.click(...)`, then `flush()`).
+13. **Script against the docs page only after hydration.** A click sent right after `navigate` is replayed after hydration, so reads look one step behind; wait about a second first. With the browser pane hidden, screenshots and real clicks fail and CSS transitions don't advance: verify through the DOM.
 
 ## Verifying in the browser
 
@@ -65,7 +68,7 @@ Conventions that recur:
 
 - **Theme values (M8.02, don't tune now):** info and success fail contrast even as white text on the solid role; warning fails as text; soft tints of several roles fall short; dark `neutral` (#424242) is nearly invisible on the dark base; dark `accent` is pure white, so Mark leaves it out of its contrast test. Alert keeps text in the base color and passes everywhere.
 - **Button's `loading`** keeps its own CSS spinner by the maintainer's decision (M1.20 line on the roadmap).
-- **Alert and Notification** get their close button with CloseButton (M1.32).
+- **CopyButton** announces only through its changing name; a proper announcement needs a live-region primitive (ADR 0007 lists it, the roadmap has no step yet). A text (non-icon) CopyButton can be added later.
 - **Not built, can be added without breaking anything:** Table's data-driven prop; Badge's `as`; Image's radius prop (corners are a selector); Timeline's per-item `aria-current`.
 
 ## Checks before reporting a step

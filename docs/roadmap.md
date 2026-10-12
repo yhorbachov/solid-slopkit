@@ -103,7 +103,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M1.34** CopyButton
 - [x] **M1.35** FileButton
 - [x] **M1.36** Burger
-- [ ] **M1.37** AppShell
+- [ ] **M1.37** AppShell. Postponed by the maintainer's decision until the overlays (M3) are done: its navigation on small screens needs Drawer, presence and focus management.
 
 ## M2 — Inputs
 
