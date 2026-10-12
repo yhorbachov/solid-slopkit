@@ -34,6 +34,32 @@ export interface IndicatorOwnProps {
 
 export type IndicatorProps = ElementProps<JSX.HTMLAttributes<HTMLSpanElement>, IndicatorOwnProps>;
 
+/**
+ * The dot or pill. A component of its own so the label is only read, and its elements created, while the mark is
+ * shown: a label built while disabled would never reach the page, and hydration would look for it there.
+ */
+function IndicatorMark(props: IndicatorOwnProps) {
+  // Read once: a JSX prop is a getter that creates its elements on every read.
+  const label = createMemo(() => props.label, { name: 'Indicator.label' });
+  const withLabel = () => label() != null && label() !== false;
+
+  return (
+    // Hidden from assistive technology: put what it means in the child's accessible name instead.
+    <span
+      data-slot="indicator-mark"
+      aria-hidden="true"
+      data-position={props.position}
+      data-color={props.color}
+      data-size={props.size}
+      data-with-label={withLabel() ? '' : undefined}
+      data-processing={props.processing ? '' : undefined}
+      class={style.mark}
+    >
+      {label()}
+    </span>
+  );
+}
+
 /** Pins a dot or a small label to a corner or edge of its child. A `span` around the child. */
 export function Indicator(props: IndicatorProps) {
   const mergedProps = mergeDefaultProps(
@@ -54,10 +80,6 @@ export function Indicator(props: IndicatorProps) {
     'disabled',
   );
 
-  // Read once: a JSX prop is a getter that creates its elements on every read.
-  const label = createMemo(() => props.label, { name: 'Indicator.label' });
-  const withLabel = () => label() != null && label() !== false;
-
   // Any number of px, so it goes in a custom property rather than a data-attribute selector.
   const styleValue = createMemo(
     () => (props.offset ? { ...props.style, '--_indicator-offset': `${props.offset}px` } : props.style),
@@ -68,19 +90,7 @@ export function Indicator(props: IndicatorProps) {
     <span class={joinClass(['slp-indicator', style.indicator], mergedProps.class)} style={styleValue()} {...others}>
       {mergedProps.children}
       <Show when={!mergedProps.disabled}>
-        {/* Hidden from assistive technology: put what it means in the child's accessible name instead. */}
-        <span
-          data-slot="indicator-mark"
-          aria-hidden="true"
-          data-position={mergedProps.position}
-          data-color={mergedProps.color}
-          data-size={mergedProps.size}
-          data-with-label={withLabel() ? '' : undefined}
-          data-processing={mergedProps.processing ? '' : undefined}
-          class={style.mark}
-        >
-          {label()}
-        </span>
+        <IndicatorMark {...mergedProps} />
       </Show>
     </span>
   );

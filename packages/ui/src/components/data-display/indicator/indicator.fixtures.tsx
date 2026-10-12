@@ -12,5 +12,9 @@ export const indicators = () => (
     <Indicator processing disabled>
       <span>Hidden mark</span>
     </Indicator>
+    {/* A label that isn't shown while disabled must not be created: hydration would look for it in the page. */}
+    <Indicator disabled label={<b>3</b>}>
+      <span>Hidden label</span>
+    </Indicator>
   </div>
 );
