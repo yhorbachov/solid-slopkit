@@ -131,6 +131,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/chip";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/chip")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/close-button";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/close-button")>;
@@ -450,6 +456,14 @@ declare module "virtual:file-routes" {
       id: "/ui/card";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/card")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/chip";
+      id: "/ui/chip";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/chip")>;
       $$route?: undefined;
       children?: undefined;
     },

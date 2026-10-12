@@ -1,4 +1,5 @@
 export * from './checkbox';
+export * from './chip';
 export * from './fieldset';
 export * from './input';
 export * from './input-wrapper';
