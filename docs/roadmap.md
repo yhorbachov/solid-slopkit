@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button. Inputs: SegmentedControl. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button. Inputs: SegmentedControl. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -91,7 +91,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M1.22** Progress
 - [x] **M1.23** RingProgress
 - [x] **M1.24** SemiCircleProgress
-- [ ] **M1.25** Alert
+- [x] **M1.25** Alert. No close button until CloseButton (M1.32).
 - [ ] **M1.26** Notification (the visual component only; the manager is M6)
 - [ ] **M1.27** Timeline
 - [ ] **M1.28** Table
