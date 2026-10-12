@@ -93,6 +93,7 @@ export const nav: NavSection[] = [
           { title: 'Mark', href: '/ui/mark' },
           { title: 'Text', href: '/ui/text' },
           { title: 'Title', href: '/ui/title' },
+          { title: 'VisuallyHidden', href: '/ui/visually-hidden' },
         ],
       },
       {

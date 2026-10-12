@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button. Inputs: SegmentedControl. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: Button. Inputs: SegmentedControl. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -96,7 +96,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M1.27** Timeline
 - [x] **M1.28** Table
 - [x] **M1.29** NumberFormatter (uses provider `locale`)
-- [ ] **M1.30** VisuallyHidden
+- [x] **M1.30** VisuallyHidden
 - [ ] **M1.31** UnstyledButton
 - [ ] **M1.32** CloseButton
 - [ ] **M1.33** ActionIcon

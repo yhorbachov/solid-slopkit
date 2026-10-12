@@ -90,6 +90,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Mark](components/typography/mark/mark.md)
 - [Text](components/typography/text/text.md)
 - [Title](components/typography/title/title.md)
+- [VisuallyHidden](components/typography/visually-hidden/visually-hidden.md)
 
 ## Inputs
 

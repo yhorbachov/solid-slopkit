@@ -297,6 +297,12 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/title")>;
       $$route?: undefined;
+    },
+    {
+      path: "/ui/visually-hidden";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/visually-hidden")>;
+      $$route?: undefined;
     }
   ];
   export default routes;
@@ -620,6 +626,14 @@ declare module "virtual:file-routes" {
       id: "/ui/ring-progress";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/ring-progress")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/visually-hidden";
+      id: "/ui/visually-hidden";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/visually-hidden")>;
       $$route?: undefined;
       children?: undefined;
     },
