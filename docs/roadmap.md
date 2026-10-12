@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: Input, InputWrapper, SegmentedControl. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: Fieldset, Input, InputWrapper, SegmentedControl. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -109,7 +109,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 - [x] **M2.01** Primitive: list/arrow navigation (horizontal and vertical); move SegmentedControl onto it
 - [x] **M2.02** Input and InputWrapper (label, description, error, sections)
-- [ ] **M2.03** Fieldset
+- [x] **M2.03** Fieldset
 - [ ] **M2.04** TextInput
 - [ ] **M2.05** Textarea (with autosize)
 - [ ] **M2.06** PasswordInput

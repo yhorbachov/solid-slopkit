@@ -24,7 +24,7 @@ import { Input } from '@solid-slopkit/ui';
 - **Focus:** the box draws a ring of the primary color while the control has focus, and of the error color when invalid. A mouse down anywhere in the box, sections included, focuses the control, unless it lands on a link, button or other control in a section.
 - **Sections:** `leftSection` and `rightSection` hold an icon, a unit or a button. They're at least as wide as the field is tall, and icons are sized to match. Mark icons `aria-hidden="true"`; a button in a section needs its own name.
 - **Invalid:** `invalid` draws the error border and sets `aria-invalid`. Inside an InputWrapper it defaults to whether the wrapper has an `error`.
-- **States:** `disabled`, `readOnly` and `required` go to the control and mark the box (`data-disabled`, `data-read-only`). `required` defaults to the wrapper's.
+- **States:** `disabled`, `readOnly` and `required` go to the control and mark the box (`data-disabled`, `data-read-only`). `required` defaults to the wrapper's. A control disabled by a disabled `fieldset` around it looks disabled too, without `data-disabled`.
 - **Element:** `as` renders another control, such as `'textarea'` or `'select'`. A textarea grows the box, and its sections stay on the first line. `as` is read once.
 - **Phones:** on touch screens the control's text is at least 16px, so phones don't zoom in when it's focused.
 - **Name:** a lone Input has no label: give it `aria-label`, or put it in an InputWrapper.

@@ -58,13 +58,14 @@
       }
     }
 
-    &[data-disabled] {
+    /* Disabled by its own prop, or natively by a disabled fieldset around it. */
+    &:is([data-disabled], :has(> [data-slot='input-control']:disabled)) {
       --_input-bg: color-mix(in oklab, var(--slp-color-base-content) 6%, var(--slp-color-base-100));
       color: color-mix(in oklab, var(--slp-color-base-content) 50%, transparent);
       cursor: not-allowed;
     }
 
-    &[data-variant='ghost'][data-disabled] {
+    &[data-variant='ghost']:is([data-disabled], :has(> [data-slot='input-control']:disabled)) {
       --_input-bg: transparent;
     }
 
