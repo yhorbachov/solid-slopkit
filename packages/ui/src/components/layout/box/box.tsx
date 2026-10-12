@@ -1,8 +1,9 @@
 import { omit } from 'solid-js';
 import { type JSX } from '@solidjs/web';
 import { BOX_STYLE_PROPS, createStyleClasses, joinClass, type BoxStyleProps, type StyleGroup } from '../../../style-props';
+import type { ElementProps } from '../../../utils';
 
-export type BoxProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof BoxStyleProps> & BoxStyleProps;
+export type BoxProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, BoxStyleProps>;
 
 const BOX_GROUPS: StyleGroup[] = ['spacing', 'size', 'display'];
 

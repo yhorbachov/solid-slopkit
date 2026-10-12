@@ -72,27 +72,23 @@ describe('<Text />', () => {
     expect(getByText('Hello')).not.toHaveAttribute('data-size');
   });
 
-  test('lineClamp sets the line count as a custom property, merged with style as an object or a string', () => {
+  test('lineClamp sets the line count as a custom property, merged with style', () => {
     const { getByText } = render(() => (
       <>
         <Text lineClamp={3} style={{ color: 'red' }}>
-          Object
+          Styled
         </Text>
-        {/* oxlint-disable-next-line solid/style-prop -- a string style must work too */}
-        <Text as="div" lineClamp={2} style="color: blue">
-          String
+        <Text as="div" lineClamp={2}>
+          Unstyled
         </Text>
       </>
     ));
 
-    const object = getByText('Object');
-    expect(object).toHaveAttribute('data-line-clamp', '');
-    expect(object.style.getPropertyValue('--_text-line-clamp')).toBe('3');
-    expect(object.style.color).toBe('red');
-
-    const string = getByText('String');
-    expect(string.style.getPropertyValue('--_text-line-clamp')).toBe('2');
-    expect(string.style.color).toBe('blue');
+    const styled = getByText('Styled');
+    expect(styled).toHaveAttribute('data-line-clamp', '');
+    expect(styled.style.getPropertyValue('--_text-line-clamp')).toBe('3');
+    expect(styled.style.color).toBe('red');
+    expect(getByText('Unstyled').style.getPropertyValue('--_text-line-clamp')).toBe('2');
   });
 
   test('prop changes update attributes without diagnostics or waste', async () => {

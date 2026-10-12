@@ -23,7 +23,7 @@ import { Box } from '@solid-slopkit/ui';
 <Box display={{ base: 'none', sm: 'block' }}>Hidden below sm</Box>
 ```
 
-- **Style:** `class` and `style` work as on a plain `div`. `style` takes an object or a string.
+- **Style:** `class` works as on a plain `div`. `style` takes an object with kebab-case keys (`{ 'max-width': '20rem' }`), not a CSS string, like every component's.
 - **Provider:** Box must be rendered inside `<SlopkitUi>`, which collects the generated CSS. It throws otherwise.
 - Only layout components take style props, and each takes its own set (see [Style props](#style-props)). Other components such as `Button` take none; wrap them in a Box or space them with a Stack or Group.
 

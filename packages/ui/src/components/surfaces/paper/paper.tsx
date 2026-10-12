@@ -1,7 +1,7 @@
 import { omit } from 'solid-js';
 import { type JSX } from '@solidjs/web';
 import style from './paper.module.css';
-import { mergeDefaultProps } from '../../../utils';
+import { mergeDefaultProps, type ElementProps } from '../../../utils';
 import { joinClass } from '../../../style-props';
 import type { SlopSize } from '../../../core';
 
@@ -23,7 +23,7 @@ export interface PaperOwnProps {
   radius?: PaperRadius;
 }
 
-export type PaperProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof PaperOwnProps> & PaperOwnProps;
+export type PaperProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, PaperOwnProps>;
 
 /** A surface that groups content: a `div` with a background, padding, radius, and optionally a border and shadow. */
 export function Paper(props: PaperProps) {

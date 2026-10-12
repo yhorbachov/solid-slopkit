@@ -10,14 +10,17 @@ import {
   type GridStyleProps,
   type StyleGroup,
 } from '../../../style-props';
+import type { ElementProps } from '../../../utils';
 
-export type GridProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof GridStyleProps | 'grow'> &
+export type GridProps = ElementProps<
+  JSX.HTMLAttributes<HTMLDivElement>,
   GridStyleProps & {
     /** Columns in a row that is not full grow to fill it. */
     grow?: boolean;
-  };
+  }
+>;
 
-export type GridColProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof GridColStyleProps> & GridColStyleProps;
+export type GridColProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, GridColStyleProps>;
 
 const GRID_GROUPS: StyleGroup[] = ['grid'];
 const GRID_COL_GROUPS: StyleGroup[] = ['gridCol'];

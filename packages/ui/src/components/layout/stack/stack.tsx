@@ -2,6 +2,7 @@ import { omit } from 'solid-js';
 import { type JSX } from '@solidjs/web';
 import { Flex } from '../flex';
 import { joinClass, type FlexAlign, type FlexJustify, type SpacingValue } from '../../../style-props';
+import type { ElementProps } from '../../../utils';
 
 export interface StackOwnProps {
   /** Space between children, in spacing units. Default `4`. */
@@ -12,7 +13,7 @@ export interface StackOwnProps {
   justify?: FlexJustify;
 }
 
-export type StackProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof StackOwnProps> & StackOwnProps;
+export type StackProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, StackOwnProps>;
 
 /** Stacks children vertically: a column Flex with a gap. Its props are not responsive; for that, use Flex. */
 export function Stack(props: StackProps) {

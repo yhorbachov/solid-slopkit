@@ -2,10 +2,11 @@ import { omit } from 'solid-js';
 import { type JSX } from '@solidjs/web';
 import style from './space.module.css';
 import { createStyleClasses, joinClass, type BoxSizeProps, type StyleGroup } from '../../../style-props';
+import type { ElementProps } from '../../../utils';
 
 export type SpaceStyleProps = Pick<BoxSizeProps, 'w' | 'h'>;
 
-export type SpaceProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof SpaceStyleProps> & SpaceStyleProps;
+export type SpaceProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, SpaceStyleProps>;
 
 const SPACE_GROUPS: StyleGroup[] = ['size'];
 

@@ -85,9 +85,9 @@ export default function BoxPage() {
 
       <H2 id="class-and-style">Class and style</H2>
       <p>
-        <code>class</code> and <code>style</code> work as on a plain <code>div</code>. <code>style</code> takes an object or a
-        string. Other props, such as <code>id</code>, <code>role</code> and <code>aria-*</code>, are passed to the{' '}
-        <code>div</code>.
+        <code>class</code> works as on a plain <code>div</code>. <code>style</code> takes an object with kebab-case keys, not a
+        CSS string, like every component's. Other props, such as <code>id</code>, <code>role</code> and <code>aria-*</code>, are
+        passed to the <code>div</code>.
       </p>
       <Example component={Style} code={styleCode} />
 

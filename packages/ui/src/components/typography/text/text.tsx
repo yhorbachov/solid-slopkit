@@ -2,7 +2,7 @@ import { createMemo, omit, untrack } from 'solid-js';
 import { type JSX, type ValidComponent } from '@solidjs/web';
 import { Polymorphic, type PolymorphicProps } from '../../polymorphic';
 import style from './text.module.css';
-import { mergeDefaultProps, mergeStyles } from '../../../utils';
+import { mergeDefaultProps } from '../../../utils';
 import { joinClass } from '../../../style-props';
 import type { SlopColor, SlopSize } from '../../../core';
 
@@ -24,7 +24,7 @@ export interface TextOwnProps {
   /** Takes font size and line height from the parent, e.g. Text inside a Title or a Button. */
   inherit?: boolean;
   class?: JSX.ClassValue | JSX.RemoveAttribute;
-  style?: JSX.CSSProperties | string;
+  style?: JSX.CSSProperties;
   children?: JSX.Element;
 }
 
@@ -41,7 +41,7 @@ export function Text<T extends ValidComponent = 'p'>(props: TextProps<T>) {
   const styleValue = createMemo(
     () => {
       const lines = mergedProps.lineClamp;
-      return lines ? mergeStyles(mergedProps.style, { '--_text-line-clamp': String(lines) }) : mergedProps.style;
+      return lines ? { ...mergedProps.style, '--_text-line-clamp': String(lines) } : mergedProps.style;
     },
     { name: 'Text.style' },
   );

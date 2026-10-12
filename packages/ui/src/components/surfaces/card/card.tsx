@@ -1,7 +1,7 @@
 import { omit } from 'solid-js';
 import { type JSX } from '@solidjs/web';
 import style from './card.module.css';
-import { mergeDefaultProps } from '../../../utils';
+import { mergeDefaultProps, type ElementProps } from '../../../utils';
 import { joinClass } from '../../../style-props';
 
 export type CardVariant = 'outline' | 'soft' | 'elevated';
@@ -14,9 +14,9 @@ export interface CardOwnProps {
   orientation?: CardOrientation;
 }
 
-export type CardProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof CardOwnProps> & CardOwnProps;
-export type CardPartProps = JSX.HTMLAttributes<HTMLDivElement>;
-export type CardImageProps = JSX.ImgHTMLAttributes<HTMLImageElement>;
+export type CardProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, CardOwnProps>;
+export type CardPartProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>>;
+export type CardImageProps = ElementProps<JSX.ImgHTMLAttributes<HTMLImageElement>, { alt: string }>;
 
 /** The top part, for a title: a row that puts anything after the title at the end. */
 export function CardHeader(props: CardPartProps) {
@@ -37,7 +37,7 @@ export function CardFooter(props: CardPartProps) {
 }
 
 /** A full-bleed image, flush with the card's edges and cropped to fit. Takes the `img` attributes; `alt` is required. */
-export function CardImage(props: CardImageProps & { alt: string }) {
+export function CardImage(props: CardImageProps) {
   const others = omit(props, 'class');
   return <img class={joinClass(['slp-card-image', style.image], props.class)} {...others} />;
 }

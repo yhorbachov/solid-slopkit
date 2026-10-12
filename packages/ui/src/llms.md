@@ -22,6 +22,11 @@ export function Root() {
 
 - [SlopkitUi](components/provider/slopkit-ui.md): the provider, required at the root. Locale (`useLocale()`) and the color scheme (`useColorScheme()`).
 
+## Conventions
+
+- `style` takes an object with kebab-case keys, on every component: `style={{ 'max-width': '20rem' }}`. A CSS string is a type error.
+- `class` takes a string, an array or an object, as on a plain element.
+
 ## Theming in one paragraph
 
 A theme is a CSS rule that sets the `--slp-*` tokens: the default theme sets them on `:root`, and any other theme on `[data-slp-theme="<name>"]`, for the whole page or a subtree. Components read only tokens. The `color` prop of a component takes a color role: `primary`, `secondary`, `accent`, `neutral`, `info`, `success`, `warning` or `error`. A one-off color goes through the component's CSS variable, like `--slp-button-color`. Every component rule lives in `@layer slopkit.components`, so unlayered app CSS overrides it.

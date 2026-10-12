@@ -21,6 +21,7 @@ type ButtonRootCommonProps<T extends HTMLElement = HTMLElement> = {
   ref: T | ((el: T) => void);
   tabIndex: number | string | undefined;
   class?: JSX.ClassValue | JSX.RemoveAttribute;
+  style?: JSX.CSSProperties;
 
   /** Visual style. Defaults to `solid`. */
   variant?: ButtonVariant;

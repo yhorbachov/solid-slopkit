@@ -1,7 +1,7 @@
 import { omit } from 'solid-js';
 import { dynamic, type JSX } from '@solidjs/web';
 import style from './title.module.css';
-import { mergeDefaultProps } from '../../../utils';
+import { mergeDefaultProps, type ElementProps } from '../../../utils';
 import { joinClass } from '../../../style-props';
 import type { SlopColor } from '../../../core';
 import type { TextWeight } from '../text';
@@ -23,7 +23,7 @@ export interface TitleOwnProps {
   weight?: TextWeight;
 }
 
-export type TitleProps = Omit<JSX.HTMLAttributes<HTMLHeadingElement>, keyof TitleOwnProps> & TitleOwnProps;
+export type TitleProps = ElementProps<JSX.HTMLAttributes<HTMLHeadingElement>, TitleOwnProps>;
 
 /** A heading, `h1` to `h6`, sized from the heading scale. */
 export function Title(props: TitleProps) {

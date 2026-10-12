@@ -8,8 +8,9 @@ import {
   type AspectRatioStyleProps,
   type StyleGroup,
 } from '../../../style-props';
+import type { ElementProps } from '../../../utils';
 
-export type AspectRatioProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof AspectRatioStyleProps> & AspectRatioStyleProps;
+export type AspectRatioProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, AspectRatioStyleProps>;
 
 const ASPECT_RATIO_GROUPS: StyleGroup[] = ['aspectRatio'];
 

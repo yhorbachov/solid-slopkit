@@ -3,6 +3,7 @@ import { type JSX } from '@solidjs/web';
 import style from './group.module.css';
 import { Flex } from '../flex';
 import { joinClass, type FlexAlign, type FlexJustify, type FlexWrap, type SpacingValue } from '../../../style-props';
+import type { ElementProps } from '../../../utils';
 
 export interface GroupOwnProps {
   /** Space between children, in spacing units. Default `4`. */
@@ -19,7 +20,7 @@ export interface GroupOwnProps {
   preventGrowOverflow?: boolean;
 }
 
-export type GroupProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof GroupOwnProps> & GroupOwnProps;
+export type GroupProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, GroupOwnProps>;
 
 /** Lays children out in a row: a row Flex with a gap that wraps. Its props are not responsive; for that, use Flex. */
 export function Group(props: GroupProps) {

@@ -1,7 +1,7 @@
 import { createEffect, createMemo, createSignal, createUniqueId, flush, For, omit, onSettled, untrack } from 'solid-js';
 import { type JSX } from '@solidjs/web';
 import style from './segmented-control.module.css';
-import { mergeDefaultProps, mergeRefs, type Ref } from '../../../utils';
+import { mergeDefaultProps, mergeRefs, type Ref, type ElementProps } from '../../../utils';
 import { joinClass } from '../../../style-props';
 import type { SlopColor, SlopSize } from '../../../core';
 
@@ -45,11 +45,10 @@ export interface SegmentedControlOwnProps<T extends string = string> {
   ref?: Ref<HTMLDivElement>;
 }
 
-export type SegmentedControlProps<T extends string = string> = Omit<
+export type SegmentedControlProps<T extends string = string> = ElementProps<
   JSX.HTMLAttributes<HTMLDivElement>,
-  keyof SegmentedControlOwnProps<T>
-> &
-  SegmentedControlOwnProps<T>;
+  SegmentedControlOwnProps<T>
+>;
 
 function toItem<T extends string>(item: T | SegmentedControlItem<T>): SegmentedControlItem<T> {
   return typeof item === 'string' ? { value: item, label: item } : item;

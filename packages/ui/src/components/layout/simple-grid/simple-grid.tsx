@@ -7,8 +7,9 @@ import {
   type SimpleGridStyleProps,
   type StyleGroup,
 } from '../../../style-props';
+import type { ElementProps } from '../../../utils';
 
-export type SimpleGridProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof SimpleGridStyleProps> & SimpleGridStyleProps;
+export type SimpleGridProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, SimpleGridStyleProps>;
 
 const GRID_GROUPS: StyleGroup[] = ['simpleGrid'];
 

@@ -44,12 +44,10 @@ describe('<Box />', () => {
     expect(getByTestId('box').getAttribute('class')).toBe('slp-box');
   });
 
-  test('takes class as an array or object, and style as an object or string', () => {
+  test('takes class as an array or object, and style as an object', () => {
     const { getByTestId } = render(() => (
       <SlopkitUi>
         <Box data-testid="a" class={['one', { two: true, three: false }]} style={{ color: 'red' }} p={2} />
-        {/* oxlint-disable-next-line solid/style-prop -- a string style must work too */}
-        <Box data-testid="b" style="color: blue" />
       </SlopkitUi>
     ));
     flush();
@@ -57,7 +55,13 @@ describe('<Box />', () => {
     expect(getByTestId('a')).toHaveClass('slp-box', 'one', 'two', spacingClass({ p: 2 }));
     expect(getByTestId('a')).not.toHaveClass('three');
     expect(getByTestId('a').style.color).toBe('red');
-    expect(getByTestId('b').style.color).toBe('blue');
+  });
+
+  test('style is an object only: a CSS string is a type error', () => {
+    const css = 'color: blue';
+    // @ts-expect-error -- every component types `style` as an object (ElementProps)
+    const rejected = () => <Box style={css} />;
+    expect(rejected).toBeTypeOf('function');
   });
 
   test('throws outside <SlopkitUi>', () => {

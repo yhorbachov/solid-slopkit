@@ -8,12 +8,15 @@ import {
   type ContainerStyleProps,
   type StyleGroup,
 } from '../../../style-props';
+import type { ElementProps } from '../../../utils';
 
-export type ContainerProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, keyof ContainerStyleProps | 'fluid'> &
+export type ContainerProps = ElementProps<
+  JSX.HTMLAttributes<HTMLDivElement>,
   ContainerStyleProps & {
     /** Full width, ignoring `size`. The padding stays. */
     fluid?: boolean;
-  };
+  }
+>;
 
 const CONTAINER_GROUPS: StyleGroup[] = ['container'];
 
