@@ -67,6 +67,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Code](components/typography/code/code.md)
 - [Kbd](components/typography/kbd/kbd.md)
 - [List](components/typography/list/list.md)
+- [Mark](components/typography/mark/mark.md)
 - [Text](components/typography/text/text.md)
 - [Title](components/typography/title/title.md)
 
