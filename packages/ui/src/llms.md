@@ -47,6 +47,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 ## Surfaces
 
+- [Card](components/surfaces/card/card.md)
 - [Paper](components/surfaces/paper/paper.md)
 
 ## Typography

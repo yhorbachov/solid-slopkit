@@ -1,0 +1,105 @@
+/*
+ * Card. The root sets the surface and the padding the parts use. Vertical cards lay the parts out in
+ * DOM order; horizontal ones put the image in a column on the start side, with the other parts stacked beside it
+ * (one of each part).
+ *
+ * Everything prefixed `--_card-` is internal.
+ */
+@layer slopkit.components {
+  .card {
+    --_card-padding: calc(var(--slp-spacing) * 5);
+    --_card-divider: color-mix(in oklab, var(--slp-color-base-content) 12%, transparent);
+
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-width: 0;
+    /* Clips a flush image to the rounded corners. */
+    overflow: hidden;
+    border: var(--slp-border) solid var(--_card-divider);
+    border-radius: var(--slp-radius-box);
+    background-color: var(--slp-color-base-100);
+    color: var(--slp-color-base-content);
+
+    /* Variants */
+    &[data-variant='soft'] {
+      border-color: transparent;
+      background-color: var(--slp-color-base-200);
+    }
+
+    &[data-variant='elevated'] {
+      border-color: transparent;
+      box-shadow: var(--slp-shadow-md);
+    }
+
+    &[data-orientation='horizontal'] {
+      display: grid;
+      grid-template-areas:
+        'image header'
+        'image body'
+        'image footer';
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      grid-template-rows: auto 1fr auto;
+    }
+  }
+
+  .header,
+  .body,
+  .footer {
+    box-sizing: border-box;
+    min-width: 0;
+    padding: var(--_card-padding);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--_card-padding) / 2);
+
+    .card[data-orientation='horizontal'] > & {
+      grid-area: header;
+    }
+  }
+
+  .body {
+    flex-grow: 1;
+
+    /* The header's padding already separates the two. */
+    .header + &,
+    & + & {
+      padding-top: 0;
+    }
+
+    .card[data-orientation='horizontal'] > & {
+      grid-area: body;
+    }
+  }
+
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: calc(var(--_card-padding) / 2);
+    border-top: var(--slp-border) solid var(--_card-divider);
+
+    .card[data-orientation='horizontal'] > & {
+      grid-area: footer;
+    }
+  }
+
+  .image {
+    display: block;
+    width: 100%;
+    max-width: none;
+    object-fit: cover;
+
+    /* Contributes no height of its own, so the other parts set the card's height and the image fills it. */
+    .card[data-orientation='horizontal'] > & {
+      grid-area: image;
+      height: 0;
+      min-height: 100%;
+    }
+  }
+}

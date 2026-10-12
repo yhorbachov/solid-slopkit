@@ -48,7 +48,10 @@ export const nav: NavSection[] = [
       },
       {
         title: 'Surfaces',
-        items: [{ title: 'Paper', href: '/ui/paper' }],
+        items: [
+          { title: 'Card', href: '/ui/card' },
+          { title: 'Paper', href: '/ui/paper' },
+        ],
       },
       {
         title: 'Typography',
