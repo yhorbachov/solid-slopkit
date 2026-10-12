@@ -209,6 +209,18 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/input-wrapper";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/input-wrapper")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/input")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/kbd";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/kbd")>;
@@ -468,6 +480,14 @@ declare module "virtual:file-routes" {
       children?: undefined;
     },
     {
+      path: "/ui/input";
+      id: "/ui/input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/input")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
       path: "/ui/paper";
       id: "/ui/paper";
       page: true;
@@ -688,6 +708,14 @@ declare module "virtual:file-routes" {
       id: "/ui/notification";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/notification")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/input-wrapper";
+      id: "/ui/input-wrapper";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/input-wrapper")>;
       $$route?: undefined;
       children?: undefined;
     },
