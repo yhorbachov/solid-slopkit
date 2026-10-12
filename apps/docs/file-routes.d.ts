@@ -191,6 +191,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/file-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/file-input")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/flex";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/flex")>;
@@ -798,6 +804,14 @@ declare module "virtual:file-routes" {
       id: "/ui/blockquote";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/blockquote")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/file-input";
+      id: "/ui/file-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/file-input")>;
       $$route?: undefined;
       children?: undefined;
     },

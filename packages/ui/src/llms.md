@@ -103,6 +103,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Checkbox](components/inputs/checkbox/checkbox.md): with Checkbox.Group and Checkbox.Card
 - [Chip](components/inputs/chip/chip.md): with Chip.Group
 - [Fieldset](components/inputs/fieldset/fieldset.md)
+- [FileInput](components/inputs/file-input/file-input.md)
 - [Input](components/inputs/input/input.md): the field box, with sections
 - [InputWrapper](components/inputs/input-wrapper/input-wrapper.md): label, description and error around a field; `useInputWrapper()`
 - [NativeSelect](components/inputs/native-select/native-select.md)

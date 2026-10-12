@@ -110,6 +110,7 @@ export const nav: NavSection[] = [
           { title: 'Checkbox', href: '/ui/checkbox' },
           { title: 'Chip', href: '/ui/chip' },
           { title: 'Fieldset', href: '/ui/fieldset' },
+          { title: 'FileInput', href: '/ui/file-input' },
           { title: 'Input', href: '/ui/input' },
           { title: 'InputWrapper', href: '/ui/input-wrapper' },
           { title: 'NativeSelect', href: '/ui/native-select' },
