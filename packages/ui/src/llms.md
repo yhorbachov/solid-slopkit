@@ -102,6 +102,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Fieldset](components/inputs/fieldset/fieldset.md)
 - [Input](components/inputs/input/input.md): the field box, with sections
 - [InputWrapper](components/inputs/input-wrapper/input-wrapper.md): label, description and error around a field; `useInputWrapper()`
+- [PasswordInput](components/inputs/password-input/password-input.md)
 - [SegmentedControl](components/inputs/segmented-control/segmented-control.md)
 - [TextInput](components/inputs/text-input/text-input.md)
 - [Textarea](components/inputs/textarea/textarea.md): with autosize

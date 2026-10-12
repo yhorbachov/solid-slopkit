@@ -269,6 +269,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/password-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/password-input")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/progress";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/progress")>;
@@ -766,6 +772,14 @@ declare module "virtual:file-routes" {
       id: "/ui/ring-progress";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/ring-progress")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/password-input";
+      id: "/ui/password-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/password-input")>;
       $$route?: undefined;
       children?: undefined;
     },
