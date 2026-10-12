@@ -109,7 +109,11 @@ export function Input<T extends ValidComponent = 'input'>(props: InputProps<T>) 
       </Show>
       <Polymorphic<Record<string, unknown>>
         as="input"
-        ref={mergeRefs((el: HTMLElement) => (control = el), own.ref)}
+        // A ref is read once.
+        ref={mergeRefs(
+          (el: HTMLElement) => (control = el),
+          untrack(() => own.ref),
+        )}
         id={own.id ?? wrapper?.id}
         disabled={own.disabled}
         readOnly={own.readOnly}

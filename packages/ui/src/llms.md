@@ -103,3 +103,4 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Input](components/inputs/input/input.md): the field box, with sections
 - [InputWrapper](components/inputs/input-wrapper/input-wrapper.md): label, description and error around a field; `useInputWrapper()`
 - [SegmentedControl](components/inputs/segmented-control/segmented-control.md)
+- [TextInput](components/inputs/text-input/text-input.md)
