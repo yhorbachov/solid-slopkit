@@ -52,6 +52,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Button](components/button/button/button.md)
 - [CloseButton](components/button/close-button/close-button.md)
 - [CopyButton](components/button/copy-button/copy-button.md)
+- [FileButton](components/button/file-button/file-button.md)
 
 ## Data display
 
