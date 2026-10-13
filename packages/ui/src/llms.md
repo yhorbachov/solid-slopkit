@@ -123,6 +123,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 ## Overlays
 
+- [HoverCard](components/overlays/hover-card/hover-card.md): HoverCard.Target and HoverCard.Dropdown, shown on hover and keyboard focus
 - [Popover](components/overlays/popover/popover.md): Popover.Target and Popover.Dropdown
 - [Tooltip](components/overlays/tooltip/tooltip.md): a description shown on hover and keyboard focus
 

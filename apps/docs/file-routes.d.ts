@@ -477,6 +477,12 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/visually-hidden")>;
       $$route?: undefined;
+    },
+    {
+      path: "/ui/hover-card";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/hover-card")>;
+      $$route?: undefined;
     }
   ];
   export default routes;
@@ -872,6 +878,14 @@ declare module "virtual:file-routes" {
       id: "/ui/file-input";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/file-input")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/hover-card";
+      id: "/ui/hover-card";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/hover-card")>;
       $$route?: undefined;
       children?: undefined;
     },
