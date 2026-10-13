@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Checkbox, Chip, ColorPicker, Fieldset, FileInput, Input, InputWrapper, JsonInput, NativeSelect, NumberInput, PasswordInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Slider, Switch, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Overlays: Dialog, Drawer, HoverCard, Menu, Modal, Overlay, Popover, Tooltip. Utilities: Collapse, Transition. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Checkbox, Chip, ColorPicker, Fieldset, FileInput, Input, InputWrapper, JsonInput, NativeSelect, NumberInput, PasswordInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Slider, Switch, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Overlays: Dialog, Drawer, HoverCard, LoadingOverlay, Menu, Modal, Overlay, Popover, Tooltip. Utilities: Collapse, Transition. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -146,7 +146,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M3.21** Primitive: scroll locking, with scrollbar compensation (ADR 0007), used by Modal and Drawer
 - [x] **M3.14** Drawer (`<dialog>`)
 - [x] **M3.15** Dialog
-- [ ] **M3.16** LoadingOverlay
+- [x] **M3.16** LoadingOverlay
 - [ ] **M3.17** Affix
 - [ ] **M3.18** ScrollArea
 - [ ] **M3.19** Spoiler
