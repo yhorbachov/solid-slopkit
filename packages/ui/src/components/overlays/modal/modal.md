@@ -24,7 +24,7 @@ const [opened, setOpened] = createSignal(false);
 - **Focus:** opening focuses the element marked `data-autofocus`, else the first focusable one (the close button, when there is one), else the content. Closing moves focus back to where it was (`returnFocus`, default `true`).
 - **Closing:** Escape (`closeOnEscape`, default `true`) and a press on the backdrop (`closeOnClickOutside`, default `true`). With an overlay open inside it, such as a popover, that one closes first. A cancel from the browser (without a key) follows `closeOnEscape` too.
 - **Size:** `size` (`xs` to `xl`: 20, 24, 28, 38, 48rem; default `md`), never wider than the viewport. `centered` centers it vertically, rather than near the top; `fullScreen` fills the viewport. Content taller than the viewport scrolls inside the modal.
-- **Page scroll:** the page doesn't scroll while it's open (`lockScroll`, default `true`): the root gets `overflow: hidden`. On systems with classic scrollbars, the page may shift by the scrollbar's width.
+- **Page scroll:** the page doesn't scroll while it's open (`lockScroll`, default `true`). A classic scrollbar's room is kept, so the page doesn't shift sideways.
 - **Animation:** `transition` takes [Transition](../../utilities/transition/transition.md)'s presets for the content (default `pop`); the backdrop fades with it. `transitionDuration` (ms, default 200). None under `prefers-reduced-motion`.
 - **Needs** a `<SlopkitUi>` above it, for Escape's order among overlays.
 - **Server:** a closed modal renders nothing; an open one renders its `<dialog>`, which opens once hydrated.
@@ -53,5 +53,5 @@ const [opened, setOpened] = createSignal(false);
 Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root class, on the `<dialog>`: `.slp-modal`; its backdrop is `.slp-modal::backdrop`.
-- Attributes on it: `data-size`, `data-centered`, `data-full-screen`, `data-lock-scroll`, `data-status`.
+- Attributes on it: `data-size`, `data-centered`, `data-full-screen`, `data-status`.
 - Slots: `[data-slot="modal-content"]` (the box, with `data-transition`), `modal-header`, `modal-title`, `modal-close`, `modal-body`.

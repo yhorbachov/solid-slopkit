@@ -33,7 +33,6 @@ describe('<Modal />', () => {
     expect(dialog).toHaveAttribute('data-size', 'xl');
     expect(dialog).toHaveAttribute('data-centered', '');
     expect(dialog).toHaveAttribute('data-full-screen', '');
-    expect(dialog).toHaveAttribute('data-lock-scroll', '');
     expect(dialog).toHaveAttribute('aria-labelledby', getByText('Edit profile').id);
     expect(getByText('Edit profile').tagName).toBe('H2');
     expect(getByText('Edit profile')).toHaveAttribute('data-slot', 'modal-title');
@@ -54,7 +53,6 @@ describe('<Modal />', () => {
 
     expect(dialog).toHaveAttribute('aria-label', 'Confirm');
     expect(dialog).not.toHaveAttribute('aria-labelledby');
-    expect(dialog).not.toHaveAttribute('data-lock-scroll');
     expect(dialog.querySelector('[data-slot="modal-header"]')).toBeNull();
   });
 

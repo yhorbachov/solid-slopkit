@@ -1,3 +1,4 @@
+export * from './drawer';
 export * from './hover-card';
 export * from './menu';
 export * from './modal';

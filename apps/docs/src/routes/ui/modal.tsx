@@ -45,8 +45,8 @@ export default function ModalPage() {
       <H2 id="full-screen">Full screen and long content</H2>
       <p>
         <code>fullScreen</code> fills the viewport. Content taller than the viewport scrolls inside the modal; the page behind
-        doesn't scroll while it's open, unless <code>lockScroll</code> is off. On systems with classic scrollbars, the page may
-        shift by the scrollbar's width.
+        doesn't scroll while it's open, unless <code>lockScroll</code> is off, and a classic scrollbar's room is kept, so it
+        doesn't shift sideways.
       </p>
       <Example component={FullScreen} code={fullScreenCode} />
 
@@ -89,10 +89,10 @@ export default function ModalPage() {
       <H2 id="styling">Styling</H2>
       <p>
         The <code>&lt;dialog&gt;</code> has the class <code>.slp-modal</code>, with <code>data-size</code>,{' '}
-        <code>data-centered</code>, <code>data-full-screen</code>, <code>data-lock-scroll</code> and <code>data-status</code>; its
-        backdrop is <code>.slp-modal::backdrop</code>. Inside it are the slots <code>modal-content</code> (the box),{' '}
-        <code>modal-header</code>, <code>modal-title</code>, <code>modal-close</code> and <code>modal-body</code>. Its rules live
-        in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>data-centered</code>, <code>data-full-screen</code> and <code>data-status</code>; its backdrop is{' '}
+        <code>.slp-modal::backdrop</code>. Inside it are the slots <code>modal-content</code> (the box), <code>modal-header</code>
+        , <code>modal-title</code>, <code>modal-close</code> and <code>modal-body</code>. Its rules live in{' '}
+        <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

@@ -5,5 +5,6 @@ export * from './create-focus-scope';
 export * from './create-image-failure';
 export * from './create-list-navigation';
 export * from './create-presence';
+export * from './create-scroll-lock';
 export * from './create-tag-name';
 export * from './create-typeahead';

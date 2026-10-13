@@ -1,15 +1,11 @@
 /*
  * Modal. The <dialog> is a transparent frame over the whole viewport that lays out the content box and scrolls when
  * it's taller than the viewport; a press on the frame, outside the box, is a press on the backdrop. The backdrop
- * fades with the content, and the page doesn't scroll while a modal with `data-lock-scroll` is open.
+ * fades with the content.
  *
  * Everything prefixed `--_modal-` is internal.
  */
 @layer slopkit.components {
-  :root:has(.dialog[data-lock-scroll]:modal) {
-    overflow: hidden;
-  }
-
   .dialog {
     --_modal-padding: calc(var(--slp-spacing) * 5);
 
@@ -35,7 +31,7 @@
 
     &::backdrop {
       background-color: color-mix(in oklab, black 50%, transparent);
-      transition: opacity var(--_modal-duration) ease;
+      transition: opacity var(--_dialog-duration) ease;
     }
 
     &:is([data-status='starting'], [data-status='ending'])::backdrop {
