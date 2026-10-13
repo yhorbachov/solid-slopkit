@@ -233,6 +233,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/hover-card";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/hover-card")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/image";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/image")>;
@@ -290,6 +296,12 @@ declare module "virtual:file-routes" {
       path: "/ui/mark";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/mark")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/menu";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/menu")>;
       $$route?: undefined;
     },
     {
@@ -477,12 +489,6 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/visually-hidden")>;
       $$route?: undefined;
-    },
-    {
-      path: "/ui/hover-card";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/hover-card")>;
-      $$route?: undefined;
     }
   ];
   export default routes;
@@ -582,6 +588,14 @@ declare module "virtual:file-routes" {
       id: "/ui/mark";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/mark")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/menu";
+      id: "/ui/menu";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/menu")>;
       $$route?: undefined;
       children?: undefined;
     },

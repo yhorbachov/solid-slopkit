@@ -133,6 +133,7 @@ export const nav: NavSection[] = [
         title: 'Overlays',
         items: [
           { title: 'HoverCard', href: '/ui/hover-card' },
+          { title: 'Menu', href: '/ui/menu' },
           { title: 'Popover', href: '/ui/popover' },
           { title: 'Tooltip', href: '/ui/tooltip' },
         ],
