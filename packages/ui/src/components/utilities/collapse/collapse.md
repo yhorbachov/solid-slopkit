@@ -1,6 +1,6 @@
 # Collapse
 
-A `div` that animates its height between zero and its content's as `expanded` changes.
+A title that shows and hides the content under it, built from `Collapse.Title` and `Collapse.Content`. The height animates in CSS.
 
 ```tsx
 import { Collapse } from '@solid-slopkit/ui';
@@ -9,41 +9,37 @@ import { Collapse } from '@solid-slopkit/ui';
 ## Usage
 
 ```tsx
-const [expanded, setExpanded] = createSignal(false);
-const id = createUniqueId();
-
-<Button aria-expanded={expanded() ? 'true' : 'false'} aria-controls={id} onClick={() => setExpanded((value) => !value)}>
-  Shipping details
-</Button>
-<Collapse id={id} expanded={expanded()}>
-  <Text>Orders placed before 2 p.m. leave the same day.</Text>
+<Collapse icon="arrow">
+  <Collapse.Title>Shipping details</Collapse.Title>
+  <Collapse.Content>
+    <Text>Orders placed before 2 p.m. leave the same day.</Text>
+  </Collapse.Content>
 </Collapse>
 ```
 
-- **Collapsed:** it stays in the DOM with `display: none`, so its content keeps its state and is out of the tab order and the accessibility tree.
-- **The toggle is yours:** give the button `aria-expanded`, and `aria-controls` with the Collapse's `id`.
-- **Timing:** `duration` (ms, default 200) and `timingFunction` (default `ease`). The content fades with the height unless `animateOpacity` is `false`. Under `prefers-reduced-motion: reduce` it expands and collapses at once.
-- **Layout:** its own height is what animates, so put padding, borders and margins on the content inside it, not on the Collapse. It contains its content's margins (`display: flow-root`), so they don't collapse through it. Once expanded, the height follows the content again, so growing content isn't cut off. Changing `expanded` midway reverses from where it is.
-- **In a Stack or other column flexbox:** the parent's gap next to it shrinks along with the height (a negative margin while it moves), so nothing jumps when it's hidden or shown. In a grid with a row gap it can't: a grid row can't shrink below zero, so the gap goes when it's hidden.
-- **No animation on first render:** it starts expanded or collapsed, which is also what the server renders.
-- **Callbacks:** `onExpanded` and `onCollapsed`, when the animation has finished.
+- **Parts:** `Collapse.Title` is a `button` that toggles it, with `aria-expanded` and `aria-controls` pointing at `Collapse.Content`. Put both inside a `Collapse`; they throw outside one.
+- **State:** uncontrolled by default (`defaultOpened`, read once). For a controlled one, pass `opened` and update it from `onChange`, which is called with the state the title asks for.
+- **Closed:** the content stays in the DOM with `visibility: hidden`, so its content keeps its state and is out of the tab order and the accessibility tree.
+- **Animation:** pure CSS, so there's nothing to measure and the server render is final. The content's grid row goes from `0fr` to `1fr` in 200ms; under `prefers-reduced-motion: reduce` it changes at once. Retime it with a selector: `.slp-collapse-content { transition-duration: 400ms; transition-timing-function: linear }`.
+- **Icon:** `icon="arrow"` (a chevron that turns) or `icon="plus"` (a plus that becomes a minus) at the end of the title. None by default. It's drawn in CSS, so it adds nothing to the button's accessible name.
+- **Surface:** the root has no background or border. Give it one with `class`, or put it in a Paper or Card.
+- **Title's `onClick`:** runs first; `event.preventDefault()` keeps it as it is. A `disabled` title can't toggle it.
 
 ## Props
 
-Other props, such as `id`, are passed to the `div`.
+Other props are passed to the root `div`; `Collapse.Title` passes them to its `button`, and `Collapse.Content` to its `div` (its `id` is set for `aria-controls`).
 
-| Prop             | Type         | Default  | Description                                 |
-| ---------------- | ------------ | -------- | ------------------------------------------- |
-| `expanded`       | `boolean`    | —        | Whether the content is shown.               |
-| `duration`       | `number`     | `200`    | Duration of the animation, in milliseconds. |
-| `timingFunction` | `string`     | `'ease'` | CSS timing function of the animation.       |
-| `animateOpacity` | `boolean`    | `true`   | Whether the content also fades.             |
-| `onExpanded`     | `() => void` | —        | Called when it has finished expanding.      |
-| `onCollapsed`    | `() => void` | —        | Called when it has finished collapsing.     |
+| Prop            | Type                        | Default | Description                                    |
+| --------------- | --------------------------- | ------- | ---------------------------------------------- |
+| `opened`        | `boolean`                   | —       | Whether the content is shown, when controlled. |
+| `defaultOpened` | `boolean`                   | `false` | Whether it starts open, when uncontrolled.     |
+| `onChange`      | `(opened: boolean) => void` | —       | Called when the title is pressed.              |
+| `icon`          | `'arrow' \| 'plus'`         | —       | An indicator at the end of the title.          |
 
 ## Styling
 
 Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
-- Root class: `.slp-collapse`.
-- Attributes on it: `data-status` (`starting`, `open`, `ending`, `closed`) and `data-animate-opacity`.
+- Root classes: `.slp-collapse`, `.slp-collapse-title`, `.slp-collapse-content`.
+- Slot: `collapse-content-body`, inside the content: it clips while it moves and holds the padding.
+- Attributes: `data-opened` on all three, `data-icon` on the root and the title.

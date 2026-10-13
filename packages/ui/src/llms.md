@@ -127,5 +127,5 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 ## Utilities
 
-- [Collapse](components/utilities/collapse/collapse.md): animated height
+- [Collapse](components/utilities/collapse/collapse.md): Collapse.Title and Collapse.Content, animated in CSS
 - [Transition](components/utilities/transition/transition.md): enter and exit animations

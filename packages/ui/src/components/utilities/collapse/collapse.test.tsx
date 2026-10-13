@@ -1,4 +1,4 @@
-import { render } from '@solidjs/testing-library';
+import { fireEvent, render } from '@solidjs/testing-library';
 import { captureArtifact } from '@solidjs/diagnostics';
 import { createSignal, flush } from 'solid-js';
 import axe from 'axe-core';
@@ -7,86 +7,140 @@ import { expectHydration } from '../../../../test/ssr';
 import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 import { Collapse, type CollapseProps } from './collapse';
 
-const nextFrame = () => new Promise((resolve) => requestAnimationFrame(resolve));
-/** Lets the microtasks run that settle a change with nothing to animate. */
-const microtasks = async () => {
-  for (let i = 0; i < 10; i++) await Promise.resolve();
-};
-
-function setup(initial: boolean, props: Partial<Omit<CollapseProps, 'expanded'>> = {}) {
-  const [expanded, setExpanded] = createSignal(initial);
+function setup(props: Partial<CollapseProps> = {}) {
   const result = render(() => (
-    <Collapse expanded={expanded()} data-testid="collapse" {...props}>
-      <p>Content</p>
+    <Collapse data-testid="collapse" {...props}>
+      <Collapse.Title>Shipping</Collapse.Title>
+      <Collapse.Content data-testid="content">
+        <p>Content</p>
+      </Collapse.Content>
     </Collapse>
   ));
-  const toggle = (value: boolean) => {
-    setExpanded(value);
-    flush();
+  return {
+    ...result,
+    collapse: () => result.getByTestId('collapse'),
+    title: () => result.getByRole('button', { name: 'Shipping' }),
+    content: () => result.getByTestId('content'),
   };
-  return { ...result, toggle, collapse: () => result.getByTestId('collapse') };
 }
 
 describe('<Collapse />', () => {
-  test('expanded: a div with the root class, its status and timing, shown', () => {
-    const { collapse } = setup(true, { class: 'mine', duration: 300, timingFunction: 'linear' });
+  test('renders a div, a button and the content with their root classes, closed', () => {
+    const { collapse, title, content, getByText } = setup({ class: 'mine' });
 
     expect(collapse().tagName).toBe('DIV');
     expect(collapse()).toHaveClass('slp-collapse', 'mine');
-    expect(collapse()).toHaveAttribute('data-status', 'open');
-    expect(collapse()).toHaveAttribute('data-animate-opacity', '');
-    expect(collapse().style.display).toBe('');
-    expect(collapse().style.getPropertyValue('--_collapse-duration')).toBe('300ms');
-    expect(collapse().style.getPropertyValue('--_collapse-timing-function')).toBe('linear');
+    expect(collapse()).not.toHaveAttribute('data-opened');
+    expect(collapse()).not.toHaveAttribute('data-icon');
+    expect(title()).toHaveClass('slp-collapse-title');
+    expect(title()).toHaveAttribute('type', 'button');
+    expect(content()).toHaveClass('slp-collapse-content');
+    expect(content()).not.toHaveAttribute('data-opened');
+    expect(getByText('Content').parentElement).toHaveAttribute('data-slot', 'collapse-content-body');
   });
 
-  test('collapsed: stays in the DOM with display: none', () => {
-    const { collapse, getByText } = setup(false, { animateOpacity: false });
+  test('the title controls the content: aria-expanded and aria-controls', () => {
+    const { title, content } = setup();
 
-    expect(collapse()).toHaveAttribute('data-status', 'closed');
-    expect(collapse().style.display).toBe('none');
-    expect(collapse()).not.toHaveAttribute('data-animate-opacity');
-    expect(getByText('Content')).toBeInTheDocument();
+    expect(title()).toHaveAttribute('aria-expanded', 'false');
+    expect(content().id).not.toBe('');
+    expect(title()).toHaveAttribute('aria-controls', content().id);
   });
 
-  test('expanding and collapsing with nothing to animate, and the callbacks', async () => {
-    const onExpanded = vi.fn();
-    const onCollapsed = vi.fn();
-    const { collapse, toggle } = setup(false, { onExpanded, onCollapsed });
+  test('pressing the title opens and closes it, uncontrolled', () => {
+    const onChange = vi.fn();
+    const { collapse, title, content } = setup({ onChange });
 
-    toggle(true);
-    expect(collapse()).toHaveAttribute('data-status', 'starting');
-    expect(collapse().style.display).toBe('');
-    await nextFrame();
-    expect(collapse()).toHaveAttribute('data-status', 'open');
-    await microtasks();
-    expect(onExpanded).toHaveBeenCalledTimes(1);
-    expect(collapse().style.height).toBe('');
+    fireEvent.click(title());
+    expect(onChange).toHaveBeenLastCalledWith(true);
+    expect(title()).toHaveAttribute('aria-expanded', 'true');
+    expect(collapse()).toHaveAttribute('data-opened', '');
+    expect(title()).toHaveAttribute('data-opened', '');
+    expect(content()).toHaveAttribute('data-opened', '');
 
-    toggle(false);
-    await microtasks();
-    expect(collapse()).toHaveAttribute('data-status', 'closed');
-    expect(collapse().style.display).toBe('none');
-    expect(collapse().style.height).toBe('');
-    expect(onCollapsed).toHaveBeenCalledTimes(1);
+    fireEvent.click(title());
+    expect(onChange).toHaveBeenLastCalledWith(false);
+    expect(title()).toHaveAttribute('aria-expanded', 'false');
+    expect(content()).not.toHaveAttribute('data-opened');
   });
 
-  test("keeps the user's style and ref", () => {
-    let ref: HTMLDivElement | undefined;
-    const { collapse } = setup(true, { style: { color: 'red' }, ref: (el) => (ref = el) });
+  test('defaultOpened starts it open', () => {
+    const { title, content } = setup({ defaultOpened: true });
 
-    expect(collapse().style.color).toBe('red');
-    expect(ref).toBe(collapse());
+    expect(title()).toHaveAttribute('aria-expanded', 'true');
+    expect(content()).toHaveAttribute('data-opened', '');
   });
 
-  test('has no axe violations', async () => {
+  test('controlled: follows opened, and only asks to change it', () => {
+    const [opened, setOpened] = createSignal(false);
+    const onChange = vi.fn();
+    const { getByRole } = render(() => (
+      <Collapse opened={opened()} onChange={onChange}>
+        <Collapse.Title>Shipping</Collapse.Title>
+        <Collapse.Content>Content</Collapse.Content>
+      </Collapse>
+    ));
+    const title = getByRole('button', { name: 'Shipping' });
+
+    fireEvent.click(title);
+    expect(onChange).toHaveBeenCalledWith(true);
+    expect(title).toHaveAttribute('aria-expanded', 'false');
+
+    setOpened(true);
+    flush();
+    expect(title).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  test('icon goes on the root and the title', () => {
+    const { collapse, title } = setup({ icon: 'plus' });
+
+    expect(collapse()).toHaveAttribute('data-icon', 'plus');
+    expect(title()).toHaveAttribute('data-icon', 'plus');
+  });
+
+  test("the title's own onClick runs first, and preventDefault keeps it as it is", () => {
+    const { getByRole } = render(() => (
+      <Collapse>
+        <Collapse.Title onClick={(event) => event.preventDefault()}>Shipping</Collapse.Title>
+        <Collapse.Content>Content</Collapse.Content>
+      </Collapse>
+    ));
+    const title = getByRole('button', { name: 'Shipping' });
+
+    fireEvent.click(title);
+
+    expect(title).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('a disabled title does nothing', () => {
+    const { getByRole } = render(() => (
+      <Collapse>
+        <Collapse.Title disabled>Shipping</Collapse.Title>
+        <Collapse.Content>Content</Collapse.Content>
+      </Collapse>
+    ));
+    const title = getByRole('button', { name: 'Shipping' });
+
+    fireEvent.click(title);
+
+    expect(title).toBeDisabled();
+    expect(title).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('the parts throw outside a Collapse', () => {
+    expect(() => render(() => <Collapse.Title>Alone</Collapse.Title>)).toThrow(/inside <Collapse>/);
+  });
+
+  test('has no axe violations, opened and closed, with each icon', async () => {
     const { container } = render(() => (
       <>
-        <Collapse expanded>
-          <p>Shown</p>
+        <Collapse defaultOpened icon="arrow">
+          <Collapse.Title>Shown</Collapse.Title>
+          <Collapse.Content>Shown content</Collapse.Content>
         </Collapse>
-        <Collapse expanded={false}>
-          <p>Hidden</p>
+        <Collapse icon="plus">
+          <Collapse.Title>Hidden</Collapse.Title>
+          <Collapse.Content>Hidden content</Collapse.Content>
         </Collapse>
       </>
     ));
@@ -95,26 +149,20 @@ describe('<Collapse />', () => {
     expect(results.violations).toEqual([]);
   });
 
-  test('expanding and collapsing has no diagnostics or waste', async () => {
-    const { toggle } = setup(false);
+  test('opening and closing has no diagnostics or waste', async () => {
+    const { title } = setup();
     flush();
 
     const { artifact } = await captureArtifact(
-      async () => {
-        toggle(true);
-        await nextFrame();
-        await microtasks();
-        toggle(false);
-        await microtasks();
+      () => {
+        fireEvent.click(title());
+        fireEvent.click(title());
       },
       { scenario: 'collapse-toggle' },
     );
 
     expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
-    // presence.mounted recomputes on each status but only changes on two of them; the other two runs are the only waste.
-    expect(artifact).toHaveNoWaste({ maxWastedRuns: 2 });
-    // One run per status (starting, open, ending, closed).
-    expect(artifact).toStayWithinRerunBudget(4, { scope: /Collapse\.height/ });
+    expect(artifact).toHaveNoWaste();
   });
 
   test('hydrates the server render without mismatches or diagnostics', async () => {

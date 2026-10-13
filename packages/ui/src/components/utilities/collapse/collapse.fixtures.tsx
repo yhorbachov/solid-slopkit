@@ -3,11 +3,23 @@ import { Collapse } from '.';
 
 export const collapses = () => (
   <div>
-    <Collapse expanded id="open" class="mine" duration={300} timingFunction="linear">
-      <p>Expanded</p>
+    <Collapse defaultOpened icon="arrow" class="mine">
+      <Collapse.Title>Opened</Collapse.Title>
+      <Collapse.Content>
+        <p>Shown</p>
+      </Collapse.Content>
     </Collapse>
-    <Collapse expanded={false} animateOpacity={false} style={{ color: 'red' }}>
-      <p>Collapsed</p>
+    <Collapse icon="plus">
+      <Collapse.Title>Closed</Collapse.Title>
+      <Collapse.Content>
+        <p>Hidden</p>
+      </Collapse.Content>
+    </Collapse>
+    <Collapse opened>
+      <Collapse.Title>Controlled</Collapse.Title>
+      <Collapse.Content>
+        <p>Controlled content</p>
+      </Collapse.Content>
     </Collapse>
   </div>
 );
