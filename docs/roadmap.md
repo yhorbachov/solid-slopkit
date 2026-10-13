@@ -131,7 +131,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 ## M3 — Overlays
 
 - [x] **M3.01** Primitive: floating positioning on `@floating-ui/dom` (logical placements)
-- [ ] **M3.02** Primitive: presence (enter/exit transitions, including top-layer transitions)
+- [x] **M3.02** Primitive: presence (enter/exit transitions, including top-layer transitions)
 - [ ] **M3.03** Primitive: dismissal and the provider's nested-overlay order (ADR 0009, ADR 0011)
 - [ ] **M3.04** Primitive: focus management (initial focus, restore, containment outside `<dialog>`)
 - [ ] **M3.05** Primitive: typeahead
