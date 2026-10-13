@@ -7,7 +7,7 @@ import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
 /** Lets the microtasks run that settle a presence with nothing to animate, short of a frame. */
 const microtasks = async () => {
-  for (let i = 0; i < 3; i++) await Promise.resolve();
+  for (let i = 0; i < 10; i++) await Promise.resolve();
 };
 
 const STYLES = `

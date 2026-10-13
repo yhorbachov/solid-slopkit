@@ -131,7 +131,10 @@ export const nav: NavSection[] = [
       },
       {
         title: 'Utilities',
-        items: [{ title: 'Transition', href: '/ui/transition' }],
+        items: [
+          { title: 'Collapse', href: '/ui/collapse' },
+          { title: 'Transition', href: '/ui/transition' },
+        ],
       },
     ],
   },

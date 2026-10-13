@@ -1,0 +1,21 @@
+@layer slopkit.components {
+  .collapse {
+    transition-property: height, opacity;
+    transition-duration: var(--_collapse-duration);
+    transition-timing-function: var(--_collapse-timing-function);
+
+    /* The frame after it's shown, which expanding starts from. Collapsing sets its own heights inline. */
+    &[data-status='starting'] {
+      height: 0;
+      overflow: hidden;
+    }
+
+    &[data-animate-opacity]:is([data-status='starting'], [data-status='ending']) {
+      opacity: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+}

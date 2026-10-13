@@ -82,16 +82,21 @@ export function createPresence(options: PresenceOptions): Presence {
       const from = previous;
       previous = next;
       let cancelled = false;
-      // Settles after the animations, or in a microtask when there are none: before the next paint, but never as a
-      // write from this effect, which reads the status it would write.
+      // The animations are collected a microtask later, so those started by any effect of this update count (a
+      // component that sets a measured height). Settles after them, or at once when there are none: before the next
+      // paint, but never as a write from this effect, which reads the status it would write.
       const whenFinished = (done: () => void) => {
-        const element = options.element();
-        const animations = element ? finiteAnimations(element) : [];
-        void Promise.allSettled(animations.map((animation) => animation.finished)).then(() => {
-          if (cancelled) return;
-          done();
-          flush();
-        });
+        void Promise.resolve()
+          .then(() => {
+            const element = options.element();
+            const animations = !cancelled && element ? finiteAnimations(element) : [];
+            return Promise.allSettled(animations.map((animation) => animation.finished));
+          })
+          .then(() => {
+            if (cancelled) return;
+            done();
+            flush();
+          });
       };
 
       if (next === 'starting') {
@@ -105,7 +110,6 @@ export function createPresence(options: PresenceOptions): Presence {
         return () => cancelAnimationFrame(frame);
       }
       if (next === 'open' && from === 'starting') {
-        // Animations from a status change are only created at the next style update, which getAnimations runs.
         whenFinished(() => options.onEntered?.());
       } else if (next === 'ending') {
         whenFinished(() => {

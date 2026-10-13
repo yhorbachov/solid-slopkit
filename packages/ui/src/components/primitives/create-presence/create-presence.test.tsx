@@ -18,8 +18,7 @@ describe('createPresence without the Web Animations API', () => {
     setPresent(false);
     flush();
     expect(presence.status()).toBe('ending');
-    await Promise.resolve();
-    await Promise.resolve();
+    for (let i = 0; i < 10; i++) await Promise.resolve();
     expect(presence.status()).toBe('closed');
     expect(presence.mounted()).toBe(false);
     expect(onExited).toHaveBeenCalledTimes(1);
