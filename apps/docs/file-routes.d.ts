@@ -461,6 +461,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/tooltip";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/tooltip")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/transition";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/transition")>;
@@ -754,6 +760,14 @@ declare module "virtual:file-routes" {
       id: "/ui/popover";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/popover")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/tooltip";
+      id: "/ui/tooltip";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/tooltip")>;
       $$route?: undefined;
       children?: undefined;
     },

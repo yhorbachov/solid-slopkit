@@ -124,6 +124,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 ## Overlays
 
 - [Popover](components/overlays/popover/popover.md): Popover.Target and Popover.Dropdown
+- [Tooltip](components/overlays/tooltip/tooltip.md): a description shown on hover and keyboard focus
 
 ## Utilities
 
