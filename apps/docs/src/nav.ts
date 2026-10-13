@@ -130,6 +130,10 @@ export const nav: NavSection[] = [
         ],
       },
       {
+        title: 'Overlays',
+        items: [{ title: 'Popover', href: '/ui/popover' }],
+      },
+      {
         title: 'Utilities',
         items: [
           { title: 'Collapse', href: '/ui/collapse' },

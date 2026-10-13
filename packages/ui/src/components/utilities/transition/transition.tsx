@@ -1,37 +1,13 @@
 import { Show, untrack } from 'solid-js';
 import type { JSX } from '@solidjs/web';
-import style from './transition.module.css';
-import { createPresence, type PresenceStatus } from '../../primitives';
+import { createPresence } from '../../primitives';
+import { transitionAttributes, type TransitionName, type TransitionStyleAttributes } from './transition-attributes';
 
-/**
- * A ready-made enter and exit animation. The direction in the name is the way it moves while entering: `fade-up`
- * rises into place. `none` animates nothing, for writing your own CSS against `data-status`.
- */
-export type TransitionName =
-  | 'fade'
-  | 'fade-up'
-  | 'fade-down'
-  | 'fade-left'
-  | 'fade-right'
-  | 'scale'
-  | 'scale-x'
-  | 'scale-y'
-  | 'pop'
-  | 'slide-up'
-  | 'slide-down'
-  | 'slide-left'
-  | 'slide-right'
-  | 'rotate-left'
-  | 'rotate-right'
-  | 'none';
+export type { TransitionName };
 
 /** What the child spreads on its root element: `<div {...transition}>`. */
-export interface TransitionAttributes {
+export interface TransitionAttributes extends TransitionStyleAttributes {
   ref: (element: HTMLElement) => void;
-  class: string;
-  style: JSX.CSSProperties;
-  'data-transition': TransitionName;
-  'data-status': PresenceStatus;
 }
 
 export interface TransitionProps {
@@ -70,23 +46,23 @@ export function Transition(props: TransitionProps) {
     onExited: () => props.onExited?.(),
   });
 
+  const animation = transitionAttributes(presence, {
+    transition: () => props.transition ?? 'fade',
+    duration: () => props.duration ?? 200,
+    exitDuration: () => props.exitDuration,
+    timingFunction: () => props.timingFunction ?? 'ease',
+  });
   const attributes: TransitionAttributes = {
     ref: (el) => (element = el),
-    class: `slp-transition ${style.transition}`,
+    class: animation.class,
     get style() {
-      const duration = props.duration ?? 200;
-      return {
-        '--_transition-duration': `${duration}ms`,
-        '--_transition-exit-duration': `${props.exitDuration ?? duration}ms`,
-        '--_transition-timing-function': props.timingFunction ?? 'ease',
-        display: presence.mounted() ? undefined : 'none',
-      };
+      return animation.style;
     },
     get 'data-transition'() {
-      return props.transition ?? 'fade';
+      return animation['data-transition'];
     },
     get 'data-status'() {
-      return presence.status();
+      return animation['data-status'];
     },
   };
 

@@ -145,9 +145,10 @@ describe('<Transition />', () => {
     );
 
     expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
-    expect(artifact).toHaveNoWaste();
-    // The presence: present twice, the status through starting, open, ending and closed.
-    expect(artifact).toStayWithinRerunBudget(6, { scope: /presence\./ });
+    // presence.mounted recomputes on each status but only changes on two of them; the other two runs are the only waste.
+    expect(artifact).toHaveNoWaste({ maxWastedRuns: 2 });
+    // The presence's status, its mounted flag and its animation effect, once for each of four statuses.
+    expect(artifact).toStayWithinRerunBudget(12, { scope: /presence\./ });
   });
 
   test('hydrates the server render without mismatches or diagnostics', async () => {

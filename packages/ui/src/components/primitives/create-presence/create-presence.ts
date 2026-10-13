@@ -1,4 +1,4 @@
-import { createEffect, createSignal, flush, untrack, type Accessor } from 'solid-js';
+import { createEffect, createMemo, createSignal, flush, untrack, type Accessor } from 'solid-js';
 
 /**
  * Where an element is in its life:
@@ -50,30 +50,24 @@ function finiteAnimations(element: HTMLElement): Animation[] {
  * microtask, before the next paint, and opens a frame later. It starts in `open` or `closed` without animating, which is also what the server renders.
  */
 export function createPresence(options: PresenceOptions): Presence {
-  const initial: PresenceStatus = untrack(options.present) ? 'open' : 'closed';
-  const [status, writeStatus] = createSignal<PresenceStatus>(initial, { name: 'presence.status' });
-  // Its own signal rather than derived from the status, so what depends on it doesn't re-run for each status in
-  // between: it only changes on entering `starting` and `closed`.
-  const [mounted, setMounted] = createSignal(initial !== 'closed', { name: 'presence.mounted' });
-  const setStatus = (next: PresenceStatus) => {
-    writeStatus(next);
-    setMounted(next !== 'closed');
-  };
+  // Where the animations have got to: `open` once entering is past its starting frame, `closed` once exiting has
+  // finished. Only written later (a frame, the animations' end), never in response to `present` itself.
+  const [settled, setSettled] = createSignal<'open' | 'closed'>(untrack(options.present) ? 'open' : 'closed', {
+    name: 'presence.settled',
+  });
 
-  createEffect(
-    () => options.present(),
-    (present) => {
-      const current = untrack(status);
-      if (present) {
-        // Coming back while it's leaving reverses from where it is, with no starting frame.
-        if (current === 'closed') setStatus('starting');
-        else if (current === 'ending') setStatus('open');
-      } else if (current !== 'closed') {
-        setStatus('ending');
-      }
+  // Derived in the same update as `present`, so what reads both never sees them apart. Coming back while leaving
+  // reverses from where it is, with no starting frame; leaving during the starting frame closes at once.
+  const status = createMemo<PresenceStatus>(
+    () => {
+      const open = settled() === 'open';
+      if (options.present()) return open ? 'open' : 'starting';
+      return open ? 'ending' : 'closed';
     },
-    { name: 'presence.present', defer: true },
+    { name: 'presence.status' },
   );
+  // Recomputes on every status, but only changes on entering `starting` and `closed`.
+  const mounted = createMemo(() => status() !== 'closed', { name: 'presence.mounted' });
 
   let previous = untrack(status);
   createEffect(
@@ -84,7 +78,7 @@ export function createPresence(options: PresenceOptions): Presence {
       let cancelled = false;
       // The animations are collected a microtask later, so those started by any effect of this update count (a
       // component that sets a measured height). Settles after them, or at once when there are none: before the next
-      // paint, but never as a write from this effect, which reads the status it would write.
+      // paint, but never as a write from this effect, which reads the status the write changes.
       const whenFinished = (done: () => void) => {
         void Promise.resolve()
           .then(() => {
@@ -104,7 +98,7 @@ export function createPresence(options: PresenceOptions): Presence {
         // can be computed before switching away from them.
         const frame = requestAnimationFrame(() => {
           void options.element()?.offsetWidth;
-          setStatus('open');
+          setSettled('open');
           flush();
         });
         return () => cancelAnimationFrame(frame);
@@ -113,7 +107,7 @@ export function createPresence(options: PresenceOptions): Presence {
         whenFinished(() => options.onEntered?.());
       } else if (next === 'ending') {
         whenFinished(() => {
-          setStatus('closed');
+          setSettled('closed');
           options.onExited?.();
         });
       }

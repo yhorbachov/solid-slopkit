@@ -224,7 +224,9 @@ describe('createPresence', () => {
     );
 
     expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
-    // One run per change: present twice, and the status through starting, open, ending and closed.
-    expect(artifact).toStayWithinRerunBudget(6, { scope: /presence\./ });
+    // The status, the mounted flag and the animation effect, once for each of four statuses.
+    expect(artifact).toStayWithinRerunBudget(12, { scope: /presence\./ });
+    // mounted recomputes on each status but only changes on two of them.
+    expect(artifact).toHaveNoWaste({ maxWastedRuns: 2 });
   });
 });

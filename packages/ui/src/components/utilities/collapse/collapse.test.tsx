@@ -111,7 +111,8 @@ describe('<Collapse />', () => {
     );
 
     expect(artifact).toHaveNoDiagnostics(NO_DIAGNOSTICS);
-    expect(artifact).toHaveNoWaste();
+    // presence.mounted recomputes on each status but only changes on two of them; the other two runs are the only waste.
+    expect(artifact).toHaveNoWaste({ maxWastedRuns: 2 });
     // One run per status (starting, open, ending, closed).
     expect(artifact).toStayWithinRerunBudget(4, { scope: /Collapse\.height/ });
   });

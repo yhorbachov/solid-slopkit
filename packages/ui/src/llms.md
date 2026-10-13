@@ -121,6 +121,10 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [TextInput](components/inputs/text-input/text-input.md)
 - [Textarea](components/inputs/textarea/textarea.md): with autosize
 
+## Overlays
+
+- [Popover](components/overlays/popover/popover.md): Popover.Target and Popover.Dropdown
+
 ## Utilities
 
 - [Collapse](components/utilities/collapse/collapse.md): animated height
