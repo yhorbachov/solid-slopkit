@@ -1,6 +1,6 @@
 # SlopkitUi
 
-The provider. Required at the root of every app. It holds per-tree state: the CSS that components generate at runtime, the locale, and the color scheme preference.
+The provider. Required at the root of every app. It holds per-tree state: the CSS that components generate at runtime, the locale, the color scheme preference, and the order of open overlays.
 
 ```tsx
 import { SlopkitUi, useColorScheme, useLocale } from '@solid-slopkit/ui';
@@ -24,6 +24,7 @@ export default function App() {
 - Components that generate CSS (such as Box) register it with the nearest provider, which renders it in one `<style>` in the head. They throw `<Name> must be rendered inside <SlopkitUi>.` without one.
 - On the server each request renders its own provider, so no state leaks between requests.
 - Providers can nest. A nested provider inherits the locale unless it sets its own.
+- Overlays (popovers, menus, modals) join the provider's order when they open. Escape closes only the topmost one, and a press outside closes, from the top down, each overlay it's outside of. A nested provider shares its root's order, so overlays in it nest correctly with those outside it.
 - Head tags are added with `useHead` from `@solidjs/web`.
 
 ## Props

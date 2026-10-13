@@ -1,12 +1,15 @@
 import { createContext, createMemo, createSignal, untrack, useContext, type Accessor } from 'solid-js';
 import { isServer, useHead, type HeadTag, type JSX } from '@solidjs/web';
 import { createColorScheme, type ColorSchemeOptions, type UseColorScheme } from './color-scheme';
+import { createOverlayStack, type OverlayStack } from './overlay-stack';
 
 interface SlopkitUiContextValue {
   /** Adds a class's CSS to the provider's stylesheet. Registering a class that is already there is a no-op. */
   registerStyle(className: string, css: string): void;
   colorScheme: UseColorScheme;
   locale: Accessor<string>;
+  /** The order of open overlays. One per tree: a nested provider shares its root's. */
+  overlays: OverlayStack;
 }
 
 export interface SlopkitUiProps extends ColorSchemeOptions {
@@ -41,6 +44,8 @@ const SlopkitUiContext = createContext<SlopkitUiContextValue | null>(null);
  *
  * It also owns the color scheme preference (`useColorScheme()`), stored in localStorage and applied as
  * `data-slp-color-scheme` on <html>, by a head script before first paint and by the hook afterwards.
+ *
+ * And it keeps the order of open overlays, which decides which one Escape or an outside click closes.
  */
 export function SlopkitUi(props: SlopkitUiProps) {
   const parent = useContext(SlopkitUiContext);
@@ -86,6 +91,7 @@ export function SlopkitUi(props: SlopkitUiProps) {
   const context: SlopkitUiContextValue = {
     colorScheme: colorScheme.api,
     locale,
+    overlays: parent?.overlays ?? createOverlayStack(),
     registerStyle(className, value) {
       if (styles.has(className)) return;
       styles.set(className, value);
