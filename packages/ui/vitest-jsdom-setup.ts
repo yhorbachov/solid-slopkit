@@ -16,3 +16,25 @@ if (typeof HTMLElement !== 'undefined' && !('showPopover' in HTMLElement.prototy
     },
   });
 }
+
+// Nor does it have a modal `<dialog>`. These open and close it, without the top layer or inertness, which are tested
+// in the browser project.
+if (typeof HTMLDialogElement !== 'undefined' && !('showModal' in HTMLDialogElement.prototype)) {
+  Object.assign(HTMLDialogElement.prototype, {
+    showModal(this: HTMLDialogElement) {
+      this.setAttribute('open', '');
+    },
+    close(this: HTMLDialogElement) {
+      this.removeAttribute('open');
+    },
+  });
+}
+
+// Nor `checkVisibility`, which finding the focusable elements calls; jsdom lays nothing out, so connected counts.
+if (typeof Element !== 'undefined' && !('checkVisibility' in Element.prototype)) {
+  Object.assign(Element.prototype, {
+    checkVisibility(this: Element) {
+      return this.isConnected;
+    },
+  });
+}

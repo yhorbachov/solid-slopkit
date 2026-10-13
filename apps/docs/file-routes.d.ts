@@ -155,6 +155,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/collapse";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/collapse")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/color-picker";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/color-picker")>;
@@ -227,6 +233,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/hover-card";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/hover-card")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/image";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/image")>;
@@ -287,6 +299,18 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/menu";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/menu")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/modal";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/modal")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/native-select";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/native-select")>;
@@ -308,6 +332,12 @@ declare module "virtual:file-routes" {
       path: "/ui/number-input";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/number-input")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/overlay";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/overlay")>;
       $$route?: undefined;
     },
     {
@@ -455,6 +485,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/tooltip";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/tooltip")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/transition";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/transition")>;
@@ -464,36 +500,6 @@ declare module "virtual:file-routes" {
       path: "/ui/visually-hidden";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/visually-hidden")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/collapse";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/collapse")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/tooltip";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/tooltip")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/hover-card";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/hover-card")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/menu";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/menu")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/overlay";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/overlay")>;
       $$route?: undefined;
     }
   ];
@@ -650,6 +656,14 @@ declare module "virtual:file-routes" {
       id: "/ui/input";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/input")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/modal";
+      id: "/ui/modal";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/modal")>;
       $$route?: undefined;
       children?: undefined;
     },

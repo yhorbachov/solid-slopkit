@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Checkbox, Chip, ColorPicker, Fieldset, FileInput, Input, InputWrapper, JsonInput, NativeSelect, NumberInput, PasswordInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Slider, Switch, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Overlays: HoverCard, Menu, Overlay, Popover, Tooltip. Utilities: Collapse, Transition. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Checkbox, Chip, ColorPicker, Fieldset, FileInput, Input, InputWrapper, JsonInput, NativeSelect, NumberInput, PasswordInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Slider, Switch, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Overlays: HoverCard, Menu, Modal, Overlay, Popover, Tooltip. Utilities: Collapse, Transition. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -142,7 +142,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M3.10** HoverCard
 - [x] **M3.11** Menu
 - [x] **M3.12** Overlay
-- [ ] **M3.13** Modal (`<dialog>`)
+- [x] **M3.13** Modal (`<dialog>`)
 - [ ] **M3.14** Drawer (`<dialog>`)
 - [ ] **M3.15** Dialog
 - [ ] **M3.16** LoadingOverlay
