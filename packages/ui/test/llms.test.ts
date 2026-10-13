@@ -11,7 +11,7 @@ const links = [...index.matchAll(/\]\(([^)#]+\.md)\)/g)].map((match) => match[1]
 
 // Folders under a component group (layout, button, inputs, provider) that hold a component: they have an
 // index.ts. The provider's reference is named after the component, not the folder.
-const groups = ['layout', 'button', 'inputs'];
+const groups = ['layout', 'button', 'inputs', 'utilities'];
 const componentDirs = groups.flatMap((group) =>
   readdirSync(join(src, 'components', group), { withFileTypes: true })
     .filter((entry) => entry.isDirectory() && existsSync(join(src, 'components', group, entry.name, 'index.ts')))

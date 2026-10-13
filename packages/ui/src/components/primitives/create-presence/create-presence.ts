@@ -46,13 +46,19 @@ function finiteAnimations(element: HTMLElement): Animation[] {
  * layer only afterwards; this works in every browser of the baseline, with or without `@starting-style` and
  * `overlay`. Opening shows it in the `starting` status for one frame, then `open`, so plain transitions run.
  *
- * CSS decides what moves: with no transitions or animations (or none under `prefers-reduced-motion`), it opens and
- * closes at once. It starts in `open` or `closed` without animating, which is also what the server renders.
+ * CSS decides what moves: with no transitions or animations (or none under `prefers-reduced-motion`), it closes in a
+ * microtask, before the next paint, and opens a frame later. It starts in `open` or `closed` without animating, which is also what the server renders.
  */
 export function createPresence(options: PresenceOptions): Presence {
-  const [status, setStatus] = createSignal<PresenceStatus>(untrack(options.present) ? 'open' : 'closed', {
-    name: 'presence.status',
-  });
+  const initial: PresenceStatus = untrack(options.present) ? 'open' : 'closed';
+  const [status, writeStatus] = createSignal<PresenceStatus>(initial, { name: 'presence.status' });
+  // Its own signal rather than derived from the status, so what depends on it doesn't re-run for each status in
+  // between: it only changes on entering `starting` and `closed`.
+  const [mounted, setMounted] = createSignal(initial !== 'closed', { name: 'presence.mounted' });
+  const setStatus = (next: PresenceStatus) => {
+    writeStatus(next);
+    setMounted(next !== 'closed');
+  };
 
   createEffect(
     () => options.present(),
@@ -76,14 +82,14 @@ export function createPresence(options: PresenceOptions): Presence {
       const from = previous;
       previous = next;
       let cancelled = false;
+      // Settles after the animations, or in a microtask when there are none: before the next paint, but never as a
+      // write from this effect, which reads the status it would write.
       const whenFinished = (done: () => void) => {
         const element = options.element();
         const animations = element ? finiteAnimations(element) : [];
-        if (animations.length === 0) return done();
         void Promise.allSettled(animations.map((animation) => animation.finished)).then(() => {
           if (cancelled) return;
           done();
-          // Outside the effect now, so the write has to be flushed here.
           flush();
         });
       };
@@ -114,5 +120,5 @@ export function createPresence(options: PresenceOptions): Presence {
     { name: 'presence.animations', defer: true },
   );
 
-  return { mounted: () => status() !== 'closed', status };
+  return { mounted, status };
 }

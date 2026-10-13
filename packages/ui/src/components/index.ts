@@ -6,3 +6,4 @@ export * from './inputs';
 export * from './provider';
 export * from './surfaces';
 export * from './typography';
+export * from './utilities';

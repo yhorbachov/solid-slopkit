@@ -4,7 +4,7 @@ import { describe, expect, test, vi } from 'vitest';
 import { createPresence, type Presence } from './create-presence';
 
 describe('createPresence without the Web Animations API', () => {
-  test('closes at once, and opens on the next frame', async () => {
+  test('closes before the next frame, and opens on the next frame', async () => {
     const [present, setPresent] = createSignal(true);
     const onExited = vi.fn();
     let presence!: Presence;
@@ -17,6 +17,9 @@ describe('createPresence without the Web Animations API', () => {
 
     setPresent(false);
     flush();
+    expect(presence.status()).toBe('ending');
+    await Promise.resolve();
+    await Promise.resolve();
     expect(presence.status()).toBe('closed');
     expect(presence.mounted()).toBe(false);
     expect(onExited).toHaveBeenCalledTimes(1);

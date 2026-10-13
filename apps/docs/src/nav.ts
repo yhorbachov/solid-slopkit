@@ -129,6 +129,10 @@ export const nav: NavSection[] = [
           { title: 'Textarea', href: '/ui/textarea' },
         ],
       },
+      {
+        title: 'Utilities',
+        items: [{ title: 'Transition', href: '/ui/transition' }],
+      },
     ],
   },
 ];

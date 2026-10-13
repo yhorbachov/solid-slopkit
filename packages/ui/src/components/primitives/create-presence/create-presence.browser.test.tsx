@@ -5,6 +5,11 @@ import { describe, expect, test, vi } from 'vitest';
 import { createPresence, type Presence } from './create-presence';
 import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
+/** Lets the microtasks run that settle a presence with nothing to animate, short of a frame. */
+const microtasks = async () => {
+  for (let i = 0; i < 3; i++) await Promise.resolve();
+};
+
 const STYLES = `
   .fade { transition: opacity 150ms linear; }
   .fade[data-status='starting'], .fade[data-status='ending'] { opacity: 0; }
@@ -121,12 +126,13 @@ describe('createPresence', () => {
     expect(isOpen()).toBe(false);
   });
 
-  test('with nothing to animate, it closes at once and opens on the next frame', async () => {
+  test('with nothing to animate, it closes before the next frame and opens on the next frame', async () => {
     const onExited = vi.fn();
     const onEntered = vi.fn();
     const { presence, toggle, isOpen } = setup(true, { onExited, onEntered });
 
     toggle(false);
+    await microtasks();
     expect(presence().status()).toBe('closed');
     expect(isOpen()).toBe(false);
     expect(onExited).toHaveBeenCalledTimes(1);
@@ -136,13 +142,15 @@ describe('createPresence', () => {
     expect(onEntered).toHaveBeenCalledTimes(1);
   });
 
-  test('animations that never end, and those of its children, are not waited for', () => {
+  test('animations that never end, and those of its children, are not waited for', async () => {
     const spinning = setup(true, { class: 'spinning' });
     spinning.toggle(false);
+    await microtasks();
     expect(spinning.presence().status()).toBe('closed');
 
     const child = setup(true, { class: 'slow-child' });
     child.toggle(false);
+    await microtasks();
     expect(child.presence().status()).toBe('closed');
   });
 
@@ -162,11 +170,12 @@ describe('createPresence', () => {
     expect(getComputedStyle(box).opacity).toBe('1');
   });
 
-  test('closing during the starting frame closes at once', () => {
+  test('closing during the starting frame closes before the next frame', async () => {
     const { presence, toggle, isOpen } = setup(false, { class: 'fade' });
 
     toggle(true);
     toggle(false);
+    await microtasks();
 
     expect(presence().status()).toBe('closed');
     expect(isOpen()).toBe(false);
