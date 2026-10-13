@@ -185,6 +185,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/dialog";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/dialog")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/divider";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/divider")>;
@@ -758,6 +764,14 @@ declare module "virtual:file-routes" {
       id: "/ui/center";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/center")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/dialog";
+      id: "/ui/dialog";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/dialog")>;
       $$route?: undefined;
       children?: undefined;
     },

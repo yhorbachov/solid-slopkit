@@ -123,6 +123,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 ## Overlays
 
+- [Dialog](components/overlays/dialog/dialog.md): a non-modal window in a corner of the viewport
 - [Drawer](components/overlays/drawer/drawer.md): a modal `<dialog>` panel against an edge
 - [HoverCard](components/overlays/hover-card/hover-card.md): HoverCard.Target and HoverCard.Dropdown, shown on hover and keyboard focus
 - [Menu](components/overlays/menu/menu.md): Menu.Target, Menu.Dropdown, Menu.Item, Menu.Label and Menu.Divider
