@@ -1,13 +1,19 @@
 @layer slopkit.components {
   .collapse {
-    transition-property: height, opacity;
+    /* Always contains its content's margins. Otherwise they'd collapse through it until the animation clips it, and
+       the content would jump by their size when it starts. */
+    display: flow-root;
+    /* The margins take back a parent's gap while it moves (see collapse.tsx). */
+    transition-property: height, opacity, margin-top, margin-bottom;
     transition-duration: var(--_collapse-duration);
     transition-timing-function: var(--_collapse-timing-function);
 
-    /* The frame after it's shown, which expanding starts from. Collapsing sets its own heights inline. */
+    /* The frame after it's shown, which expanding starts from, applied at once. Collapsing sets its own heights
+       inline. */
     &[data-status='starting'] {
       height: 0;
       overflow: hidden;
+      transition: none;
     }
 
     &[data-animate-opacity]:is([data-status='starting'], [data-status='ending']) {

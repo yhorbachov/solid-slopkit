@@ -29,10 +29,8 @@ describe('<Collapse /> in a browser', () => {
 
     toggle(true);
     expect(height()).toBe(0);
-    await expect.poll(() => collapse.getAttribute('data-status')).toBe('open');
-    await wait(150);
-    expect(height()).toBeGreaterThan(0);
-    expect(height()).toBeLessThan(60);
+    // Partway, rather than straight to the full height.
+    await expect.poll(() => height() > 0 && height() < 60).toBe(true);
 
     await expect.poll(() => onExpanded.mock.calls.length, { timeout: 3000 }).toBe(1);
     expect(height()).toBe(60);
@@ -51,9 +49,7 @@ describe('<Collapse /> in a browser', () => {
 
     toggle(false);
     expect(collapse).toHaveAttribute('data-status', 'ending');
-    await wait(150);
-    expect(height()).toBeGreaterThan(0);
-    expect(height()).toBeLessThan(60);
+    await expect.poll(() => height() > 0 && height() < 60).toBe(true);
 
     await expect.poll(() => onCollapsed.mock.calls.length, { timeout: 3000 }).toBe(1);
     expect(collapse).toHaveAttribute('data-status', 'closed');
@@ -96,5 +92,76 @@ describe('<Collapse /> in a browser', () => {
     getByText('Hidden').focus();
 
     expect(getByText('Hidden')).not.toHaveFocus();
+  });
+
+  // In a reversed column, the button (first in the DOM) is the one below the Collapse, which moves. In a block, the
+  // content's margins would collapse through the Collapse until it clips them.
+  test.each([
+    ['a column flexbox with a gap', { display: 'flex', 'flex-direction': 'column', gap: '16px' }, 'after', 16],
+    ['a reversed column with a gap', { display: 'flex', 'flex-direction': 'column-reverse', gap: '16px' }, 'before', 16],
+    ['a block', { display: 'block' }, 'after', 0],
+  ] as const)('in %s, nothing jumps when it starts, hides, shows or settles', async (_, parentStyle, below, gap) => {
+    const [expanded, setExpanded] = createSignal(true);
+    const { getByTestId } = render(() => (
+      <div style={parentStyle}>
+        <button data-testid="before">Toggle</button>
+        <Collapse expanded={expanded()} duration={400} timingFunction="linear" data-testid="collapse">
+          {/* A paragraph's own margins, which would collapse through an unclipped parent. */}
+          <p style={{ margin: '16px 0', height: '32px' }}>Content</p>
+        </Collapse>
+        <p data-testid="after" style={{ margin: 0 }}>
+          After
+        </p>
+      </div>
+    ));
+    const collapse = getByTestId('collapse');
+    const position = () => Math.round(getByTestId(below).getBoundingClientRect().top);
+    const expandedAt = position();
+
+    // Starting to collapse clips the content and pins the height: nothing moves yet.
+    setExpanded(false);
+    flush();
+    expect(position()).toBe(expandedAt);
+
+    // At height zero, still shown, it takes no room: hiding it moves nothing.
+    await expect.poll(() => collapse.getBoundingClientRect().height, { timeout: 3000 }).toBe(0);
+    const zeroAt = position();
+    await expect.poll(() => collapse.getAttribute('data-status'), { timeout: 3000 }).toBe('closed');
+    expect(position()).toBe(zeroAt);
+    // Content and its margins (32 + 16 + 16), and the gap.
+    expect(Math.abs(zeroAt - expandedAt)).toBe(64 + gap);
+
+    // Showing it again, at height zero for a frame, moves nothing either.
+    setExpanded(true);
+    flush();
+    expect(position()).toBe(zeroAt);
+
+    // Once it has grown, clearing the measured height moves nothing.
+    await expect.poll(() => position(), { timeout: 3000 }).toBe(expandedAt);
+    await expect.poll(() => collapse.style.height, { timeout: 3000 }).toBe('');
+    expect(position()).toBe(expandedAt);
+  });
+
+  test('in a grid, the gap goes when it is hidden: a grid row cannot shrink below zero', async () => {
+    const [expanded, setExpanded] = createSignal(true);
+    const { getByTestId } = render(() => (
+      <div style={{ display: 'grid', gap: '16px' }}>
+        <button>Toggle</button>
+        <Collapse expanded={expanded()} duration={100} data-testid="collapse">
+          <p style={{ margin: 0, height: '32px' }}>Content</p>
+        </Collapse>
+        <p data-testid="after" style={{ margin: 0 }}>
+          After
+        </p>
+      </div>
+    ));
+    const before = getByTestId('after').getBoundingClientRect().top;
+
+    setExpanded(false);
+    flush();
+
+    await expect.poll(() => getByTestId('collapse').getAttribute('data-status'), { timeout: 3000 }).toBe('closed');
+    expect(Math.round(before - getByTestId('after').getBoundingClientRect().top)).toBe(48);
+    expect(getByTestId('collapse').style.marginBottom).toBe('');
   });
 });

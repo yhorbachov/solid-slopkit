@@ -41,8 +41,12 @@ export default function CollapsePage() {
       <H2 id="layout">Layout</H2>
       <p>
         The Collapse's own height is what animates, so put padding, borders and margins on the content inside it, not on the
-        Collapse. Once expanded, its height follows the content again, so content that grows isn't cut off. Changing{' '}
-        <code>expanded</code> midway reverses from where it is.
+        Collapse. It contains its content's margins, so they don't collapse through it. Once expanded, its height follows the
+        content again, so content that grows isn't cut off. Changing <code>expanded</code> midway reverses from where it is.
+      </p>
+      <p>
+        In a Stack or another column flexbox, the parent's gap next to it shrinks along with the height, so nothing jumps when
+        it's hidden or shown. A grid can't do that, since its rows can't shrink below zero: there, the gap goes when it's hidden.
       </p>
 
       <H2 id="props">Props</H2>
