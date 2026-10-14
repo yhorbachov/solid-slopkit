@@ -11,6 +11,7 @@ export * from './json-input';
 export * from './native-select';
 export * from './number-input';
 export * from './password-input';
+export * from './pill';
 export * from './pin-input';
 export * from './radio';
 export * from './range-slider';

@@ -112,6 +112,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [NativeSelect](components/inputs/native-select/native-select.md)
 - [NumberInput](components/inputs/number-input/number-input.md): uses the provider locale
 - [PasswordInput](components/inputs/password-input/password-input.md)
+- [Pill](components/inputs/pill/pill.md): a small tag for a chosen value, with Pill.Group and an optional remove button
 - [PinInput](components/inputs/pin-input/pin-input.md)
 - [Radio](components/inputs/radio/radio.md): with Radio.Group and Radio.Card
 - [RangeSlider](components/inputs/range-slider/range-slider.md)
