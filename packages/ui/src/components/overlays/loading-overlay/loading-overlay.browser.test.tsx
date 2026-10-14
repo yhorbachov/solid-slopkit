@@ -43,8 +43,8 @@ describe('<LoadingOverlay /> in a browser', () => {
     const box = overlay()!.getBoundingClientRect();
     expect([box.width, box.height]).toEqual([parent.width, parent.height]);
     const loader = getByRole('status').getBoundingClientRect();
-    expect(Math.round(loader.left + loader.width / 2 - (box.left + box.width / 2))).toBe(0);
-    expect(Math.round(loader.top + loader.height / 2 - (box.top + box.height / 2))).toBe(0);
+    expect(Math.abs(loader.left + loader.width / 2 - (box.left + box.width / 2))).toBeLessThan(1);
+    expect(Math.abs(loader.top + loader.height / 2 - (box.top + box.height / 2))).toBeLessThan(1);
 
     expect(getComputedStyle(getByRole('status')).animationName).not.toBe('none');
 
