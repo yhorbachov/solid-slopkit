@@ -146,6 +146,7 @@ export const nav: NavSection[] = [
           { title: 'Pagination', href: '/ui/pagination' },
           { title: 'Stepper', href: '/ui/stepper' },
           { title: 'Tabs', href: '/ui/tabs' },
+          { title: 'Tree', href: '/ui/tree' },
         ],
       },
       {

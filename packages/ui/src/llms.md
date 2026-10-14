@@ -137,6 +137,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Pagination](components/navigation/pagination/pagination.md): buttons or links to move between pages
 - [Stepper](components/navigation/stepper/stepper.md): progress through steps, the current step's content under them
 - [Tabs](components/navigation/tabs/tabs.md): a tablist and its panels, with Tabs.List, Tabs.Tab and Tabs.Panel
+- [Tree](components/navigation/tree/tree.md): a hierarchy of nodes that expand, collapse and can be selected, from data
 
 ## Overlays
 
