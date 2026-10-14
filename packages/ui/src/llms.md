@@ -124,6 +124,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Select](components/inputs/select/select.md): one value from a dropdown list, optionally searchable and clearable
 - [Slider](components/inputs/slider/slider.md)
 - [Switch](components/inputs/switch/switch.md): with Switch.Group
+- [TagsInput](components/inputs/tags-input/tags-input.md): free-text tags as pills, added with Enter or a comma, with optional suggestions
 - [TextInput](components/inputs/text-input/text-input.md)
 - [Textarea](components/inputs/textarea/textarea.md): with autosize
 

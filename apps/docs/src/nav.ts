@@ -131,6 +131,7 @@ export const nav: NavSection[] = [
           { title: 'Select', href: '/ui/select' },
           { title: 'Slider', href: '/ui/slider' },
           { title: 'Switch', href: '/ui/switch' },
+          { title: 'TagsInput', href: '/ui/tags-input' },
           { title: 'TextInput', href: '/ui/text-input' },
           { title: 'Textarea', href: '/ui/textarea' },
         ],

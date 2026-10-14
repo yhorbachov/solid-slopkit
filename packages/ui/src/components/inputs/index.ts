@@ -23,5 +23,6 @@ export * from './segmented-control';
 export * from './select';
 export * from './slider';
 export * from './switch';
+export * from './tags-input';
 export * from './text-input';
 export * from './textarea';
