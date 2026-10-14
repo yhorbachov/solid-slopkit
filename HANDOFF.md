@@ -1,27 +1,21 @@
-# Handoff: slopkit UI, after M2
+# Handoff: slopkit UI, after M3.17
 
-For the next agent picking up the roadmap. Written 2026-10-12. Read `AGENTS.md`, `docs/roadmap.md` (rules and definition of done), `CONTEXT.md` and the relevant ADRs first; this file only adds what those don't say.
+For the next agent picking up the roadmap. Written 2026-10-14. Read `AGENTS.md`, `docs/roadmap.md` (rules and definition of done), `CONTEXT.md` and the relevant ADRs first; this file only adds what those don't say.
 
 ## Where things stand
 
-- `main` is clean, nothing pushed.
-- Done this session, one commit each: M1.07 Badge, M1.08 Kbd (and `--slp-font-family-monospace`), M1.09 Code, M1.10 Blockquote, M1.11 List, M1.12 Mark, M1.13 Highlight, M1.14 Image, M1.15 BackgroundImage, M1.16 Avatar (and Avatar.Group), M1.17 ThemeIcon, M1.18 ColorSwatch, M1.19 Indicator, M1.20 Loader, M1.21 Skeleton, M1.22 Progress, M1.23 RingProgress, M1.24 SemiCircleProgress, M1.25 Alert, M1.26 Notification, M1.27 Timeline, M1.28 Table, M1.29 NumberFormatter. Plus `0c5719b fix: Indicator builds its label only while the mark is shown`.
-- Since then, one commit each: M1.30 VisuallyHidden, M1.32 CloseButton (with close buttons on Alert and Notification), M1.33 ActionIcon, M1.34 CopyButton (and the internal `createClipboard` primitive), M1.35 FileButton, M1.36 Burger. M1.31 UnstyledButton is dropped and M1.37 AppShell is postponed until the overlays (M3), both by the maintainer's decision.
-- Then all of M2, one commit each, at the maintainer's request to finish the milestone (with a commit per step and API decisions recorded rather than asked): M2.01 list navigation primitive (SegmentedControl on it), M2.02 Input and InputWrapper, M2.03 Fieldset, M2.04 TextInput, M2.05 Textarea, M2.06 PasswordInput, M2.07 NumberInput, M2.08 NativeSelect, M2.09 Checkbox, M2.10 Radio, M2.11 Switch, M2.12 Chip, M2.13 PinInput, M2.14 Rating, M2.15 Slider, M2.16 RangeSlider, M2.17 AngleSlider, M2.18 FileInput, M2.19 JsonInput, M2.20 ColorPicker. The reasons for each API are in the commit bodies.
-- **Next step: M3.01**, the floating positioning primitive, unless the maintainer names another. M1.37 AppShell waits for M3.
-
-## Shared internals in `components/inputs` (not exported)
-
-- `field.tsx`: `FieldWrapper` and `controlProps` split one props object between an InputWrapper (label, description, error, required, withAsterisk, size, id, class, style) and the control. TextInput, Textarea, PasswordInput, NumberInput, NativeSelect and FileInput use it.
-- `choice.tsx`: the label, description and error column next to a small control, with ids (`createChoiceText`), and the shared sizes (`--_choice-size`). Checkbox, Radio, Switch.
-- `choice-group.tsx`: `ChoiceGroup` and `createCheckedState`, a `string[]` group; Checkbox.Group and Switch.Group.
-- `slider/slider-base.tsx`: track, bar, marks, thumbs, drag and keys; Slider and RangeSlider. `valueAt(index)` lets a thumb read only its own value.
-- Value-based fields (`onChange(value)`) are those that rewrite or own their value (NumberInput, Slider, JsonInput, ColorPicker, the choices); text fields keep the native `value`/`onInput`/`onChange(event)`.
+- `main` is at `docs: refresh the handoff after M3.17`. `bfa3124 feat: Affix (M3.17)` and this refresh are **local, not pushed**; everything before them is on `origin/main`.
+- Done since the last handoff, one commit each (reasons in the commit bodies): M3.01–M3.05 primitives (floating, presence, dismissal, focus scope, typeahead), M3.06 Transition, M3.07 Collapse, M3.08 Popover, M3.09 Tooltip, M3.10 HoverCard, M3.11 Menu, M3.12 Overlay, M3.13 Modal, M3.21 scroll lock with M3.14 Drawer (one commit), M3.15 Dialog, M3.16 LoadingOverlay, M3.17 Affix.
+- **Collapse was reworked by the maintainer's request** (`05000c3`): it's now `Collapse.Title` + `Collapse.Content`, animated in CSS (a grid row from `0fr` to `1fr`), uncontrolled with `defaultOpened` or controlled with `opened`/`onChange`, with `icon="arrow" | "plus"`. A single `Collapsible` with the old `expanded`/`transitionDuration`-style props was tried and rolled back; don't bring it back.
+- **M3.21** (scroll lock) was added to the roadmap mid-milestone with the maintainer's approval, because Modal and Drawer needed it; it sits before M3.14 in the list.
+- **Next step: M3.18 ScrollArea**, then M3.19 Spoiler, M3.20 FloatingIndicator, then M4 (Combobox family). M1.37 AppShell waits for the overlays; ask the maintainer whether it's next after M3.
 
 ## How the maintainer works
 
 - One roadmap step per request, named by ID ("go ahead with M1.30"). Never start the next step on your own.
-- After a step: report what was built, decisions with their reasons, anything found or left open, then **ask before committing**. Commit only when told. Message: `feat: <Component> (M1.xx)`; add `, and the <thing>` to the subject when the step also added something, like a token; put notable decisions in the body. End with the `Co-Authored-By` line. Don't push.
+- After a step: report what was built, decisions with their reasons, anything found or left open, then **ask before committing**. Commit only when told. Message: `feat: <Component> (M1.xx)`; add `, and the <thing>` to the subject when the step also added something, like a token; put notable decisions in the body. End with the `Co-Authored-By` line. Push only when told: "commit and push" means both, "commit" alone means don't push.
+- "Yes, let's go" after you name the next step by ID counts as being asked for it. Still stop after that one step.
+- When a step needs a primitive that doesn't exist, say so and propose a roadmap step for it rather than building it inside the step; that's how M3.21 (scroll lock) came in.
 - The maintainer may change course mid-step (for M1.20 they said to leave Button's spinner alone). Follow it and record it on the roadmap line when it changes what the line says.
 - When a step needs a component from a later step, ship without that part and say so on the roadmap line.
 - Never name other UI libraries anywhere (docs, comments, tests, commits). Write "the soft variant", not "X's soft variant".
@@ -50,6 +44,23 @@ Conventions that recur:
 - Lists render with `<For>`, never `Array#map` (lint rule).
 - Scrollable regions (`Code` block, `Table.ScrollContainer`) get `tabindex={0}` by default: browsers in the baseline don't all let the keyboard reach a scroller.
 
+## Shared internals in `components/inputs` (not exported)
+
+- `field.tsx`: `FieldWrapper` and `controlProps` split one props object between an InputWrapper (label, description, error, required, withAsterisk, size, id, class, style) and the control. TextInput, Textarea, PasswordInput, NumberInput, NativeSelect and FileInput use it.
+- `choice.tsx`: the label, description and error column next to a small control, with ids (`createChoiceText`), and the shared sizes (`--_choice-size`). Checkbox, Radio, Switch.
+- `choice-group.tsx`: `ChoiceGroup` and `createCheckedState`, a `string[]` group; Checkbox.Group and Switch.Group.
+- `slider/slider-base.tsx`: track, bar, marks, thumbs, drag and keys; Slider and RangeSlider. `valueAt(index)` lets a thumb read only its own value.
+- Value-based fields (`onChange(value)`) are those that rewrite or own their value (NumberInput, Slider, JsonInput, ColorPicker, the choices); text fields keep the native `value`/`onInput`/`onChange(event)`.
+
+## Shared internals in `components/overlays` and `primitives` (not exported)
+
+- `overlays/dialog-base.tsx`: the modal `<dialog>`, its presence, dismissal, focus scope, scroll lock and header (title `h2`, close button), shared by Modal and Drawer. Each passes its CSS module, its name (root class `slp-<name>`, slots `<name>-content`, …) and its layout attributes as getters.
+- Anchored overlays (Popover, Tooltip, HoverCard, Menu) follow `popover.tsx`: state in the root (`opened`/`defaultOpened`/`onChange`), a target as a function child that spreads attributes (`ref`, handlers, ARIA), a `popover="manual"` element shown in `onSettled`, `createFloating` for position, `createDismissal` for Escape and outside presses, `transitionAttributes` for the animation.
+- `primitives/create-scroll-lock`: counted per document; keeps a classic scrollbar's room as padding on the root. Not `scrollbar-gutter: stable`: that also narrows the area a modal `<dialog>` fills, and left a 15px strip by a right-hand drawer.
+- Dialog (the corner window) and Affix are manual popovers shown on mount; they need no `<SlopkitUi>`. Dialog handles Escape itself, only from inside, and leaves it to overlays nested in it.
+- Menu finds its items in the DOM at each key press (`[role="menuitem"]` whose closest menu is its own), so items don't register.
+- `vitest-jsdom-setup.ts` has stand-ins for the Popover API, `showModal`/`close` and `checkVisibility`; the real behavior is tested in Chromium.
+
 ## Pitfalls hit this session (don't repeat them)
 
 1. **Optional JSX props and hydration.** A JSX prop is a getter that creates its elements when read. If a component reads one eagerly (`createMemo(() => props.icon)` at setup) but doesn't render it in some state (loading, disabled), the server builds it without emitting it, and the client, while hydrating, looks for it in the page: "Hydration Mismatch", then REACTIVITY_HALTED for the whole page. Read such props only where they're rendered, inside the branch or an inner component (Indicator's `IndicatorMark`), and decide "is it passed" with `untrack(() => 'icon' in props)`. Every SSR fixture should cover each state in which an optional JSX prop is hidden.
@@ -73,6 +84,17 @@ Conventions that recur:
 19. **Visual checks without the pane:** a throwaway browser test with `page.getByTestId(...).screenshot({ path: 'zz-shot.png' })` saves next to the test (paths outside the package are refused); move it to the scratchpad, read it, delete the test. The test viewport is 414px wide.
 20. **jsdom toggles a disabled checkbox** on a synthetic click; assert `toBeDisabled()` instead.
 
+Found in M3:
+
+21. **`onSettled` returns its cleanup.** `onCleanup` inside `onSettled` throws `CLEANUP_IN_FORBIDDEN_SCOPE` and halts the page. Unit tests don't load docs examples, so open every new example in the browser (it caught exactly this in the Affix example).
+22. **Writing a signal from an effect that relays a prop** reports `EFFECT_RELAY_TEAR`. Write from event handlers (a DOM event such as `transitionrun` works), or derive the value.
+23. **Escape order:** the provider listens on `document`, so an element's own key handler runs before it. A component that handles Escape itself must skip keys coming from an overlay nested in it (`event.target.closest('[popover], dialog') !== element`).
+24. **Modal focus return:** the page under an open modal `<dialog>` is inert, also during the exit animation, so focus can't go back until it has left: restore on `presence.mounted()` turning false, not on `opened`.
+25. **jsdom and popovers:** jsdom treats `[popover]` as hidden; role queries need `{ hidden: true }` and may compute no accessible name, so find such elements by text.
+26. **Hidden scrollbars in tests:** the test browser draws no scrollbars, so classic ones are simulated by stubbing `innerWidth` (`create-scroll-lock.browser.test.tsx`). The docs pane does have 15px scrollbars: measure layout that depends on them there.
+27. **A `div` in a paragraph:** HoverCard's dropdown is a `div`; for a target in running text, render the text as `<Text as="div">`. Tooltip renders a `span` for that reason.
+28. **Load spikes:** with load averages of 7–15 (other apps), timing-based browser tests fail at random and the failing set changes from run to run. `--maxWorkers=2` got a clean full run.
+
 ## Verifying in the browser
 
 - The docs dev server on port 3100 usually belongs to another session; the browser tools reach it, but you can't restart it, and its server-side modules can go stale. The `PostToolUse` hook warns about this.
@@ -83,6 +105,10 @@ Conventions that recur:
 
 ## Open items to remember
 
+- **Asked, not yet answered:** should LoadingOverlay set `inert` on the covered content itself (now the docs show `inert={saving()}` in the app)? Should Collapse move next to Accordion (M5.02), now that it has a title?
+- **Dark-mode Button:** the neutral soft Button's text is barely readable in dark mode (seen on the Tooltip colors example). It's Button's, not fixed.
+- **Menu:** no submenus, checkbox or radio items yet (said in its reference).
+- **Not built, can be added without breaking anything:** a Tooltip group with a shared delay, a cursor-following Tooltip, touch-to-show; Overlay's gradient.
 - **Theme values (M8.02, don't tune now):** info and success fail contrast even as white text on the solid role; warning fails as text; soft tints of several roles fall short; dark `neutral` (#424242) is nearly invisible on the dark base; dark `accent` is pure white, so Mark leaves it out of its contrast test. Alert keeps text in the base color and passes everywhere.
 - **Button's `loading`** keeps its own CSS spinner by the maintainer's decision (M1.20 line on the roadmap).
 - **CopyButton** announces only through its changing name; a proper announcement needs a live-region primitive (ADR 0007 lists it, the roadmap has no step yet). A text (non-icon) CopyButton can be added later.
@@ -93,7 +119,7 @@ Conventions that recur:
 ```bash
 export PATH=~/.local/share/mise/installs/node/24.20.0/bin:$PATH
 pnpm format && pnpm lint && pnpm format:check
-cd packages/ui && npx tsc --noEmit -p . && npx vitest run --maxWorkers=4
+cd packages/ui && npx tsc --noEmit -p . && npx vitest run --maxWorkers=4   # --maxWorkers=2 when the machine is busy
 cd ../../apps/docs && npx tsc --noEmit -p .
 cd ../.. && pnpm build
 ```
