@@ -233,6 +233,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/floating-indicator";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/floating-indicator")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/grid";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/grid")>;
@@ -1204,6 +1210,14 @@ declare module "virtual:file-routes" {
       id: "/ui/segmented-control";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/segmented-control")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/floating-indicator";
+      id: "/ui/floating-indicator";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/floating-indicator")>;
       $$route?: undefined;
       children?: undefined;
     },

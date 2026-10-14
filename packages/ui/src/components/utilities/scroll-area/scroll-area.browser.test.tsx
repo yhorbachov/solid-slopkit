@@ -176,8 +176,9 @@ describe('<ScrollArea /> in a browser', () => {
 
   test('type="hover" shows them while the pointer is over it, and hides them after the delay', async () => {
     const { area, bar } = setup({ scrollHideDelay: 0 });
-    await settle();
-    expect(getComputedStyle(bar('vertical')).visibility).toBe('hidden');
+    // The mouse stays where an earlier test left it, which may be over the area.
+    await userEvent.unhover(area());
+    await expect.poll(() => getComputedStyle(bar('vertical')).visibility).toBe('hidden');
 
     await userEvent.hover(area());
     expect(getComputedStyle(bar('vertical')).visibility).toBe('visible');
