@@ -120,6 +120,7 @@ export const nav: NavSection[] = [
           { title: 'NumberInput', href: '/ui/number-input' },
           { title: 'PasswordInput', href: '/ui/password-input' },
           { title: 'Pill', href: '/ui/pill' },
+          { title: 'PillsInput', href: '/ui/pills-input' },
           { title: 'PinInput', href: '/ui/pin-input' },
           { title: 'Radio', href: '/ui/radio' },
           { title: 'RangeSlider', href: '/ui/range-slider' },

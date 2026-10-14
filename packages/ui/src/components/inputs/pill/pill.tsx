@@ -1,6 +1,7 @@
-import { createContext, createUniqueId, omit, Show, useContext } from 'solid-js';
+import { createUniqueId, omit, Show, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
 import style from './pill.module.css';
+import { PillGroupContext } from './pill-group-context';
 import { type ElementProps } from '../../../utils';
 import { joinClass } from '../../../style-props';
 import type { SlopColor, SlopSize } from '../../../core';
@@ -32,14 +33,6 @@ export interface PillGroupOwnProps {
 }
 
 export type PillGroupProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, PillGroupOwnProps>;
-
-interface PillGroupContextValue {
-  size: () => SlopSize | undefined;
-  color: () => SlopColor | undefined;
-  disabled: () => boolean;
-}
-
-const PillGroupContext = createContext<PillGroupContextValue | null>(null);
 
 /** Pills in a row that wraps, with a gap that follows their size. */
 export function PillGroup(props: PillGroupProps) {
