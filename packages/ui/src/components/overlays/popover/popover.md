@@ -18,7 +18,7 @@ import { Popover } from '@solid-slopkit/ui';
 ```
 
 - **Parts:** `Popover.Target` and `Popover.Dropdown`, inside `<Popover>`, inside `<SlopkitUi>`.
-- **Target:** its child is a function that gets the target's attributes; spread them on the element that opens it (`ref`, `onClick`, `aria-haspopup="dialog"`, `aria-expanded`, `aria-controls`). It must take a ref. To add your own click handler, call `target.onClick(event)` from it; your ref goes in an array: `ref={[target.ref, mine]}`.
+- **Target:** its child is a function that gets the target's attributes; spread them on the element that opens it (`ref`, `onClick`, `aria-haspopup="dialog"`, `aria-expanded`, `aria-controls`). It must take a ref. To add your own click handler, call `target.onClick(event)` from it; your ref goes in an array: `ref={[target.ref, mine]}`. The function runs once: values that change go in JSX expressions (`aria-label={label()}`), not in variables read before the JSX. Spread `target` in the JSX itself; an object spread (`{ ...target }`) reads its getters once.
 - **Dropdown:** a `div` with `popover="manual"` and `role="dialog"`, rendered only while open (and while its exit animation runs). Name it with `aria-label` or `aria-labelledby`. Other props go to the `div`.
 - **Focus:** opening moves focus into the dropdown (an element marked `data-autofocus`, else the first focusable one, else the dropdown); closing moves it back to the target (`returnFocus`, default `true`). `trapFocus` keeps Tab inside.
 - **Closing:** the target toggles it; Escape and a press outside the target and the dropdown close it (`closeOnEscape`, `closeOnClickOutside`). With nested popovers, the innermost closes first.

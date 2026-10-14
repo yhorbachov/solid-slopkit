@@ -1,4 +1,5 @@
 import { render } from '@solidjs/testing-library';
+import { createSignal, flush } from 'solid-js';
 import axe from 'axe-core';
 import { describe, expect, test } from 'vitest';
 import { expectHydration } from '../../../../test/ssr';
@@ -56,6 +57,34 @@ describe('<HoverCard />', () => {
     expect(dropdown).toHaveClass('slp-hover-card', 'slp-transition', 'mine');
     expect(dropdown.style.width).toBe('12rem');
     expect(dropdown.querySelector('[data-slot="hover-card-arrow"]')).not.toBeNull();
+  });
+
+  test("the target's render function runs once: a signal it reads doesn't rebuild the target", () => {
+    const [label, setLabel] = createSignal('One');
+    const { getByRole } = render(() => (
+      <SlopkitUi>
+        <HoverCard>
+          <HoverCard.Target>
+            {(target) => {
+              // Read directly, outside any JSX expression.
+              const name = label();
+              return (
+                <a href="#ada" {...target} aria-label={name}>
+                  @ada
+                </a>
+              );
+            }}
+          </HoverCard.Target>
+          <HoverCard.Dropdown>Content</HoverCard.Dropdown>
+        </HoverCard>
+      </SlopkitUi>
+    ));
+    flush();
+    const target = getByRole('link');
+
+    setLabel('Two');
+    flush();
+    expect(getByRole('link')).toBe(target);
   });
 
   test('its parts throw outside a HoverCard, and HoverCard throws outside the provider', () => {

@@ -1,4 +1,5 @@
 import { render } from '@solidjs/testing-library';
+import { createSignal, flush } from 'solid-js';
 import axe from 'axe-core';
 import { describe, expect, test } from 'vitest';
 import { expectHydration } from '../../../../test/ssr';
@@ -89,6 +90,34 @@ describe('<Menu />', () => {
     expect(getByText('Project')).toHaveClass('slp-menu-label');
     expect(getByText('Project')).toHaveAttribute('role', 'presentation');
     expect(getByRole('separator', { hidden: true })).toHaveClass('slp-menu-divider');
+  });
+
+  test("the target's render function runs once: a signal it reads doesn't rebuild the target", () => {
+    const [label, setLabel] = createSignal('One');
+    const { getByRole } = render(() => (
+      <SlopkitUi>
+        <Menu>
+          <Menu.Target>
+            {(target) => {
+              // Read directly, outside any JSX expression.
+              const name = label();
+              return (
+                <button {...target} aria-label={name}>
+                  Actions
+                </button>
+              );
+            }}
+          </Menu.Target>
+          <Menu.Dropdown>Content</Menu.Dropdown>
+        </Menu>
+      </SlopkitUi>
+    ));
+    flush();
+    const target = getByRole('button');
+
+    setLabel('Two');
+    flush();
+    expect(getByRole('button')).toBe(target);
   });
 
   test('its parts throw outside a Menu, and Menu throws outside the provider', () => {

@@ -1,4 +1,5 @@
 import { render } from '@solidjs/testing-library';
+import { createSignal, flush } from 'solid-js';
 import { describe, expect, test } from 'vitest';
 import { expectHydration } from '../../../../test/ssr';
 import { SlopkitUi } from '../../provider';
@@ -43,6 +44,34 @@ describe('<Popover />', () => {
     expect(dropdown).toHaveClass('slp-popover', 'slp-transition', 'mine');
     expect(dropdown.style.width).toBe('12rem');
     expect(dropdown.querySelector('[data-slot="popover-arrow"]')).not.toBeNull();
+  });
+
+  test("the target's render function runs once: a signal it reads doesn't rebuild the target", () => {
+    const [label, setLabel] = createSignal('One');
+    const { getByRole } = render(() => (
+      <SlopkitUi>
+        <Popover>
+          <Popover.Target>
+            {(target) => {
+              // Read directly, outside any JSX expression.
+              const name = label();
+              return (
+                <button {...target} aria-label={name}>
+                  Open
+                </button>
+              );
+            }}
+          </Popover.Target>
+          <Popover.Dropdown>Content</Popover.Dropdown>
+        </Popover>
+      </SlopkitUi>
+    ));
+    flush();
+    const target = getByRole('button');
+
+    setLabel('Two');
+    flush();
+    expect(getByRole('button')).toBe(target);
   });
 
   test('its parts throw outside a Popover, and Popover throws outside the provider', () => {

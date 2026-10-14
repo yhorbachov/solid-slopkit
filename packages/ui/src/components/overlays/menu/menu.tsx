@@ -136,7 +136,9 @@ export function MenuTarget(props: MenuTargetProps) {
       return context.presence.mounted() ? context.dropdownId : undefined;
     },
   };
-  return <>{props.children(attributes)}</>;
+  // Called once, untracked: a signal the render function reads directly would otherwise rebuild the target, losing
+  // focus. What changes goes in the attributes' getters and in the JSX's own expressions.
+  return <>{untrack(() => props.children(attributes))}</>;
 }
 
 export type MenuDropdownProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>>;
