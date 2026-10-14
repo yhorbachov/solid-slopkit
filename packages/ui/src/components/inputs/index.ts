@@ -9,6 +9,7 @@ export * from './file-input';
 export * from './input';
 export * from './input-wrapper';
 export * from './json-input';
+export * from './multi-select';
 export * from './native-select';
 export * from './number-input';
 export * from './password-input';

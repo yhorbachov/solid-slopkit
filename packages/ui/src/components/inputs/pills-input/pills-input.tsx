@@ -56,7 +56,8 @@ export function PillsInputField(props: PillsInputFieldProps) {
   );
 }
 
-function PillsInputBox(props: PillsInputProps) {
+/** The box without the label and texts, for the fields built on it (MultiSelect, TagsInput). Internal. */
+export function PillsInputBox(props: PillsInputProps) {
   const wrapper = useInputWrapper();
   const others = omit(
     controlProps(props) as PillsInputProps,
