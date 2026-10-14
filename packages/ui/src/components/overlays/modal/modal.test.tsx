@@ -1,4 +1,5 @@
 import { render } from '@solidjs/testing-library';
+import { createSignal, flush } from 'solid-js';
 import { describe, expect, test, vi } from 'vitest';
 import { expectHydration } from '../../../../test/ssr';
 import { SlopkitUi } from '../../provider';
@@ -69,6 +70,30 @@ describe('<Modal />', () => {
     getByRole('button', { name: 'Schließen', hidden: true }).click();
 
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  test('onExited is called once it has closed, not before', async () => {
+    const [opened, setOpened] = createSignal(true);
+    const onExited = vi.fn();
+    const { container } = render(() => (
+      <SlopkitUi>
+        <Modal opened={opened()} onClose={() => setOpened(false)} onExited={onExited} title="Edit">
+          Content
+        </Modal>
+      </SlopkitUi>
+    ));
+    flush();
+    expect(container.querySelector('dialog')).not.toBeNull();
+    expect(container.querySelector('dialog')).not.toHaveAttribute('onexited');
+
+    setOpened(false);
+    flush();
+    expect(onExited).not.toHaveBeenCalled();
+    // With nothing animating, as in jsdom, it leaves a microtask later.
+    for (let tick = 0; tick < 4; tick++) await Promise.resolve();
+    flush();
+    expect(onExited).toHaveBeenCalledTimes(1);
+    expect(container.querySelector('dialog')).toBeNull();
   });
 
   test('throws outside the provider', () => {

@@ -1,4 +1,4 @@
-import { createEffect } from 'solid-js';
+import { createEffect, untrack } from 'solid-js';
 
 const CANDIDATES = [
   'a[href]',
@@ -144,10 +144,12 @@ export function createFocusScope(options: FocusScopeOptions): void {
         document.removeEventListener('focusin', onFocusIn);
         container.removeEventListener('focusout', onFocusOut);
         container.removeEventListener('keydown', onKeyDown);
-        if (!(options.restoreFocus?.() ?? true)) return;
+        // Read as it closes, once: whether to restore is decided then.
+        if (!(untrack(() => options.restoreFocus?.()) ?? true)) return;
         const current = document.activeElement;
         if (current && current !== document.body && !container.contains(current)) return;
-        const target = before && before !== document.body && before.isConnected ? before : options.restoreTarget?.();
+        const target =
+          before && before !== document.body && before.isConnected ? before : untrack(() => options.restoreTarget?.());
         target?.focus();
       };
     },

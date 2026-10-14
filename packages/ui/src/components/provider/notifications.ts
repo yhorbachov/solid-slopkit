@@ -1,5 +1,6 @@
-import { createSignal, getOwner, onCleanup, type Accessor } from 'solid-js';
-import { isDev, isServer, type JSX } from '@solidjs/web';
+import { createSignal, type Accessor } from 'solid-js';
+import { isServer, type JSX } from '@solidjs/web';
+import { createFacadeRegistry, warn } from './facade';
 import type { SlopColor } from '../../core';
 
 /** What a notification shows and how long it stays. Everything but `message` is optional. */
@@ -70,10 +71,6 @@ interface Entry extends NotificationEntry {
 }
 
 let generated = 0;
-
-function warn(message: string) {
-  if (isDev) console.warn(`[slopkit] ${message}`);
-}
 
 /**
  * The notifications of one provider tree, oldest first. Writes happen outside rendering, from event handlers and
@@ -154,28 +151,11 @@ export function createNotificationStore(): NotificationStore {
   };
 }
 
-// The stores of the mounted root providers, in mounting order: the facade forwards to the last.
-const mounted: NotificationStore[] = [];
+const registry = createFacadeRegistry<NotificationStore>('notifications');
 
 /** Makes a root provider's store the one the `notifications` facade reaches, while the provider is mounted. */
-export function registerNotificationStore(store: NotificationStore) {
-  if (isServer || !getOwner()) return;
-  mounted.push(store);
-  onCleanup(() => {
-    const index = mounted.lastIndexOf(store);
-    if (index > -1) mounted.splice(index, 1);
-  });
-}
-
-function target(method: string): NotificationStore | undefined {
-  if (isServer) {
-    warn(`notifications.${method}() does nothing on the server; notifications are shown in the browser only.`);
-    return undefined;
-  }
-  const store = mounted.at(-1);
-  if (!store) warn(`notifications.${method}() was called with no <SlopkitUi> mounted.`);
-  return store;
-}
+export const registerNotificationStore = registry.register;
+const target = registry.target;
 
 /**
  * Shows notifications from anywhere, such as a fetch wrapper's error handler, through the most recently mounted

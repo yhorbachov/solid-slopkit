@@ -34,21 +34,22 @@ It works like [Modal](../modal/modal.md), against an edge:
 
 ## Props
 
-| Prop                  | Type             | Default   | Description                                      |
-| --------------------- | ---------------- | --------- | ------------------------------------------------ |
-| `opened`              | `boolean`        | —         | Whether it is open.                              |
-| `onClose`             | `() => void`     | —         | Called when it asks to close.                    |
-| `position`            | `DrawerPosition` | `'left'`  | The edge it comes from.                          |
-| `size`                | `SlopSize`       | `'md'`    | Width or height, from 16 to 40rem.               |
-| `title`               | `JSX.Element`    | —         | The heading, which names the dialog.             |
-| `withCloseButton`     | `boolean`        | `true`    | Shows a close button in the header.              |
-| `closeButtonLabel`    | `string`         | `'Close'` | Accessible name of the close button.             |
-| `closeOnClickOutside` | `boolean`        | `true`    | Whether a press on the backdrop closes it.       |
-| `closeOnEscape`       | `boolean`        | `true`    | Whether Escape closes it.                        |
-| `returnFocus`         | `boolean`        | `true`    | Moves focus back to where it was when it closes. |
-| `lockScroll`          | `boolean`        | `true`    | Stops the page from scrolling while it's open.   |
-| `transition`          | `TransitionName` | the slide | The panel's animation.                           |
-| `transitionDuration`  | `number`         | `200`     | Duration of the animation, in ms.                |
+| Prop                  | Type             | Default   | Description                                                |
+| --------------------- | ---------------- | --------- | ---------------------------------------------------------- |
+| `opened`              | `boolean`        | —         | Whether it is open.                                        |
+| `onClose`             | `() => void`     | —         | Called when it asks to close.                              |
+| `onExited`            | `() => void`     | —         | Called once it has closed and its exit animation finished. |
+| `position`            | `DrawerPosition` | `'left'`  | The edge it comes from.                                    |
+| `size`                | `SlopSize`       | `'md'`    | Width or height, from 16 to 40rem.                         |
+| `title`               | `JSX.Element`    | —         | The heading, which names the dialog.                       |
+| `withCloseButton`     | `boolean`        | `true`    | Shows a close button in the header.                        |
+| `closeButtonLabel`    | `string`         | `'Close'` | Accessible name of the close button.                       |
+| `closeOnClickOutside` | `boolean`        | `true`    | Whether a press on the backdrop closes it.                 |
+| `closeOnEscape`       | `boolean`        | `true`    | Whether Escape closes it.                                  |
+| `returnFocus`         | `boolean`        | `true`    | Moves focus back to where it was when it closes.           |
+| `lockScroll`          | `boolean`        | `true`    | Stops the page from scrolling while it's open.             |
+| `transition`          | `TransitionName` | the slide | The panel's animation.                                     |
+| `transitionDuration`  | `number`         | `200`     | Duration of the animation, in ms.                          |
 
 ## Styling
 

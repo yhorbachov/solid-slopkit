@@ -57,6 +57,7 @@ export default function DrawerPage() {
         rows={[
           { name: 'opened', type: 'boolean', description: 'Whether it is open.' },
           { name: 'onClose', type: '() => void', description: 'Called when it asks to close.' },
+          { name: 'onExited', type: '() => void', description: 'Called once it has closed and its exit animation finished.' },
           { name: 'position', type: 'DrawerPosition', default: "'left'", description: 'The edge it comes from.' },
           { name: 'size', type: 'SlopSize', default: "'md'", description: 'Width or height, from 16 to 40rem.' },
           { name: 'title', type: 'JSX.Element', description: 'The heading, which names the dialog.' },

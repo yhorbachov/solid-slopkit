@@ -1,5 +1,5 @@
 import { Loading } from 'solid-js';
-import { Notifications, SlopkitUi } from '@solid-slopkit/ui';
+import { Modals, Notifications, SlopkitUi } from '@solid-slopkit/ui';
 import { Router } from './router';
 import { Shell } from './layout/Shell';
 import '@solid-slopkit/ui/styles/slopkit.css';
@@ -19,6 +19,7 @@ export default function App() {
         )}
       </Router>
       <Notifications />
+      <Modals />
     </SlopkitUi>
   );
 }

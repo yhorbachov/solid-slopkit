@@ -1,9 +1,9 @@
 # SlopkitUi
 
-The provider. Required at the root of every app. It holds per-tree state: the CSS that components generate at runtime, the locale, the color scheme preference, the order of open overlays, and the notifications.
+The provider. Required at the root of every app. It holds per-tree state: the CSS that components generate at runtime, the locale, the color scheme preference, the order of open overlays, the notifications, and the modals opened from code.
 
 ```tsx
-import { SlopkitUi, useColorScheme, useLocale, useNotifications } from '@solid-slopkit/ui';
+import { SlopkitUi, useColorScheme, useLocale, useModals, useNotifications } from '@solid-slopkit/ui';
 ```
 
 ## Usage
@@ -26,6 +26,7 @@ export default function App() {
 - Providers can nest. A nested provider inherits the locale unless it sets its own.
 - Overlays (popovers, menus, modals) join the provider's order when they open. Escape closes only the topmost one, and a press outside closes, from the top down, each overlay it's outside of. A nested provider shares its root's order, so overlays in it nest correctly with those outside it.
 - Notifications are kept here: `useNotifications()` shows them, a `<Notifications>` region renders them, and the `notifications` facade reaches the most recently mounted root provider. A nested provider shares its root's. See [Notifications](../feedback/notifications/notifications.md).
+- Modals opened from code are kept here the same way: `useModals()` and the `modals` facade open them, a `<Modals>` host shows them. See [Modals](../overlays/modals/modals.md).
 - Head tags are added with `useHead` from `@solidjs/web`.
 
 ## Props

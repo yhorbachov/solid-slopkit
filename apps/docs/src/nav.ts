@@ -161,6 +161,7 @@ export const nav: NavSection[] = [
           { title: 'LoadingOverlay', href: '/ui/loading-overlay' },
           { title: 'Menu', href: '/ui/menu' },
           { title: 'Modal', href: '/ui/modal' },
+          { title: 'Modals', href: '/ui/modals' },
           { title: 'Overlay', href: '/ui/overlay' },
           { title: 'Popover', href: '/ui/popover' },
           { title: 'Tooltip', href: '/ui/tooltip' },

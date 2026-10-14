@@ -233,12 +233,6 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/drawer";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/drawer")>;
-      $$route?: undefined;
-    },
-    {
       path: "/ui/fieldset";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/fieldset")>;
@@ -362,12 +356,6 @@ declare module "virtual:file-routes" {
       path: "/ui/menu";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/menu")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/modal";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/modal")>;
       $$route?: undefined;
     },
     {
@@ -605,15 +593,15 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/tree";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/tree")>;
-      $$route?: undefined;
-    },
-    {
       path: "/ui/visually-hidden";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/visually-hidden")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/tree";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/tree")>;
       $$route?: undefined;
     },
     {
@@ -644,6 +632,24 @@ declare module "virtual:file-routes" {
       path: "/ui/notifications";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/notifications")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/modal";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/modal")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/drawer";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/drawer")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/modals";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/modals")>;
       $$route?: undefined;
     }
   ];
@@ -952,6 +958,14 @@ declare module "virtual:file-routes" {
       id: "/ui/loader";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/loader")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/modals";
+      id: "/ui/modals";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/modals")>;
       $$route?: undefined;
       children?: undefined;
     },

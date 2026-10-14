@@ -13,6 +13,8 @@ export interface DialogBaseOwnProps {
   opened: boolean;
   /** Called when it asks to close: the close button, Escape, or a press on the backdrop. Set `opened` to `false`. */
   onClose: () => void;
+  /** Called once it has closed and its exit animation has finished, e.g. to clear what it showed. */
+  onExited?: () => void;
   /** The heading, which also names the dialog. Without one, name it with `aria-label`. */
   title?: JSX.Element;
   /** Shows a close button in the header. Defaults to `true`. */
@@ -69,7 +71,11 @@ export function DialogBase(props: DialogBaseProps & { config: DialogBaseConfig }
   let content: HTMLDivElement | undefined;
   const config = untrack(() => props.config);
 
-  const presence = createPresence({ present: () => props.opened, element: () => dialog });
+  const presence = createPresence({
+    present: () => props.opened,
+    element: () => dialog,
+    onExited: () => props.onExited?.(),
+  });
   createDismissal(config.component, {
     open: () => props.opened,
     elements: () => [content],
@@ -108,6 +114,7 @@ function DialogElement(props: DialogBaseProps & { config: DialogBaseConfig } & P
     'children',
     'opened',
     'onClose',
+    'onExited',
     'title',
     'withCloseButton',
     'closeButtonLabel',

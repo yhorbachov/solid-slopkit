@@ -150,6 +150,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [LoadingOverlay](components/overlays/loading-overlay/loading-overlay.md): an Overlay with a Loader, for content that's loading
 - [Menu](components/overlays/menu/menu.md): Menu.Target, Menu.Dropdown, Menu.Item, Menu.Label and Menu.Divider
 - [Modal](components/overlays/modal/modal.md): a modal `<dialog>` with a title and close button
+- [Modals](components/overlays/modals/modals.md): open modals and confirm modals from code, with `useModals()` and the `modals` facade
 - [Overlay](components/overlays/overlay/overlay.md): a layer over its parent
 - [Popover](components/overlays/popover/popover.md): Popover.Target and Popover.Dropdown
 - [Tooltip](components/overlays/tooltip/tooltip.md): a description shown on hover and keyboard focus

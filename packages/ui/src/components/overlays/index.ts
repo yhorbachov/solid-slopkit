@@ -5,6 +5,7 @@ export * from './hover-card';
 export * from './loading-overlay';
 export * from './menu';
 export * from './modal';
+export * from './modals';
 export * from './overlay';
 export * from './popover';
 export * from './tooltip';

@@ -26,27 +26,29 @@ const [opened, setOpened] = createSignal(false);
 - **Size:** `size` (`xs` to `xl`: 20, 24, 28, 38, 48rem; default `md`), never wider than the viewport. `centered` centers it vertically, rather than near the top; `fullScreen` fills the viewport. Content taller than the viewport scrolls inside the modal.
 - **Page scroll:** the page doesn't scroll while it's open (`lockScroll`, default `true`). A classic scrollbar's room is kept, so the page doesn't shift sideways.
 - **Animation:** `transition` takes [Transition](../../utilities/transition/transition.md)'s presets for the content (default `pop`); the backdrop fades with it. `transitionDuration` (ms, default 200). None under `prefers-reduced-motion`.
+- **From code:** to open modals and confirm modals without keeping their state, see [Modals](../modals/modals.md).
 - **Needs** a `<SlopkitUi>` above it, for Escape's order among overlays.
 - **Server:** a closed modal renders nothing; an open one renders its `<dialog>`, which opens once hydrated.
 
 ## Props
 
-| Prop                  | Type             | Default   | Description                                      |
-| --------------------- | ---------------- | --------- | ------------------------------------------------ |
-| `opened`              | `boolean`        | —         | Whether it is open.                              |
-| `onClose`             | `() => void`     | —         | Called when it asks to close.                    |
-| `title`               | `JSX.Element`    | —         | The heading, which names the dialog.             |
-| `withCloseButton`     | `boolean`        | `true`    | Shows a close button in the header.              |
-| `closeButtonLabel`    | `string`         | `'Close'` | Accessible name of the close button.             |
-| `size`                | `SlopSize`       | `'md'`    | Width, from 20 to 48rem.                         |
-| `centered`            | `boolean`        | `false`   | Centers it vertically.                           |
-| `fullScreen`          | `boolean`        | `false`   | Fills the viewport.                              |
-| `closeOnClickOutside` | `boolean`        | `true`    | Whether a press on the backdrop closes it.       |
-| `closeOnEscape`       | `boolean`        | `true`    | Whether Escape closes it.                        |
-| `returnFocus`         | `boolean`        | `true`    | Moves focus back to where it was when it closes. |
-| `lockScroll`          | `boolean`        | `true`    | Stops the page from scrolling while it's open.   |
-| `transition`          | `TransitionName` | `'pop'`   | The content's animation.                         |
-| `transitionDuration`  | `number`         | `200`     | Duration of the animation, in ms.                |
+| Prop                  | Type             | Default   | Description                                                |
+| --------------------- | ---------------- | --------- | ---------------------------------------------------------- |
+| `opened`              | `boolean`        | —         | Whether it is open.                                        |
+| `onClose`             | `() => void`     | —         | Called when it asks to close.                              |
+| `onExited`            | `() => void`     | —         | Called once it has closed and its exit animation finished. |
+| `title`               | `JSX.Element`    | —         | The heading, which names the dialog.                       |
+| `withCloseButton`     | `boolean`        | `true`    | Shows a close button in the header.                        |
+| `closeButtonLabel`    | `string`         | `'Close'` | Accessible name of the close button.                       |
+| `size`                | `SlopSize`       | `'md'`    | Width, from 20 to 48rem.                                   |
+| `centered`            | `boolean`        | `false`   | Centers it vertically.                                     |
+| `fullScreen`          | `boolean`        | `false`   | Fills the viewport.                                        |
+| `closeOnClickOutside` | `boolean`        | `true`    | Whether a press on the backdrop closes it.                 |
+| `closeOnEscape`       | `boolean`        | `true`    | Whether Escape closes it.                                  |
+| `returnFocus`         | `boolean`        | `true`    | Moves focus back to where it was when it closes.           |
+| `lockScroll`          | `boolean`        | `true`    | Stops the page from scrolling while it's open.             |
+| `transition`          | `TransitionName` | `'pop'`   | The content's animation.                                   |
+| `transitionDuration`  | `number`         | `200`     | Duration of the animation, in ms.                          |
 
 ## Styling
 

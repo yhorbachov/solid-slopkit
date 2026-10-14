@@ -66,6 +66,7 @@ export default function ModalPage() {
         rows={[
           { name: 'opened', type: 'boolean', description: 'Whether it is open.' },
           { name: 'onClose', type: '() => void', description: 'Called when it asks to close.' },
+          { name: 'onExited', type: '() => void', description: 'Called once it has closed and its exit animation finished.' },
           { name: 'title', type: 'JSX.Element', description: 'The heading, which names the dialog.' },
           { name: 'withCloseButton', type: 'boolean', default: 'true', description: 'Shows a close button in the header.' },
           { name: 'closeButtonLabel', type: 'string', default: "'Close'", description: 'Accessible name of the close button.' },
