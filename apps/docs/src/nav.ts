@@ -148,6 +148,7 @@ export const nav: NavSection[] = [
         title: 'Utilities',
         items: [
           { title: 'Collapse', href: '/ui/collapse' },
+          { title: 'ScrollArea', href: '/ui/scroll-area' },
           { title: 'Transition', href: '/ui/transition' },
         ],
       },

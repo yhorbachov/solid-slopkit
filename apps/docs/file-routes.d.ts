@@ -419,6 +419,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/scroll-area";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/scroll-area")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/segmented-control";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/segmented-control")>;
@@ -1032,6 +1038,14 @@ declare module "virtual:file-routes" {
       id: "/ui/file-button";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/file-button")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/scroll-area";
+      id: "/ui/scroll-area";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/scroll-area")>;
       $$route?: undefined;
       children?: undefined;
     },
