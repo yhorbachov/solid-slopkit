@@ -35,6 +35,8 @@ export interface ComboboxStore {
   activatePrevious: () => boolean;
   /** Makes the first selected option (`aria-selected="true"`) active. */
   activateSelected: () => boolean;
+  /** Makes the enabled option with this `value` active. Returns whether there was one. */
+  activate: (value: string) => boolean;
   /** Makes no option active. */
   clearActive: () => void;
   /** Submits the active option, as if it were clicked. Returns whether there was one. */
@@ -134,6 +136,12 @@ export function createCombobox(options: ComboboxOptions = {}): ComboboxStore {
       const selected = optionsInList().find((option) => option.getAttribute('aria-selected') === 'true' && !isDisabled(option));
       if (selected) activate(selected, true);
       return !!selected;
+    },
+    activate: (value) => {
+      flush();
+      const option = optionsInList().find((candidate) => candidate.dataset.value === value && !isDisabled(candidate));
+      if (option) activate(option, true);
+      return !!option;
     },
     clearActive: () => activate(undefined, false),
     submitActive: () => {

@@ -455,6 +455,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/select";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/select")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/semi-circle-progress";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/semi-circle-progress")>;
@@ -860,6 +866,14 @@ declare module "virtual:file-routes" {
       id: "/ui/rating";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/rating")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/select";
+      id: "/ui/select";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/select")>;
       $$route?: undefined;
       children?: undefined;
     },

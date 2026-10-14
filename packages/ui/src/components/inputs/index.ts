@@ -18,6 +18,7 @@ export * from './radio';
 export * from './range-slider';
 export * from './rating';
 export * from './segmented-control';
+export * from './select';
 export * from './slider';
 export * from './switch';
 export * from './text-input';

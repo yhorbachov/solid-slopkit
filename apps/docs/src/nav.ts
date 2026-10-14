@@ -126,6 +126,7 @@ export const nav: NavSection[] = [
           { title: 'RangeSlider', href: '/ui/range-slider' },
           { title: 'Rating', href: '/ui/rating' },
           { title: 'SegmentedControl', href: '/ui/segmented-control' },
+          { title: 'Select', href: '/ui/select' },
           { title: 'Slider', href: '/ui/slider' },
           { title: 'Switch', href: '/ui/switch' },
           { title: 'TextInput', href: '/ui/text-input' },

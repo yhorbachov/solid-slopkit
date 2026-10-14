@@ -129,6 +129,19 @@ describe('<Combobox />', () => {
     expect(input()).toHaveAttribute('aria-activedescendant', option('Cherry').id);
   });
 
+  test('activate(value) makes the option with that value active, unless it is disabled', () => {
+    const { store, input, option } = setup({}, {}, ['Banana']);
+    store.open();
+    flush();
+
+    expect(option('Cherry')).toHaveAttribute('data-value', 'Cherry');
+    expect(store.activate('Cherry')).toBe(true);
+    expect(input()).toHaveAttribute('aria-activedescendant', option('Cherry').id);
+    expect(store.activate('Banana')).toBe(false);
+    expect(store.activate('Kiwi')).toBe(false);
+    expect(input()).toHaveAttribute('aria-activedescendant', option('Cherry').id);
+  });
+
   test('disabled options are skipped and cannot be chosen', () => {
     const { input, option, key, onOptionSubmit } = setup({}, {}, ['Banana']);
 
@@ -283,6 +296,32 @@ describe('<Combobox />', () => {
     expect(group).toHaveClass('slp-combobox-group');
     expect(group).toHaveAttribute('aria-labelledby', getByText('Fruit').id);
     expect(getByText('Fruit')).toHaveAttribute('data-slot', 'combobox-group-label');
+  });
+
+  test("the target's render function runs once: a signal it reads doesn't rebuild the target", () => {
+    const [label, setLabel] = createSignal('One');
+    const { getByRole } = render(() => {
+      const store = createCombobox();
+      return (
+        <SlopkitUi>
+          <Combobox store={store}>
+            <Combobox.Target>
+              {(target) => {
+                // Read directly, outside any JSX expression.
+                const name = label();
+                return <input {...target} aria-label={name} />;
+              }}
+            </Combobox.Target>
+          </Combobox>
+        </SlopkitUi>
+      );
+    });
+    flush();
+    const input = getByRole('combobox');
+
+    setLabel('Two');
+    flush();
+    expect(getByRole('combobox')).toBe(input);
   });
 
   test('the parts throw outside a Combobox, and a Combobox without a store throws', () => {

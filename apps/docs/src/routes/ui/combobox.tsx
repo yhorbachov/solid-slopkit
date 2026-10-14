@@ -79,6 +79,7 @@ export default function ComboboxPage() {
             description: 'Move the active option, from the first or last when none is active.',
           },
           { name: 'activateSelected()', type: 'boolean', description: 'Makes the first selected option active.' },
+          { name: 'activate(value)', type: 'boolean', description: 'Makes the enabled option with this value active.' },
           { name: 'clearActive()', type: 'void', description: 'Makes no option active.' },
           { name: 'submitActive()', type: 'boolean', description: 'Chooses the active option, as a click would.' },
         ]}

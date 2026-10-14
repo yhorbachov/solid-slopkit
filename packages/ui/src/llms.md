@@ -119,6 +119,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [RangeSlider](components/inputs/range-slider/range-slider.md)
 - [Rating](components/inputs/rating/rating.md)
 - [SegmentedControl](components/inputs/segmented-control/segmented-control.md)
+- [Select](components/inputs/select/select.md): one value from a dropdown list, optionally searchable and clearable
 - [Slider](components/inputs/slider/slider.md)
 - [Switch](components/inputs/switch/switch.md): with Switch.Group
 - [TextInput](components/inputs/text-input/text-input.md)
