@@ -110,6 +110,7 @@ export const nav: NavSection[] = [
           { title: 'Autocomplete', href: '/ui/autocomplete' },
           { title: 'Checkbox', href: '/ui/checkbox' },
           { title: 'Chip', href: '/ui/chip' },
+          { title: 'ColorInput', href: '/ui/color-input' },
           { title: 'ColorPicker', href: '/ui/color-picker' },
           { title: 'Combobox', href: '/ui/combobox' },
           { title: 'Fieldset', href: '/ui/fieldset' },

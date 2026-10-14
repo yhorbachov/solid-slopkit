@@ -173,6 +173,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/color-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/color-input")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/color-picker";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/color-picker")>;
@@ -1116,6 +1122,14 @@ declare module "virtual:file-routes" {
       id: "/ui/action-icon";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/action-icon")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/color-input";
+      id: "/ui/color-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/color-input")>;
       $$route?: undefined;
       children?: undefined;
     },

@@ -103,6 +103,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Autocomplete](components/inputs/autocomplete/autocomplete.md): a text field with suggestions from a list
 - [Checkbox](components/inputs/checkbox/checkbox.md): with Checkbox.Group and Checkbox.Card
 - [Chip](components/inputs/chip/chip.md): with Chip.Group
+- [ColorInput](components/inputs/color-input/color-input.md): a color as text, with a swatch, a ColorPicker dropdown and an eye dropper
 - [ColorPicker](components/inputs/color-picker/color-picker.md)
 - [Combobox](components/inputs/combobox/combobox.md): the building block for pickers, with createCombobox(), Combobox.Target, Combobox.Dropdown, Combobox.Options, Combobox.Option, Combobox.Group and Combobox.Empty
 - [Fieldset](components/inputs/fieldset/fieldset.md)
