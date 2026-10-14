@@ -138,6 +138,10 @@ export const nav: NavSection[] = [
         ],
       },
       {
+        title: 'Navigation',
+        items: [{ title: 'Tabs', href: '/ui/tabs' }],
+      },
+      {
         title: 'Overlays',
         items: [
           { title: 'Affix', href: '/ui/affix' },

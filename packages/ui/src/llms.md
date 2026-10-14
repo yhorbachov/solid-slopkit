@@ -129,6 +129,10 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [TextInput](components/inputs/text-input/text-input.md)
 - [Textarea](components/inputs/textarea/textarea.md): with autosize
 
+## Navigation
+
+- [Tabs](components/navigation/tabs/tabs.md): a tablist and its panels, with Tabs.List, Tabs.Tab and Tabs.Panel
+
 ## Overlays
 
 - [Affix](components/overlays/affix/affix.md): content pinned to a spot in the viewport

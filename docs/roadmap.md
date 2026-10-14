@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Autocomplete, Checkbox, Chip, ColorInput, ColorPicker, Combobox, Fieldset, FileInput, Input, InputWrapper, JsonInput, MultiSelect, NativeSelect, NumberInput, PasswordInput, Pill, PillsInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Select, Slider, Switch, TagsInput, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Overlays: Affix, Dialog, Drawer, HoverCard, LoadingOverlay, Menu, Modal, Overlay, Popover, Tooltip. Utilities: Collapse, FloatingIndicator, ScrollArea, Spoiler, Transition. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Autocomplete, Checkbox, Chip, ColorInput, ColorPicker, Combobox, Fieldset, FileInput, Input, InputWrapper, JsonInput, MultiSelect, NativeSelect, NumberInput, PasswordInput, Pill, PillsInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Select, Slider, Switch, TagsInput, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Navigation: Tabs. Overlays: Affix, Dialog, Drawer, HoverCard, LoadingOverlay, Menu, Modal, Overlay, Popover, Tooltip. Utilities: Collapse, FloatingIndicator, ScrollArea, Spoiler, Transition. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -165,7 +165,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 ## M5 — Navigation and disclosure
 
-- [ ] **M5.01** Tabs
+- [x] **M5.01** Tabs
 - [ ] **M5.02** Accordion
 - [ ] **M5.03** Stepper
 - [ ] **M5.04** Pagination

@@ -533,6 +533,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/tabs";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/tabs")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/tags-input";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/tags-input")>;
@@ -706,6 +712,14 @@ declare module "virtual:file-routes" {
       id: "/ui/pill";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/pill")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/tabs";
+      id: "/ui/tabs";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/tabs")>;
       $$route?: undefined;
       children?: undefined;
     },
