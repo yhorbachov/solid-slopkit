@@ -1,6 +1,8 @@
 import { createMemo, createSignal, createUniqueId, flush, For, omit, onCleanup, Show, untrack } from 'solid-js';
 import type { JSX } from '@solidjs/web';
-import { DialogBase, type DialogBaseOwnProps } from '../dialog-base';
+import { Modal, type ModalOwnProps } from '../modal';
+import { Input } from '../../inputs/input';
+import { joinClass } from '../../../style-props';
 import { comboboxInternals, createCombobox, type ComboboxStore } from '../../inputs/combobox/create-combobox';
 import type { ElementProps } from '../../../utils';
 import style from './spotlight.module.css';
@@ -21,7 +23,7 @@ export interface SpotlightAction {
   onTrigger?: () => void;
 }
 
-export interface SpotlightOwnProps extends DialogBaseOwnProps {
+export interface SpotlightOwnProps extends Omit<ModalOwnProps, 'title'> {
   actions: readonly SpotlightAction[];
   /** Controlled search text. */
   query?: string;
@@ -63,6 +65,7 @@ export function Spotlight(props: SpotlightProps) {
     'nothingFound',
     'limit',
     'filter',
+    'title',
   );
   const [own, setOwn] = createSignal(
     untrack(() => props.defaultQuery ?? ''),
@@ -121,39 +124,44 @@ export function Spotlight(props: SpotlightProps) {
   };
 
   return (
-    <DialogBase
+    <Modal
       {...others}
       onExited={() => {
         store.clearActive();
         props.onExited?.();
       }}
       aria-label={props['aria-label'] ?? (untrack(() => 'title' in props) ? undefined : 'Spotlight')}
-      config={{ component: 'Spotlight', name: 'spotlight', classes: style, defaultTransition: () => 'pop', attributes: {} }}
+      class={joinClass(['slp-spotlight', style.root], props.class)}
+      size={props.size ?? 'lg'}
+      withCloseButton={false}
     >
-      <input
-        data-slot="spotlight-search"
-        class={style.search}
-        data-autofocus
-        type="text"
-        autocomplete="off"
-        role="combobox"
-        aria-autocomplete="list"
-        aria-haspopup="listbox"
-        aria-expanded={props.opened ? 'true' : 'false'}
-        aria-controls={internals.listboxId}
-        aria-activedescendant={props.opened ? store.activeId() : undefined}
-        aria-label={props.searchLabel ?? 'Search actions'}
-        placeholder={props.searchPlaceholder ?? 'Search actions…'}
-        value={query()}
-        onKeyDown={onKeyDown}
-        onInput={(event: InputEvent) => {
-          const next = (event.currentTarget as HTMLInputElement).value;
-          store.clearActive();
-          if (props.query === undefined) setOwn(next);
-          props.onQueryChange?.(next);
-          flush();
-        }}
-      />
+      <div data-slot="spotlight-search" class={style.search}>
+        <Input
+          size="md"
+          variant="ghost"
+          data-autofocus
+          type="text"
+          autocomplete="off"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-haspopup="listbox"
+          aria-expanded={props.opened ? 'true' : 'false'}
+          aria-controls={internals.listboxId}
+          aria-activedescendant={props.opened ? store.activeId() : undefined}
+          aria-label={props.searchLabel ?? 'Search actions'}
+          placeholder={props.searchPlaceholder ?? 'Search actions…'}
+          value={query()}
+          onKeyDown={onKeyDown}
+          onInput={(event: InputEvent) => {
+            const next = (event.currentTarget as HTMLInputElement).value;
+            store.clearActive();
+            if (props.query === undefined) setOwn(next);
+            props.onQueryChange?.(next);
+            flush();
+          }}
+        />
+      </div>
+
       <SpotlightList store={store} label={props.actionsLabel ?? 'Actions'}>
         <For each={groups()}>
           {(group) => {
@@ -185,7 +193,7 @@ export function Spotlight(props: SpotlightProps) {
           {props.nothingFound ?? 'No actions found'}
         </div>
       </Show>
-    </DialogBase>
+    </Modal>
   );
 }
 
@@ -232,7 +240,7 @@ function SpotlightOption(props: { action: SpotlightAction; store: ComboboxStore;
       onClick={() => props.trigger(props.action)}
     >
       <Show when={'leftSection' in props.action}>
-        <span data-slot="spotlight-action-left-section" aria-hidden="true">
+        <span data-slot="spotlight-action-left-section" aria-hidden="true" class={style.section}>
           {renderSection(() => props.action.leftSection)}
         </span>
       </Show>

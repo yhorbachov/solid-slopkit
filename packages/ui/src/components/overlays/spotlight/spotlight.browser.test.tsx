@@ -51,6 +51,8 @@ describe('<Spotlight /> in a browser', () => {
     await open();
     expect(dialog()!.matches(':modal')).toBe(true);
     expect(search()).toHaveFocus();
+    expect(search().parentElement).toHaveClass('slp-input');
+    expect(search().parentElement).toHaveAttribute('data-size', 'md');
     await userEvent.keyboard('{ArrowDown}');
     expect(active()).toBe('Home');
     await userEvent.keyboard('{ArrowDown}');
@@ -88,7 +90,7 @@ describe('<Spotlight /> in a browser', () => {
     expect(trigger).toHaveBeenCalledTimes(1);
     expect(search()).toHaveFocus();
     await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
-    expect(document.activeElement).toHaveAttribute('data-slot', 'spotlight-close');
+    expect(document.activeElement).toHaveAttribute('data-slot', 'modal-close');
     await userEvent.keyboard('{Escape}');
     await expect.poll(dialog).toBeNull();
     expect(getByText('Open commands')).toHaveFocus();
@@ -107,15 +109,20 @@ describe('<Spotlight /> in a browser', () => {
   });
   test('scrolls keyboard-active actions into view and stays inside the viewport', async () => {
     const { open, dialog, search } = setup({
+      size: 'sm',
+      centered: true,
       actions: Array.from({ length: 40 }, (_, i) => ({ id: String(i), label: `Action ${i}` })),
     });
     await open();
     await userEvent.keyboard('{ArrowUp}');
     const list = dialog()!.querySelector<HTMLElement>('[role="listbox"]')!;
     const active = dialog()!.querySelector<HTMLElement>('[data-active]')!;
+    expect(dialog()).toHaveClass('slp-modal', 'slp-spotlight');
+    expect(dialog()).toHaveAttribute('data-size', 'sm');
+    expect(dialog()).toHaveAttribute('data-centered');
     expect(list.scrollTop).toBeGreaterThan(0);
     expect(active.getBoundingClientRect().bottom).toBeLessThanOrEqual(list.getBoundingClientRect().bottom + 1);
-    expect(dialog()!.querySelector('[data-slot="spotlight-content"]')!.getBoundingClientRect().width).toBeLessThanOrEqual(
+    expect(dialog()!.querySelector('[data-slot="modal-content"]')!.getBoundingClientRect().width).toBeLessThanOrEqual(
       window.innerWidth,
     );
     expect(search()).toHaveFocus();

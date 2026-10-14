@@ -43,10 +43,10 @@ export default function SpotlightPage() {
       <Example component={Controlled} code={controlledCode} />
       <H2 id="keyboard">Keyboard and focus</H2>
       <p>
-        Opening focuses search. Up and Down move through enabled actions and loop; Enter runs the active action. Typing clears
-        activation. Focus stays in search while navigating. Editing keys keep their native behavior. Tab moves between dialog
-        controls, Escape closes, and focus returns to the opener after the exit animation. Action sections are decorative and
-        cannot contain interactive elements.
+        Search uses the shared Input component at size md. Opening focuses search. Up and Down move through enabled actions and
+        loop; Enter runs the active action. Typing clears activation. Focus stays in search while navigating. Editing keys keep
+        their native behavior. Tab moves between dialog controls, Escape closes, and focus returns to the opener after the exit
+        animation. Action sections are decorative and cannot contain interactive elements.
       </p>
       <H2 id="props">Props</H2>
       <PropsTable
@@ -75,11 +75,12 @@ export default function SpotlightPage() {
         ]}
       />
       <p>
-        Also accepts the shared <a href="/ui/modal">Modal</a> behavior props: <code>title</code>, <code>withCloseButton</code>,
-        <code>closeButtonLabel</code>, <code>closeOnEscape</code>, <code>closeOnClickOutside</code>, <code>returnFocus</code>,
-        <code>lockScroll</code>, <code>transition</code>, <code>transitionDuration</code> and <code>onExited</code>, plus native
-        dialog attributes. The default animation is <code>pop</code>, lasting 200 ms. Without a title, the dialog defaults to the
-        name “Spotlight”; override with <code>aria-label</code>.
+        Also accepts <a href="/ui/modal">Modal</a> props: <code>size</code> (defaults to <code>lg</code>), <code>centered</code>,{' '}
+        <code>fullScreen</code>, <code>title</code>, <code>withCloseButton</code>,<code>closeButtonLabel</code>,{' '}
+        <code>closeOnEscape</code>, <code>closeOnClickOutside</code>, <code>returnFocus</code>,<code>lockScroll</code>,{' '}
+        <code>transition</code>, <code>transitionDuration</code> and <code>onExited</code>, plus native dialog attributes. The
+        default animation is <code>pop</code>, lasting 200 ms. Without a title, the dialog defaults to the name “Spotlight”;
+        override with <code>aria-label</code>.
       </p>
       <p>
         Pass JSX decorations as functions, such as <code>{`rightSection: () => <Kbd>↵</Kbd>`}</code>, to create them when the
@@ -103,14 +104,15 @@ export default function SpotlightPage() {
       />
       <H2 id="styling">Styling</H2>
       <p>
-        Use <code>.slp-spotlight</code> and namespaced slots: <code>spotlight-content</code>, <code>spotlight-header</code>,{' '}
-        <code>spotlight-title</code>,<code>spotlight-close</code>, <code>spotlight-body</code>, <code>spotlight-search</code>,{' '}
-        <code>spotlight-actions</code>,<code>spotlight-group</code>, <code>spotlight-group-label</code>,{' '}
-        <code>spotlight-action</code>, <code>spotlight-action-body</code>,<code>spotlight-action-label</code>,{' '}
-        <code>spotlight-action-description</code>, <code>spotlight-action-left-section</code>,
-        <code>spotlight-action-right-section</code> and <code>spotlight-empty</code>. Actions expose <code>data-value</code>,
-        <code>data-active</code> and <code>data-disabled</code>; the dialog exposes <code>data-status</code>. Unlayered CSS
-        overrides rules in <code>@layer slopkit.components</code>.
+        Spotlight composes <code>Modal</code>. Its root has both <code>.slp-modal</code> and <code>.slp-spotlight</code>. Frame
+        slots are <code>modal-content</code>, <code>modal-header</code>, <code>modal-title</code>, <code>modal-close</code> and{' '}
+        <code>modal-body</code>. Spotlight slots are <code>spotlight-search</code>, <code>spotlight-actions</code>,
+        <code>spotlight-group</code>, <code>spotlight-group-label</code>, <code>spotlight-action</code>,{' '}
+        <code>spotlight-action-body</code>,<code>spotlight-action-label</code>, <code>spotlight-action-description</code>,{' '}
+        <code>spotlight-action-left-section</code>,<code>spotlight-action-right-section</code> and <code>spotlight-empty</code>.
+        Actions expose <code>data-value</code>,<code>data-active</code> and <code>data-disabled</code>; the dialog exposes Modal's{' '}
+        <code>data-status</code>, <code>data-size</code>, <code>data-centered</code> and <code>data-full-screen</code>. Unlayered
+        CSS overrides rules in <code>@layer slopkit.components</code>.
       </p>
     </article>
   );

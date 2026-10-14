@@ -6,7 +6,7 @@ import { Spotlight, type SpotlightAction } from '@solid-slopkit/ui';
 <Spotlight opened={opened()} onClose={() => setOpened(false)} actions={actions} title="Commands" />;
 ```
 
-A searchable action list in a modal `<dialog>` in the browser's top layer. Requires `<SlopkitUi>`. Render it where it should inherit the theme. Opening focuses search; closing restores the opener after the exit animation. The app owns opening buttons and shortcuts. There is no global store or facade.
+A searchable action list composed with `Modal`, using a modal `<dialog>` in the browser's top layer. Requires `<SlopkitUi>`. Render it where it should inherit the theme. Opening focuses search; closing restores the opener after the exit animation. The app owns opening buttons and shortcuts. There is no global store or facade.
 
 ## Props
 
@@ -18,7 +18,7 @@ A searchable action list in a modal `<dialog>` in the browser's top layer. Requi
 - `limit?: number`: maximum visible actions across groups; negative values behave as zero. Use a finite number.
 - `filter?: (query: string, action: SpotlightAction) => boolean`: replaces default matching. Receives raw query. Default trims query and matches label, description or keywords case-insensitively.
 - `searchLabel?: string` (`'Search actions'`), `searchPlaceholder?: string` (`'Search actions…'`), `actionsLabel?: string` (`'Actions'`), `nothingFound?: string` (`'No actions found'`): accessible names, placeholder and empty message.
-- Shared dialog props: `title`, `withCloseButton` (`true`), `closeButtonLabel` (`'Close'`), `closeOnEscape` / `closeOnClickOutside` / `returnFocus` / `lockScroll` (`true`), `transition` (`'pop'`), `transitionDuration` (`200` ms), `onExited`.
+- Modal props: `size` (`'lg'`), `centered` (`false`), `fullScreen` (`false`), `title`, `withCloseButton` (`true`), `closeButtonLabel` (`'Close'`), `closeOnEscape` / `closeOnClickOutside` / `returnFocus` / `lockScroll` (`true`), `transition` (`'pop'`), `transitionDuration` (`200` ms), `onExited`.
 - Native dialog attributes, `class`, `style`, `ref`. The dialog defaults to the accessible name `'Spotlight'` without a title; override with `aria-label`. `children` is not accepted.
 
 ## SpotlightAction
@@ -27,8 +27,8 @@ A searchable action list in a modal `<dialog>` in the browser's top layer. Requi
 
 ## Keyboard and accessibility
 
-Search is a named combobox controlling a named listbox. Focus stays on search; `aria-activedescendant` points to the active action. Up/Down skip disabled actions and loop. Enter triggers the active action; no action is triggered until activated by arrows or pointer. Typing clears activation. Composition and modified keys do not trigger actions. Editing keys retain native behavior. Tab moves among dialog controls; actions are not tab stops. Escape requests closure through the provider's overlay order. Empty groups disappear and the empty message is a status outside the listbox.
+Search uses `Input` at size `md`, with its field box and focus treatment. Its control is a named combobox controlling a named listbox. Focus stays on search; `aria-activedescendant` points to the active action. Up/Down skip disabled actions and loop. Enter triggers the active action; no action is triggered until activated by arrows or pointer. Typing clears activation. Composition and modified keys do not trigger actions. Editing keys retain native behavior. Tab moves among dialog controls; actions are not tab stops. Escape requests closure through the provider's overlay order. Empty groups disappear and the empty message is a status outside the listbox.
 
 ## Styling
 
-Root `.slp-spotlight`, with `data-status`. Slots: `spotlight-content`, `spotlight-header`, `spotlight-title`, `spotlight-close`, `spotlight-body`, `spotlight-search`, `spotlight-actions`, `spotlight-group`, `spotlight-group-label`, `spotlight-action`, `spotlight-action-body`, `spotlight-action-label`, `spotlight-action-description`, `spotlight-action-left-section`, `spotlight-action-right-section`, `spotlight-empty`. Action slots carry `data-value` (action ID), `data-active` and `data-disabled` as applicable. No public custom properties. Rules live in `@layer slopkit.components`; override with unlayered selectors.
+Root `.slp-modal.slp-spotlight`, with Modal's `data-status`, `data-size`, `data-centered` and `data-full-screen` attributes. Modal owns the frame slots: `modal-content`, `modal-header`, `modal-title`, `modal-close`, `modal-body`. The search box is `.slp-input`; its control carries `data-slot="spotlight-search"`. Spotlight slots: `spotlight-search`, `spotlight-actions`, `spotlight-group`, `spotlight-group-label`, `spotlight-action`, `spotlight-action-body`, `spotlight-action-label`, `spotlight-action-description`, `spotlight-action-left-section`, `spotlight-action-right-section`, `spotlight-empty`. Action slots carry `data-value` (action ID), `data-active` and `data-disabled` as applicable. No public custom properties. Rules live in `@layer slopkit.components`; override with unlayered selectors.
