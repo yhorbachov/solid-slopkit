@@ -9,6 +9,7 @@ import {
   type UseNotifications,
 } from './notifications';
 import { createModalStore, registerModalStore, type ModalStore, type UseModals } from './modals';
+import { createSpotlightStore, registerSpotlightStore, type SpotlightStore, type UseSpotlight } from './spotlight';
 
 interface SlopkitUiContextValue {
   /** Adds a class's CSS to the provider's stylesheet. Registering a class that is already there is a no-op. */
@@ -21,6 +22,8 @@ interface SlopkitUiContextValue {
   notifications: NotificationStore;
   /** The modals opened through `useModals()`. One per tree: a nested provider shares its root's. */
   modals: ModalStore;
+  /** Whether the spotlight is open. One per tree: a nested provider shares its root's. */
+  spotlight: SpotlightStore;
 }
 
 export interface SlopkitUiProps extends ColorSchemeOptions {
@@ -57,8 +60,8 @@ const SlopkitUiContext = createContext<SlopkitUiContextValue | null>(null);
  * `data-slp-color-scheme` on <html>, by a head script before first paint and by the hook afterwards.
  *
  * It keeps the order of open overlays, which decides which one Escape or an outside click closes, and the
- * notifications (`useNotifications()`), which a `<Notifications>` region shows, and the modals opened from code
- * (`useModals()`), which a `<Modals>` host shows.
+ * notifications (`useNotifications()`), which a `<Notifications>` region shows, the modals opened from code
+ * (`useModals()`), which a `<Modals>` host shows, and whether the spotlight is open (`useSpotlight()`).
  */
 export function SlopkitUi(props: SlopkitUiProps) {
   const parent = useContext(SlopkitUiContext);
@@ -107,6 +110,7 @@ export function SlopkitUi(props: SlopkitUiProps) {
     overlays: parent?.overlays ?? createOverlayStack(),
     notifications: parent?.notifications ?? createNotificationStore(),
     modals: parent?.modals ?? createModalStore(),
+    spotlight: parent?.spotlight ?? createSpotlightStore(),
     registerStyle(className, value) {
       if (styles.has(className)) return;
       styles.set(className, value);
@@ -117,10 +121,11 @@ export function SlopkitUi(props: SlopkitUiProps) {
     },
   };
 
-  // The `notifications` and `modals` facades reach the most recently mounted root.
+  // The `notifications`, `modals` and `spotlight` facades reach the most recently mounted root.
   if (!parent) {
     registerNotificationStore(context.notifications);
     registerModalStore(context.modals);
+    registerSpotlightStore(context.spotlight);
   }
 
   return <SlopkitUiContext value={context}>{props.children}</SlopkitUiContext>;
@@ -160,4 +165,12 @@ export function useModals(): UseModals {
   if (!context) throw new Error('useModals() must be called inside <SlopkitUi>.');
   const { open, openConfirm, confirm, update, close, closeAll, modals } = context.modals;
   return { open, openConfirm, confirm, update, close, closeAll, modals };
+}
+
+/** Opens and closes the spotlight of the nearest <SlopkitUi>, which a `<Spotlight>` shows. */
+export function useSpotlight(): UseSpotlight {
+  const context = useContext(SlopkitUiContext);
+  if (!context) throw new Error('useSpotlight() must be called inside <SlopkitUi>.');
+  const { opened, open, close, toggle } = context.spotlight;
+  return { opened, open, close, toggle };
 }
