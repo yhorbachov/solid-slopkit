@@ -1,3 +1,4 @@
+export * from './affix';
 export * from './dialog';
 export * from './drawer';
 export * from './hover-card';

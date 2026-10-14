@@ -53,6 +53,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/affix";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/affix")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/alert";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/alert")>;
@@ -305,6 +311,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/loading-overlay";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/loading-overlay")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/mark";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/mark")>;
@@ -513,12 +525,6 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/visually-hidden")>;
       $$route?: undefined;
-    },
-    {
-      path: "/ui/loading-overlay";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/loading-overlay")>;
-      $$route?: undefined;
     }
   ];
   export default routes;
@@ -634,6 +640,14 @@ declare module "virtual:file-routes" {
       id: "/ui/text";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/text")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/affix";
+      id: "/ui/affix";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/affix")>;
       $$route?: undefined;
       children?: undefined;
     },
