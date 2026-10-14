@@ -42,8 +42,9 @@ export default function NotificationPage() {
 
       <H2 id="showing">Showing and dismissing</H2>
       <p>
-        Notification is only the card. Put it where it should appear, such as a region fixed to a corner, and remove it when it's
-        done. Passing <code>onClose</code> shows a close button at the end edge, and pressing it calls <code>onClose</code>.
+        Notification is only the card. To show notifications from anywhere, stacked in a corner and closing on their own, use{' '}
+        <a href="/ui/notifications">Notifications</a>. To place one yourself, put it where it should appear and remove it when
+        it's done. Passing <code>onClose</code> shows a close button at the end edge, and pressing it calls <code>onClose</code>.
         <code>closeButtonLabel</code> names it for screen readers, <code>'Close'</code> by default.
       </p>
       <Example component={Corner} code={cornerCode} />

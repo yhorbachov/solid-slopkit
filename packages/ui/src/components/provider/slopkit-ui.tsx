@@ -2,6 +2,12 @@ import { createContext, createMemo, createSignal, untrack, useContext, type Acce
 import { isServer, useHead, type HeadTag, type JSX } from '@solidjs/web';
 import { createColorScheme, type ColorSchemeOptions, type UseColorScheme } from './color-scheme';
 import { createOverlayStack, type OverlayStack } from './overlay-stack';
+import {
+  createNotificationStore,
+  registerNotificationStore,
+  type NotificationStore,
+  type UseNotifications,
+} from './notifications';
 
 interface SlopkitUiContextValue {
   /** Adds a class's CSS to the provider's stylesheet. Registering a class that is already there is a no-op. */
@@ -10,6 +16,8 @@ interface SlopkitUiContextValue {
   locale: Accessor<string>;
   /** The order of open overlays. One per tree: a nested provider shares its root's. */
   overlays: OverlayStack;
+  /** The notifications. One per tree: a nested provider shares its root's. */
+  notifications: NotificationStore;
 }
 
 export interface SlopkitUiProps extends ColorSchemeOptions {
@@ -45,7 +53,8 @@ const SlopkitUiContext = createContext<SlopkitUiContextValue | null>(null);
  * It also owns the color scheme preference (`useColorScheme()`), stored in localStorage and applied as
  * `data-slp-color-scheme` on <html>, by a head script before first paint and by the hook afterwards.
  *
- * And it keeps the order of open overlays, which decides which one Escape or an outside click closes.
+ * It keeps the order of open overlays, which decides which one Escape or an outside click closes, and the
+ * notifications (`useNotifications()`), which a `<Notifications>` region shows.
  */
 export function SlopkitUi(props: SlopkitUiProps) {
   const parent = useContext(SlopkitUiContext);
@@ -92,6 +101,7 @@ export function SlopkitUi(props: SlopkitUiProps) {
     colorScheme: colorScheme.api,
     locale,
     overlays: parent?.overlays ?? createOverlayStack(),
+    notifications: parent?.notifications ?? createNotificationStore(),
     registerStyle(className, value) {
       if (styles.has(className)) return;
       styles.set(className, value);
@@ -101,6 +111,9 @@ export function SlopkitUi(props: SlopkitUiProps) {
       else notifyStylesAdded();
     },
   };
+
+  // The `notifications` facade reaches the most recently mounted root.
+  if (!parent) registerNotificationStore(context.notifications);
 
   return <SlopkitUiContext value={context}>{props.children}</SlopkitUiContext>;
 }
@@ -123,4 +136,12 @@ export function useLocale(): Accessor<string> {
   const context = useContext(SlopkitUiContext);
   if (!context) throw new Error('useLocale() must be called inside <SlopkitUi>.');
   return context.locale;
+}
+
+/** Shows, changes and closes the notifications of the nearest <SlopkitUi>, which a `<Notifications>` region shows. */
+export function useNotifications(): UseNotifications {
+  const context = useContext(SlopkitUiContext);
+  if (!context) throw new Error('useNotifications() must be called inside <SlopkitUi>.');
+  const { show, update, hide, clean, notifications } = context.notifications;
+  return { show, update, hide, clean, notifications };
 }

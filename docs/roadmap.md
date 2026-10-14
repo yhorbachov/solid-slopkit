@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Autocomplete, Checkbox, Chip, ColorInput, ColorPicker, Combobox, Fieldset, FileInput, Input, InputWrapper, JsonInput, MultiSelect, NativeSelect, NumberInput, PasswordInput, Pill, PillsInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Select, Slider, Switch, TagsInput, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Navigation: Accordion, Breadcrumbs, NavLink, Pagination, Stepper, TableOfContents, Tabs, Tree. Overlays: Affix, Dialog, Drawer, HoverCard, LoadingOverlay, Menu, Modal, Overlay, Popover, Tooltip. Utilities: Collapse, FloatingIndicator, ScrollArea, Spoiler, Transition. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Autocomplete, Checkbox, Chip, ColorInput, ColorPicker, Combobox, Fieldset, FileInput, Input, InputWrapper, JsonInput, MultiSelect, NativeSelect, NumberInput, PasswordInput, Pill, PillsInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Select, Slider, Switch, TagsInput, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification, Notifications. Navigation: Accordion, Breadcrumbs, NavLink, Pagination, Stepper, TableOfContents, Tabs, Tree. Overlays: Affix, Dialog, Drawer, HoverCard, LoadingOverlay, Menu, Modal, Overlay, Popover, Tooltip. Utilities: Collapse, FloatingIndicator, ScrollArea, Spoiler, Transition. Provider: SlopkitUi (generated style registry, notification store).
 
 ---
 
@@ -176,7 +176,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 ## M6 — Managers and extensions
 
-- [ ] **M6.01** Notifications: provider store, `useNotifications()`, the client-only `notifications` facade, and the region as a manual popover (ADR 0009, ADR 0011)
+- [x] **M6.01** Notifications: provider store, `useNotifications()`, the client-only `notifications` facade, and the region as a manual popover (ADR 0009, ADR 0011)
 - [ ] **M6.02** Modals manager: provider store, `useModals()`, the `modals` facade, confirm modal
 - [ ] **M6.03** Spotlight
 - [ ] **M6.04** Dropzone (own implementation, no dependency)

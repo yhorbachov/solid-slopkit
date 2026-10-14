@@ -1,6 +1,6 @@
 # Notification
 
-A short message about something that happened: a card with `role="status"`, a title, and an icon or a colored bar. The look only: showing, stacking and dismissing notifications is up to the app.
+A short message about something that happened: a card with `role="status"`, a title, and an icon or a colored bar. The look only: [Notifications](../notifications/notifications.md) shows, stacks and dismisses them.
 
 ```tsx
 import { Notification } from '@solid-slopkit/ui';
@@ -25,7 +25,7 @@ import { Notification } from '@solid-slopkit/ui';
 - **Color:** `color` takes a color role and defaults to `primary`. Without an icon, a bar of the color runs down the start edge; with one, the icon sits in a circle of the color. Mark the icon `aria-hidden="true"`: the text carries the meaning.
 - **Icon or bar:** passing the `icon` prop at all chooses the circle, even as `icon={undefined}`; leave the prop out for the bar. The icon is created only while it's shown, so a notification that starts out loading doesn't build an icon it won't show.
 - **Loading:** `loading` shows a Loader in place of the icon, in the color, and sets `aria-busy`. When it ends, the icon (or the bar) comes back.
-- **Showing and dismissing:** Notification is only the card. Put it where it should appear, such as a fixed region in a corner, and remove it when it's done. Passing `onClose` shows a [CloseButton](../../button/close-button/close-button.md) at the end edge, and pressing it calls `onClose`; the notification doesn't remove itself. `closeButtonLabel` names the button for screen readers, `'Close'` by default.
+- **Showing and dismissing:** Notification is only the card. To show notifications from anywhere, stacked in a corner and closing on their own, use [Notifications](../notifications/notifications.md) (`useNotifications()`). To place one yourself, put it where it should appear and remove it when it's done. Passing `onClose` shows a [CloseButton](../../button/close-button/close-button.md) at the end edge, and pressing it calls `onClose`; the notification doesn't remove itself. `closeButtonLabel` names the button for screen readers, `'Close'` by default.
 
 ## Props
 
