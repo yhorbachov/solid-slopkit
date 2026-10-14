@@ -138,4 +138,5 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 - [Collapse](components/utilities/collapse/collapse.md): Collapse.Title and Collapse.Content, animated in CSS
 - [ScrollArea](components/utilities/scroll-area/scroll-area.md): a scrolling box with thin scrollbars drawn over it
+- [Spoiler](components/utilities/spoiler/spoiler.md): content cut to a height, with a control to show the rest
 - [Transition](components/utilities/transition/transition.md): enter and exit animations
