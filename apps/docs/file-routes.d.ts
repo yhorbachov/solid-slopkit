@@ -383,12 +383,6 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/nav-link";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/nav-link")>;
-      $$route?: undefined;
-    },
-    {
       path: "/ui/notification";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/notification")>;
@@ -629,9 +623,21 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/nav-link";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/nav-link")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/tree";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/tree")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/table-of-contents";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/table-of-contents")>;
       $$route?: undefined;
     }
   ];
@@ -1420,6 +1426,14 @@ declare module "virtual:file-routes" {
       id: "/ui/segmented-control";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/segmented-control")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/table-of-contents";
+      id: "/ui/table-of-contents";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/table-of-contents")>;
       $$route?: undefined;
       children?: undefined;
     },

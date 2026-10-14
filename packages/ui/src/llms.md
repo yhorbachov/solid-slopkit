@@ -136,6 +136,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [NavLink](components/navigation/nav-link/nav-link.md): a link in a navigation list, active for the current page, or a parent of nested links
 - [Pagination](components/navigation/pagination/pagination.md): buttons or links to move between pages
 - [Stepper](components/navigation/stepper/stepper.md): progress through steps, the current step's content under them
+- [TableOfContents](components/navigation/table-of-contents/table-of-contents.md): links to the page's headings, the one being read marked as it scrolls
 - [Tabs](components/navigation/tabs/tabs.md): a tablist and its panels, with Tabs.List, Tabs.Tab and Tabs.Panel
 - [Tree](components/navigation/tree/tree.md): a hierarchy of nodes that expand, collapse and can be selected, from data
 

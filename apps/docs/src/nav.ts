@@ -145,6 +145,7 @@ export const nav: NavSection[] = [
           { title: 'NavLink', href: '/ui/nav-link' },
           { title: 'Pagination', href: '/ui/pagination' },
           { title: 'Stepper', href: '/ui/stepper' },
+          { title: 'TableOfContents', href: '/ui/table-of-contents' },
           { title: 'Tabs', href: '/ui/tabs' },
           { title: 'Tree', href: '/ui/tree' },
         ],
