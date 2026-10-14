@@ -3,11 +3,13 @@ import type { JSX } from '@solidjs/web';
 import style from './pill.module.css';
 import { type ElementProps } from '../../../utils';
 import { joinClass } from '../../../style-props';
-import type { SlopSize } from '../../../core';
+import type { SlopColor, SlopSize } from '../../../core';
 
 export interface PillOwnProps {
   /** Defaults to `md`, or the group's size. Sized to fit in an input of the same size. */
   size?: SlopSize;
+  /** Color role: a tint of it, with the text in it. Defaults to the group's; without one the base colors. */
+  color?: SlopColor;
   /** Shows a button that removes it, which calls `onRemove`. */
   withRemoveButton?: boolean;
   /** Called when the remove button is pressed. */
@@ -23,6 +25,8 @@ export type PillProps = ElementProps<JSX.HTMLAttributes<HTMLSpanElement>, PillOw
 export interface PillGroupOwnProps {
   /** The size of the pills in it. Defaults to `md`. */
   size?: SlopSize;
+  /** The color role of the pills in it. */
+  color?: SlopColor;
   /** Disables every pill in it. */
   disabled?: boolean;
 }
@@ -31,6 +35,7 @@ export type PillGroupProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, Pi
 
 interface PillGroupContextValue {
   size: () => SlopSize | undefined;
+  color: () => SlopColor | undefined;
   disabled: () => boolean;
 }
 
@@ -38,9 +43,9 @@ const PillGroupContext = createContext<PillGroupContextValue | null>(null);
 
 /** Pills in a row that wraps, with a gap that follows their size. */
 export function PillGroup(props: PillGroupProps) {
-  const others = omit(props, 'class', 'size', 'disabled');
+  const others = omit(props, 'class', 'size', 'color', 'disabled');
   return (
-    <PillGroupContext value={{ size: () => props.size, disabled: () => !!props.disabled }}>
+    <PillGroupContext value={{ size: () => props.size, color: () => props.color, disabled: () => !!props.disabled }}>
       <div
         data-size={props.size ?? 'md'}
         data-disabled={props.disabled ? '' : undefined}
@@ -57,7 +62,7 @@ export function PillGroup(props: PillGroupProps) {
  */
 export function Pill(props: PillProps) {
   const group = useContext(PillGroupContext);
-  const others = omit(props, 'class', 'children', 'size', 'withRemoveButton', 'onRemove', 'removeLabel', 'disabled');
+  const others = omit(props, 'class', 'children', 'size', 'color', 'withRemoveButton', 'onRemove', 'removeLabel', 'disabled');
   const disabled = () => props.disabled ?? group?.disabled() ?? false;
   const labelId = `slp-pill-${createUniqueId()}`;
   const removeId = `${labelId}-remove`;
@@ -65,6 +70,7 @@ export function Pill(props: PillProps) {
   return (
     <span
       data-size={props.size ?? group?.size() ?? 'md'}
+      data-color={props.color ?? group?.color()}
       data-disabled={disabled() ? '' : undefined}
       data-with-remove={props.withRemoveButton ? '' : undefined}
       class={joinClass(['slp-pill', style.pill], props.class)}

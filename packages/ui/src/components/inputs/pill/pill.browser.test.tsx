@@ -33,6 +33,29 @@ describe('<Pill /> in a browser', () => {
     expect(new Set(heights).size).toBe(sizes.length);
   });
 
+  test('a color tints the background and colors the text; without one it uses the base colors', () => {
+    const { getByText, getByTestId } = render(() => (
+      <div style={{ 'background-color': 'var(--slp-color-base-100)' }}>
+        <Pill>Plain</Pill>
+        <Pill color="primary">Primary</Pill>
+        <div data-testid="custom" style={{ '--slp-pill-color': 'rgb(200, 0, 0)' }}>
+          <Pill>Custom</Pill>
+        </div>
+        <span data-testid="base200" style={{ 'background-color': 'var(--slp-color-base-200)' }} />
+        <span data-testid="primary" style={{ color: 'var(--slp-color-primary)' }} />
+      </div>
+    ));
+    const look = (text: string) => getComputedStyle(getByText(text).parentElement!);
+    const reference = (id: string) => getComputedStyle(getByTestId(id));
+
+    expect(look('Plain').backgroundColor).toBe(reference('base200').backgroundColor);
+    expect(look('Primary').color).toBe(reference('primary').color);
+    // A 15% tint of the role.
+    expect(look('Primary').backgroundColor).toContain('0.15');
+    expect(look('Custom').color).toBe('rgb(200, 0, 0)');
+    expect(look('Custom').backgroundColor).not.toBe(reference('base200').backgroundColor);
+  });
+
   test('a long label truncates inside a narrow parent', () => {
     const { getByText } = render(() => (
       <div style={{ width: '100px' }}>

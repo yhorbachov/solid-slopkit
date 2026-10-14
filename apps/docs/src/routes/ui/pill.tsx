@@ -8,6 +8,8 @@ import Basic from '../../examples/pill/basic';
 import basicCode from '../../examples/pill/basic.tsx?raw';
 import Removable from '../../examples/pill/removable';
 import removableCode from '../../examples/pill/removable.tsx?raw';
+import Colors from '../../examples/pill/colors';
+import colorsCode from '../../examples/pill/colors.tsx?raw';
 import Sizes from '../../examples/pill/sizes';
 import sizesCode from '../../examples/pill/sizes.tsx?raw';
 
@@ -39,18 +41,26 @@ export default function PillPage() {
       </p>
       <Example component={Removable} code={removableCode} />
 
+      <H2 id="colors">Colors</H2>
+      <p>
+        <code>color</code> takes a color role: a light tint of it behind text in it, so it sits on any surface. Without one, the
+        pill is on the base surface's second shade. <code>Pill.Group</code>'s <code>color</code> applies to every pill in it, and{' '}
+        <code>--slp-pill-color</code> sets any color, on the pill or an ancestor.
+      </p>
+      <Example component={Colors} code={colorsCode} />
+
       <H2 id="sizes">Sizes and disabled</H2>
       <p>
         <code>xs</code> to <code>xl</code>, <code>md</code> by default, each sized to sit inside an input of the same size.{' '}
-        <code>Pill.Group</code>'s <code>size</code> and <code>disabled</code> apply to every pill in it; a disabled pill is dimmed
-        and its remove button disabled.
+        <code>Pill.Group</code>'s <code>size</code> and <code>disabled</code> apply to every pill in it, as its <code>color</code>{' '}
+        does; a disabled pill is dimmed and its remove button disabled.
       </p>
       <Example component={Sizes} code={sizesCode} />
 
       <H2 id="props">Props</H2>
       <p>
-        Other props go to the <code>span</code>. <code>Pill.Group</code> takes <code>size</code> and <code>disabled</code>, and
-        passes the rest to its <code>div</code>.
+        Other props go to the <code>span</code>. <code>Pill.Group</code> takes <code>size</code>, <code>color</code> and{' '}
+        <code>disabled</code>, and passes the rest to its <code>div</code>.
       </p>
       <PropsTable
         rows={[
@@ -60,6 +70,7 @@ export default function PillPage() {
             default: "'md'",
             description: "Its size. Defaults to the group's.",
           },
+          { name: 'color', type: 'SlopColor', description: "Color role. Defaults to the group's." },
           { name: 'withRemoveButton', type: 'boolean', default: 'false', description: 'Shows a button that removes it.' },
           { name: 'onRemove', type: '() => void', description: 'Called when the remove button is pressed.' },
           {
@@ -76,8 +87,9 @@ export default function PillPage() {
       <p>
         The pill has the class <code>.slp-pill</code>, with <code>[data-slot="pill-label"]</code> and{' '}
         <code>[data-slot="pill-remove"]</code> inside, and the group <code>.slp-pill-group</code>. Both have{' '}
-        <code>data-size</code> and <code>data-disabled</code>; a pill with a remove button has <code>data-with-remove</code>. The
-        rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>data-size</code> and <code>data-disabled</code>; a pill has <code>data-color</code>, and{' '}
+        <code>data-with-remove</code> with a remove button. Its tint and text come from <code>--slp-pill-color</code>. The rules
+        live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

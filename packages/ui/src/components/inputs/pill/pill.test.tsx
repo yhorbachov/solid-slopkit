@@ -59,11 +59,25 @@ describe('<Pill />', () => {
     expect(getByRole('button')).toBeDisabled();
   });
 
-  test('Pill.Group lays them out, and passes its size and disabled down; a pill can override the size', () => {
+  test('color sets data-color; without one there is none', () => {
+    const { getByText } = render(() => (
+      <>
+        <Pill color="success">Colored</Pill>
+        <Pill>Plain</Pill>
+      </>
+    ));
+
+    expect(getByText('Colored').parentElement).toHaveAttribute('data-color', 'success');
+    expect(getByText('Plain').parentElement).not.toHaveAttribute('data-color');
+  });
+
+  test('Pill.Group lays them out, and passes its size, color and disabled down; a pill can override them', () => {
     const { getByText, getByTestId } = render(() => (
-      <Pill.Group data-testid="group" size="sm" disabled class="mine">
+      <Pill.Group data-testid="group" size="sm" color="primary" disabled class="mine">
         <Pill>One</Pill>
-        <Pill size="xl">Two</Pill>
+        <Pill size="xl" color="error">
+          Two
+        </Pill>
       </Pill.Group>
     ));
 
@@ -72,7 +86,10 @@ describe('<Pill />', () => {
     expect(getByTestId('group')).toHaveAttribute('data-size', 'sm');
     expect(getByText('One').parentElement).toHaveAttribute('data-size', 'sm');
     expect(getByText('One').parentElement).toHaveAttribute('data-disabled', '');
+    expect(getByText('One').parentElement).toHaveAttribute('data-color', 'primary');
+    expect(getByTestId('group')).not.toHaveAttribute('data-color');
     expect(getByText('Two').parentElement).toHaveAttribute('data-size', 'xl');
+    expect(getByText('Two').parentElement).toHaveAttribute('data-color', 'error');
   });
 
   test('has no axe violations, with and without a remove button, enabled and disabled', async () => {
@@ -82,6 +99,9 @@ describe('<Pill />', () => {
         <Pill withRemoveButton>Removable</Pill>
         <Pill withRemoveButton disabled>
           Disabled
+        </Pill>
+        <Pill color="primary" withRemoveButton>
+          Colored
         </Pill>
       </Pill.Group>
     ));

@@ -1,11 +1,24 @@
 /*
- * Pill. A rounded tag on the base surface's second shade, sized to fit inside an input of the same size, with an
- * optional remove button at its end. Pill.Group lays pills out in a row that wraps.
+ * Pill. A rounded tag on the base surface's second shade, or a tint of its color role with the text in the role,
+ * sized to fit inside an input of the same size, with an optional remove button at its end. Pill.Group lays pills out
+ * in a row that wraps.
+ *
+ * Public custom property (set on the pill or any ancestor):
+ *   --slp-pill-color    the color the tint and the text come from, defaults to the `color` prop's theme token
  *
  * Everything prefixed `--_pill-` is internal.
  */
 @layer slopkit.components {
   .pill {
+    /* Resolved color: the public override wins over the `data-color` theme token. Both may be unset, in which case
+       the pill uses the base colors. */
+    --_pill-color: var(--slp-pill-color, var(--_pill-theme-color));
+    /* Invalid while there's no color, so the background falls back to the base shade. The tint mixes with
+       transparent, so it sits on any surface. */
+    --_pill-tint: color-mix(in oklab, var(--_pill-color) 15%, transparent);
+    --_pill-bg: var(--_pill-tint, var(--slp-color-base-200));
+    --_pill-fg: var(--_pill-color, var(--slp-color-base-content));
+
     --_pill-height: calc(var(--slp-size-field) * 5.5);
     --_pill-px: 0.625rem;
     --_pill-font-size: 0.75rem;
@@ -20,13 +33,39 @@
     height: var(--_pill-height);
     padding-inline: var(--_pill-px);
     border-radius: calc(infinity * 1px);
-    background-color: var(--slp-color-base-200);
-    color: var(--slp-color-base-content);
+    background-color: var(--_pill-bg);
+    color: var(--_pill-fg);
     font-size: var(--_pill-font-size);
     font-weight: 500;
     line-height: 1.25;
     white-space: nowrap;
     vertical-align: middle;
+
+    /* Colors */
+    &[data-color='neutral'] {
+      --_pill-theme-color: var(--slp-color-neutral);
+    }
+    &[data-color='primary'] {
+      --_pill-theme-color: var(--slp-color-primary);
+    }
+    &[data-color='secondary'] {
+      --_pill-theme-color: var(--slp-color-secondary);
+    }
+    &[data-color='accent'] {
+      --_pill-theme-color: var(--slp-color-accent);
+    }
+    &[data-color='info'] {
+      --_pill-theme-color: var(--slp-color-info);
+    }
+    &[data-color='success'] {
+      --_pill-theme-color: var(--slp-color-success);
+    }
+    &[data-color='warning'] {
+      --_pill-theme-color: var(--slp-color-warning);
+    }
+    &[data-color='error'] {
+      --_pill-theme-color: var(--slp-color-error);
+    }
 
     /* The remove button sits in the end padding. */
     &[data-with-remove] {
