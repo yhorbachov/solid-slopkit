@@ -84,8 +84,8 @@ describe('<TableOfContents /> in a browser', () => {
     const { container } = setup();
     document.getElementById('one')!.scrollIntoView();
     await frames();
-    const link = container.querySelector<HTMLElement>('[data-active]')!;
-    const other = container.querySelector<HTMLElement>('[data-slot="table-of-contents-link"]:not([data-active])')!;
+    const link = container.querySelector<HTMLElement>('[data-current]')!;
+    const other = container.querySelector<HTMLElement>('[data-slot="table-of-contents-link"]:not([data-current])')!;
 
     expect(getComputedStyle(link).borderLeftWidth).toBe('2px');
     expect(getComputedStyle(link).borderLeftColor).not.toBe(getComputedStyle(other).borderLeftColor);

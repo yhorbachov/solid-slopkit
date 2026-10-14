@@ -38,10 +38,10 @@ export default function TableOfContentsPage() {
 
       <H2 id="active">The active heading</H2>
       <p>
-        The active link is the last heading scrolled up to its line, with <code>aria-current="location"</code>; none is active
-        before the first. A heading's line is its <code>scroll-margin-top</code>, where following its link puts it, or{' '}
-        <code>offset</code> pixels from the top when set. At the bottom of the page, the last heading is active even if it can't
-        reach its line. <code>onActiveChange</code> reports each change.
+        The active link is the last heading scrolled up to its line, with <code>aria-current="location"</code> (the others say{' '}
+        <code>"false"</code>); none is active before the first. A heading's line is its <code>scroll-margin-top</code>, where
+        following its link puts it, or <code>offset</code> pixels from the top when set. At the bottom of the page, the last
+        heading is active even if it can't reach its line. <code>onActiveChange</code> reports each change.
       </p>
 
       <H2 id="props">Props</H2>
@@ -63,7 +63,7 @@ export default function TableOfContentsPage() {
       <p>
         The root is <code>.slp-table-of-contents</code>, with <code>data-variant</code> and <code>data-color</code>, holding{' '}
         <code>[data-slot="table-of-contents-list"]</code>, its <code>table-of-contents-item</code>s, and in each a{' '}
-        <code>table-of-contents-link</code> with <code>data-depth</code> and <code>data-active</code>.{' '}
+        <code>table-of-contents-link</code> with <code>data-depth</code> and <code>data-current</code>.{' '}
         <code>--slp-table-of-contents-color</code> sets the active color. The rules live in <code>@layer slopkit.components</code>
         , so unlayered CSS wins.
       </p>

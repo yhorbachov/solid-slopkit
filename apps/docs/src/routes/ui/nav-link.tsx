@@ -72,7 +72,7 @@ export default function NavLinkPage() {
 
       <H2 id="styling">Styling</H2>
       <p>
-        The root is <code>.slp-nav-link</code> (the link, or a parent's button), with <code>data-active</code>,{' '}
+        The root is <code>.slp-nav-link</code> (the link, or a parent's button), with <code>data-current</code>,{' '}
         <code>data-variant</code>, <code>data-color</code>, <code>data-disabled</code> and, on a parent, <code>data-opened</code>.
         Inside are <code>[data-slot="nav-link-left-section"]</code>, <code>nav-link-body</code> holding{' '}
         <code>nav-link-label</code> and <code>nav-link-description</code>, <code>nav-link-right-section</code> and a parent's{' '}

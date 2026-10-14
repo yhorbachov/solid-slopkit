@@ -6,6 +6,7 @@ import axe from 'axe-core';
 import { describe, expect, test, vi } from 'vitest';
 import { expectHydration } from '../../../../test/ssr';
 import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
+import { claimLinksAsCurrent } from '../../../../test/link-claims';
 import { NavLink } from './nav-link';
 
 describe('<NavLink />', () => {
@@ -26,7 +27,7 @@ describe('<NavLink />', () => {
     expect(link).toHaveClass('slp-nav-link', 'mine');
     expect(link).toHaveAttribute('data-variant', 'soft');
     expect(link).toHaveAttribute('data-color', 'primary');
-    expect(link).not.toHaveAttribute('aria-current');
+    expect(link).toHaveAttribute('aria-current', 'false');
     expect(container.querySelector('[data-slot="nav-link-label"]')).toHaveTextContent('Inbox');
     expect(container.querySelector('[data-slot="nav-link-description"]')).toHaveTextContent('3 unread');
     expect(container.querySelector('[data-slot="nav-link-left-section"] svg')).not.toBeNull();
@@ -47,13 +48,29 @@ describe('<NavLink />', () => {
     const link = getByRole('link', { name: 'Home' });
 
     expect(link).toHaveAttribute('aria-current', 'page');
-    expect(link).toHaveAttribute('data-active', '');
+    expect(link).toHaveAttribute('data-current', '');
     expect(link).toHaveAttribute('data-variant', 'solid');
     expect(link).toHaveAttribute('data-color', 'accent');
     setActive(false);
     flush();
-    expect(link).not.toHaveAttribute('aria-current');
-    expect(link).not.toHaveAttribute('data-active');
+    expect(link).toHaveAttribute('aria-current', 'false');
+    expect(link).not.toHaveAttribute('data-current');
+  });
+
+  test('keeps its own current state when a router marks every link to this page', () => {
+    claimLinksAsCurrent();
+    const [active, setActive] = createSignal(false);
+    // A link component that renders its own `a`, which the runtime claims, as a router's would.
+    const RouterLink = (props: { href: string; children?: JSX.Element }) => <a {...props} href={props.href} />;
+    const { getByRole } = render(() => <NavLink as={RouterLink} href="#home" label="Home" active={active()} />);
+    const link = getByRole('link', { name: 'Home' });
+
+    expect(link).toHaveAttribute('aria-current', 'false');
+    expect(link).not.toHaveAttribute('data-current');
+    setActive(true);
+    flush();
+    expect(link).toHaveAttribute('aria-current', 'page');
+    expect(link).toHaveAttribute('data-current', '');
   });
 
   test('a disabled link has no href, says it is disabled, and ignores clicks', () => {

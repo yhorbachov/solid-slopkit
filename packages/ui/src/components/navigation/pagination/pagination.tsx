@@ -149,10 +149,7 @@ export function Pagination(props: PaginationProps) {
       get 'aria-label'() {
         return itemProps.label();
       },
-      get 'aria-current'() {
-        return itemProps.current?.() ? ('page' as const) : undefined;
-      },
-      get 'data-active'() {
+      get 'data-current'() {
         return itemProps.current?.() ? '' : undefined;
       },
       get 'data-disabled'() {
@@ -177,17 +174,20 @@ export function Pagination(props: PaginationProps) {
         <Show
           when={props.getPageHref}
           fallback={
-            <button type="button" disabled={inert()} {...shared}>
+            <button type="button" disabled={inert()} aria-current={itemProps.current?.() ? 'page' : undefined} {...shared}>
               {content()}
             </button>
           }
         >
           {(getHref) => (
             // A link that goes nowhere has no href, so it keeps the link role explicitly and says it's disabled.
+            // Every link says whether it's current, so a router that marks links to the current page adds nothing
+            // (ADR 0015).
             <a
               href={inert() ? undefined : getHref()(itemProps.target())}
               role={inert() ? 'link' : undefined}
               aria-disabled={inert() ? 'true' : undefined}
+              aria-current={itemProps.current?.() ? 'page' : 'false'}
               {...shared}
             >
               {content()}

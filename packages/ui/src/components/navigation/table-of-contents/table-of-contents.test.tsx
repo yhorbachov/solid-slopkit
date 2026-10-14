@@ -5,6 +5,7 @@ import axe from 'axe-core';
 import { describe, expect, test } from 'vitest';
 import { expectHydration } from '../../../../test/ssr';
 import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
+import { claimLinksAsCurrent } from '../../../../test/link-claims';
 import { TableOfContents } from './table-of-contents';
 
 const nextFrame = () => new Promise((resolve) => requestAnimationFrame(resolve));
@@ -36,8 +37,6 @@ describe('<TableOfContents />', () => {
       ['Props', '#props', '2'],
     ]);
     expect(links[2].style.getPropertyValue('--_toc-indent')).toBe('2');
-    // The browser's default target, set so a router that marks links to the current page leaves these alone.
-    expect(links[0]).toHaveAttribute('target', '_self');
     expect(container.querySelector('ol[data-slot="table-of-contents-list"]')).not.toBeNull();
   });
 
@@ -91,6 +90,30 @@ describe('<TableOfContents />', () => {
     const links = getAllByRole('link');
     expect(links.map((link) => link.textContent)).toEqual(['Alpha', 'Beta']);
     expect(links[1].style.getPropertyValue('--_toc-indent')).toBe('1');
+  });
+
+  test('keeps its own active link when a router marks every link to this page', () => {
+    claimLinksAsCurrent();
+    const { getAllByRole } = render(() => (
+      <>
+        <TableOfContents
+          headings={[
+            { id: 'a', label: 'Alpha', depth: 2 },
+            { id: 'b', label: 'Beta', depth: 2 },
+          ]}
+        />
+        <h2 id="a">Alpha</h2>
+        <h2 id="b">Beta</h2>
+      </>
+    ));
+    flush();
+    // jsdom lays nothing out, so every heading is at the top and the last is active.
+    const [alpha, beta] = getAllByRole('link');
+
+    expect(alpha).toHaveAttribute('aria-current', 'false');
+    expect(alpha).not.toHaveAttribute('data-current');
+    expect(beta).toHaveAttribute('aria-current', 'location');
+    expect(beta).toHaveAttribute('data-current', '');
   });
 
   test('hidden while there are no headings', () => {

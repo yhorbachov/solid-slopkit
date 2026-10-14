@@ -168,13 +168,11 @@ export function TableOfContents(props: TableOfContentsProps) {
         <For each={entries}>
           {(entry) => (
             <li data-slot="table-of-contents-item" class={style.item}>
-              {/* `target` is the default, but it keeps a router that marks links to the current page off these:
-                  each points into this page, and their state is the table of contents' own. */}
+              {/* Said either way, so a router that marks links to the current page adds nothing (ADR 0015). */}
               <a
                 href={`#${entry.id}`}
-                target="_self"
-                aria-current={activeSet[entry.id] ? 'location' : undefined}
-                data-active={activeSet[entry.id] ? '' : undefined}
+                aria-current={activeSet[entry.id] ? 'location' : 'false'}
+                data-current={activeSet[entry.id] ? '' : undefined}
                 data-depth={entry.depth}
                 data-slot="table-of-contents-link"
                 class={style.link}

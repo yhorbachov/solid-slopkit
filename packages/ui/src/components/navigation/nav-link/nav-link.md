@@ -21,7 +21,7 @@ import { NavLink } from '@solid-slopkit/ui';
 ```
 
 - **Row:** as wide as its container. `label`, an optional smaller `description` under it, `leftSection` (usually an icon) and `rightSection` (such as a Badge). Text wraps unless `noWrap`, which cuts it with an ellipsis.
-- **Current page:** `active` draws it in `color` (`primary` by default) and sets `aria-current="page"`. NavLink doesn't know the route; set `active` from your router. `variant` is `soft` (tinted, default) or `solid` (filled).
+- **Current page:** `active` draws it in `color` (`primary` by default) and sets `aria-current="page"`; other links get `aria-current="false"`. NavLink doesn't know the route; set `active` from your router. `variant` is `soft` (tinted, default) or `solid` (filled).
 - **Link:** an `a` by default; `as` renders a router's link component, which gets `href` and the rest. `disabled` removes the `href`, keeps `role="link"` with `aria-disabled="true"`, and ignores clicks.
 - **Parent:** passing children makes it a `button` with `aria-expanded` that shows and hides those nested NavLinks, indented under it, with a chevron that turns as it opens. A parent doesn't navigate. Uncontrolled with `defaultOpened` (read once), controlled with `opened` + `onChange(opened)`. Whether it has children is read once. Closed children stay in the DOM but out of the tab order. `chevron` replaces the chevron; `disableChevronRotation` keeps it still. A click handler that calls `preventDefault()` keeps it as it is.
 - Put the links in a `nav` (with `aria-label` when the page has several). Other props go to the link, or to a parent's button.
@@ -51,7 +51,7 @@ import { NavLink } from '@solid-slopkit/ui';
 
 Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
-- Root class: `.slp-nav-link` (the link, or a parent's button), with `data-active`, `data-variant`, `data-color`, `data-disabled`, `data-no-wrap` and, on a parent, `data-opened`.
+- Root class: `.slp-nav-link` (the link, or a parent's button), with `data-current`, `data-variant`, `data-color`, `data-disabled`, `data-no-wrap` and, on a parent, `data-opened`.
 - Slots: `nav-link-left-section`, `nav-link-body` (holding `nav-link-label` and `nav-link-description`), `nav-link-right-section`, `nav-link-chevron` (parent only).
 - A parent's children follow it in `.slp-nav-link-children` (`data-opened`), whose `nav-link-children-body` slot sets the indent (`padding-inline-start`, `1rem`).
 - Custom properties, on the nav link or an ancestor: `--slp-nav-link-color` (the active color) and `--slp-nav-link-content` (the text on a `solid` active link).

@@ -115,14 +115,14 @@
       border-color 150ms ease,
       color 150ms ease;
 
-    &:hover:not([data-disabled], [data-active]) {
+    &:hover:not([data-disabled], [data-current]) {
       background-color: var(--slp-color-base-200);
     }
     &:focus-visible {
       outline: 2px solid var(--_pagination-color);
       outline-offset: 2px;
     }
-    &[data-active] {
+    &[data-current] {
       border-color: var(--_pagination-color);
       background-color: var(--_pagination-color);
       color: var(--_pagination-content);
@@ -139,7 +139,7 @@
   }
 
   /* A disabled pagination dims its current page too. */
-  .pagination[data-disabled] .item[data-active] {
+  .pagination[data-disabled] .item[data-current] {
     opacity: 0.45;
   }
 

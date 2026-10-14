@@ -38,19 +38,19 @@
       background-color 150ms ease,
       color 150ms ease;
 
-    &:hover:not([data-disabled], [data-active]) {
+    &:hover:not([data-disabled], [data-current]) {
       background-color: color-mix(in oklab, var(--slp-color-base-content) 6%, transparent);
     }
     &:focus-visible {
       outline: 2px solid var(--_nav-link-color);
       outline-offset: -2px;
     }
-    &[data-active][data-variant='soft'] {
+    &[data-current][data-variant='soft'] {
       background-color: color-mix(in oklab, var(--_nav-link-color) 14%, transparent);
       color: color-mix(in oklab, var(--_nav-link-color) 75%, var(--slp-color-base-content));
       font-weight: 500;
     }
-    &[data-active][data-variant='solid'] {
+    &[data-current][data-variant='solid'] {
       background-color: var(--_nav-link-color);
       color: var(--_nav-link-content);
       font-weight: 500;

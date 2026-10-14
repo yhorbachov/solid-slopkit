@@ -5,6 +5,7 @@ import axe from 'axe-core';
 import { describe, expect, test, vi } from 'vitest';
 import { expectHydration } from '../../../../test/ssr';
 import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
+import { claimLinksAsCurrent } from '../../../../test/link-claims';
 import { Pagination, type PaginationProps } from './pagination';
 import { paginationRange } from './pagination-range';
 
@@ -58,6 +59,9 @@ describe('<Pagination />', () => {
     expect(getByRole('navigation', { name: 'Pagination' })).toHaveClass('slp-pagination', 'mine');
     expect(pages()).toEqual(['1', '2', '3', '4', '5', '…', '10']);
     expect(page(1)).toHaveAttribute('aria-current', 'page');
+    expect(page(1)).toHaveAttribute('data-current', '');
+    expect(page(2)).not.toHaveAttribute('aria-current');
+    expect(page(2)).not.toHaveAttribute('data-current');
     expect(getByRole('button', { name: 'Previous page' })).toBeDisabled();
     expect(getByRole('button', { name: 'Next page' })).toBeEnabled();
     expect(container.querySelector('[data-slot="pagination-dots"]')).toHaveAttribute('aria-hidden', 'true');
@@ -119,6 +123,27 @@ describe('<Pagination />', () => {
 
     click(page(3));
     expect(onChange).toHaveBeenCalledWith(3);
+  });
+
+  test('links keep their own current state when a router marks every link to this page', () => {
+    claimLinksAsCurrent();
+    const { page, getByRole, click } = setup({ getPageHref: (number) => `#page-${number}`, defaultValue: 2 });
+    const current = () =>
+      getByRole('navigation')
+        .querySelectorAll('[data-current]')
+        .values()
+        .map((item) => item.getAttribute('aria-label'))
+        .toArray();
+
+    expect(current()).toEqual(['Page 2']);
+    expect(page(2)).toHaveAttribute('aria-current', 'page');
+    expect(page(3)).toHaveAttribute('aria-current', 'false');
+    expect(getByRole('link', { name: 'Next page' })).toHaveAttribute('aria-current', 'false');
+
+    click(page(3));
+    expect(current()).toEqual(['Page 3']);
+    expect(page(2)).toHaveAttribute('aria-current', 'false');
+    expect(page(3)).toHaveAttribute('aria-current', 'page');
   });
 
   test('controlled: shows value, and only asks to change it; out of range values are clamped', () => {

@@ -80,7 +80,7 @@ export default function PaginationPage() {
         The root is <code>.slp-pagination</code>, with <code>data-size</code>, <code>data-color</code> and{' '}
         <code>data-disabled</code>. Items are <code>[data-slot="pagination-page"]</code>, <code>pagination-previous</code>,{' '}
         <code>pagination-next</code>, <code>pagination-first</code> and <code>pagination-last</code>, with{' '}
-        <code>data-active</code> on the current page and <code>data-disabled</code> on one that goes nowhere; the gap is{' '}
+        <code>data-current</code> on the current page and <code>data-disabled</code> on one that goes nowhere; the gap is{' '}
         <code>pagination-dots</code>. <code>--slp-pagination-color</code>, <code>--slp-pagination-content</code> and{' '}
         <code>--slp-pagination-radius</code> set the current page's colors and the corners. The rules live in{' '}
         <code>@layer slopkit.components</code>, so unlayered CSS wins.
