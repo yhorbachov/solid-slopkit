@@ -38,3 +38,11 @@ if (typeof Element !== 'undefined' && !('checkVisibility' in Element.prototype))
     },
   });
 }
+
+// Nor `scrollIntoView`, which the combobox calls to bring the active option into view; jsdom lays nothing out, so
+// there's nothing to scroll. Scrolling is tested in the browser project.
+if (typeof Element !== 'undefined' && !('scrollIntoView' in Element.prototype)) {
+  Object.assign(Element.prototype, {
+    scrollIntoView() {},
+  });
+}

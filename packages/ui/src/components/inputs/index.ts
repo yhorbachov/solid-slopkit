@@ -2,6 +2,7 @@ export * from './angle-slider';
 export * from './checkbox';
 export * from './chip';
 export * from './color-picker';
+export * from './combobox';
 export * from './fieldset';
 export * from './file-input';
 export * from './input';

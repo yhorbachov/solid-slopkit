@@ -179,6 +179,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/combobox";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/combobox")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/container";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/container")>;
@@ -906,6 +912,14 @@ declare module "virtual:file-routes" {
       id: "/ui/collapse";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/collapse")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/combobox";
+      id: "/ui/combobox";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/combobox")>;
       $$route?: undefined;
       children?: undefined;
     },
