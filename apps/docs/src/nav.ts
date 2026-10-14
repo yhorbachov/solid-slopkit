@@ -107,6 +107,7 @@ export const nav: NavSection[] = [
         title: 'Inputs',
         items: [
           { title: 'AngleSlider', href: '/ui/angle-slider' },
+          { title: 'Autocomplete', href: '/ui/autocomplete' },
           { title: 'Checkbox', href: '/ui/checkbox' },
           { title: 'Chip', href: '/ui/chip' },
           { title: 'ColorPicker', href: '/ui/color-picker' },

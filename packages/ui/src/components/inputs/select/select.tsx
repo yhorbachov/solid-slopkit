@@ -3,6 +3,7 @@ import type { JSX } from '@solidjs/web';
 import style from './select.module.css';
 import { Combobox, type ComboboxProps } from '../combobox/combobox';
 import { createCombobox } from '../combobox/create-combobox';
+import { filterGroups, normalizeData, type ComboboxData, type ComboboxGroup, type ComboboxItem } from '../combobox/combobox-data';
 import { controlProps, FieldWrapper, type FieldWrapperProps } from '../field';
 import { Input, type InputOwnProps } from '../input';
 import { useInputWrapper } from '../input-wrapper';
@@ -11,20 +12,13 @@ import { createTypeahead } from '../../primitives';
 import { callHandler, type ElementProps } from '../../../utils';
 
 /** An option: its value, and the label shown for it (the value when there's none). */
-export interface SelectItem {
-  value: string;
-  label?: string;
-  disabled?: boolean;
-}
+export type SelectItem = ComboboxItem;
 
 /** Options under a heading. */
-export interface SelectGroup {
-  group: string;
-  items: readonly (string | SelectItem)[];
-}
+export type SelectGroup = ComboboxGroup;
 
 /** The options: strings, items, and groups of them, in the order they're shown. */
-export type SelectData = readonly (string | SelectItem | SelectGroup)[];
+export type SelectData = ComboboxData;
 
 export interface SelectOwnProps
   extends FieldWrapperProps, Pick<InputOwnProps, 'variant' | 'leftSection' | 'rightSection' | 'disabled'> {
@@ -57,31 +51,6 @@ export interface SelectOwnProps
 }
 
 export type SelectProps = ElementProps<JSX.HTMLAttributes<HTMLElement>, SelectOwnProps>;
-
-interface NormalizedGroup {
-  group?: string;
-  items: Required<SelectItem>[];
-}
-
-const toItem = (entry: string | SelectItem): Required<SelectItem> =>
-  typeof entry === 'string'
-    ? { value: entry, label: entry, disabled: false }
-    : { value: entry.value, label: entry.label ?? entry.value, disabled: !!entry.disabled };
-
-/** The data as groups, with the loose options before the first group gathered into a group without a heading. */
-function normalize(data: SelectData): NormalizedGroup[] {
-  const groups: NormalizedGroup[] = [];
-  for (const entry of data) {
-    if (typeof entry !== 'string' && 'group' in entry) {
-      groups.push({ group: entry.group, items: entry.items.map(toItem) });
-    } else {
-      const last = groups.at(-1);
-      if (last && last.group === undefined) last.items.push(toItem(entry));
-      else groups.push({ items: [toItem(entry)] });
-    }
-  }
-  return groups;
-}
 
 function ChevronIcon() {
   return (
@@ -147,7 +116,7 @@ function SelectField(props: SelectProps) {
   // Chosen once, like `as`: a button, or a text field to search in.
   const searchable = untrack(() => !!props.searchable);
 
-  const groups = createMemo(() => normalize(props.data), { name: 'Select.groups' });
+  const groups = createMemo(() => normalizeData(props.data), { name: 'Select.groups' });
   const items = createMemo(() => groups().flatMap((group) => group.items), { name: 'Select.items' });
 
   const [own, setOwn] = createSignal<string | null>(
@@ -160,16 +129,7 @@ function SelectField(props: SelectProps) {
   // While the user types, the options are filtered by what they typed; otherwise the field shows the selection.
   const [query, setQuery] = createSignal('', { name: 'Select.query' });
   const [searching, setSearching] = createSignal(false, { name: 'Select.searching' });
-  const shown = createMemo(
-    () => {
-      if (!searching()) return groups();
-      const search = query().trim().toLocaleLowerCase();
-      return groups()
-        .map((group) => ({ ...group, items: group.items.filter((item) => item.label.toLocaleLowerCase().includes(search)) }))
-        .filter((group) => group.items.length > 0);
-    },
-    { name: 'Select.shown' },
-  );
+  const shown = createMemo(() => (searching() ? filterGroups(groups(), query()) : groups()), { name: 'Select.shown' });
 
   const typeahead = createTypeahead({
     count: () => items().length,

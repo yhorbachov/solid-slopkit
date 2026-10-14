@@ -1,4 +1,5 @@
 export * from './angle-slider';
+export * from './autocomplete';
 export * from './checkbox';
 export * from './chip';
 export * from './color-picker';

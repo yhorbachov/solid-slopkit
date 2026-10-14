@@ -83,6 +83,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/autocomplete";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/autocomplete")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/avatar";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/avatar")>;
@@ -1146,6 +1152,14 @@ declare module "virtual:file-routes" {
       id: "/ui/aspect-ratio";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/aspect-ratio")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/autocomplete";
+      id: "/ui/autocomplete";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/autocomplete")>;
       $$route?: undefined;
       children?: undefined;
     },

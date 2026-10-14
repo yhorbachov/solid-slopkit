@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Checkbox, Chip, ColorPicker, Combobox, Fieldset, FileInput, Input, InputWrapper, JsonInput, NativeSelect, NumberInput, PasswordInput, Pill, PillsInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Select, Slider, Switch, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Overlays: Affix, Dialog, Drawer, HoverCard, LoadingOverlay, Menu, Modal, Overlay, Popover, Tooltip. Utilities: Collapse, FloatingIndicator, ScrollArea, Spoiler, Transition. Provider: SlopkitUi (generated style registry).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Autocomplete, Checkbox, Chip, ColorPicker, Combobox, Fieldset, FileInput, Input, InputWrapper, JsonInput, NativeSelect, NumberInput, PasswordInput, Pill, PillsInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Select, Slider, Switch, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification. Overlays: Affix, Dialog, Drawer, HoverCard, LoadingOverlay, Menu, Modal, Overlay, Popover, Tooltip. Utilities: Collapse, FloatingIndicator, ScrollArea, Spoiler, Transition. Provider: SlopkitUi (generated style registry).
 
 ---
 
@@ -158,7 +158,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M4.02** Pill
 - [x] **M4.03** PillsInput
 - [x] **M4.04** Select
-- [ ] **M4.05** Autocomplete
+- [x] **M4.05** Autocomplete
 - [ ] **M4.06** MultiSelect
 - [ ] **M4.07** TagsInput
 - [ ] **M4.08** ColorInput

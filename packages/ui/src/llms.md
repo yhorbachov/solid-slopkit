@@ -100,6 +100,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 ## Inputs
 
 - [AngleSlider](components/inputs/angle-slider/angle-slider.md)
+- [Autocomplete](components/inputs/autocomplete/autocomplete.md): a text field with suggestions from a list
 - [Checkbox](components/inputs/checkbox/checkbox.md): with Checkbox.Group and Checkbox.Card
 - [Chip](components/inputs/chip/chip.md): with Chip.Group
 - [ColorPicker](components/inputs/color-picker/color-picker.md)
