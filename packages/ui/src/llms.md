@@ -132,6 +132,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 ## Navigation
 
 - [Accordion](components/navigation/accordion/accordion.md): sections that open under their headings, one at a time or several
+- [Stepper](components/navigation/stepper/stepper.md): progress through steps, the current step's content under them
 - [Tabs](components/navigation/tabs/tabs.md): a tablist and its panels, with Tabs.List, Tabs.Tab and Tabs.Panel
 
 ## Overlays
