@@ -7,6 +7,7 @@ Each link below is the reference for one component: its props, examples, and the
 Task guides live next to `dist/` in the package, at `node_modules/@solid-slopkit/ui/skills/<area>/SKILL.md`:
 
 - `skills/layout/SKILL.md`: pick a layout component, style props, responsive values.
+- `skills/spotlight/SKILL.md`: add a searchable command palette with grouped actions.
 
 ## Setup
 
@@ -153,6 +154,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Modals](components/overlays/modals/modals.md): open modals and confirm modals from code, with `useModals()` and the `modals` facade
 - [Overlay](components/overlays/overlay/overlay.md): a layer over its parent
 - [Popover](components/overlays/popover/popover.md): Popover.Target and Popover.Dropdown
+- [Spotlight](components/overlays/spotlight/spotlight.md): a searchable command palette with grouped actions
 - [Tooltip](components/overlays/tooltip/tooltip.md): a description shown on hover and keyboard focus
 
 ## Utilities

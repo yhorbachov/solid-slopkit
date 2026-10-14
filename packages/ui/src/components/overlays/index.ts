@@ -8,4 +8,5 @@ export * from './modal';
 export * from './modals';
 export * from './overlay';
 export * from './popover';
+export * from './spotlight';
 export * from './tooltip';

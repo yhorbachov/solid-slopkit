@@ -1,0 +1,144 @@
+/*
+ * Spotlight. The <dialog> is a transparent frame over the whole viewport that lays out the content box and scrolls when
+ * it's taller than the viewport; a press on the frame, outside the box, is a press on the backdrop. The backdrop
+ * fades with the content.
+ *
+ * Everything prefixed `--_spotlight-` is internal.
+ */
+@layer slopkit.components {
+  .dialog {
+    --_spotlight-padding: calc(var(--slp-spacing) * 5);
+
+    box-sizing: border-box;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 8vh calc(var(--slp-spacing) * 4);
+    overflow-y: auto;
+    border: 0;
+    background: transparent;
+    color: var(--slp-color-base-content);
+    font: inherit;
+    overscroll-behavior: contain;
+
+    &[open] {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &::backdrop {
+      background-color: color-mix(in oklab, black 50%, transparent);
+      transition: opacity var(--_dialog-duration) ease;
+    }
+
+    &:is([data-status='starting'], [data-status='ending'])::backdrop {
+      opacity: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &::backdrop {
+        transition: none;
+      }
+    }
+  }
+
+  .content {
+    --_spotlight-width: 38rem;
+
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--_spotlight-width);
+    flex: none;
+    border-radius: 1rem;
+    background-color: var(--slp-color-base-100);
+    box-shadow: var(--slp-shadow-xl);
+    outline: none;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--_spotlight-padding) / 2);
+    padding: var(--_spotlight-padding) var(--_spotlight-padding) 0;
+  }
+
+  .title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: var(--slp-font-size-lg);
+    font-weight: 600;
+    line-height: var(--slp-line-height-lg);
+  }
+
+  /* At the end of the header, also when there's no title. */
+  .close {
+    margin-inline-start: auto;
+    margin-block: calc(var(--slp-spacing) * -1);
+  }
+
+  .body {
+    padding: var(--_spotlight-padding);
+  }
+}
+
+@layer slopkit.components {
+  .search {
+    box-sizing: border-box;
+    width: 100%;
+    padding: calc(var(--slp-spacing) * 3);
+    border: 1px solid var(--slp-color-base-300);
+    border-radius: 0.5rem;
+    background: var(--slp-color-base-100);
+    color: var(--slp-color-base-content);
+    font: inherit;
+    &:focus-visible {
+      outline: 2px solid var(--slp-color-primary);
+      outline-offset: 2px;
+    }
+  }
+  .actions {
+    max-height: 50vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    margin-top: calc(var(--slp-spacing) * 3);
+  }
+  .groupLabel {
+    padding: calc(var(--slp-spacing) * 2) calc(var(--slp-spacing) * 3);
+    font-size: var(--slp-font-size-sm);
+    font-weight: 600;
+  }
+  .action {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--slp-spacing) * 3);
+    padding: calc(var(--slp-spacing) * 3);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    &[data-active] {
+      background: var(--slp-color-base-200);
+    }
+    &[data-disabled] {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+  .actionBody {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .description {
+    font-size: var(--slp-font-size-sm);
+    opacity: 0.7;
+  }
+  .empty {
+    padding: calc(var(--slp-spacing) * 4);
+    text-align: center;
+  }
+}
