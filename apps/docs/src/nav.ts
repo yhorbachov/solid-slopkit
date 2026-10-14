@@ -142,6 +142,7 @@ export const nav: NavSection[] = [
         items: [
           { title: 'Accordion', href: '/ui/accordion' },
           { title: 'Breadcrumbs', href: '/ui/breadcrumbs' },
+          { title: 'NavLink', href: '/ui/nav-link' },
           { title: 'Pagination', href: '/ui/pagination' },
           { title: 'Stepper', href: '/ui/stepper' },
           { title: 'Tabs', href: '/ui/tabs' },

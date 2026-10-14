@@ -383,6 +383,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/nav-link";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/nav-link")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/notification";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/notification")>;
@@ -1032,6 +1038,14 @@ declare module "virtual:file-routes" {
       id: "/ui/fieldset";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/fieldset")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/nav-link";
+      id: "/ui/nav-link";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/nav-link")>;
       $$route?: undefined;
       children?: undefined;
     },

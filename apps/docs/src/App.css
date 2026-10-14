@@ -230,7 +230,8 @@ body {
     margin: 0 0 1rem;
   }
 
-  & a:not(.slp-button, .docs-card, .docs-heading a) {
+  /* Prose links only: example links keep their component's color. */
+  & a:not(.slp-button, .docs-card, .docs-heading a, .docs-example-preview a) {
     color: var(--slp-color-primary);
     text-underline-offset: 0.2em;
   }

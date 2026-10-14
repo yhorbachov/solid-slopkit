@@ -133,6 +133,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 - [Accordion](components/navigation/accordion/accordion.md): sections that open under their headings, one at a time or several
 - [Breadcrumbs](components/navigation/breadcrumbs/breadcrumbs.md): the path to the current page, its children in a list with separators
+- [NavLink](components/navigation/nav-link/nav-link.md): a link in a navigation list, active for the current page, or a parent of nested links
 - [Pagination](components/navigation/pagination/pagination.md): buttons or links to move between pages
 - [Stepper](components/navigation/stepper/stepper.md): progress through steps, the current step's content under them
 - [Tabs](components/navigation/tabs/tabs.md): a tablist and its panels, with Tabs.List, Tabs.Tab and Tabs.Panel
