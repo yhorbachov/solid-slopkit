@@ -19,13 +19,12 @@ import { Highlight } from '../../typography/highlight';
 import { findEnabledIndex } from '../../primitives';
 import { useSlopkitUi } from '../../provider/slopkit-ui';
 import type { SpotlightStore } from '../../provider/spotlight';
-import type { ElementProps } from '../../../utils';
+import { matchesShortcut, type ElementProps } from '../../../utils';
 import { joinClass } from '../../../style-props';
 import {
   filterActions,
   flattenActions,
   groupActions,
-  matchesShortcut,
   type SpotlightAction,
   type SpotlightActions,
   type SpotlightFilter,

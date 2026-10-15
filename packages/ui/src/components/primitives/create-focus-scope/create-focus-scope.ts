@@ -150,7 +150,8 @@ export function createFocusScope(options: FocusScopeOptions): void {
         if (current && current !== document.body && !container.contains(current)) return;
         const target =
           before && before !== document.body && before.isConnected ? before : untrack(() => options.restoreTarget?.());
-        target?.focus();
+        // Untracked: the focus and blur handlers it runs, such as a tooltip's, read their own state.
+        untrack(() => target?.focus());
       };
     },
     { name: 'focusScope.open' },

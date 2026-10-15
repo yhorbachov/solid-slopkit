@@ -1,6 +1,6 @@
 ---
 name: slopkit-layout
-description: Lay out @solid-slopkit/ui apps — pick the right layout component (Stack, Group, Flex, SimpleGrid, Grid, Container, Center, AspectRatio, Space, Box), use style props and responsive values, and space components that take no style props. Use when building page structure, toolbars, forms, card grids or responsive layouts.
+description: Lay out @solid-slopkit/ui apps — pick the right layout component (Stack, Group, Flex, SimpleGrid, Grid, Container, Center, AspectRatio, Space, Box), use style props and responsive values, and space components that take no style props. Use when building page structure, an app frame with a sidebar (AppShell), toolbars, forms, card grids or responsive layouts.
 ---
 
 # Layout and style props in @solid-slopkit/ui
@@ -76,7 +76,35 @@ Breakpoints are fixed; they can't be configured.
 </Box>
 ```
 
-**Sidebar and content**, stacked on phones:
+**App frame** with navigation down the side: use `AppShell`, not a Grid. It collapses the sidebar on wide screens (`collapsible="offcanvas" | "icon" | "none"`), turns it into a drawer below 48em, and toggles with ⌘B / Ctrl+B. Lay out the main area's content with the components above. See its reference for groups, menus and rows.
+
+```tsx
+<AppShell>
+  <AppShell.Sidebar collapsible="icon">
+    <AppShell.SidebarContent>
+      <nav aria-label="Main">
+        <AppShell.Group label="Platform">
+          <AppShell.Menu>
+            <AppShell.MenuItem>
+              <AppShell.MenuButton href="/" icon={<House />} tooltip="Home" active>
+                Home
+              </AppShell.MenuButton>
+            </AppShell.MenuItem>
+          </AppShell.Menu>
+        </AppShell.Group>
+      </nav>
+    </AppShell.SidebarContent>
+  </AppShell.Sidebar>
+  <AppShell.Main>
+    <Box p={3}>
+      <AppShell.Trigger />
+    </Box>
+    <Container size="lg">{props.children}</Container>
+  </AppShell.Main>
+</AppShell>
+```
+
+**Sidebar and content** inside a page, stacked on phones:
 
 ```tsx
 <Grid gutter={6}>

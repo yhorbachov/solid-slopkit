@@ -331,6 +331,29 @@ body {
   }
 }
 
+/* AppShell examples: a shell framed inside the page instead of filling the viewport. */
+
+.docs-app-shell {
+  --slp-app-shell-height: 28rem;
+
+  overflow: clip;
+  border: var(--docs-border);
+  border-radius: 0.5rem;
+}
+
+.docs-app-shell-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 3rem;
+  padding: 0 0.75rem;
+  border-bottom: var(--docs-border);
+}
+
+.docs-app-shell-body {
+  padding: 1rem;
+}
+
 /* Tables */
 
 .docs-table-wrap {

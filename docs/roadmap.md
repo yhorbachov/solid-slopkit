@@ -26,7 +26,7 @@
 
 ## Done
 
-Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Autocomplete, Checkbox, Chip, ColorInput, ColorPicker, Combobox, Fieldset, FileInput, Input, InputWrapper, JsonInput, MultiSelect, NativeSelect, NumberInput, PasswordInput, Pill, PillsInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Select, Slider, Switch, TagsInput, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification, Notifications. Navigation: Accordion, Breadcrumbs, NavLink, Pagination, Stepper, TableOfContents, Tabs, Tree. Overlays: Affix, Dialog, Drawer, HoverCard, LoadingOverlay, Menu, Modal, Modals, Overlay, Popover, Spotlight, Tooltip. Utilities: Collapse, FloatingIndicator, ScrollArea, Spoiler, Transition. Provider: SlopkitUi (generated style registry, notification and modal stores, spotlight state).
+Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRatio, Space. Buttons: ActionIcon, Burger, Button, CloseButton, CopyButton, FileButton. Inputs: AngleSlider, Autocomplete, Checkbox, Chip, ColorInput, ColorPicker, Combobox, Fieldset, FileInput, Input, InputWrapper, JsonInput, MultiSelect, NativeSelect, NumberInput, PasswordInput, Pill, PillsInput, PinInput, Radio, RangeSlider, Rating, SegmentedControl, Select, Slider, Switch, TagsInput, TextInput, Textarea. Typography: Text, Title, Anchor, Kbd, Code, Blockquote, List, Mark, Highlight, VisuallyHidden. Surfaces: Paper, Card. Data display: Badge, Divider, Image, BackgroundImage, Avatar, ThemeIcon, ColorSwatch, Indicator, Timeline, Table, NumberFormatter. Feedback: Loader, Skeleton, Progress, RingProgress, SemiCircleProgress, Alert, Notification, Notifications. Navigation: Accordion, AppShell, Breadcrumbs, NavLink, Pagination, Stepper, TableOfContents, Tabs, Tree. Overlays: Affix, Dialog, Drawer, HoverCard, LoadingOverlay, Menu, Modal, Modals, Overlay, Popover, Spotlight, Tooltip. Utilities: Collapse, FloatingIndicator, ScrollArea, Spoiler, Transition. Provider: SlopkitUi (generated style registry, notification and modal stores, spotlight state).
 
 ---
 
@@ -103,7 +103,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M1.34** CopyButton
 - [x] **M1.35** FileButton
 - [x] **M1.36** Burger
-- [ ] **M1.37** AppShell. Postponed by the maintainer's decision until the overlays (M3) are done: its navigation on small screens needs Drawer, presence and focus management.
+- [x] **M1.37** AppShell: a collapsible sidebar (off the canvas, to icons, or not at all) next to the main area, a modal drawer below 48em, with groups, menus, rows, a trigger, a rail and the `mod+B` shortcut; `useAppShell()`. Built after the overlays (M3), whose presence, dismissal and focus primitives its drawer uses.
 
 ## M2 — Inputs
 

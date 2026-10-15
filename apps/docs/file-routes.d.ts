@@ -83,6 +83,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/app-shell";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/app-shell")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/aspect-ratio";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/aspect-ratio")>;
@@ -233,6 +239,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/drawer";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/drawer")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/fieldset";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/fieldset")>;
@@ -359,6 +371,18 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/modal";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/modal")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/modals";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/modals")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/multi-select";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/multi-select")>;
@@ -368,6 +392,24 @@ declare module "virtual:file-routes" {
       path: "/ui/native-select";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/native-select")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/nav-link";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/nav-link")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/notification";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/notification")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/notifications";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/notifications")>;
       $$route?: undefined;
     },
     {
@@ -386,6 +428,12 @@ declare module "virtual:file-routes" {
       path: "/ui/overlay";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/overlay")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/pagination";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/pagination")>;
       $$route?: undefined;
     },
     {
@@ -509,6 +557,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/spotlight";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/spotlight")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/stack";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/stack")>;
@@ -524,6 +578,12 @@ declare module "virtual:file-routes" {
       path: "/ui/switch";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/switch")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/table-of-contents";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/table-of-contents")>;
       $$route?: undefined;
     },
     {
@@ -602,60 +662,6 @@ declare module "virtual:file-routes" {
       path: "/ui/visually-hidden";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/visually-hidden")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/pagination";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/pagination")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/nav-link";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/nav-link")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/table-of-contents";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/table-of-contents")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/notification";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/notification")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/notifications";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/notifications")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/modal";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/modal")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/drawer";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/drawer")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/modals";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/modals")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/spotlight";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/spotlight")>;
       $$route?: undefined;
     }
   ];
@@ -1132,6 +1138,14 @@ declare module "virtual:file-routes" {
       id: "/ui/accordion";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/accordion")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/app-shell";
+      id: "/ui/app-shell";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/app-shell")>;
       $$route?: undefined;
       children?: undefined;
     },

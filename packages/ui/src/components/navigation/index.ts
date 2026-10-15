@@ -1,3 +1,4 @@
+export * from './app-shell';
 export * from './accordion';
 export * from './breadcrumbs';
 export * from './nav-link';

@@ -133,6 +133,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 ## Navigation
 
 - [Accordion](components/navigation/accordion/accordion.md): sections that open under their headings, one at a time or several
+- [AppShell](components/navigation/app-shell/app-shell.md): the app's frame, a sidebar of navigation next to the main area, collapsing on wide screens and a drawer on narrow ones; `useAppShell()`
 - [Breadcrumbs](components/navigation/breadcrumbs/breadcrumbs.md): the path to the current page, its children in a list with separators
 - [NavLink](components/navigation/nav-link/nav-link.md): a link in a navigation list, active for the current page, or a parent of nested links
 - [Pagination](components/navigation/pagination/pagination.md): buttons or links to move between pages
