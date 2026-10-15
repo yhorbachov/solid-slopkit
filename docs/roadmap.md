@@ -186,7 +186,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 - [x] **M7.01** Add the `./dates` subpath export, plus date utilities on `Date` and `Intl` (week start, month grid, formatting by provider `locale`)
 - [x] **M7.02** Primitive: grid keyboard navigation (days, months, years)
-- [ ] **M7.03** Calendar
+- [x] **M7.03** Calendar
 - [ ] **M7.04** MiniCalendar
 - [ ] **M7.05** DatePicker
 - [ ] **M7.06** MonthPicker

@@ -1,6 +1,6 @@
 # Dates
 
-Date utilities on native `Date` and `Intl`, with no date library. They live in their own entry, which will also hold the date components:
+Date utilities on native `Date` and `Intl`, with no date library. They live in their own entry with the date components, such as [Calendar](calendar/calendar.md):
 
 ```tsx
 import { addMonths, getMonthGrid, getWeekInfo, useFormatDate } from '@solid-slopkit/ui/dates';

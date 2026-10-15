@@ -174,6 +174,7 @@ A separate entry, because it needs `embla-carousel`, an optional peer dependency
 
 ## Dates (`@solid-slopkit/ui/dates`)
 
-A separate entry for working with dates, on native `Date` and `Intl` with no date library.
+A separate entry for dates and the date components, on native `Date` and `Intl` with no date library.
 
 - [Dates](dates/dates.md): day arithmetic, the month grid, the locale's week, and formatting in the provider's locale
+- [Calendar](dates/calendar/calendar.md): days, months or years in keyboard-navigable grids; the base of the pickers

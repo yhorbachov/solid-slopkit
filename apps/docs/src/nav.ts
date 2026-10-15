@@ -71,6 +71,10 @@ export const nav: NavSection[] = [
         ],
       },
       {
+        title: 'Dates',
+        items: [{ title: 'Calendar', href: '/ui/calendar' }],
+      },
+      {
         title: 'Feedback',
         items: [
           { title: 'Alert', href: '/ui/alert' },

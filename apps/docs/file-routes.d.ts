@@ -149,6 +149,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/calendar";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/calendar")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/card";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/card")>;
@@ -1078,6 +1084,14 @@ declare module "virtual:file-routes" {
       id: "/ui/tooltip";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/tooltip")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/calendar";
+      id: "/ui/calendar";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/calendar")>;
       $$route?: undefined;
       children?: undefined;
     },
