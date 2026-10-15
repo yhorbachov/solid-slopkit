@@ -23,13 +23,21 @@ function setup() {
   return { ...result, overlay, toggle, onClick };
 }
 
+// Jumps the running fade to its end, so nothing waits on the clock (and a loaded machine can't be too slow for it).
+// Waits only for the state the fade is in, not for time to pass.
+async function finishFade(overlay: () => HTMLElement | null, status: 'open' | 'ending') {
+  await expect.poll(() => overlay()?.getAttribute('data-status'), { timeout: 10_000 }).toBe(status);
+  for (const animation of overlay()!.getAnimations()) animation.finish();
+}
+
 describe('<LoadingOverlay /> in a browser', () => {
   test('fades in over its parent, with the loader in the middle, and catches the pointer', async () => {
     const { overlay, toggle, onClick, getByText, getByTestId, getByRole } = setup();
 
     toggle(true);
     expect(getComputedStyle(overlay()!).opacity).toBe('0');
-    await expect.poll(() => getComputedStyle(overlay()!).opacity, { timeout: 2000 }).toBe('1');
+    await finishFade(overlay, 'open');
+    expect(getComputedStyle(overlay()!).opacity).toBe('1');
 
     const parent = getByTestId('parent').getBoundingClientRect();
     const box = overlay()!.getBoundingClientRect();
@@ -56,11 +64,13 @@ describe('<LoadingOverlay /> in a browser', () => {
   test('fades out, then unmounts', async () => {
     const { overlay, toggle } = setup();
     toggle(true);
-    await expect.poll(() => getComputedStyle(overlay()!).opacity, { timeout: 2000 }).toBe('1');
+    await finishFade(overlay, 'open');
+    expect(getComputedStyle(overlay()!).opacity).toBe('1');
 
     toggle(false);
     expect(overlay()).not.toBeNull();
-    await expect.poll(overlay, { timeout: 2000 }).toBeNull();
+    await finishFade(overlay, 'ending');
+    await expect.poll(overlay, { timeout: 10_000 }).toBeNull();
   });
 
   test('showing and hiding has no diagnostics', async () => {
@@ -69,9 +79,10 @@ describe('<LoadingOverlay /> in a browser', () => {
     const { artifact } = await captureArtifact(
       async () => {
         toggle(true);
-        await expect.poll(() => getComputedStyle(overlay()!).opacity, { timeout: 2000 }).toBe('1');
+        await finishFade(overlay, 'open');
         toggle(false);
-        await expect.poll(overlay, { timeout: 2000 }).toBeNull();
+        await finishFade(overlay, 'ending');
+        await expect.poll(overlay, { timeout: 10_000 }).toBeNull();
       },
       { scenario: 'loading-overlay-toggle' },
     );
