@@ -419,12 +419,6 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/month-picker";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/month-picker")>;
-      $$route?: undefined;
-    },
-    {
       path: "/ui/multi-select";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/multi-select")>;
@@ -701,9 +695,21 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/month-picker";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/month-picker")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/year-picker";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/year-picker")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/date-picker-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-picker-input")>;
       $$route?: undefined;
     }
   ];
@@ -1572,6 +1578,14 @@ declare module "virtual:file-routes" {
       id: "/ui/number-formatter";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/number-formatter")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/date-picker-input";
+      id: "/ui/date-picker-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-picker-input")>;
       $$route?: undefined;
       children?: undefined;
     },

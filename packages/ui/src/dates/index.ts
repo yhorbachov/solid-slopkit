@@ -9,6 +9,7 @@ export {
   type DatePickerType,
   type DatePickerValue,
 } from './date-picker';
+export { DatePickerInput, type DatePickerInputOwnProps, type DatePickerInputProps } from './date-picker-input';
 export {
   MonthPicker,
   type MonthPickerLevel,

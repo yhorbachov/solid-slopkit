@@ -45,6 +45,7 @@ describe('LLM references', () => {
     expect(links).toContain('dates/date-picker/date-picker.md');
     expect(links).toContain('dates/month-picker/month-picker.md');
     expect(links).toContain('dates/year-picker/year-picker.md');
+    expect(links).toContain('dates/date-picker-input/date-picker-input.md');
   });
 });
 
