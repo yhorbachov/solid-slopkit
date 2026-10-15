@@ -9,4 +9,4 @@ Names are chosen per area: layout components are named for what they arrange (`G
 - Choosing a component's API means comparing options and recommending one, not copying.
 - Generic utility hooks (`useLocalStorage`, `useDebouncedValue`, `useIdle`, …) are out of scope. Solid and its ecosystem cover them. We only export primitives our own components are built from.
 - Out of 0.0.1: charts, CodeHighlight and RichTextEditor. Each is mostly a wrapper around a large third-party engine and is a library of its own, which apps that need it usually pick already. NavigationProgress is out too, because it isn't useful enough.
-- In: dates, notifications, the modals manager, Spotlight, Dropzone and Carousel (`@solid-slopkit/ui/carousel`, on `embla-carousel`).
+- In: dates, notifications, the modals manager, Command (with CommandDialog, the app-wide palette), Dropzone and Carousel (`@solid-slopkit/ui/carousel`, on `embla-carousel`).

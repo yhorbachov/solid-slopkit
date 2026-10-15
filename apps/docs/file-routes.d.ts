@@ -215,6 +215,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/command";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/command")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/container";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/container")>;
@@ -554,12 +560,6 @@ declare module "virtual:file-routes" {
       path: "/ui/spoiler";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/spoiler")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/spotlight";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/spotlight")>;
       $$route?: undefined;
     },
     {
@@ -1014,6 +1014,14 @@ declare module "virtual:file-routes" {
       children?: undefined;
     },
     {
+      path: "/ui/command";
+      id: "/ui/command";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/command")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
       path: "/ui/divider";
       id: "/ui/divider";
       page: true;
@@ -1178,14 +1186,6 @@ declare module "virtual:file-routes" {
       id: "/ui/pin-input";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/pin-input")>;
-      $$route?: undefined;
-      children?: undefined;
-    },
-    {
-      path: "/ui/spotlight";
-      id: "/ui/spotlight";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/spotlight")>;
       $$route?: undefined;
       children?: undefined;
     },

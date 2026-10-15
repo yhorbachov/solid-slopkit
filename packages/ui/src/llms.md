@@ -135,6 +135,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Accordion](components/navigation/accordion/accordion.md): sections that open under their headings, one at a time or several
 - [AppShell](components/navigation/app-shell/app-shell.md): the app's frame, a sidebar of navigation next to the main area, collapsing on wide screens and a drawer on narrow ones; `useAppShell()`
 - [Breadcrumbs](components/navigation/breadcrumbs/breadcrumbs.md): the path to the current page, its children in a list with separators
+- [Command](components/navigation/command/command.md): a search over a list of commands, with Command.Input, Command.List, Command.Item, Command.Group, Command.Separator, Command.Empty and Command.Shortcut; CommandDialog puts one in a modal opened with ⌘K
 - [NavLink](components/navigation/nav-link/nav-link.md): a link in a navigation list, active for the current page, or a parent of nested links
 - [Pagination](components/navigation/pagination/pagination.md): buttons or links to move between pages
 - [Stepper](components/navigation/stepper/stepper.md): progress through steps, the current step's content under them
@@ -154,7 +155,6 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Modals](components/overlays/modals/modals.md): open modals and confirm modals from code, with `useModals()` and the `modals` facade
 - [Overlay](components/overlays/overlay/overlay.md): a layer over its parent
 - [Popover](components/overlays/popover/popover.md): Popover.Target and Popover.Dropdown
-- [Spotlight](components/overlays/spotlight/spotlight.md): a search over the app's actions in a modal, opened with ⌘K, `useSpotlight()` or the `spotlight` facade
 - [Tooltip](components/overlays/tooltip/tooltip.md): a description shown on hover and keyboard focus
 
 ## Utilities

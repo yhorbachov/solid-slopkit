@@ -1,4 +1,4 @@
-// Keyboard shortcuts that work anywhere on the page, such as the spotlight's and the app shell's.
+// Keyboard shortcuts that work anywhere on the page, such as the command dialog's and the app shell's.
 const isApple = () => {
   const platform =
     (navigator as Navigator & { userAgentData?: { platform?: string } }).userAgentData?.platform ?? navigator.platform;

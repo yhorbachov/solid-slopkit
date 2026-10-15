@@ -1,6 +1,7 @@
 export * from './app-shell';
 export * from './accordion';
 export * from './breadcrumbs';
+export * from './command';
 export * from './nav-link';
 export * from './pagination';
 export * from './stepper';
