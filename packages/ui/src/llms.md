@@ -165,3 +165,9 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [ScrollArea](components/utilities/scroll-area/scroll-area.md): a scrolling box with thin scrollbars drawn over it
 - [Spoiler](components/utilities/spoiler/spoiler.md): content cut to a height, with a control to show the rest
 - [Transition](components/utilities/transition/transition.md): enter and exit animations
+
+## Carousel (`@solid-slopkit/ui/carousel`)
+
+A separate entry, because it needs `embla-carousel`, an optional peer dependency: install it next to the package (`pnpm add embla-carousel`). The main entry never imports it.
+
+- [Carousel](carousel/carousel.md): slides moved through by dragging, buttons, arrow keys or indicators, with Carousel.Slide

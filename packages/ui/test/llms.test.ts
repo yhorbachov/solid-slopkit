@@ -33,6 +33,10 @@ describe('LLM references', () => {
   test('the provider has a reference, linked from llms.md', () => {
     expect(links).toContain('components/provider/slopkit-ui.md');
   });
+
+  test('the carousel entry has a reference, linked from llms.md', () => {
+    expect(links).toContain('carousel/carousel.md');
+  });
 });
 
 const skills = join(src, '../skills');
