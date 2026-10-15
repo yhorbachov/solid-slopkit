@@ -26,6 +26,7 @@ export {
   type YearPickerType,
   type YearPickerValue,
 } from './year-picker';
+export { YearPickerInput, type YearPickerInputOwnProps, type YearPickerInputProps } from './year-picker-input';
 export {
   addDays,
   addMonths,

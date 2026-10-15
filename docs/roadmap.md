@@ -193,7 +193,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M7.07** YearPicker
 - [x] **M7.08** DatePickerInput
 - [x] **M7.09** MonthPickerInput
-- [ ] **M7.10** YearPickerInput
+- [x] **M7.10** YearPickerInput
 - [ ] **M7.11** DateInput
 - [ ] **M7.12** TimeInput
 - [ ] **M7.13** TimePicker
