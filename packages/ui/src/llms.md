@@ -186,3 +186,4 @@ A separate entry for dates and the date components, on native `Date` and `Intl` 
 - [MonthPickerInput](dates/month-picker-input/month-picker-input.md): a field that shows months and chooses them in a MonthPicker dropdown
 - [YearPickerInput](dates/year-picker-input/year-picker-input.md): a field that shows years and chooses them in a YearPicker dropdown
 - [DateInput](dates/date-input/date-input.md): a text field for a day, typed or chosen in a DatePicker dropdown
+- [TimeInput](dates/time-input/time-input.md): the browser's time field, with a `HH:mm` value

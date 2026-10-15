@@ -81,6 +81,7 @@ export const nav: NavSection[] = [
           { title: 'MonthPickerInput', href: '/ui/month-picker-input' },
           { title: 'YearPickerInput', href: '/ui/year-picker-input' },
           { title: 'DateInput', href: '/ui/date-input' },
+          { title: 'TimeInput', href: '/ui/time-input' },
           { title: 'MiniCalendar', href: '/ui/mini-calendar' },
         ],
       },

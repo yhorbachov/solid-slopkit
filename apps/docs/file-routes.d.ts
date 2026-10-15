@@ -729,6 +729,12 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-input")>;
       $$route?: undefined;
+    },
+    {
+      path: "/ui/time-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/time-input")>;
+      $$route?: undefined;
     }
   ];
   export default routes;
@@ -1348,6 +1354,14 @@ declare module "virtual:file-routes" {
       id: "/ui/theme-icon";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/theme-icon")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/time-input";
+      id: "/ui/time-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/time-input")>;
       $$route?: undefined;
       children?: undefined;
     },
