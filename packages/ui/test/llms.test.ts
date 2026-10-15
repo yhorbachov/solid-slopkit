@@ -52,6 +52,7 @@ describe('LLM references', () => {
     expect(links).toContain('dates/time-input/time-input.md');
     expect(links).toContain('dates/time-picker/time-picker.md');
     expect(links).toContain('dates/time-grid/time-grid.md');
+    expect(links).toContain('dates/date-time-picker/date-time-picker.md');
   });
 });
 

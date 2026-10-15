@@ -31,6 +31,7 @@ export { DateInput, type DateInputOwnProps, type DateInputProps } from './date-i
 export { TimeInput, type TimeInputOwnProps, type TimeInputProps } from './time-input';
 export { TimePicker, type TimePickerOwnProps, type TimePickerProps } from './time-picker';
 export { TimeGrid, type TimeGridOwnProps, type TimeGridProps } from './time-grid';
+export { DateTimePicker, type DateTimePickerOwnProps, type DateTimePickerProps } from './date-time-picker';
 export { getTimeRange, type TimeRangeOptions } from './time';
 export {
   addDays,

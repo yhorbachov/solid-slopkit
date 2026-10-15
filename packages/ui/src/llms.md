@@ -189,3 +189,4 @@ A separate entry for dates and the date components, on native `Date` and `Intl` 
 - [TimeInput](dates/time-input/time-input.md): the browser's time field, with a `HH:mm` value
 - [TimePicker](dates/time-picker/time-picker.md): a time field in the locale's 12 or 24 hours, with segments and a dropdown
 - [TimeGrid](dates/time-grid/time-grid.md): a grid of times to choose one from, such as free slots
+- [DateTimePicker](dates/date-time-picker/date-time-picker.md): a field for a date and time, chosen in a calendar and a time picker
