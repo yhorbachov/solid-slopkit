@@ -107,6 +107,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [ColorInput](components/inputs/color-input/color-input.md): a color as text, with a swatch, a ColorPicker dropdown and an eye dropper
 - [ColorPicker](components/inputs/color-picker/color-picker.md)
 - [Combobox](components/inputs/combobox/combobox.md): the building block for pickers, with createCombobox(), Combobox.Target, Combobox.Dropdown, Combobox.Options, Combobox.Option, Combobox.Group and Combobox.Empty
+- [Dropzone](components/inputs/dropzone/dropzone.md): an area that takes dropped or picked files, checks them, and shows whether it would take a drag, with Dropzone.Idle, Dropzone.Accept and Dropzone.Reject
 - [Fieldset](components/inputs/fieldset/fieldset.md)
 - [FileInput](components/inputs/file-input/file-input.md)
 - [Input](components/inputs/input/input.md): the field box, with sections

@@ -5,6 +5,7 @@ export * from './chip';
 export * from './color-input';
 export * from './color-picker';
 export * from './combobox';
+export * from './dropzone';
 export * from './fieldset';
 export * from './file-input';
 export * from './input';

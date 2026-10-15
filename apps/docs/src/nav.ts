@@ -114,6 +114,7 @@ export const nav: NavSection[] = [
           { title: 'ColorInput', href: '/ui/color-input' },
           { title: 'ColorPicker', href: '/ui/color-picker' },
           { title: 'Combobox', href: '/ui/combobox' },
+          { title: 'Dropzone', href: '/ui/dropzone' },
           { title: 'Fieldset', href: '/ui/fieldset' },
           { title: 'FileInput', href: '/ui/file-input' },
           { title: 'Input', href: '/ui/input' },
