@@ -9,7 +9,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest run",
-    "typecheck": "pnpm --filter @solid-slopkit/i18n build:plugin && node ../../packages/i18n/dist/cli.js typegen && tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@lucide/solid": "^1.52.0",
