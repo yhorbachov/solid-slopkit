@@ -27,6 +27,7 @@ export {
   type YearPickerValue,
 } from './year-picker';
 export { YearPickerInput, type YearPickerInputOwnProps, type YearPickerInputProps } from './year-picker-input';
+export { DateInput, type DateInputOwnProps, type DateInputProps } from './date-input';
 export {
   addDays,
   addMonths,
@@ -49,4 +50,4 @@ export {
   type MonthGridOptions,
 } from './date';
 export { getWeekInfo, type WeekInfo } from './week-info';
-export { formatDate, getMonthNames, getWeekdayNames, useFormatDate, type FormatDate } from './format';
+export { formatDate, getMonthNames, getWeekdayNames, parseDate, useFormatDate, type FormatDate } from './format';

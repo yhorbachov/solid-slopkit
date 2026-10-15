@@ -57,6 +57,7 @@ It reads `Intl.Locale` week info, with a built-in table from the same data for b
 All formatting goes through `Intl.DateTimeFormat`, in the runtime's time zone. Formatters are cached per locale and options.
 
 - `formatDate(date, locale, options?)`: the date as text, e.g. `formatDate(day, 'en-US', { month: 'long', year: 'numeric' })` → `October 2026`.
+- `parseDate(text, locale)`: the day a text names, or `null`. It reads an ISO day (`2026-10-15`) or three numbers in the locale's order with any separators (`10/15/2026` in `en-US`, `15.10.2026` in `de-DE`), so it reads back what `{ year: 'numeric', month: '2-digit', day: '2-digit' }` writes. A year of one or two digits is in 2000–2099; days that don't exist are `null`. Month names aren't read.
 - `useFormatDate()`: `formatDate` bound to the locale of the nearest `<SlopkitUi>`. Call the result where the text renders, so a change of the provider's `locale` formats again. Throws outside `<SlopkitUi>`.
 - `getWeekdayNames(locale, firstDayOfWeek, format?)`: seven weekday names from the first day; `format` is `'narrow'`, `'short'` (default) or `'long'`.
 - `getMonthNames(locale, format?)`: twelve month names from January, in the form a month takes on its own; `format` is `'narrow'`, `'short'` or `'long'` (default).

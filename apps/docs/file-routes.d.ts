@@ -723,6 +723,12 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/year-picker-input")>;
       $$route?: undefined;
+    },
+    {
+      path: "/ui/date-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-input")>;
+      $$route?: undefined;
     }
   ];
   export default routes;
@@ -1278,6 +1284,14 @@ declare module "virtual:file-routes" {
       id: "/ui/blockquote";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/blockquote")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/date-input";
+      id: "/ui/date-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-input")>;
       $$route?: undefined;
       children?: undefined;
     },
