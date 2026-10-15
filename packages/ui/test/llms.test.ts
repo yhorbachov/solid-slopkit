@@ -37,6 +37,10 @@ describe('LLM references', () => {
   test('the carousel entry has a reference, linked from llms.md', () => {
     expect(links).toContain('carousel/carousel.md');
   });
+
+  test('the dates entry has a reference, linked from llms.md', () => {
+    expect(links).toContain('dates/dates.md');
+  });
 });
 
 const skills = join(src, '../skills');

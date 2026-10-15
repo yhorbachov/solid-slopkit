@@ -155,6 +155,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/carousel";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/carousel")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/center";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/center")>;
@@ -668,12 +674,6 @@ declare module "virtual:file-routes" {
       path: "/ui/visually-hidden";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/visually-hidden")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/carousel";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/carousel")>;
       $$route?: undefined;
     }
   ];

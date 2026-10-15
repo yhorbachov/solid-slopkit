@@ -171,3 +171,9 @@ Only layout components take style props, and each takes its own set. The Box ref
 A separate entry, because it needs `embla-carousel`, an optional peer dependency: install it next to the package (`pnpm add embla-carousel`). The main entry never imports it.
 
 - [Carousel](carousel/carousel.md): slides moved through by dragging, buttons, arrow keys or indicators, with Carousel.Slide
+
+## Dates (`@solid-slopkit/ui/dates`)
+
+A separate entry for working with dates, on native `Date` and `Intl` with no date library.
+
+- [Dates](dates/dates.md): day arithmetic, the month grid, the locale's week, and formatting in the provider's locale

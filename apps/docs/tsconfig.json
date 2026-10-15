@@ -20,7 +20,8 @@
     "types": ["vite/client"],
     "paths": {
       "@solid-slopkit/ui": ["../../packages/ui/src/index.ts"],
-      "@solid-slopkit/ui/carousel": ["../../packages/ui/src/carousel/index.ts"]
+      "@solid-slopkit/ui/carousel": ["../../packages/ui/src/carousel/index.ts"],
+      "@solid-slopkit/ui/dates": ["../../packages/ui/src/dates/index.ts"]
     }
   },
   "include": ["src", "*.ts", "file-routes.d.ts"]

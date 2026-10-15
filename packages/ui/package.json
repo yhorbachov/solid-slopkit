@@ -23,6 +23,11 @@
       "solid": "./dist/source/carousel/index.js",
       "default": "./dist/source/carousel/index.js"
     },
+    "./dates": {
+      "types": "./dist/types/dates/index.d.ts",
+      "solid": "./dist/source/dates/index.js",
+      "default": "./dist/source/dates/index.js"
+    },
     "./styles/slopkit.css": "./dist/source/styles/slopkit.css",
     "./styles/default-theme.css": "./dist/source/styles/default-theme.css"
   },

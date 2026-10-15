@@ -184,7 +184,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 ## M7 — Dates (`@solid-slopkit/ui/dates`, native `Date` + `Intl`, ADR 0003)
 
-- [ ] **M7.01** Add the `./dates` subpath export, plus date utilities on `Date` and `Intl` (week start, month grid, formatting by provider `locale`)
+- [x] **M7.01** Add the `./dates` subpath export, plus date utilities on `Date` and `Intl` (week start, month grid, formatting by provider `locale`)
 - [ ] **M7.02** Primitive: grid keyboard navigation (days, months, years)
 - [ ] **M7.03** Calendar
 - [ ] **M7.04** MiniCalendar
