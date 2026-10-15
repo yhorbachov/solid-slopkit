@@ -44,7 +44,7 @@ export default function Variants() {
           onChange={(value) => setPosition(value as AppShellSidebarPosition)}
         />
       </Group>
-      {/* Only one shell on a page should answer the shortcut. */}
+      {/* The docs' own shell answers ⌘B / Ctrl+B. */}
       <AppShell class="docs-app-shell" shortcut={null}>
         <AppShell.Sidebar variant={variant()} collapsible={collapsible()} position={position()}>
           <AppShell.SidebarHeader>

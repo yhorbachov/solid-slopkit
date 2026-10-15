@@ -32,8 +32,9 @@ export default function Basic() {
     setCurrent(href);
   };
 
+  // The docs' own shell answers ⌘B / Ctrl+B.
   return (
-    <AppShell class="docs-app-shell">
+    <AppShell class="docs-app-shell" shortcut={null}>
       <AppShell.Sidebar collapsible="icon" label="Navigation">
         <AppShell.SidebarHeader>
           <AppShell.Menu>
@@ -154,7 +155,7 @@ export default function Basic() {
           <Text weight="medium">{current()}</Text>
         </header>
         <div class="docs-app-shell-body">
-          <Text>Press the button, the rail along the sidebar's edge, or ⌘B / Ctrl+B to collapse it to its icons.</Text>
+          <Text>Press the button or the rail along the sidebar's edge to collapse it to its icons.</Text>
         </div>
       </AppShell.Main>
     </AppShell>
