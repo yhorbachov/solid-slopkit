@@ -30,6 +30,8 @@ export { YearPickerInput, type YearPickerInputOwnProps, type YearPickerInputProp
 export { DateInput, type DateInputOwnProps, type DateInputProps } from './date-input';
 export { TimeInput, type TimeInputOwnProps, type TimeInputProps } from './time-input';
 export { TimePicker, type TimePickerOwnProps, type TimePickerProps } from './time-picker';
+export { TimeGrid, type TimeGridOwnProps, type TimeGridProps } from './time-grid';
+export { getTimeRange, type TimeRangeOptions } from './time';
 export {
   addDays,
   addMonths,

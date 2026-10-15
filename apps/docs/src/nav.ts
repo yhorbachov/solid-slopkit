@@ -83,6 +83,7 @@ export const nav: NavSection[] = [
           { title: 'DateInput', href: '/ui/date-input' },
           { title: 'TimeInput', href: '/ui/time-input' },
           { title: 'TimePicker', href: '/ui/time-picker' },
+          { title: 'TimeGrid', href: '/ui/time-grid' },
           { title: 'MiniCalendar', href: '/ui/mini-calendar' },
         ],
       },

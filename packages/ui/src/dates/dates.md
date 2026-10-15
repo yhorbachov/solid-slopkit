@@ -68,3 +68,9 @@ function MonthTitle(props: { month: Date }) {
   return <h2>{format(props.month, { month: 'long', year: 'numeric' })}</h2>;
 }
 ```
+
+## Times
+
+The time components ([TimeInput](time-input/time-input.md), [TimePicker](time-picker/time-picker.md), [TimeGrid](time-grid/time-grid.md)) take times of day as strings in 24 hours, `HH:mm` or `HH:mm:ss`, whatever the locale shows.
+
+- `getTimeRange({ start, end, interval, withSeconds? })`: the times from `start` to `end`, `interval` minutes apart: `{ start: '09:00', end: '10:00', interval: 30 }` is `['09:00', '09:30', '10:00']`. `end` is included when the steps land on it; unreadable times or an interval that isn't positive give `[]`.

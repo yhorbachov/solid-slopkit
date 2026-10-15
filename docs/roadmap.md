@@ -197,7 +197,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M7.11** DateInput
 - [x] **M7.12** TimeInput
 - [x] **M7.13** TimePicker
-- [ ] **M7.14** TimeGrid
+- [x] **M7.14** TimeGrid
 - [ ] **M7.15** DateTimePicker
 
 ## M8 — Release 0.0.1

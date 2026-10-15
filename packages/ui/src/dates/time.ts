@@ -53,3 +53,33 @@ export function formatTime(time: TimeParts, locale: string, format: '12h' | '24h
     hourCycle: format === '12h' ? 'h12' : 'h23',
   });
 }
+
+/** The options of `getTimeRange`. */
+export interface TimeRangeOptions {
+  /** The first time, `HH:mm` or `HH:mm:ss`. */
+  start: string;
+  /** The last time; it's included when the steps land on it. */
+  end: string;
+  /** Minutes between times. */
+  interval: number;
+  /** Writes `HH:mm:ss` instead of `HH:mm`. */
+  withSeconds?: boolean;
+}
+
+/** The times from `start` to `end`, `interval` minutes apart: `getTimeRange({ start: '09:00', end: '10:00', interval: 30 })` is `['09:00', '09:30', '10:00']`. */
+export function getTimeRange(options: TimeRangeOptions): string[] {
+  const start = parseTime(options.start);
+  const end = parseTime(options.end);
+  const step = Math.round(options.interval * 60);
+  if (!start || !end || step <= 0) return [];
+  const times: string[] = [];
+  for (let seconds = timeToSeconds(start); seconds <= timeToSeconds(end); seconds += step) {
+    times.push(
+      timeToString(
+        { hours: Math.floor(seconds / 3600), minutes: Math.floor((seconds % 3600) / 60), seconds: seconds % 60 },
+        options.withSeconds,
+      ),
+    );
+  }
+  return times;
+}

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { formatTime, getDayPeriodLabels, getHourCycle, parseTime, timeToSeconds, timeToString } from './time';
+import { formatTime, getDayPeriodLabels, getHourCycle, getTimeRange, parseTime, timeToSeconds, timeToString } from './time';
 
 describe('time helpers', () => {
   test('parseTime reads HH:mm and HH:mm:ss, null otherwise', () => {
@@ -29,5 +29,19 @@ describe('time helpers', () => {
     expect(formatTime(time, 'en-US', '12h')).toBe('9:05 PM');
     expect(formatTime(time, 'en-US', '24h')).toBe('21:05');
     expect(formatTime(time, 'de-DE', '24h', true)).toBe('21:05:09');
+  });
+});
+
+describe('getTimeRange()', () => {
+  test('the times from start to end, interval minutes apart', () => {
+    expect(getTimeRange({ start: '09:00', end: '10:00', interval: 30 })).toEqual(['09:00', '09:30', '10:00']);
+    expect(getTimeRange({ start: '09:00', end: '09:50', interval: 20 })).toEqual(['09:00', '09:20', '09:40']);
+    expect(getTimeRange({ start: '23:30', end: '23:59', interval: 15, withSeconds: true })).toEqual(['23:30:00', '23:45:00']);
+  });
+
+  test('nothing for unreadable times or a non-positive interval', () => {
+    expect(getTimeRange({ start: 'nine', end: '10:00', interval: 30 })).toEqual([]);
+    expect(getTimeRange({ start: '09:00', end: '10:00', interval: 0 })).toEqual([]);
+    expect(getTimeRange({ start: '10:00', end: '09:00', interval: 30 })).toEqual([]);
   });
 });
