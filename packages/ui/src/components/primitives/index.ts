@@ -1,4 +1,5 @@
 export * from './create-clipboard';
+export * from './create-date-grid-navigation';
 export * from './create-dismissal';
 export * from './create-floating';
 export * from './create-focus-scope';
