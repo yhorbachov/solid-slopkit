@@ -44,6 +44,7 @@ describe('LLM references', () => {
     expect(links).toContain('dates/mini-calendar/mini-calendar.md');
     expect(links).toContain('dates/date-picker/date-picker.md');
     expect(links).toContain('dates/month-picker/month-picker.md');
+    expect(links).toContain('dates/year-picker/year-picker.md');
   });
 });
 

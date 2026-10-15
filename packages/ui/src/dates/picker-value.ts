@@ -1,8 +1,8 @@
-// The value of the pickers built on Calendar (DatePicker, MonthPicker): one cell, several, or a range, the marks
+// The value of the pickers built on Calendar (DatePicker, MonthPicker, YearPicker): one cell, several, or a range, the marks
 // that show it, and the range preview under the pointer or the focus.
 import { createProjection, createSignal, flush, untrack } from 'solid-js';
 import type { CalendarCellState } from './calendar';
-import { addDays, addMonths, compareDays, createDay, isSameDay, startOfDay, startOfMonth, startOfYear } from './date';
+import { addDays, addMonths, addYears, compareDays, createDay, isSameDay, startOfDay, startOfMonth, startOfYear } from './date';
 
 /** What a picker chooses: one cell, several, or a range from one to another. */
 export type PickerType = 'default' | 'multiple' | 'range';
@@ -16,7 +16,7 @@ export type PickerValue<Type extends PickerType = 'default'> = Type extends 'ran
 
 type AnyValue = PickerValue<PickerType>;
 
-/** The cells a picker chooses: days or months. */
+/** The cells a picker chooses: days, months or years. */
 export interface PickerUnit {
   /** The cells' `data-slot`. */
   slot: string;
@@ -24,11 +24,11 @@ export interface PickerUnit {
   start: (date: Date) => Date;
   /** Moves by cells. */
   add: (date: Date, amount: number) => Date;
-  /** The cell's `data-date`: `2026-10-15` or `2026-10`. */
+  /** The cell's `data-date`: `2026-10-15`, `2026-10` or `2026`. */
   key: (date: Date) => string;
   /** The cell of a `data-date`. */
   parse: (key: string) => Date | undefined;
-  /** The first day of the period a calendar of these cells shows: a month of days, a year of months. */
+  /** The first day of the period a calendar of these cells shows: a month of days, a year of months, a decade of years. */
   period: (date: Date) => Date;
   /** The first and last cells a calendar showing `shown` can show, so a long range is marked only there. */
   window: (shown: Date) => [Date, Date];
@@ -63,6 +63,17 @@ export const MONTH_UNIT: PickerUnit = {
   },
   // Up to a decade of columns.
   window: (shown) => [shown, createDay(shown.getFullYear() + 9, 11, 1)],
+};
+
+export const YEAR_UNIT: PickerUnit = {
+  slot: 'calendar-year',
+  start: startOfYear,
+  period: (date) => createDay(date.getFullYear() - (((date.getFullYear() % 10) + 10) % 10), 0, 1),
+  add: addYears,
+  key: yearKey,
+  parse: (key) => (/^\d{4}$/.test(key) ? createDay(Number(key), 0, 1) : undefined),
+  // Up to ten decades of columns.
+  window: (shown) => [shown, createDay(shown.getFullYear() + 99, 0, 1)],
 };
 
 export interface PickerValueProps {

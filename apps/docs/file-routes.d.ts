@@ -699,6 +699,12 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/visually-hidden")>;
       $$route?: undefined;
+    },
+    {
+      path: "/ui/year-picker";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/year-picker")>;
+      $$route?: undefined;
     }
   ];
   export default routes;
@@ -1390,6 +1396,14 @@ declare module "virtual:file-routes" {
       id: "/ui/simple-grid";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/simple-grid")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/year-picker";
+      id: "/ui/year-picker";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/year-picker")>;
       $$route?: undefined;
       children?: undefined;
     },

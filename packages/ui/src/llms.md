@@ -181,3 +181,4 @@ A separate entry for dates and the date components, on native `Date` and `Intl` 
 - [MiniCalendar](dates/mini-calendar/mini-calendar.md): a strip of days, previous and next, to choose one day
 - [DatePicker](dates/date-picker/date-picker.md): a Calendar that chooses one day, several, or a range
 - [MonthPicker](dates/month-picker/month-picker.md): a Calendar of months that chooses one month, several, or a range
+- [YearPicker](dates/year-picker/year-picker.md): a Calendar of decades that chooses one year, several, or a range

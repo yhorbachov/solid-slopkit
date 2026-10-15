@@ -18,6 +18,13 @@ export {
   type MonthPickerValue,
 } from './month-picker';
 export {
+  YearPicker,
+  type YearPickerOwnProps,
+  type YearPickerProps,
+  type YearPickerType,
+  type YearPickerValue,
+} from './year-picker';
+export {
   addDays,
   addMonths,
   addYears,
