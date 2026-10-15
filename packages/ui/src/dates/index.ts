@@ -29,6 +29,7 @@ export {
 export { YearPickerInput, type YearPickerInputOwnProps, type YearPickerInputProps } from './year-picker-input';
 export { DateInput, type DateInputOwnProps, type DateInputProps } from './date-input';
 export { TimeInput, type TimeInputOwnProps, type TimeInputProps } from './time-input';
+export { TimePicker, type TimePickerOwnProps, type TimePickerProps } from './time-picker';
 export {
   addDays,
   addMonths,
