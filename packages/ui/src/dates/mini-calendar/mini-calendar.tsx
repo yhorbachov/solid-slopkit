@@ -43,7 +43,10 @@ export interface MiniCalendarOwnProps {
 
 export type MiniCalendarProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, MiniCalendarOwnProps>;
 
-const dayKey = (date: Date) => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+// Also the day's `data-date`: `2026-10-15`.
+const pad = (number: number) => String(number).padStart(2, '0');
+const dayKey = (date: Date) =>
+  `${String(date.getFullYear()).padStart(4, '0')}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 
 const sameDay = (a: Date | null | undefined, b: Date | null | undefined) => (a && b ? compareDays(a, b) === 0 : a === b);
 

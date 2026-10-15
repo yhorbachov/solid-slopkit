@@ -3,6 +3,13 @@
 export { Calendar, type CalendarCellState, type CalendarLevel, type CalendarOwnProps, type CalendarProps } from './calendar';
 export { MiniCalendar, type MiniCalendarOwnProps, type MiniCalendarProps } from './mini-calendar';
 export {
+  DatePicker,
+  type DatePickerOwnProps,
+  type DatePickerProps,
+  type DatePickerType,
+  type DatePickerValue,
+} from './date-picker';
+export {
   addDays,
   addMonths,
   addYears,

@@ -245,6 +245,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/date-picker";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-picker")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/dialog";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/dialog")>;
@@ -1338,6 +1344,14 @@ declare module "virtual:file-routes" {
       id: "/ui/copy-button";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/copy-button")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/date-picker";
+      id: "/ui/date-picker";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-picker")>;
       $$route?: undefined;
       children?: undefined;
     },

@@ -74,5 +74,5 @@ Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root class: `.slp-calendar`, with `data-level`, `data-size` and `data-color`.
 - Slots: `calendar-column` (one period), `calendar-header`, `calendar-previous`, `calendar-level` (the period's name), `calendar-next`, `calendar-grid` (the `table`), `calendar-weekday`, `calendar-day`, `calendar-month`, `calendar-year`. A previous, next or level button has `data-disabled` when it goes nowhere.
-- A cell button has `data-date`, and as they apply `data-outside`, `data-weekend`, `data-today`, `data-selected`, `data-in-range`, `data-first-in-range`, `data-last-in-range` and `data-disabled`.
+- A cell button has `data-date` (`2026-10-15`, `2026-10` or `2026`), and as they apply `data-outside`, `data-weekend`, `data-today`, `data-selected`, `data-in-range`, `data-first-in-range`, `data-last-in-range` and `data-disabled`.
 - Custom properties, on the calendar or an ancestor: `--slp-calendar-color`, `--slp-calendar-content` (text on selected cells), `--slp-calendar-radius` (`0.5rem`).

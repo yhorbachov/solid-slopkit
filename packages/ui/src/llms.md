@@ -179,3 +179,4 @@ A separate entry for dates and the date components, on native `Date` and `Intl` 
 - [Dates](dates/dates.md): day arithmetic, the month grid, the locale's week, and formatting in the provider's locale
 - [Calendar](dates/calendar/calendar.md): days, months or years in keyboard-navigable grids; the base of the pickers
 - [MiniCalendar](dates/mini-calendar/mini-calendar.md): a strip of days, previous and next, to choose one day
+- [DatePicker](dates/date-picker/date-picker.md): a Calendar that chooses one day, several, or a range

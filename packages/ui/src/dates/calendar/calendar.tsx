@@ -128,12 +128,14 @@ const endOf = (level: CalendarLevel, start: Date) => addDaysBefore(STEP[level](s
 const addDaysBefore = (date: Date) => createDay(date.getFullYear(), date.getMonth(), date.getDate() - 1);
 
 // A cell's key in the keyboard and today projections: its day, month or year.
-const cellKey = (level: DateGridLevel, date: Date) =>
-  level === 'day'
-    ? `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
-    : level === 'month'
-      ? `${date.getFullYear()}-${date.getMonth()}`
-      : `${date.getFullYear()}`;
+// Also the cell's `data-date`: `2026-10-15`, `2026-10` or `2026`.
+const pad = (number: number) => String(number).padStart(2, '0');
+const cellKey = (level: DateGridLevel, date: Date) => {
+  const year = String(date.getFullYear()).padStart(4, '0');
+  if (level === 'year') return year;
+  const month = `${year}-${pad(date.getMonth() + 1)}`;
+  return level === 'month' ? month : `${month}-${pad(date.getDate())}`;
+};
 
 const chunk = <T,>(items: T[], size: number): T[][] =>
   Array.from({ length: Math.ceil(items.length / size) }, (_, row) => items.slice(row * size, row * size + size));
@@ -254,16 +256,14 @@ export function Calendar(props: CalendarProps) {
     return props.getYearProps?.(date) ?? {};
   };
 
-  const isDisabled = (cellLevel: DateGridLevel, date: Date) => {
+  // Disabled by the limits or excludeDate; `isDisabled` adds what getDayProps (getMonthProps…) says.
+  const isExcluded = (cellLevel: DateGridLevel, date: Date) => {
     const last = cellLevel === 'day' ? date : cellLevel === 'month' ? endOfMonth(date) : createDay(date.getFullYear(), 11, 31);
     const first = cellLevel === 'day' ? date : cellLevel === 'month' ? startOfMonth(date) : startOfYear(date);
-    return (
-      beforeMin(last) ||
-      afterMax(first) ||
-      (cellLevel === 'day' && !!props.excludeDate?.(date)) ||
-      !!cellState(cellLevel, date).disabled
-    );
+    return beforeMin(last) || afterMax(first) || (cellLevel === 'day' && !!props.excludeDate?.(date));
   };
+  const isDisabled = (cellLevel: DateGridLevel, date: Date) =>
+    isExcluded(cellLevel, date) || !!cellState(cellLevel, date).disabled;
 
   // The cells each period shows, in order; days only of the period's own month.
   const cellsOf = (period: Date): Date[] => {
@@ -287,23 +287,20 @@ export function Calendar(props: CalendarProps) {
     () => {
       const cellLevel = CELL_LEVEL[level()];
       const first = periods()[0];
-      const shown = (date: Date) => compareDays(date, first) >= 0 && compareDays(date, lastDay()) <= 0;
-      const enabled = periods()
-        .flatMap(cellsOf)
-        .filter((date) => !isDisabled(cellLevel, date));
       const key = (date: Date) => cellKey(cellLevel, date);
+      const usable = (date: Date | undefined): date is Date =>
+        !!date && compareDays(date, first) >= 0 && compareDays(date, lastDay()) <= 0 && !isDisabled(cellLevel, date);
+      // Each source is read only when the ones before it give nothing, so after a move the cell taking Tab
+      // doesn't depend on the selection.
       const movedTo = moved();
-      const candidates = [
-        movedTo && shown(movedTo) ? movedTo : undefined,
-        enabled.find((date) => cellState(cellLevel, date).selected),
-        today() && shown(today()!) ? today() : undefined,
-      ];
-      for (const candidate of candidates)
-        if (candidate) {
-          const match = enabled.find((date) => key(date) === key(candidate));
-          if (match) return key(match);
-        }
-      return enabled[0] ? key(enabled[0]) : undefined;
+      if (usable(movedTo)) return key(movedTo);
+      const cells = periods().flatMap(cellsOf);
+      const selected = cells.find((date) => cellState(cellLevel, date).selected && usable(date));
+      if (selected) return key(selected);
+      const now = today();
+      if (usable(now)) return key(now);
+      const firstEnabled = cells.find(usable);
+      return firstEnabled ? key(firstEnabled) : undefined;
     },
     { name: 'Calendar.active' },
   );
@@ -390,7 +387,8 @@ export function Calendar(props: CalendarProps) {
   function Cell(cellProps: { date: Date; outside?: boolean; cellLevel: DateGridLevel }) {
     const key = () => cellKey(cellProps.cellLevel, cellProps.date);
     const state = createMemo(() => cellState(cellProps.cellLevel, cellProps.date), { name: 'Calendar.cell' });
-    const disabled = createMemo(() => isDisabled(cellProps.cellLevel, cellProps.date), { name: 'Calendar.disabled' });
+    // No memo of its own: the state memo already re-runs when getDayProps changes.
+    const disabled = () => isExcluded(cellProps.cellLevel, cellProps.date) || !!state().disabled;
     const isToday = () => todayKeys[key()] === true;
     const slot = () => `calendar-${cellProps.cellLevel === 'day' ? 'day' : cellProps.cellLevel === 'month' ? 'month' : 'year'}`;
     const weekend = () => cellProps.cellLevel === 'day' && weekendDays().includes(cellProps.date.getDay() as DayOfWeek);

@@ -52,5 +52,5 @@ const [day, setDay] = createSignal(createDay(2026, 9, 15));
 Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root class: `.slp-mini-calendar`, with `data-size` and `data-color`.
-- Slots: `mini-calendar-previous`, `mini-calendar-days` (the listbox), `mini-calendar-day`, `mini-calendar-weekday`, `mini-calendar-number`, `mini-calendar-next`, `mini-calendar-range` (the live region, visually hidden). A day has `data-date`, and as they apply `data-selected`, `data-today` and `data-disabled`; previous and next have `data-disabled` at a limit.
+- Slots: `mini-calendar-previous`, `mini-calendar-days` (the listbox), `mini-calendar-day`, `mini-calendar-weekday`, `mini-calendar-number`, `mini-calendar-next`, `mini-calendar-range` (the live region, visually hidden). A day has `data-date` (`2026-10-15`), and as they apply `data-selected`, `data-today` and `data-disabled`; previous and next have `data-disabled` at a limit.
 - Custom properties, on the mini calendar or an ancestor: `--slp-mini-calendar-color`, `--slp-mini-calendar-content` (text on the chosen day), `--slp-mini-calendar-radius` (`0.5rem`).
