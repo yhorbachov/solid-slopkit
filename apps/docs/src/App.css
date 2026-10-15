@@ -61,6 +61,28 @@ body {
   margin-inline-start: auto;
 }
 
+/* The search opens the docs' command dialog: wide, quiet, its shortcut at the end. */
+.docs-search-button {
+  min-width: 12rem;
+  justify-content: flex-start;
+  color: var(--docs-muted);
+
+  & .docs-search-label {
+    flex: 1;
+    text-align: start;
+  }
+
+  /* Narrow, it's just the icon: there's no room for the rest, nor usually a keyboard. */
+  @media (width < 48em) {
+    min-width: 0;
+
+    & .docs-search-label,
+    & .slp-kbd {
+      display: none;
+    }
+  }
+}
+
 /* Show the icon of the scheme a click switches to. */
 .docs-scheme-icon-dark {
   display: none;

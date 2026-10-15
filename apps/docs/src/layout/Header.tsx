@@ -1,6 +1,7 @@
 import { createSignal, onSettled } from 'solid-js';
 import { AppShell } from '@solid-slopkit/ui';
 import { ColorSchemeToggle } from './ColorSchemeToggle';
+import { Search } from './Search';
 import { ThemeSwitcher } from './ThemeSwitcher';
 import { applyTheme, PINNED_SCHEME, readTheme, type DocsTheme } from './preferences';
 
@@ -25,6 +26,7 @@ export function Header() {
         slopkit
       </a>
       <div class="docs-header-actions">
+        <Search />
         <ThemeSwitcher theme={theme()} onChange={changeTheme} />
         <ColorSchemeToggle pinned={PINNED_SCHEME[theme()] !== undefined} />
       </div>
