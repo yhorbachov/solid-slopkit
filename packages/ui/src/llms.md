@@ -183,3 +183,4 @@ A separate entry for dates and the date components, on native `Date` and `Intl` 
 - [MonthPicker](dates/month-picker/month-picker.md): a Calendar of months that chooses one month, several, or a range
 - [YearPicker](dates/year-picker/year-picker.md): a Calendar of decades that chooses one year, several, or a range
 - [DatePickerInput](dates/date-picker-input/date-picker-input.md): a field that shows days and chooses them in a DatePicker dropdown
+- [MonthPickerInput](dates/month-picker-input/month-picker-input.md): a field that shows months and chooses them in a MonthPicker dropdown

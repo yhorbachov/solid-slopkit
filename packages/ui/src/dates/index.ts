@@ -18,6 +18,7 @@ export {
   type MonthPickerType,
   type MonthPickerValue,
 } from './month-picker';
+export { MonthPickerInput, type MonthPickerInputOwnProps, type MonthPickerInputProps } from './month-picker-input';
 export {
   YearPicker,
   type YearPickerOwnProps,
