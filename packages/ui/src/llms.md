@@ -153,6 +153,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Modals](components/overlays/modals/modals.md): open modals and confirm modals from code, with `useModals()` and the `modals` facade
 - [Overlay](components/overlays/overlay/overlay.md): a layer over its parent
 - [Popover](components/overlays/popover/popover.md): Popover.Target and Popover.Dropdown
+- [Spotlight](components/overlays/spotlight/spotlight.md): a search over the app's actions in a modal, opened with ⌘K, `useSpotlight()` or the `spotlight` facade
 - [Tooltip](components/overlays/tooltip/tooltip.md): a description shown on hover and keyboard focus
 
 ## Utilities

@@ -164,6 +164,7 @@ export const nav: NavSection[] = [
           { title: 'Modals', href: '/ui/modals' },
           { title: 'Overlay', href: '/ui/overlay' },
           { title: 'Popover', href: '/ui/popover' },
+          { title: 'Spotlight', href: '/ui/spotlight' },
           { title: 'Tooltip', href: '/ui/tooltip' },
         ],
       },
