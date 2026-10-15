@@ -5,9 +5,9 @@
  */
 @layer slopkit.themes {
   [data-slp-theme='orange'] {
-    --slp-color-base-100: light-dark(#fffaf5, #211c18);
-    --slp-color-base-200: light-dark(#fff4e6, #2b241f);
-    --slp-color-base-300: light-dark(#ffe8cc, #3a312a);
+    --slp-color-base-100: light-dark(#ffffff, #211c18);
+    --slp-color-base-200: light-dark(#f4f7fa, #2b241f);
+    --slp-color-base-300: light-dark(#eaeff4, #3a312a);
     --slp-color-base-content: light-dark(#2b2118, #e9dccf);
     --slp-color-primary: light-dark(#fc6f3c, #fc6f3c);
     --slp-color-primary-content: light-dark(#ffffff, #1f1a17);
