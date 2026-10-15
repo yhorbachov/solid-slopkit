@@ -10,6 +10,14 @@ export {
   type DatePickerValue,
 } from './date-picker';
 export {
+  MonthPicker,
+  type MonthPickerLevel,
+  type MonthPickerOwnProps,
+  type MonthPickerProps,
+  type MonthPickerType,
+  type MonthPickerValue,
+} from './month-picker';
+export {
   addDays,
   addMonths,
   addYears,

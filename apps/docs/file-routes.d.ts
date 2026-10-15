@@ -419,6 +419,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/month-picker";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/month-picker")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/multi-select";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/multi-select")>;
@@ -1432,6 +1438,14 @@ declare module "virtual:file-routes" {
       id: "/ui/color-swatch";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/color-swatch")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/month-picker";
+      id: "/ui/month-picker";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/month-picker")>;
       $$route?: undefined;
       children?: undefined;
     },

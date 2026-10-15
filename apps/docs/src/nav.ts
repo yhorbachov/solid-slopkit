@@ -75,6 +75,7 @@ export const nav: NavSection[] = [
         items: [
           { title: 'Calendar', href: '/ui/calendar' },
           { title: 'DatePicker', href: '/ui/date-picker' },
+          { title: 'MonthPicker', href: '/ui/month-picker' },
           { title: 'MiniCalendar', href: '/ui/mini-calendar' },
         ],
       },

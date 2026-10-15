@@ -189,7 +189,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M7.03** Calendar
 - [x] **M7.04** MiniCalendar
 - [x] **M7.05** DatePicker
-- [ ] **M7.06** MonthPicker
+- [x] **M7.06** MonthPicker
 - [ ] **M7.07** YearPicker
 - [ ] **M7.08** DatePickerInput
 - [ ] **M7.09** MonthPickerInput
