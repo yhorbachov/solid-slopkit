@@ -2,7 +2,7 @@ import { render } from '@solidjs/testing-library';
 import { captureArtifact } from '@solidjs/diagnostics';
 import type { JSX } from '@solidjs/web';
 import { createEffect, createSignal, flush, untrack } from 'solid-js';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, onTestFinished, test } from 'vitest';
 import { createFloating, type FloatingOptions, type FloatingPlacement } from './create-floating';
 import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 
@@ -185,6 +185,68 @@ describe('createFloating', () => {
 
     await expect.poll(() => box(getByTestId('floating')).bottom).toBe(anchor.top);
     expect(getByTestId('floating')).toHaveAttribute('data-placement', 'top');
+  });
+
+  describe('scrolling the window', () => {
+    // Taller than the viewport, so the window scrolls. Added after rendering, below what's rendered.
+    const tallPage = () => {
+      const spacer = document.createElement('div');
+      spacer.style.height = '3000px';
+      document.body.append(spacer);
+      onTestFinished(() => {
+        spacer.remove();
+        window.scrollTo(0, 0);
+      });
+    };
+
+    // Read right after scrolling, before any scroll event: what the browser paints while the page scrolls off the
+    // main thread. Only a position that already moves with the anchor stays lined up.
+    const scrolledInSync = (getByTestId: (id: string) => HTMLElement) => {
+      const tops: number[] = [];
+      for (const y of [120, 260, 40]) {
+        window.scrollTo(0, y);
+        tops.push(box(getByTestId('floating')).top - box(getByTestId('anchor')).bottom);
+      }
+      return tops;
+    };
+
+    test('moves with an anchor in the page, in the same frame', async () => {
+      const { getByTestId } = placed('bottom');
+      tallPage();
+      const anchor = box(getByTestId('anchor'));
+      await expect.poll(() => box(getByTestId('floating')).top).toBe(anchor.bottom + 8);
+      expect(getByTestId('floating').style.position).toBe('absolute');
+
+      expect(scrolledInSync(getByTestId)).toEqual([8, 8, 8]);
+    });
+
+    test.each([
+      ['fixed', { position: 'fixed' }],
+      ['sticky', { position: 'sticky', top: '0px' }],
+    ] as const)('stays put with a %s anchor, pinned to the viewport', async (_, anchorStyle) => {
+      const { getByTestId, container } = placed('bottom', { anchorStyle });
+      // A sticky element sticks only within its parent, so that has to stay on screen.
+      container.style.height = '3000px';
+      tallPage();
+      await expect.poll(() => box(getByTestId('floating')).top).toBe(box(getByTestId('anchor')).bottom + 8);
+      expect(getByTestId('floating').style.position).toBe('fixed');
+
+      expect(scrolledInSync(getByTestId)).toEqual([8, 8, 8]);
+    });
+
+    test('stays lined up with an anchor in a scroll container once the window scrolls', async () => {
+      const { getByTestId } = render(() => (
+        <div style={{ 'margin-top': '100px', height: '150px', overflow: 'auto' }}>
+          <div style={{ position: 'relative', height: '400px' }}>
+            <Harness open={() => true} placement={() => 'bottom-start'} anchorStyle={{ top: '20px', left: '30px' }} />
+          </div>
+        </div>
+      ));
+      tallPage();
+      await expect.poll(() => box(getByTestId('floating')).top).toBe(box(getByTestId('anchor')).bottom);
+
+      expect(scrolledInSync(getByTestId)).toEqual([0, 0, 0]);
+    });
   });
 
   test('hidden while the anchor is scrolled out of its container', async () => {
