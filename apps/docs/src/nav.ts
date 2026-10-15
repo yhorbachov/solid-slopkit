@@ -72,7 +72,10 @@ export const nav: NavSection[] = [
       },
       {
         title: 'Dates',
-        items: [{ title: 'Calendar', href: '/ui/calendar' }],
+        items: [
+          { title: 'Calendar', href: '/ui/calendar' },
+          { title: 'MiniCalendar', href: '/ui/mini-calendar' },
+        ],
       },
       {
         title: 'Feedback',

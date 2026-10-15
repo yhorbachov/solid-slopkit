@@ -41,6 +41,7 @@ describe('LLM references', () => {
   test('the dates entry has a reference, linked from llms.md', () => {
     expect(links).toContain('dates/dates.md');
     expect(links).toContain('dates/calendar/calendar.md');
+    expect(links).toContain('dates/mini-calendar/mini-calendar.md');
   });
 });
 

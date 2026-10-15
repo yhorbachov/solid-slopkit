@@ -1,6 +1,7 @@
 // The `@solid-slopkit/ui/dates` entry: date utilities on native `Date` and `Intl` (ADR 0003), and the date
 // components.
 export { Calendar, type CalendarCellState, type CalendarLevel, type CalendarOwnProps, type CalendarProps } from './calendar';
+export { MiniCalendar, type MiniCalendarOwnProps, type MiniCalendarProps } from './mini-calendar';
 export {
   addDays,
   addMonths,
