@@ -1,5 +1,15 @@
 # Agent Guide
 
+> **Branch goal: `feat/styling` (temporary, remove this note before merging into `main`)**
+>
+> This branch reworks theming and styling. The goals:
+>
+> - **Good-looking defaults.** A component looks finished out of the box, with no theme work needed.
+> - **Every component can be customized.** An app can restyle any component, down to its inner parts, without fighting the library.
+> - **A small, purpose-named token set.** Surfaces are paired with their foreground (a surface token and the text color that is readable on it), plus shared tokens for radius, borders and focus rings. App authors set these as plain CSS variables to retheme.
+>
+> This may change the color vocabulary in `CONTEXT.md` (color roles, content colors, base colors), the default theme values from M8.02, and ADRs 0004, 0005 and 0013. Where this goal conflicts with them, it wins on this branch. Update the ADR or vocabulary in the same change instead of silently going against it. The roadmap rule "don't tune the default theme inside other steps" does not apply on this branch.
+
 This is a SolidJS 2.x project. Solid is not React: components run once (there is no re-render), reactivity is fine-grained through signals, and effects/memos have Solid-specific semantics. Do not port React patterns.
 
 ## Versioned skills (in node_modules — read on demand)
