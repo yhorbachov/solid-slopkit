@@ -53,4 +53,34 @@ describe('<Button /> in a browser', () => {
     await userEvent.tab();
     expect(getComputedStyle(button).outlineStyle).toBe('solid');
   });
+
+  test('outline and dash borders are a faded text color: a fifth of the base text, or half the accent', () => {
+    const probe = (color: string) => <span data-probe style={{ color }} />;
+    const { getByRole, container } = render(() => (
+      <>
+        <Button variant="outline">Base</Button>
+        <Button variant="dash" color="primary">
+          Primary
+        </Button>
+        <Button variant="outline" style={{ '--slp-button-color': 'rgb(200, 0, 0)' }}>
+          Custom
+        </Button>
+        {probe('color-mix(in oklab, var(--slp-color-base-content) 20%, transparent)')}
+        {probe('color-mix(in oklab, var(--slp-color-primary) 50%, transparent)')}
+        {probe('color-mix(in oklab, rgb(200, 0, 0) 50%, transparent)')}
+        {probe('var(--slp-color-primary)')}
+      </>
+    ));
+    const [baseBorder, primaryBorder, customBorder, primary] = [...container.querySelectorAll('[data-probe]')].map(
+      (el) => getComputedStyle(el).color,
+    );
+    const css = (name: string) => getComputedStyle(getByRole('button', { name }));
+
+    expect(css('Base').borderTopColor).toBe(baseBorder);
+    expect(css('Primary').borderTopColor).toBe(primaryBorder);
+    expect(css('Primary').borderTopStyle).toBe('dashed');
+    expect(css('Custom').borderTopColor).toBe(customBorder);
+    // The text keeps the full color.
+    expect(css('Primary').color).toBe(primary);
+  });
 });

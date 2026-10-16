@@ -14,7 +14,7 @@ import { Button } from '@solid-slopkit/ui';
 <Button variant="ghost" shape="square" aria-label="Add"><Plus /></Button>
 ```
 
-- **Variants:** `solid` is the default. `soft`, `outline` and `dash` switch to the solid look on hover and focus. `ghost` only gets a light tint. `link` looks like a link.
+- **Variants:** `solid` is the default. `soft`, `outline` and `dash` switch to the solid look on hover and focus. The `outline` and `dash` borders are a faded text color: half the accent with a `color`, a fifth of the text color without one. `ghost` only gets a light tint. `link` looks like a link.
 - **Colors:** `color` takes a color role. Without it the button uses the base surface colors. Every variant works with every color.
 - **Sizes:** `xs` to `xl`. Heights are multiples of `--slp-size-field`, so a theme can make every control denser or roomier at once.
 - **Shapes:** `square` and `circle` are fixed-width, for a single icon. Give them an `aria-label`.

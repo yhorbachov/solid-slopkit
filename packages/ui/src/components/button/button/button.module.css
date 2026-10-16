@@ -175,10 +175,13 @@
       --_btn-border: color-mix(in oklab, var(--_btn-color, var(--slp-color-base-content)) 10%, var(--slp-color-base-100));
     }
 
+    /* The border is a faded version of the text color: half the accent, or a fifth of the base text. Without an
+       accent, --_btn-outline-border is invalid (it reads an unset --_btn-color), so the base fallback applies. */
     &:is([data-variant='outline'], [data-variant='dash']):not(:hover, :focus-visible, :active, [data-active], [data-disabled]) {
+      --_btn-outline-border: color-mix(in oklab, var(--_btn-color) 50%, transparent);
       --_btn-fg: var(--_btn-color, var(--slp-color-base-content));
       --_btn-bg: transparent;
-      --_btn-border: var(--_btn-color, var(--slp-color-base-content));
+      --_btn-border: var(--_btn-outline-border, color-mix(in oklab, var(--slp-color-base-content) 20%, transparent));
     }
 
     &[data-variant='dash'] {
