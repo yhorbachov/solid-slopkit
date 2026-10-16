@@ -29,7 +29,7 @@ export default function RingProgressPage() {
 
       <H2 id="usage">Usage</H2>
       <p>
-        The arc starts at the top and runs clockwise. Children are centered in the ring. It has the same props as{' '}
+        The arc starts at the top and runs clockwise. Children are centered in the ring. It shares its main props with{' '}
         <a href="/ui/progress">Progress</a>: <code>value</code> from 0 to <code>max</code>, a <code>label</code> or{' '}
         <code>aria-labelledby</code> for its name.
       </p>

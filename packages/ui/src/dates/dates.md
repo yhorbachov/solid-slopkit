@@ -39,16 +39,16 @@ A day is a `Date` at local midnight in the runtime's time zone. Every function r
 
 ## Month grid
 
-`getMonthGrid(month, { firstDayOfWeek, fixedWeeks })` returns the weeks of the month as rows of seven days. The first and last rows are filled with days of the neighboring months; tell them apart with `isSameMonth(day, month)`. A month spans four to six weeks; `fixedWeeks: true` always gives six, so a calendar keeps its height.
+`getMonthGrid(month, { firstDayOfWeek, fixedWeeks })` (options type `MonthGridOptions`) returns the weeks of the month as rows of seven days. The first and last rows are filled with days of the neighboring months; tell them apart with `isSameMonth(day, month)`. A month spans four to six weeks; `fixedWeeks: true` always gives six, so a calendar keeps its height.
 
 ```tsx
-const locale = useLocale();
+const locale = useLocale(); // from '@solid-slopkit/ui'
 const weeks = () => getMonthGrid(month(), { firstDayOfWeek: getWeekInfo(locale()).firstDayOfWeek });
 ```
 
 ## The locale's week
 
-`getWeekInfo(locale)` returns `{ firstDayOfWeek, weekendDays }` for a BCP 47 locale: `en-US` weeks start on Sunday, `de-DE` on Monday, `ar-EG` on Saturday with a Friday–Saturday weekend. The `fw` extension overrides the first day: `en-US-u-fw-mon`. Without a region, the language's most likely one counts (`en` is `en-US`). An invalid tag throws a `RangeError`.
+`getWeekInfo(locale)` returns a `WeekInfo`, `{ firstDayOfWeek, weekendDays }`, for a BCP 47 locale: `en-US` weeks start on Sunday, `de-DE` on Monday, `ar-EG` on Saturday with a Friday–Saturday weekend. The `fw` extension overrides the first day: `en-US-u-fw-mon`. Without a region, the language's most likely one counts (`en` is `en-US`). An invalid tag throws a `RangeError`.
 
 It reads `Intl.Locale` week info, with a built-in table from the same data for browsers that don't have it.
 
@@ -58,7 +58,7 @@ All formatting goes through `Intl.DateTimeFormat`, in the runtime's time zone. F
 
 - `formatDate(date, locale, options?)`: the date as text, e.g. `formatDate(day, 'en-US', { month: 'long', year: 'numeric' })` → `October 2026`.
 - `parseDate(text, locale)`: the day a text names, or `null`. It reads an ISO day (`2026-10-15`) or three numbers in the locale's order with any separators (`10/15/2026` in `en-US`, `15.10.2026` in `de-DE`), so it reads back what `{ year: 'numeric', month: '2-digit', day: '2-digit' }` writes. A year of one or two digits is in 2000–2099; days that don't exist are `null`. Month names aren't read.
-- `useFormatDate()`: `formatDate` bound to the locale of the nearest `<SlopkitUi>`. Call the result where the text renders, so a change of the provider's `locale` formats again. Throws outside `<SlopkitUi>`.
+- `useFormatDate()`: a `FormatDate`, `(date, options?) => string`, which is `formatDate` bound to the locale of the nearest `<SlopkitUi>`. Call the result where the text renders, so a change of the provider's `locale` formats again. Throws outside `<SlopkitUi>`.
 - `getWeekdayNames(locale, firstDayOfWeek, format?)`: seven weekday names from the first day; `format` is `'narrow'`, `'short'` (default) or `'long'`.
 - `getMonthNames(locale, format?)`: twelve month names from January, in the form a month takes on its own; `format` is `'narrow'`, `'short'` or `'long'` (default).
 
@@ -73,4 +73,4 @@ function MonthTitle(props: { month: Date }) {
 
 The time components ([TimeInput](time-input/time-input.md), [TimePicker](time-picker/time-picker.md), [TimeGrid](time-grid/time-grid.md)) take times of day as strings in 24 hours, `HH:mm` or `HH:mm:ss`, whatever the locale shows.
 
-- `getTimeRange({ start, end, interval, withSeconds? })`: the times from `start` to `end`, `interval` minutes apart: `{ start: '09:00', end: '10:00', interval: 30 }` is `['09:00', '09:30', '10:00']`. `end` is included when the steps land on it; unreadable times or an interval that isn't positive give `[]`.
+- `getTimeRange({ start, end, interval, withSeconds? })` (options type `TimeRangeOptions`): the times from `start` to `end`, `interval` minutes apart: `{ start: '09:00', end: '10:00', interval: 30 }` is `['09:00', '09:30', '10:00']`. `end` is included when the steps land on it; unreadable times or an interval that isn't positive give `[]`.

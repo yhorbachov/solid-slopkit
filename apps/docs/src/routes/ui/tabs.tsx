@@ -88,10 +88,11 @@ export default function TabsPage() {
       <H2 id="styling">Styling</H2>
       <p>
         The root is <code>.slp-tabs</code>, with <code>data-variant</code>, <code>data-color</code>, <code>data-size</code> and{' '}
-        <code>data-orientation</code>. Inside are <code>.slp-tabs-list</code>, <code>.slp-tabs-tab</code> (with{' '}
-        <code>data-active</code> on the selected one, <code>data-disabled</code> and <code>data-value</code>) and{' '}
-        <code>.slp-tabs-panel</code>; a tab holds <code>[data-slot="tabs-tab-label"]</code> and{' '}
-        <code>[data-slot="tabs-tab-section"]</code>. <code>--slp-tabs-color</code> sets the selected tab's color and{' '}
+        <code>data-orientation</code>. Inside are <code>.slp-tabs-list</code> (with <code>data-grow</code>),{' '}
+        <code>.slp-tabs-tab</code> (with <code>data-active</code> on the selected one, <code>data-disabled</code> and{' '}
+        <code>data-value</code>) and <code>.slp-tabs-panel</code> (with <code>data-value</code>); a tab holds{' '}
+        <code>[data-slot="tabs-tab-label"]</code> and <code>[data-slot="tabs-tab-section"]</code> with{' '}
+        <code>data-position="left"</code> or <code>"right"</code>. <code>--slp-tabs-color</code> sets the selected tab's color and{' '}
         <code>--slp-tabs-content</code> the text on a selected pill. The rules live in <code>@layer slopkit.components</code>, so
         unlayered CSS wins.
       </p>

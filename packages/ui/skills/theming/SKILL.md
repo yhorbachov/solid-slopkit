@@ -40,6 +40,9 @@ The stylesheets declare these cascade layers, in order: `slopkit.reset`, `slopki
 | `--slp-depth`                          | `0` (the default) for flat controls, `1` for a subtle gradient and text shadow on solid buttons.               |
 | `--slp-font-family`                    | Body font, and `--slp-font-family-monospace` for keys and code. Set in `slopkit.css`, not in the theme.        |
 | `--slp-shadow-xs` … `--slp-shadow-xl`  | Shadows for surfaces and overlays. Set in `slopkit.css`, not in the theme.                                     |
+| `--slp-font-size-xs` … `-5xl`          | The type scale components read, each with a `--slp-line-height-<size>`. Set in `slopkit.css`.                  |
+| `--slp-heading-size-h1` … `-h6`        | Title sizes, with `--slp-heading-line-height-<order>` and `--slp-heading-weight`. Set in `slopkit.css`.        |
+| `--slp-container-size-xs` … `-xl`      | Container max widths, and `--slp-container-padding` for its side padding. Set in `slopkit.css`.                |
 
 A theme sets solid colors only. Components derive soft, outline, hover and pressed tints from each role and its content color with `color-mix()`.
 
@@ -49,7 +52,7 @@ There are no radius or border-width tokens: each component owns its corner radiu
 
 ### The default theme's colors
 
-Every role reaches 4.5:1 (WCAG AA) against its content color, and as text on `base-100`, in both schemes; warning as text on a light surface is the one exception. In light the roles are deep shades with white content; in dark they are bright shades with dark content (`#141414`). The soft, outline, dash and ghost variants draw the role color as text on the surface, which is why both pairs matter.
+Every role reaches 4.5:1 (WCAG AA) against its content color, and as text on `base-100`, in both schemes; warning as text on a light surface is the one exception. In light the roles are deep shades with white content; in dark they are bright shades with dark content (`#141414`). Warning, a yellow, has the dark content in both. The soft, outline, dash and ghost variants draw the role color as text on the surface, which is why both pairs matter.
 
 ## Change the default look
 

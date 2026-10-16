@@ -39,11 +39,12 @@ export default function NotificationsPage() {
 
       <H2 id="usage">Usage</H2>
       <p>
-        <code>useNotifications()</code> returns <code>show</code>, <code>update</code>, <code>hide</code> and <code>clean</code>.{' '}
-        <code>show</code> takes a <code>message</code> and the look of a <a href="/ui/notification">Notification</a> (
-        <code>title</code>, <code>icon</code>, <code>color</code>, <code>loading</code>), and returns the notification's id. Each
-        closes after <code>autoClose</code> milliseconds, which pauses while the pointer or focus is in the region, or when its
-        close button is pressed. New ones are announced politely; <code>role: 'alert'</code> interrupts, for errors.
+        <code>useNotifications()</code> returns <code>show</code>, <code>update</code>, <code>hide</code>, <code>clean</code> and{' '}
+        <code>notifications</code>, an accessor of the list. <code>show</code> takes a <code>message</code> and the look of a{' '}
+        <a href="/ui/notification">Notification</a> (<code>title</code>, <code>icon</code>, <code>color</code>,{' '}
+        <code>loading</code>), and returns the notification's id. Each closes after <code>autoClose</code> milliseconds, which
+        pauses while the pointer or focus is in the region, or when its close button is pressed. New ones are announced politely;{' '}
+        <code>role: 'alert'</code> interrupts, for errors.
       </p>
       <Example component={Basic} code={basicCode} />
 

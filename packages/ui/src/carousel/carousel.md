@@ -70,5 +70,5 @@ Other props are passed to the root `section`.
 Write plain CSS against these selectors. Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root classes: `.slp-carousel` (with `data-orientation`), `.slp-carousel-slide`.
-- Slots: `[data-slot="carousel-viewport"]` (clips the slides), `[data-slot="carousel-container"]` (the row of slides), `[data-slot="carousel-controls"]`, `[data-slot="carousel-previous"]` and `[data-slot="carousel-next"]` (ActionIcons, with `data-disabled` at an end), `[data-slot="carousel-indicators"]`, `[data-slot="carousel-indicator"]` (with `data-active` for the current step; the bar is its `::before`).
+- Slots: `[data-slot="carousel-viewport"]` (clips the slides), `[data-slot="carousel-container"]` (the row of slides), `[data-slot="carousel-slide"]` (each slide), `[data-slot="carousel-controls"]`, `[data-slot="carousel-previous"]` and `[data-slot="carousel-next"]` (ActionIcons, with `data-disabled` at an end), `[data-slot="carousel-indicators"]`, `[data-slot="carousel-indicator"]` (with `data-active` for the current step; the bar is its `::before`).
 - No public custom properties: the slide size and gap are props, or `flex-basis` and `padding-inline-start` on `.slp-carousel-slide` (with a matching negative `margin-inline-start` on the container).

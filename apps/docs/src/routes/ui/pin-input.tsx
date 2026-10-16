@@ -38,7 +38,11 @@ export default function PinInputPage() {
       <Example component={Options} code={optionsCode} />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the InputWrapper root.</p>
+      <p>
+        Other props are passed to the InputWrapper root. Plus InputWrapper's <code>label</code>, <code>labelSection</code>,{' '}
+        <code>description</code>, <code>error</code>, <code>required</code>, <code>withAsterisk</code>, <code>size</code> and{' '}
+        <code>id</code>.
+      </p>
       <PropsTable
         rows={[
           { name: 'length', type: 'number', default: '4', description: 'How many characters.' },
@@ -68,6 +72,7 @@ export default function PinInputPage() {
             description: 'Visual style of the fields.',
           },
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables every field.' },
+          { name: 'readOnly', type: 'boolean', default: 'false', description: 'Makes every field read-only.' },
         ]}
       />
 

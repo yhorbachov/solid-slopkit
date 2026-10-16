@@ -40,7 +40,7 @@ export default function TextareaPage() {
 
       <H2 id="props">Props</H2>
       <p>
-        Other props are passed to the <code>textarea</code>. The wrapper's props are TextInput's.
+        Other props are passed to the <code>textarea</code>.
       </p>
       <PropsTable
         rows={[
@@ -49,20 +49,35 @@ export default function TextareaPage() {
           { name: 'maxRows', type: 'number', description: 'With autosize, the most rows; then it scrolls.' },
           { name: 'rows', type: 'number', description: 'Without autosize, the height in rows.' },
           { name: 'label', type: 'JSX.Element', description: "The field's label." },
+          {
+            name: 'labelSection',
+            type: 'JSX.Element',
+            description: "Content at the end of the label's row, such as the current value or a link.",
+          },
           { name: 'description', type: 'JSX.Element', description: 'Help text between the label and the field.' },
           { name: 'error', type: 'JSX.Element', description: 'Error message; marks the field invalid.' },
+          { name: 'required', type: 'boolean', default: 'false', description: 'Asterisk, and a required textarea.' },
+          { name: 'withAsterisk', type: 'boolean', default: 'required', description: 'Shows the asterisk.' },
           {
             name: 'size',
             type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
             default: "'md'",
             description: 'Size of the label, texts and box.',
           },
+          { name: 'id', type: 'string', default: 'generated', description: "The textarea's id. Read once." },
           {
             name: 'variant',
             type: "'outline' | 'soft' | 'ghost'",
             default: "'outline'",
             description: 'Visual style of the box.',
           },
+          { name: 'leftSection', type: 'JSX.Element', description: 'Content before the textarea, on the first line.' },
+          { name: 'rightSection', type: 'JSX.Element', description: 'Content after the textarea, on the first line.' },
+          { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the textarea.' },
+          { name: 'readOnly', type: 'boolean', default: 'false', description: 'Makes the textarea read-only.' },
+          { name: 'class', type: 'ClassValue', description: 'Classes for the root.' },
+          { name: 'style', type: 'JSX.CSSProperties', description: 'Styles for the root.' },
+          { name: 'ref', type: 'Ref<HTMLElement>', description: 'The textarea.' },
         ]}
       />
 

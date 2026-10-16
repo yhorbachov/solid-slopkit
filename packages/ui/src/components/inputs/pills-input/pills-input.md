@@ -67,6 +67,6 @@ PillsInput.Field takes an `input`'s props, except `id`.
 
 Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
-- Root classes: `.slp-pills-input` (the field with its label and texts), `.slp-pills-input-field`. The box is also `.slp-input`, and takes Input's selectors.
+- Root classes: `.slp-pills-input` (the field with its label and texts), plus `.slp-input-wrapper`, with InputWrapper's slots and attributes; `.slp-pills-input-field`. The box is also `.slp-input`, and takes Input's selectors.
 - Slots: `pills-input-box`, `pills-input-content` (the rows of pills and the field), `pills-input-field`, and Input's `input-left-section` and `input-right-section`.
 - Attributes on the box: Input's (`data-variant`, `data-size`, `data-invalid`, `data-disabled`, `data-with-left-section`, `data-with-right-section`).

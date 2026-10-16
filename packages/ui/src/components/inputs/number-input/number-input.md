@@ -52,6 +52,7 @@ Other props are passed to the `input`. The wrapper's props (`label`, `labelSecti
 | `rightSection`      | `JSX.Element`                          | —                      | Content after the input, before the controls.   |
 | `disabled`          | `boolean`                              | `false`                | Disables the input and the controls.            |
 | `readOnly`          | `boolean`                              | `false`                | No typing or stepping.                          |
+| `ref`               | `Ref<HTMLElement>`                     | —                      | The `input`.                                    |
 
 ## Styling
 

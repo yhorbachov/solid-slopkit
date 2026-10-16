@@ -74,10 +74,11 @@ export default function PillsInputPage() {
 
       <H2 id="styling">Styling</H2>
       <p>
-        The root has the class <code>.slp-pills-input</code> and the field <code>.slp-pills-input-field</code>. The box is{' '}
-        <code>[data-slot="pills-input-box"]</code>, and also an <code>.slp-input</code> with Input's attributes; the pills and the
-        field are in <code>[data-slot="pills-input-content"]</code>. The rules live in <code>@layer slopkit.components</code>, so
-        unlayered CSS wins.
+        The root has the classes <code>.slp-pills-input</code> and <code>.slp-input-wrapper</code>, and the field{' '}
+        <code>.slp-pills-input-field</code>. The box is <code>[data-slot="pills-input-box"]</code>, and also an{' '}
+        <code>.slp-input</code> with Input's attributes; the pills and the field are in{' '}
+        <code>[data-slot="pills-input-content"]</code>. The rules live in <code>@layer slopkit.components</code>, so unlayered CSS
+        wins.
       </p>
     </article>
   );

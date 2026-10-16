@@ -67,7 +67,8 @@ export default function MiniCalendarPage() {
         <code>[data-slot="mini-calendar-previous"]</code>, <code>mini-calendar-days</code> (the listbox),{' '}
         <code>mini-calendar-day</code> with <code>mini-calendar-weekday</code> and <code>mini-calendar-number</code> inside,{' '}
         <code>mini-calendar-next</code>, and the visually hidden <code>mini-calendar-range</code>. A day has{' '}
-        <code>data-selected</code>, <code>data-today</code> and <code>data-disabled</code> as they apply.{' '}
+        <code>data-date</code> (<code>2026-10-15</code>), and <code>data-selected</code>, <code>data-today</code> and{' '}
+        <code>data-disabled</code> as they apply; previous and next have <code>data-disabled</code> at a limit.{' '}
         <code>--slp-mini-calendar-color</code>, <code>--slp-mini-calendar-content</code> and{' '}
         <code>--slp-mini-calendar-radius</code> set the chosen day's colors and the corners. The rules live in{' '}
         <code>@layer slopkit.components</code>, so unlayered CSS wins.

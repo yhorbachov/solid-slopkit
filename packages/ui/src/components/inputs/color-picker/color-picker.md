@@ -23,27 +23,27 @@ const [color, setColor] = createSignal('#1971c2');
 - **Keyboard:** each part is a tab stop with `role="slider"`. In the area, Left and Right change saturation, Up and Down brightness, Page Up and Page Down brightness by 10, Home and End saturation to 0 and 100. On a slider, the arrows step by 1, Home and End go to the ends. Shift steps by 10.
 - **Screen readers:** the area is "Saturation and brightness" and says "Saturation 60%, brightness 80%"; the sliders are "Hue" (in degrees) and "Alpha" (a percentage). Rename them with `saturationLabel`, `hueLabel` and `alphaLabel`. The whole picker is a group named by `label`. Swatches are buttons named by their color, pressed while it's the current one.
 - **Size:** `size` sets the panel's width, from 10rem (`xs`) to 18rem (`xl`); `fullWidth` stretches it. `swatchesPerRow` sets the swatch grid (7).
-- **Text:** it's an InputWrapper: `label`, `labelSection`, `description`, `error`.
+- **Text:** it's an InputWrapper: `label`, `labelSection`, `description`, `error`, `withAsterisk`, `id`.
 
 ## Props
 
 Other props are passed to the InputWrapper root.
 
-| Prop                                                    | Type                                                    | Default                       | Description                                      |
-| ------------------------------------------------------- | ------------------------------------------------------- | ----------------------------- | ------------------------------------------------ |
-| `value`                                                 | `string`                                                | —                             | The color, controlled.                           |
-| `defaultValue`                                          | `string`                                                | `'#000000'`                   | The starting color, uncontrolled.                |
-| `onChange`                                              | `(value: string) => void`                               | —                             | Called on every step, in `format`.               |
-| `onChangeEnd`                                           | `(value: string) => void`                               | —                             | Called when the user lets go.                    |
-| `format`                                                | `'hex' \| 'hexa' \| 'rgb' \| 'rgba' \| 'hsl' \| 'hsla'` | `'hex'`                       | The format reported; alpha formats add a slider. |
-| `swatches`                                              | `string[]`                                              | —                             | Colors to pick with one click.                   |
-| `swatchesPerRow`                                        | `number`                                                | `7`                           | Swatches per row.                                |
-| `fullWidth`                                             | `boolean`                                               | `false`                       | Stretches the panel.                             |
-| `disabled`                                              | `boolean`                                               | `false`                       | Disables it.                                     |
-| `saturationLabel`                                       | `string`                                                | `'Saturation and brightness'` | The area's accessible name.                      |
-| `hueLabel`                                              | `string`                                                | `'Hue'`                       | The hue slider's accessible name.                |
-| `alphaLabel`                                            | `string`                                                | `'Alpha'`                     | The alpha slider's accessible name.              |
-| `label`, `labelSection`, `description`, `error`, `size` | —                                                       | —                             | InputWrapper's.                                  |
+| Prop                                                                          | Type                                                    | Default                       | Description                                      |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------- | ----------------------------- | ------------------------------------------------ |
+| `value`                                                                       | `string`                                                | —                             | The color, controlled.                           |
+| `defaultValue`                                                                | `string`                                                | `'#000000'`                   | The starting color, uncontrolled.                |
+| `onChange`                                                                    | `(value: string) => void`                               | —                             | Called on every step, in `format`.               |
+| `onChangeEnd`                                                                 | `(value: string) => void`                               | —                             | Called when the user lets go.                    |
+| `format`                                                                      | `'hex' \| 'hexa' \| 'rgb' \| 'rgba' \| 'hsl' \| 'hsla'` | `'hex'`                       | The format reported; alpha formats add a slider. |
+| `swatches`                                                                    | `string[]`                                              | —                             | Colors to pick with one click.                   |
+| `swatchesPerRow`                                                              | `number`                                                | `7`                           | Swatches per row.                                |
+| `fullWidth`                                                                   | `boolean`                                               | `false`                       | Stretches the panel.                             |
+| `disabled`                                                                    | `boolean`                                               | `false`                       | Disables it.                                     |
+| `saturationLabel`                                                             | `string`                                                | `'Saturation and brightness'` | The area's accessible name.                      |
+| `hueLabel`                                                                    | `string`                                                | `'Hue'`                       | The hue slider's accessible name.                |
+| `alphaLabel`                                                                  | `string`                                                | `'Alpha'`                     | The alpha slider's accessible name.              |
+| `label`, `labelSection`, `description`, `error`, `withAsterisk`, `size`, `id` | —                                                       | —                             | InputWrapper's.                                  |
 
 ## Styling
 

@@ -76,8 +76,9 @@ export default function FileInputPage() {
       <H2 id="styling">Styling</H2>
       <p>
         The root has the classes <code>.slp-file-input</code> and <code>.slp-input-wrapper</code>. The button is the Input's{' '}
-        <code>input-control</code>, with <code>data-empty</code>; the names are in <code>file-input-value</code>. Its rules live
-        in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>input-control</code>, with <code>data-empty</code>; the names are in <code>file-input-value</code>, and the hidden
+        file input is <code>file-input-input</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS
+        wins.
       </p>
     </article>
   );

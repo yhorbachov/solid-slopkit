@@ -9,7 +9,7 @@ import { SegmentedControl } from '@solid-slopkit/ui';
 ## Usage
 
 ```tsx
-<SegmentedControl aria-label="Framework" data={['React', 'Solid', 'Vue', 'Svelte']} />
+<SegmentedControl aria-label="Theme" data={['Light', 'Dark', 'System']} />
 ```
 
 - **Data:** `data` lists the options. A string is both the value and the label. An object takes a `value`, a `label` (any JSX) and `disabled`.

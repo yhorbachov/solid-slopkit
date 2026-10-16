@@ -59,7 +59,8 @@ import './theme.css';`}
       <p>
         In the default theme, every role reaches 4.5:1 (WCAG AA) against its content color, and as text on <code>base-100</code>,
         in both color schemes; warning as text on a light surface is the one exception. In light the roles are deep shades with
-        white content, in dark they are bright shades with dark content. Check the same pairs when you write a theme.
+        white content, in dark they are bright shades with dark content; warning, a yellow, has dark content in both. Check the
+        same pairs when you write a theme.
       </p>
 
       <H2 id="tokens">Other tokens</H2>

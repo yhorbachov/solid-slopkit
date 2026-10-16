@@ -92,4 +92,4 @@ const scheme = useColorScheme();
 ```
 
 - `data-slp-color-scheme="light"` or `"dark"` on any element forces that scheme for its subtree.
-- Themes are separate from the color scheme: a theme is a CSS selector, `[data-slp-theme="<name>"]`. A theme that supports both schemes follows the preference. A single-scheme theme pins its own scheme.
+- Themes are separate from the color scheme: a theme is a CSS rule that sets the tokens, on `:root` for the default theme and on `[data-slp-theme="<name>"]` for any other. A theme that supports both schemes follows the preference. A single-scheme theme pins its own scheme.

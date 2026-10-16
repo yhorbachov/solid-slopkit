@@ -26,6 +26,7 @@ import { SimpleGrid } from '@solid-slopkit/ui';
 
 - **Style props:** only the three props above. SimpleGrid does not take Box's spacing, size or display props; wrap it in a `Box` for those.
 - For columns of different widths, use [Grid](../grid/grid.md).
+- Must be rendered inside `<SlopkitUi>`.
 
 ## Props
 

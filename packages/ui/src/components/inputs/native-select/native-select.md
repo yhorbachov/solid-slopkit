@@ -9,7 +9,7 @@ import { NativeSelect } from '@solid-slopkit/ui';
 ## Usage
 
 ```tsx
-<NativeSelect label="Framework" data={['Solid', 'Svelte', 'Vue']} />
+<NativeSelect label="Editor" data={['Vim', 'Emacs', 'Nano']} />
 
 <NativeSelect
   label="Country"
@@ -42,6 +42,8 @@ Other props are passed to the `select`. The wrapper's props (`label`, `labelSect
 | `variant`     | `'outline' \| 'soft' \| 'ghost'`                                 | `'outline'` | Visual style of the box.                    |
 | `leftSection` | `JSX.Element`                                                    | —           | Content before the select.                  |
 | `disabled`    | `boolean`                                                        | `false`     | Disables the select.                        |
+| `children`    | `JSX.Element`                                                    | —           | The `option` elements, without `data`.      |
+| `ref`         | `Ref<HTMLElement>`                                               | —           | The `select`.                               |
 
 ## Styling
 

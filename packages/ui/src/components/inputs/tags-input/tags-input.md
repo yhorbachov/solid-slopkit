@@ -68,7 +68,7 @@ Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`
 
 Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
-- Root class: `.slp-tags-input`. The box is a PillsInput's (`[data-slot="pills-input-box"]`, also `.slp-input`), the tags are `.slp-pill`s, and the dropdown a [Combobox](../combobox/combobox.md)'s (`.slp-combobox`, `.slp-combobox-option`, …).
+- Root classes: `.slp-tags-input`, plus `.slp-input-wrapper`, with InputWrapper's slots and attributes. The box is a PillsInput's (`[data-slot="pills-input-box"]`, also `.slp-input`), the tags are `.slp-pill`s, and the dropdown a [Combobox](../combobox/combobox.md)'s (`.slp-combobox`, `.slp-combobox-option`, …).
 - Slots: `tags-input-pill`, `tags-input-clear`, and PillsInput's `pills-input-content` and `pills-input-field`.
 - Attributes on the box: PillsInput's, and `data-read-only` when read only.
 - The pills' color: `--slp-pill-color` on `.slp-tags-input`.

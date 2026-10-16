@@ -55,5 +55,5 @@ Accordion passes other props to its `div`. Accordion.Item: `value` (required). A
 Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root classes: `.slp-accordion` (`[data-slot="accordion"]`, with `data-variant`), `.slp-accordion-item` (with `data-value` and `data-opened`), `.slp-accordion-control` (with `data-opened`, `data-disabled`, `data-chevron-position`, and `data-rotate` unless the rotation is off), `.slp-accordion-panel` (with `data-opened`).
-- Slots: `accordion-heading`, `accordion-chevron`, `accordion-icon`, `accordion-label` in the control; `accordion-panel-body` in the panel, which clips while it moves and holds the padding.
+- Slots: `accordion-heading` around the control; `accordion-chevron`, `accordion-icon`, `accordion-label` in the control; `accordion-panel-body` in the panel, which clips while it moves and holds the padding.
 - Custom properties, on the accordion or an ancestor: `--slp-accordion-radius` (the box's and cards' corners, `0.75rem`), `--slp-accordion-transition-duration` (`200ms`).

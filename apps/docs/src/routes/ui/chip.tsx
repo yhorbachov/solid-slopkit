@@ -73,7 +73,9 @@ export default function ChipPage() {
         ]}
       />
       <p>
-        <code>Chip.Group</code>: other props go to the InputWrapper root.
+        <code>Chip.Group</code>: other props go to the InputWrapper root. Plus InputWrapper's <code>label</code>,{' '}
+        <code>labelSection</code>, <code>description</code>, <code>error</code>, <code>withAsterisk</code>, <code>size</code> and{' '}
+        <code>id</code>; <code>aria-label</code> names the group.
       </p>
       <PropsTable
         rows={[

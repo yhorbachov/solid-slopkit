@@ -95,4 +95,4 @@ Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 - Root classes: `.slp-combobox` (the dropdown, also `[data-slot="combobox-dropdown"]`), `.slp-combobox-options` (also `[data-slot="combobox-options"]`), `.slp-combobox-option`, `.slp-combobox-group`, `.slp-combobox-empty`.
 - Slot: `combobox-group-label`.
 - Attributes: on the dropdown `data-placement`, `data-status`, `data-transition`; on an option `data-value`, `data-active`, `data-selected`, `data-disabled`.
-- The listbox's height: `.slp-combobox-options { max-height: 20rem }`.
+- The listbox's height: `.slp-combobox-options { max-height: 15rem }`.

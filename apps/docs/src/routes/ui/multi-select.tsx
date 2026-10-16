@@ -107,7 +107,7 @@ export default function MultiSelectPage() {
 
       <H2 id="styling">Styling</H2>
       <p>
-        The root has the class <code>.slp-multi-select</code>; the box is a PillsInput's (
+        The root has the classes <code>.slp-multi-select</code> and <code>.slp-input-wrapper</code>; the box is a PillsInput's (
         <code>[data-slot="pills-input-box"]</code>, also <code>.slp-input</code>, with <code>data-read-only</code> when read
         only), the pills are <code>.slp-pill</code>s and the dropdown a Combobox's. Inside are{' '}
         <code>[data-slot="multi-select-pill"]</code>, <code>[data-slot="multi-select-chevron"]</code>,{' '}

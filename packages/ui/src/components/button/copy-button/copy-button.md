@@ -41,6 +41,7 @@ Other props are passed to the `button`.
 | `size`        | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                             | `'md'`     | Size.                                             |
 | `shape`       | `'square' \| 'circle'`                                                                             | `'square'` | Shape.                                            |
 | `disabled`    | `boolean`                                                                                          | `false`    | Disables it.                                      |
+| `type`        | `'button' \| 'submit' \| 'reset'`                                                                  | `'button'` | Native type.                                      |
 
 ## Styling
 

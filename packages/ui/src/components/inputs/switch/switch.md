@@ -31,7 +31,7 @@ const [wifi, setWifi] = createSignal(true);
 
 ## Switch.Group
 
-A labelled group with one value: the array of the `value`s of the switches that are on, in the order they were turned on. It works like Checkbox.Group: `value`, `defaultValue`, `onChange`, `name`, `disabled`, and InputWrapper's `label`, `labelSection`, `description`, `error`, `size`. The switches sit in a `role="group"` named by the label; lay them out yourself.
+A labelled group with one value: the array of the `value`s of the switches that are on, in the order they were turned on. It works like Checkbox.Group: `value`, `defaultValue`, `onChange`, `name`, `disabled`, and InputWrapper's `label`, `labelSection`, `description`, `error`, `withAsterisk`, `size`. The switches sit in a `role="group"` named by the label; lay them out yourself.
 
 ## Props
 
@@ -55,7 +55,16 @@ Other props are passed to the `input`.
 
 ### Switch.Group
 
-As Checkbox.Group: `value`, `defaultValue`, `onChange` (with a `string[]`), `name`, `disabled`, and InputWrapper's props.
+Other props are passed to the InputWrapper root.
+
+| Prop                                                                          | Type                        | Default | Description                               |
+| ----------------------------------------------------------------------------- | --------------------------- | ------- | ----------------------------------------- |
+| `value`                                                                       | `string[]`                  | —       | The `value`s of the switches that are on. |
+| `defaultValue`                                                                | `string[]`                  | `[]`    | The ones on at first, uncontrolled.       |
+| `onChange`                                                                    | `(value: string[]) => void` | —       | Called with the new values.               |
+| `name`                                                                        | `string`                    | —       | The `name` of every switch.               |
+| `disabled`                                                                    | `boolean`                   | `false` | Disables every switch.                    |
+| `label`, `labelSection`, `description`, `error`, `withAsterisk`, `size`, `id` | —                           | —       | InputWrapper's.                           |
 
 ## Styling
 

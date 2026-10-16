@@ -43,4 +43,4 @@ Write plain CSS against these selectors. Component rules live in `@layer slopkit
 
 - Root classes: `.slp-burger`, plus `.slp-action-icon` and `.slp-button`.
 - Slots: `[data-slot="burger-lines"]`: the middle line, with the outer two as its `::before` and `::after`.
-- State attributes on the root: `data-opened`, plus Button's (`data-variant`, `data-color`, `data-size`, `data-disabled`).
+- State attributes on the root: `data-opened`, plus Button's (`data-variant`, `data-color`, `data-size`, `data-shape`, `data-disabled`).

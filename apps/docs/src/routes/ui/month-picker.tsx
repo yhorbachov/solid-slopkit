@@ -64,7 +64,12 @@ export default function MonthPickerPage() {
             description: 'What it chooses. Read once.',
           },
           { name: 'value', type: 'MonthPickerValue<Type>', description: 'The chosen months, when controlled.' },
-          { name: 'defaultValue', type: 'MonthPickerValue<Type>', description: 'The months chosen first, when uncontrolled.' },
+          {
+            name: 'defaultValue',
+            type: 'MonthPickerValue<Type>',
+            default: 'empty',
+            description: 'The months chosen first, when uncontrolled.',
+          },
           { name: 'onChange', type: '(value: MonthPickerValue<Type>) => void', description: 'Called with the new value.' },
           { name: 'allowDeselect', type: 'boolean', default: 'false', description: 'A click on the chosen month clears it.' },
           {

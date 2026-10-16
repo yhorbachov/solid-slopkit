@@ -16,7 +16,7 @@ import { BackgroundImage } from '@solid-slopkit/ui';
 
 - **Element:** a `div`. Its children sit on top of the image. It has no size of its own: its content, a `min-height` or the layout around it sizes it.
 - **Image:** covers the box and stays centered, whatever the box's size, so the edges are cropped. Change that with the style prop or a selector, e.g. `style={{ 'background-size': 'contain' }}`. Your `background-*` styles win. The `background` shorthand resets the image too, so set a fallback color with `background-color`.
-- **URL:** any URL. Quotes, spaces and backslashes are escaped for CSS, so a file name with a space works.
+- **URL:** any URL. It's quoted for CSS, with quotes and backslashes escaped, so a file name with a space or a quote works.
 - **Accessibility:** a background image has no text alternative, so it should be decorative. When the picture carries meaning, use an [Image](../image/image.md), or give the box `role="img"` and an `aria-label` when it holds no content.
 - **Readable text on top:** the image can be light or dark anywhere. Put the text on a surface of its own, or lay a gradient between, such as a child with `background: linear-gradient(transparent, rgb(0 0 0 / 0.6))`.
 

@@ -76,6 +76,11 @@ export default function CommandPage() {
       </p>
 
       <H2 id="props">Props</H2>
+      <p>
+        Command passes other props to its <code>div</code>. <code>Command.Input</code> passes its props to the{' '}
+        <a href="/ui/input">Input</a> (a <code>ghost</code> one, <code>lg</code>, with a search icon that <code>leftSection</code>{' '}
+        replaces).
+      </p>
       <PropsTable
         rows={[
           { name: 'search', type: 'string', description: 'The search text, for a controlled one.' },
@@ -83,7 +88,16 @@ export default function CommandPage() {
           { name: 'value', type: 'string', description: "The active item's value, for a controlled one." },
           { name: 'onValueChange', type: '(value: string | undefined) => void', description: 'Called as the active item moves.' },
           { name: 'filter', type: '(value, search, keywords) => boolean', description: 'Whether an item is found.' },
-          { name: 'shouldFilter', type: 'boolean', default: 'true', description: '`false` shows every item.' },
+          {
+            name: 'shouldFilter',
+            type: 'boolean',
+            default: 'true',
+            description: (
+              <>
+                <code>false</code> shows every item.
+              </>
+            ),
+          },
           { name: 'loop', type: 'boolean', default: 'true', description: 'Whether the arrow keys wrap around.' },
         ]}
       />
@@ -114,7 +128,7 @@ export default function CommandPage() {
           { name: 'onOpenedChange', type: '(opened: boolean) => void', description: 'Called when it asks to open or close.' },
           {
             name: 'shortcut',
-            type: 'string | string[] | null',
+            type: 'string | readonly string[] | null',
             default: "'mod+K'",
             description: 'The key press that asks it to open and close.',
           },
@@ -126,10 +140,10 @@ export default function CommandPage() {
       <p>
         The root is <code>.slp-command</code>, a bordered surface; a CommandDialog's <code>{'<dialog>'}</code> is{' '}
         <code>.slp-command-dialog</code>, also a <code>.slp-modal</code>, and is the surface instead. The parts are{' '}
-        <code>.slp-command-list</code>, <code>.slp-command-item</code> (with <code>data-active</code>, <code>data-disabled</code>{' '}
-        and <code>hidden</code>), <code>.slp-command-group</code>, <code>.slp-command-separator</code>,{' '}
-        <code>.slp-command-empty</code> and <code>.slp-command-shortcut</code>, with matching <code>data-slot</code>s, plus{' '}
-        <code>command-group-heading</code> and <code>command-input</code>. The rules live in{' '}
+        <code>.slp-command-list</code>, <code>.slp-command-item</code> (with <code>data-active</code>, <code>data-disabled</code>,{' '}
+        <code>data-value</code> when given, and <code>hidden</code>), <code>.slp-command-group</code>,{' '}
+        <code>.slp-command-separator</code>, <code>.slp-command-empty</code> and <code>.slp-command-shortcut</code>, with matching{' '}
+        <code>data-slot</code>s, plus <code>command-group-heading</code> and <code>command-input</code>. The rules live in{' '}
         <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>

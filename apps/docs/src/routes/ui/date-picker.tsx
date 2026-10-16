@@ -59,7 +59,12 @@ export default function DatePickerPage() {
             description: 'What it chooses. Read once.',
           },
           { name: 'value', type: 'DatePickerValue<Type>', description: 'The chosen days, when controlled.' },
-          { name: 'defaultValue', type: 'DatePickerValue<Type>', description: 'The days chosen first, when uncontrolled.' },
+          {
+            name: 'defaultValue',
+            type: 'DatePickerValue<Type>',
+            default: 'empty',
+            description: 'The days chosen first, when uncontrolled.',
+          },
           { name: 'onChange', type: '(value: DatePickerValue<Type>) => void', description: 'Called with the new value.' },
           { name: 'allowDeselect', type: 'boolean', default: 'false', description: 'A click on the chosen day clears it.' },
           {

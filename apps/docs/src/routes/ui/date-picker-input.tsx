@@ -25,8 +25,8 @@ export default function DatePickerInputPage() {
       <H2 id="usage">Usage</H2>
       <p>
         The field is a button that shows the value, written in the locale, and opens a <a href="/ui/date-picker">DatePicker</a> in
-        a dropdown. The calendar takes the focus; choosing a day closes it and returns the focus to the field, and so do Escape
-        and a press outside. <code>clearable</code> adds a button that empties it.
+        a dropdown. The calendar takes the focus; choosing a day closes it and returns the focus to the field, and so does Escape;
+        a press outside closes it too. <code>clearable</code> adds a button that empties it.
       </p>
       <Example component={Basic} code={basicCode} />
 

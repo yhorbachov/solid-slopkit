@@ -36,6 +36,9 @@ export default function TimeGridPage() {
       <Example component={Columns} code={columnsCode} />
 
       <H2 id="props">Props</H2>
+      <p>
+        Other props go to the root <code>div</code>; name the grid with <code>aria-label</code> or <code>aria-labelledby</code>.
+      </p>
       <PropsTable
         rows={[
           { name: 'data', type: 'string[]', description: 'The times, HH:mm or HH:mm:ss.' },

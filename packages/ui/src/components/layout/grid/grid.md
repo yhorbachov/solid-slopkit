@@ -51,6 +51,7 @@ import { Grid } from '@solid-slopkit/ui';
 
 - **Style props:** only the props listed below. Grid and Grid.Col do not take Box's spacing, size or display props.
 - For a grid where every cell is the same width, use [SimpleGrid](../simple-grid/simple-grid.md).
+- Must be rendered inside `<SlopkitUi>`.
 
 ## Props
 

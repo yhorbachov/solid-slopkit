@@ -97,10 +97,11 @@ export default function AccordionPage() {
       <p>
         The root is <code>.slp-accordion</code> with <code>data-variant</code>; inside are <code>.slp-accordion-item</code>,{' '}
         <code>.slp-accordion-control</code> and <code>.slp-accordion-panel</code>, each with <code>data-opened</code> while open.
-        The control holds <code>[data-slot="accordion-chevron"]</code>, <code>[data-slot="accordion-icon"]</code> and{' '}
-        <code>[data-slot="accordion-label"]</code>; the panel holds <code>[data-slot="accordion-panel-body"]</code>, which has the
-        padding. <code>--slp-accordion-radius</code> sets the corners and <code>--slp-accordion-transition-duration</code> the
-        animation. The rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        The control sits in a <code>[data-slot="accordion-heading"]</code> and holds <code>[data-slot="accordion-chevron"]</code>,{' '}
+        <code>[data-slot="accordion-icon"]</code> and <code>[data-slot="accordion-label"]</code>; the panel holds{' '}
+        <code>[data-slot="accordion-panel-body"]</code>, which has the padding. <code>--slp-accordion-radius</code> sets the
+        corners and <code>--slp-accordion-transition-duration</code> the animation. The rules live in{' '}
+        <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

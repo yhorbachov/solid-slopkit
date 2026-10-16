@@ -78,6 +78,12 @@ export default function SwitchPage() {
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables it.' },
         ]}
       />
+      <p>
+        <code>Switch.Group</code> takes <code>value</code>, <code>defaultValue</code>, <code>onChange</code> (with a{' '}
+        <code>string[]</code>), <code>name</code>, <code>disabled</code> and InputWrapper's <code>label</code>,{' '}
+        <code>labelSection</code>, <code>description</code>, <code>error</code>, <code>withAsterisk</code>, <code>size</code> and{' '}
+        <code>id</code>; other props go to its root.
+      </p>
 
       <H2 id="styling">Styling</H2>
       <p>

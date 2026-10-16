@@ -29,23 +29,23 @@ const [day, setDay] = createSignal(createDay(2026, 9, 15));
 
 ## Props
 
-| Prop            | Type                                   | Default           | Description                              |
-| --------------- | -------------------------------------- | ----------------- | ---------------------------------------- |
-| `value`         | `Date \| null`                         | —                 | The chosen day, when controlled.         |
-| `defaultValue`  | `Date \| null`                         | —                 | The day chosen first, when uncontrolled. |
-| `onChange`      | `(date: Date) => void`                 | —                 | Called when another day is chosen.       |
-| `date`          | `Date`                                 | —                 | The first day shown, when controlled.    |
-| `defaultDate`   | `Date`                                 | the value, today  | The first day shown first.               |
-| `onDateChange`  | `(date: Date) => void`                 | —                 | Called with the new first day.           |
-| `numberOfDays`  | `number`                               | `7`               | How many days show.                      |
-| `minDate`       | `Date`                                 | —                 | The earliest day that can be chosen.     |
-| `maxDate`       | `Date`                                 | —                 | The latest day that can be chosen.       |
-| `excludeDate`   | `(date: Date) => boolean`              | —                 | Days that can't be chosen.               |
-| `locale`        | `string`                               | the provider's    | A locale for this mini calendar.         |
-| `color`         | `SlopColor`                            | `'primary'`       | The chosen day's color role.             |
-| `size`          | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`            | The days' size.                          |
-| `previousLabel` | `string`                               | `'Previous days'` | The previous button's name.              |
-| `nextLabel`     | `string`                               | `'Next days'`     | The next button's name.                  |
+| Prop            | Type                                   | Default               | Description                              |
+| --------------- | -------------------------------------- | --------------------- | ---------------------------------------- |
+| `value`         | `Date \| null`                         | —                     | The chosen day, when controlled.         |
+| `defaultValue`  | `Date \| null`                         | —                     | The day chosen first, when uncontrolled. |
+| `onChange`      | `(date: Date) => void`                 | —                     | Called when another day is chosen.       |
+| `date`          | `Date`                                 | —                     | The first day shown, when controlled.    |
+| `defaultDate`   | `Date`                                 | the value, else today | The first day shown first.               |
+| `onDateChange`  | `(date: Date) => void`                 | —                     | Called with the new first day.           |
+| `numberOfDays`  | `number`                               | `7`                   | How many days show.                      |
+| `minDate`       | `Date`                                 | —                     | The earliest day that can be chosen.     |
+| `maxDate`       | `Date`                                 | —                     | The latest day that can be chosen.       |
+| `excludeDate`   | `(date: Date) => boolean`              | —                     | Days that can't be chosen.               |
+| `locale`        | `string`                               | the provider's        | A locale for this mini calendar.         |
+| `color`         | `SlopColor`                            | `'primary'`           | The chosen day's color role.             |
+| `size`          | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`                | The days' size.                          |
+| `previousLabel` | `string`                               | `'Previous days'`     | The previous button's name.              |
+| `nextLabel`     | `string`                               | `'Next days'`         | The next button's name.                  |
 
 ## Styling
 

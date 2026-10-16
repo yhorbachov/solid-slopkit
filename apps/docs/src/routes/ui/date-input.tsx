@@ -66,6 +66,9 @@ export default function DateInputPage() {
           { name: 'name', type: 'string', description: 'Submits the ISO day through a hidden input.' },
           { name: 'readOnly', type: 'boolean', default: 'false', description: 'Shows the day without letting it change.' },
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the field.' },
+          { name: 'variant', type: "'outline' | 'soft' | 'ghost'", default: "'outline'", description: "The box's look." },
+          { name: 'leftSection', type: 'JSX.Element', description: 'Content before the text.' },
+          { name: 'rightSection', type: 'JSX.Element', description: "Content after the text, when there's no clear." },
           {
             name: 'position',
             type: 'FloatingPlacement',

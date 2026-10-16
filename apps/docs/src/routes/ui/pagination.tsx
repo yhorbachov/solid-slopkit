@@ -78,12 +78,13 @@ export default function PaginationPage() {
       <H2 id="styling">Styling</H2>
       <p>
         The root is <code>.slp-pagination</code>, with <code>data-size</code>, <code>data-color</code> and{' '}
-        <code>data-disabled</code>. Items are <code>[data-slot="pagination-page"]</code>, <code>pagination-previous</code>,{' '}
-        <code>pagination-next</code>, <code>pagination-first</code> and <code>pagination-last</code>, with{' '}
-        <code>data-current</code> on the current page and <code>data-disabled</code> on one that goes nowhere; the gap is{' '}
-        <code>pagination-dots</code>. <code>--slp-pagination-color</code>, <code>--slp-pagination-content</code> and{' '}
-        <code>--slp-pagination-radius</code> set the current page's colors and the corners. The rules live in{' '}
-        <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>data-disabled</code>. The list is <code>[data-slot="pagination-list"]</code>. Items are{' '}
+        <code>[data-slot="pagination-page"]</code>, <code>pagination-previous</code>, <code>pagination-next</code>,{' '}
+        <code>pagination-first</code> and <code>pagination-last</code>, with <code>data-current</code> on the current page and{' '}
+        <code>data-disabled</code> on one that goes nowhere; the gap is <code>pagination-dots</code>.{' '}
+        <code>--slp-pagination-color</code>, <code>--slp-pagination-content</code> and <code>--slp-pagination-radius</code> set
+        the current page's colors and the corners. The rules live in <code>@layer slopkit.components</code>, so unlayered CSS
+        wins.
       </p>
     </article>
   );

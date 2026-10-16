@@ -52,6 +52,7 @@ export default function ImagePage() {
       </p>
       <PropsTable
         rows={[
+          { name: 'src', type: 'string', description: 'The image URL.' },
           { name: 'alt', type: 'string', description: 'Text alternative. Required; "" for a decorative image.' },
           {
             name: 'fit',

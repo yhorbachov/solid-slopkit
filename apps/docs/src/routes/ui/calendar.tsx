@@ -130,9 +130,11 @@ export default function CalendarPage() {
         Each period is a <code>[data-slot="calendar-column"]</code> holding <code>calendar-header</code> (with{' '}
         <code>calendar-previous</code>, <code>calendar-level</code> and <code>calendar-next</code>) and <code>calendar-grid</code>
         , whose cells are <code>calendar-weekday</code>, <code>calendar-day</code>, <code>calendar-month</code> or{' '}
-        <code>calendar-year</code>. A cell has <code>data-outside</code>, <code>data-weekend</code>, <code>data-today</code>,{' '}
-        <code>data-selected</code>, <code>data-in-range</code>, <code>data-first-in-range</code>, <code>data-last-in-range</code>{' '}
-        and <code>data-disabled</code> as they apply. <code>--slp-calendar-color</code>, <code>--slp-calendar-content</code> and{' '}
+        <code>calendar-year</code>. A previous, next or level button has <code>data-disabled</code> when it goes nowhere. A cell
+        has <code>data-date</code> (<code>2026-10-15</code>, <code>2026-10</code> or <code>2026</code>), and{' '}
+        <code>data-outside</code>, <code>data-weekend</code>, <code>data-today</code>, <code>data-selected</code>,{' '}
+        <code>data-in-range</code>, <code>data-first-in-range</code>, <code>data-last-in-range</code> and{' '}
+        <code>data-disabled</code> as they apply. <code>--slp-calendar-color</code>, <code>--slp-calendar-content</code> and{' '}
         <code>--slp-calendar-radius</code> set the selected cells' colors and the corners. The rules live in{' '}
         <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>

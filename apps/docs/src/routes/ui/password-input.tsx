@@ -60,6 +60,8 @@ export default function PasswordInputPage() {
           },
           { name: 'leftSection', type: 'JSX.Element', description: 'Content before the input.' },
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input and the toggle.' },
+          { name: 'readOnly', type: 'boolean', default: 'false', description: 'Makes the input read-only.' },
+          { name: 'ref', type: 'Ref<HTMLElement>', description: 'The input.' },
         ]}
       />
 

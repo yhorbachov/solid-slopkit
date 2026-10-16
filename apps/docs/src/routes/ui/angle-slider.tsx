@@ -38,7 +38,10 @@ export default function AngleSliderPage() {
       <Example component={Compass} code={compassCode} />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the InputWrapper root.</p>
+      <p>
+        Other props are passed to the InputWrapper root. Plus InputWrapper's <code>label</code>, <code>labelSection</code>,{' '}
+        <code>description</code>, <code>error</code>, <code>withAsterisk</code>, <code>size</code> and <code>id</code>.
+      </p>
       <PropsTable
         rows={[
           { name: 'value', type: 'number', description: 'The angle, controlled.' },
@@ -74,8 +77,10 @@ export default function AngleSliderPage() {
       <H2 id="styling">Styling</H2>
       <p>
         The root has the classes <code>.slp-angle-slider</code> and <code>.slp-input-wrapper</code>. Its slots are{' '}
-        <code>angle-slider-dial</code>, <code>angle-slider-thumb</code>, <code>angle-slider-mark</code> and{' '}
-        <code>angle-slider-label</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>angle-slider-dial</code> (with <code>data-dragging</code>), <code>angle-slider-thumb</code>,{' '}
+        <code>angle-slider-mark</code>, <code>angle-slider-label</code> and <code>angle-slider-input</code>; the root has{' '}
+        <code>data-color</code> and <code>data-disabled</code>. Its rules live in <code>@layer slopkit.components</code>, so
+        unlayered CSS wins.
       </p>
       <CssVarsTable
         rows={[{ name: '--slp-angle-slider-color', default: 'var(--slp-color-<color>)', description: 'The arc and the thumb.' }]}

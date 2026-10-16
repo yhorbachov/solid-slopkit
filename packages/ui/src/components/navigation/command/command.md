@@ -33,7 +33,7 @@ import { Command, CommandDialog } from '@solid-slopkit/ui';
 </Command>
 ```
 
-- **Parts:** `Command.Input` and `Command.List` inside `<Command>`; `Command.Item`, `Command.Group`, `Command.Separator` and `Command.Empty` inside the list; `Command.Shortcut` inside an item. The parts throw outside `<Command>`.
+- **Parts:** `Command.Input` and `Command.List` inside `<Command>`; `Command.Item`, `Command.Group`, `Command.Separator` and `Command.Empty` inside the list; `Command.Shortcut` inside an item. The parts but `Command.Shortcut` throw outside `<Command>`.
 - **Items:** `Command.Item` is an `option` with any content: an icon, its text, a `Command.Shortcut`. `value` is what it's searched by and what `onSelect(value)` gets, and defaults to its text, read once it's in the DOM. `keywords` are more words it's found by, not shown. `disabled` shows it but it can't be selected, and the keyboard skips it. Other props go to its `div`.
 - **Search:** by default an item is found when its value or keywords contain every word of the search, ignoring case. An empty search shows every item. Items the search doesn't find get `hidden`; they stay in the DOM in the order written. `filter(value, search, keywords)` replaces the test; `shouldFilter={false}` shows every item, for results filtered elsewhere (such as on a server) and rendered as they come. `defaultCommandFilter` is exported for a filter that builds on it.
 - **Groups:** `Command.Group` is a `group` named by its `heading`, hidden while the search finds none of its items. `Command.Separator` is a line, hidden during a search unless it has `alwaysRender`.
@@ -95,12 +95,12 @@ Other props go to the root `div`.
 
 The Command's props above, the Modal's props listed above, and:
 
-| Prop             | Type                         | Default   | Description                                   |
-| ---------------- | ---------------------------- | --------- | --------------------------------------------- |
-| `opened`         | `boolean`                    | —         | Whether it is open. Required.                 |
-| `onOpenedChange` | `(opened: boolean) => void`  | —         | Called when it asks to open or close.         |
-| `shortcut`       | `string \| string[] \| null` | `'mod+K'` | The key press that asks it to open and close. |
-| `closeOnSelect`  | `boolean`                    | `true`    | Whether selecting an item closes it.          |
+| Prop             | Type                                  | Default   | Description                                   |
+| ---------------- | ------------------------------------- | --------- | --------------------------------------------- |
+| `opened`         | `boolean`                             | —         | Whether it is open. Required.                 |
+| `onOpenedChange` | `(opened: boolean) => void`           | —         | Called when it asks to open or close.         |
+| `shortcut`       | `string \| readonly string[] \| null` | `'mod+K'` | The key press that asks it to open and close. |
+| `closeOnSelect`  | `boolean`                             | `true`    | Whether selecting an item closes it.          |
 
 ## Styling
 

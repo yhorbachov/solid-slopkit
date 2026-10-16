@@ -24,9 +24,9 @@ export default function SemiCircleProgressPage() {
 
       <H2 id="usage">Usage</H2>
       <p>
-        The arc runs from the left end over the top. Children sit centered along the bottom, inside the arc. It has the same props
-        as <a href="/ui/progress">Progress</a> and <a href="/ui/ring-progress">RingProgress</a>; here the gauge is named by the
-        visible caption through <code>aria-labelledby</code>.
+        The arc runs from the left end over the top. Children sit centered along the bottom, inside the arc. It shares its main
+        props with <a href="/ui/progress">Progress</a> and <a href="/ui/ring-progress">RingProgress</a>; here the gauge is named
+        by the visible caption through <code>aria-labelledby</code>.
       </p>
       <Example component={Basic} code={basicCode} />
 

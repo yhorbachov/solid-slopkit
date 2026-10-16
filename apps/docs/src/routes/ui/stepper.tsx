@@ -86,10 +86,13 @@ export default function StepperPage() {
       <H2 id="styling">Styling</H2>
       <p>
         The root is <code>.slp-stepper</code>, with <code>data-orientation</code>, <code>data-color</code>, <code>data-size</code>{' '}
-        and <code>data-completed</code>. Each step is <code>.slp-stepper-step</code> with <code>data-state</code> (
-        <code>completed</code>, <code>current</code> or <code>upcoming</code>), holding{' '}
-        <code>[data-slot="stepper-step-icon"]</code>, <code>[data-slot="stepper-step-label"]</code>,{' '}
-        <code>[data-slot="stepper-step-description"]</code> and <code>[data-slot="stepper-separator"]</code>; the content is{' '}
+        and <code>data-completed</code>. The steps' list is <code>[data-slot="stepper-steps"]</code>. Each step is{' '}
+        <code>.slp-stepper-step</code> (<code>[data-slot="stepper-step"]</code>) with <code>data-state</code> (
+        <code>completed</code>, <code>current</code> or <code>upcoming</code>), <code>data-color</code> and <code>data-last</code>
+        , holding <code>[data-slot="stepper-step-control"]</code> (the button, or a <code>div</code>) with{' '}
+        <code>[data-slot="stepper-step-icon"]</code> (and its <code>stepper-step-number</code>),{' '}
+        <code>[data-slot="stepper-step-body"]</code> with <code>stepper-step-label</code> and{' '}
+        <code>stepper-step-description</code>, then <code>[data-slot="stepper-separator"]</code>; the content is{' '}
         <code>[data-slot="stepper-content"]</code>. <code>--slp-stepper-color</code> and <code>--slp-stepper-content</code> set
         the colors. The rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>

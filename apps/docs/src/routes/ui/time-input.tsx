@@ -50,6 +50,8 @@ export default function TimeInputPage() {
           { name: 'minTime', type: 'string', description: 'The earliest time.' },
           { name: 'maxTime', type: 'string', description: 'The latest time.' },
           { name: 'variant', type: "'outline' | 'soft' | 'ghost'", default: "'outline'", description: "The box's look." },
+          { name: 'leftSection', type: 'JSX.Element', description: 'Content before the time.' },
+          { name: 'rightSection', type: 'JSX.Element', description: 'Content after the time.' },
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the field.' },
           { name: 'readOnly', type: 'boolean', default: 'false', description: 'Shows the time without letting it change.' },
         ]}

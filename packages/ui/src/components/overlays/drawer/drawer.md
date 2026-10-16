@@ -57,4 +57,4 @@ Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root class, on the `<dialog>`: `.slp-drawer`; its backdrop is `.slp-drawer::backdrop`.
 - Attributes on it: `data-position`, `data-size`, `data-status`.
-- Slots: `[data-slot="drawer-content"]` (the panel, with `data-transition`), `drawer-header`, `drawer-title`, `drawer-close`, `drawer-body`.
+- Slots: `[data-slot="drawer-content"]` (the panel, with `data-transition` and `data-status`), `drawer-header`, `drawer-title`, `drawer-close`, `drawer-body`.

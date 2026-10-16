@@ -40,7 +40,8 @@ export default function DateTimePickerPage() {
       <p>
         The <a href="/ui/date-picker#props">DatePicker's props</a> for one day go to the calendar, and <code>label</code>,{' '}
         <code>labelSection</code>, <code>description</code>, <code>error</code>, <code>required</code>, <code>withAsterisk</code>,{' '}
-        <code>size</code> and <code>id</code> work as on <a href="/ui/text-input">TextInput</a>. Plus these:
+        <code>size</code> and <code>id</code> work as on <a href="/ui/text-input">TextInput</a>. Other props go to the button.
+        Plus these:
       </p>
       <PropsTable
         rows={[
@@ -55,7 +56,11 @@ export default function DateTimePickerPage() {
             description: 'How the value is written.',
           },
           { name: 'withSeconds', type: 'boolean', default: 'false', description: 'Adds the seconds.' },
-          { name: 'timePickerProps', type: 'TimePickerProps', description: 'Props for the time picker.' },
+          {
+            name: 'timePickerProps',
+            type: "Omit<TimePickerProps, 'value' | 'defaultValue' | 'onChange' | 'withSeconds'>",
+            description: 'Props for the time picker.',
+          },
           { name: 'timeLabel', type: 'string', default: "'Time'", description: "The time picker's label." },
           { name: 'submitLabel', type: 'string', default: "'Done'", description: 'The text of the button that closes it.' },
           { name: 'clearable', type: 'boolean', default: 'false', description: 'Adds a button that clears the value.' },
@@ -63,6 +68,13 @@ export default function DateTimePickerPage() {
           { name: 'name', type: 'string', description: 'Submits the local date and time.' },
           { name: 'readOnly', type: 'boolean', default: 'false', description: 'Shows the value without letting it change.' },
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the field.' },
+          { name: 'variant', type: "'outline' | 'soft' | 'ghost'", default: "'outline'", description: "The box's look." },
+          { name: 'leftSection', type: 'JSX.Element', description: 'Content before the value.' },
+          {
+            name: 'rightSection',
+            type: 'JSX.Element',
+            description: 'Content after the value; the clear button takes its place while it shows.',
+          },
           {
             name: 'position',
             type: 'FloatingPlacement',
@@ -79,8 +91,8 @@ export default function DateTimePickerPage() {
       <p>
         The root is <code>.slp-date-time-picker</code>, and the field box an <code>.slp-input</code>. The text is the{' '}
         <code>date-time-picker-value</code> slot and the clear button <code>date-time-picker-clear</code>. The dropdown is{' '}
-        <code>.slp-date-time-picker-dropdown</code>, holding a <code>.slp-date-picker</code>, the time (
-        <code>date-time-picker-time</code>) and the button (<code>date-time-picker-submit</code>).
+        <code>.slp-date-time-picker-dropdown</code>, holding a <code>.slp-date-picker</code>, the time picker (its group of
+        segments is <code>date-time-picker-time</code>) and the button (<code>date-time-picker-submit</code>).
       </p>
     </article>
   );

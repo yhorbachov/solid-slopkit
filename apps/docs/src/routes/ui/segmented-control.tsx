@@ -47,7 +47,7 @@ export default function SegmentedControlPage() {
 
       <H2 id="colors">Colors</H2>
       <p>
-        <code>color</code> fills the indicator with a theme color. <code>withItemsBorders={'{false}'}</code> removes the
+        <code>color</code> fills the indicator with a color role. <code>withItemsBorders={'{false}'}</code> removes the
         separators.
       </p>
       <Example component={Colors} code={colorsCode} column />

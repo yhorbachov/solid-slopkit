@@ -39,7 +39,11 @@ export default function SliderPage() {
       <Example component={Marks} code={marksCode} />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the InputWrapper root.</p>
+      <p>
+        Other props are passed to the InputWrapper root. Plus InputWrapper's <code>label</code>, <code>labelSection</code>,{' '}
+        <code>description</code>, <code>error</code>, <code>required</code>, <code>withAsterisk</code>, <code>size</code> and{' '}
+        <code>id</code>.
+      </p>
       <PropsTable
         rows={[
           { name: 'value', type: 'number', description: 'The value, controlled.' },
@@ -59,7 +63,7 @@ export default function SliderPage() {
             name: 'valueLabel',
             type: '((value: number) => JSX.Element) | null',
             default: 'the value',
-            description: 'The bubble over the thumb.',
+            description: 'The bubble over the thumb; null hides it.',
           },
           { name: 'valueLabelAlwaysOn', type: 'boolean', default: 'false', description: 'Shows the bubble all the time.' },
           {

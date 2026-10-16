@@ -27,9 +27,9 @@ export default function TextInputPage() {
       <H2 id="usage">Usage</H2>
       <p>
         <code>label</code>, <code>labelSection</code>, <code>description</code>, <code>error</code>, <code>required</code>,{' '}
-        <code>size</code>, <code>id</code>, <code>class</code> and <code>style</code> go to the wrapper, the root of the field.
-        Every other prop goes to the <code>input</code>. Controlled with <code>value</code> and <code>onInput</code>, which fires
-        on every keystroke, or uncontrolled.
+        <code>withAsterisk</code>, <code>size</code>, <code>id</code>, <code>class</code> and <code>style</code> go to the
+        wrapper, the root of the field. Every other prop goes to the <code>input</code>. Controlled with <code>value</code> and{' '}
+        <code>onInput</code>, which fires on every keystroke, or uncontrolled.
       </p>
       <Example component={Basic} code={basicCode} />
 

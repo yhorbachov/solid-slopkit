@@ -21,7 +21,7 @@ import { SemiCircleProgress } from '@solid-slopkit/ui';
 - **Center:** children sit centered along the bottom, inside the arc, such as the value.
 - **Accessible name:** `label`, `Progress` by default. When a visible label exists, point `aria-labelledby` at it and `label` is left out. `aria-valuetext` passes through.
 - **Look:** `color` takes a color role and defaults to `primary`. `size` from `xs` to `xl` sets the width: 64, 88, 128, 176 or 224px. The height is 55% of the width.
-- It has the same props as Progress and RingProgress.
+- It shares `value`, `max`, `color`, `size` and `label` with Progress and RingProgress.
 
 ## Props
 

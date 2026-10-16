@@ -87,13 +87,13 @@ export async function leaveWithUnsavedChanges() {
           { name: 'update', type: '(id: string, settings) => void', description: 'Changes an open modal.' },
           { name: 'close', type: '(id: string) => void', description: 'Closes one; an unanswered confirm counts as cancelled.' },
           { name: 'closeAll', type: '() => void', description: 'Closes every one, the newest first.' },
-          { name: 'modals', type: 'Accessor<ModalEntry[]>', description: 'The open modals (hook only).' },
+          { name: 'modals', type: 'Accessor<readonly ModalEntry[]>', description: 'The open modals (hook only).' },
         ]}
       />
 
       <H2 id="settings">Settings</H2>
       <p>
-        <a href="/ui/modal">Modal</a>'s props (except <code>opened</code> and <code>onClose</code>), and:
+        <a href="/ui/modal">Modal</a>'s props (except <code>opened</code>, <code>onClose</code> and <code>onExited</code>), and:
       </p>
       <PropsTable
         rows={[
@@ -107,8 +107,8 @@ export async function leaveWithUnsavedChanges() {
             default: "'Confirm', 'Cancel'",
             description: "Confirm: the buttons' text.",
           },
-          { name: 'confirmProps', type: 'ButtonProps', description: 'Confirm: props for the confirm button.' },
-          { name: 'cancelProps', type: 'ButtonProps', description: 'Confirm: props for the cancel button.' },
+          { name: 'confirmProps', type: 'ButtonRootProps', description: 'Confirm: props for the confirm button.' },
+          { name: 'cancelProps', type: 'ButtonRootProps', description: 'Confirm: props for the cancel button.' },
           { name: 'onConfirm', type: '() => void', description: 'Confirm: called when confirmed.' },
           { name: 'onCancel', type: '() => void', description: 'Confirm: called when closed any other way.' },
           { name: 'closeOnConfirm', type: 'boolean', default: 'true', description: 'Confirm: whether confirming closes it.' },

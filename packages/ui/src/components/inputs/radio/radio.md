@@ -37,7 +37,7 @@ const [plan, setPlan] = createSignal('monthly');
 
 ## Radio.Card
 
-A card that is a radio: a `label` around a hidden native radio, an indicator and your content. A click anywhere on it chooses it. The content is its accessible name, so keep it short, without links or buttons. It takes `value`, `color` and `disabled`, and the group's state like a Radio.
+A card that is a radio: a `label` around a hidden native radio, an indicator and your content. A click anywhere on it chooses it. The content is its accessible name, so keep it short, without links or buttons. It takes `value`, `color`, `disabled` and `name`, and the group's state like a Radio.
 
 ## Props
 
@@ -69,6 +69,19 @@ Other props are passed to the `input`.
 | `labelPosition`                         | `'right' \| 'left'`                                                                                | `'right'`       | Which side of the circle the label goes; `left` puts the circle at the row's end. |
 | `disabled`                              | `boolean`                                                                                          | `false`         | Disables it.                                                                      |
 | `checked`, `defaultChecked`, `onChange` | —                                                                                                  | —               | Outside a group only.                                                             |
+
+### Radio.Card
+
+Other props are passed to the hidden `input`; `class` and `style` to the `label`.
+
+| Prop                                    | Type                                                                                               | Default     | Description                                     |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------- | ----------- | ----------------------------------------------- |
+| `value`                                 | `string`                                                                                           | —           | Its value in the group.                         |
+| `children`                              | `JSX.Element`                                                                                      | —           | The content, which is also its accessible name. |
+| `color`                                 | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'` | Color of the chosen circle and border.          |
+| `disabled`                              | `boolean`                                                                                          | `false`     | Disables it.                                    |
+| `name`                                  | `string`                                                                                           | group's     | The input's `name`.                             |
+| `checked`, `defaultChecked`, `onChange` | —                                                                                                  | —           | Outside a group only.                           |
 
 ## Styling
 

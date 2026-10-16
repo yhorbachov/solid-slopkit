@@ -38,7 +38,10 @@ export default function ColorPickerPage() {
       <Example component={Alpha} code={alphaCode} />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the InputWrapper root.</p>
+      <p>
+        Other props are passed to the InputWrapper root. Plus InputWrapper's <code>label</code>, <code>labelSection</code>,{' '}
+        <code>description</code>, <code>error</code>, <code>withAsterisk</code>, <code>size</code> and <code>id</code>.
+      </p>
       <PropsTable
         rows={[
           { name: 'value', type: 'string', description: 'The color, controlled.' },
@@ -70,8 +73,9 @@ export default function ColorPickerPage() {
       <p>
         The root has the classes <code>.slp-color-picker</code> and <code>.slp-input-wrapper</code>. Its slots are{' '}
         <code>color-picker-body</code>, <code>color-picker-saturation</code>, <code>color-picker-hue</code>,{' '}
-        <code>color-picker-alpha</code>, <code>color-picker-thumb</code>, <code>color-picker-preview</code> and{' '}
-        <code>color-picker-swatch</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>color-picker-alpha</code>, <code>color-picker-thumb</code>, <code>color-picker-preview</code>,{' '}
+        <code>color-picker-swatches</code> and <code>color-picker-swatch</code>; the root has <code>data-full-width</code> and{' '}
+        <code>data-disabled</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

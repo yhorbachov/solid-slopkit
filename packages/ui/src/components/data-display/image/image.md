@@ -29,6 +29,7 @@ Other props are passed to the `img`.
 
 | Prop          | Type                                                       | Default   | Description                                      |
 | ------------- | ---------------------------------------------------------- | --------- | ------------------------------------------------ |
+| `src`         | `string`                                                   | —         | The image URL.                                   |
 | `alt`         | `string`                                                   | —         | Text alternative. Required; `""` for decoration. |
 | `fit`         | `'cover' \| 'contain' \| 'fill' \| 'none' \| 'scale-down'` | `'cover'` | How the picture fills a box of another ratio.    |
 | `fallbackSrc` | `string`                                                   | —         | Shown instead of `src` when it fails to load.    |

@@ -107,11 +107,11 @@ export default function TagsInputPage() {
 
       <H2 id="styling">Styling</H2>
       <p>
-        The root has the class <code>.slp-tags-input</code>; the box is a PillsInput's (<code>[data-slot="pills-input-box"]</code>
-        , also <code>.slp-input</code>, with <code>data-read-only</code> when read only), the tags are <code>.slp-pill</code>s and
-        the dropdown a Combobox's. Inside are <code>[data-slot="tags-input-pill"]</code> and{' '}
-        <code>[data-slot="tags-input-clear"]</code>. <code>--slp-pill-color</code> on the root colors the tags. The rules live in{' '}
-        <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        The root has the classes <code>.slp-tags-input</code> and <code>.slp-input-wrapper</code>; the box is a PillsInput's (
+        <code>[data-slot="pills-input-box"]</code>, also <code>.slp-input</code>, with <code>data-read-only</code> when read
+        only), the tags are <code>.slp-pill</code>s and the dropdown a Combobox's. Inside are{' '}
+        <code>[data-slot="tags-input-pill"]</code> and <code>[data-slot="tags-input-clear"]</code>. <code>--slp-pill-color</code>{' '}
+        on the root colors the tags. The rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

@@ -52,7 +52,12 @@ export default function TableOfContentsPage() {
         rows={[
           { name: 'headings', type: 'TableOfContentsHeading[]', description: 'The headings to list, instead of finding them.' },
           { name: 'selector', type: 'string', default: "'h1, h2, h3, h4, h5, h6'", description: 'Which elements are headings.' },
-          { name: 'offset', type: 'number', description: 'Where a heading counts as reached, in pixels from the top.' },
+          {
+            name: 'offset',
+            type: 'number',
+            default: 'each scroll-margin-top',
+            description: 'Where a heading counts as reached, in pixels from the top.',
+          },
           { name: 'onActiveChange', type: '(id: string | null) => void', description: 'Called when the active heading changes.' },
           { name: 'variant', type: "'line' | 'soft'", default: "'line'", description: 'How the active link is drawn.' },
           { name: 'color', type: 'SlopColor', default: "'primary'", description: "The active link's color role." },

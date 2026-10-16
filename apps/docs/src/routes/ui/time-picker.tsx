@@ -47,8 +47,8 @@ export default function TimePickerPage() {
       <H2 id="props">Props</H2>
       <p>
         <code>label</code>, <code>labelSection</code>, <code>description</code>, <code>error</code>, <code>required</code>,{' '}
-        <code>withAsterisk</code>, <code>size</code> and <code>id</code> work as on <a href="/ui/text-input">TextInput</a>. Plus
-        these:
+        <code>withAsterisk</code>, <code>size</code> and <code>id</code> work as on <a href="/ui/text-input">TextInput</a>, and
+        other props go to the group of segments. Plus these:
       </p>
       <PropsTable
         rows={[
@@ -82,6 +82,12 @@ export default function TimePickerPage() {
           { name: 'readOnly', type: 'boolean', default: 'false', description: 'Shows the time without letting it change.' },
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the field.' },
           { name: 'variant', type: "'outline' | 'soft' | 'ghost'", default: "'outline'", description: "The box's look." },
+          { name: 'leftSection', type: 'JSX.Element', description: 'Content before the time.' },
+          {
+            name: 'rightSection',
+            type: 'JSX.Element',
+            description: 'Content after the time; the clear button takes its place while it shows.',
+          },
           {
             name: 'position',
             type: 'FloatingPlacement',

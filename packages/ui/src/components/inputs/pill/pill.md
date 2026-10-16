@@ -33,6 +33,7 @@ import { Pill } from '@solid-slopkit/ui';
 | Prop               | Type                                   | Default    | Description                                 |
 | ------------------ | -------------------------------------- | ---------- | ------------------------------------------- |
 | `size`             | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`     | Its size. Defaults to the group's.          |
+| `color`            | `SlopColor`                            | —          | Color role. Defaults to the group's.        |
 | `withRemoveButton` | `boolean`                              | `false`    | Shows a button that removes it.             |
 | `onRemove`         | `() => void`                           | —          | Called when the remove button is pressed.   |
 | `removeLabel`      | `string`                               | `'Remove'` | The first word of the remove button's name. |

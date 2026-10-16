@@ -39,8 +39,8 @@ export default function AnchorPage() {
 
       <H2 id="size-color-weight">Size, color and weight</H2>
       <p>
-        Text's props work too: <code>size</code>, <code>color</code>, <code>dimmed</code>, <code>weight</code>,{' '}
-        <code>truncate</code> and <code>lineClamp</code>.
+        Text's props work too: <code>size</code>, <code>color</code>, <code>dimmed</code>, <code>weight</code>, <code>align</code>
+        , <code>tabularNums</code>, <code>transform</code>, <code>truncate</code> and <code>lineClamp</code>.
       </p>
       <Example component={Variants} code={variantsCode} />
 
@@ -62,6 +62,7 @@ export default function AnchorPage() {
       <PropsTable
         rows={[
           { name: 'as', type: 'ValidComponent', default: "'a'", description: 'Element or component to render.' },
+          { name: 'dynamicAs', type: 'boolean', default: 'false', description: 'Set when as changes after the first render.' },
           {
             name: 'underline',
             type: "'always' | 'hover' | 'never'",
@@ -70,7 +71,7 @@ export default function AnchorPage() {
           },
           {
             name: 'size',
-            type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
+            type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl'",
             default: 'inherited',
             description: 'Font size and line height. Inherited from the parent when omitted.',
           },
@@ -87,6 +88,21 @@ export default function AnchorPage() {
             description: 'Font weight. Inherited when omitted.',
           },
           {
+            name: 'align',
+            type: "'start' | 'center' | 'end' | 'justify'",
+            description: 'Text alignment. Inherited when omitted.',
+          },
+          { name: 'tabularNums', type: 'boolean', default: 'false', description: 'Digits of equal width.' },
+          {
+            name: 'transform',
+            type: "'uppercase' | 'lowercase' | 'capitalize'",
+            description: (
+              <>
+                Changes the case; <code>uppercase</code> also spaces the letters.
+              </>
+            ),
+          },
+          {
             name: 'truncate',
             type: 'boolean',
             default: 'false',
@@ -100,8 +116,9 @@ export default function AnchorPage() {
       <p>
         The root has the classes <code>.slp-anchor</code> and <code>.slp-text</code>, and no slots. State and variant are
         attributes on it: <code>data-underline</code>, plus Text's (<code>data-color</code>, <code>data-size</code> or{' '}
-        <code>data-inherit</code>, <code>data-dimmed</code>, <code>data-weight</code>, <code>data-truncate</code>,{' '}
-        <code>data-line-clamp</code>). Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>data-inherit</code>, <code>data-dimmed</code>, <code>data-weight</code>, <code>data-align</code>,{' '}
+        <code>data-tabular-nums</code>, <code>data-transform</code>, <code>data-truncate</code>, <code>data-line-clamp</code>).
+        Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

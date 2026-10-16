@@ -23,7 +23,7 @@ import { Fieldset } from '@solid-slopkit/ui';
 - **Layout:** the fields stack in a column, 1rem apart. The legend is a caption at the top inside the box, not cut into the border.
 - **Variants:** `outline` (the default) is a bordered box on the base surface; `soft` is filled with `base-200`; `ghost` has no box and no padding, for grouping without a frame.
 - **Disabled:** `disabled` disables every control inside, natively, including ones that aren't from this library. Inputs inside look disabled too.
-- Nest fieldsets for groups within a group; a radio or checkbox group gets its own legend from its group component.
+- Nest fieldsets for groups within a group; a radio or checkbox group gets its own label from its group component (`Radio.Group`, `Checkbox.Group`).
 
 ## Props
 

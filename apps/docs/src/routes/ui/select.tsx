@@ -99,9 +99,9 @@ export default function SelectPage() {
 
       <H2 id="styling">Styling</H2>
       <p>
-        The root has the class <code>.slp-select</code>; the field box is an <code>.slp-input</code>, and the dropdown a
-        Combobox's (<code>.slp-combobox</code>, <code>.slp-combobox-option</code>). Inside are{' '}
-        <code>[data-slot="select-value"]</code> (with <code>data-placeholder</code> while nothing is selected),{' '}
+        The root has the classes <code>.slp-select</code> and <code>.slp-input-wrapper</code>; the field box is an{' '}
+        <code>.slp-input</code>, and the dropdown a Combobox's (<code>.slp-combobox</code>, <code>.slp-combobox-option</code>).
+        Inside are <code>[data-slot="select-value"]</code> (with <code>data-placeholder</code> while nothing is selected),{' '}
         <code>[data-slot="select-option-check"]</code>, <code>[data-slot="select-option-label"]</code> and{' '}
         <code>[data-slot="select-clear"]</code>. The rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>

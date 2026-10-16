@@ -80,6 +80,7 @@ export default function CopyButtonPage() {
           { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Size.' },
           { name: 'shape', type: "'square' | 'circle'", default: "'square'", description: 'Shape.' },
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables it.' },
+          { name: 'type', type: "'button' | 'submit' | 'reset'", default: "'button'", description: 'Native type.' },
         ]}
       />
 

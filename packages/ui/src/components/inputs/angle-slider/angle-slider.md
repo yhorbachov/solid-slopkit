@@ -20,27 +20,27 @@ import { AngleSlider } from '@solid-slopkit/ui';
 - **Look:** a ring filled from the top to the angle in the `color` (`primary`), a thumb on the ring, and the angle in the middle (`valueLabel` formats it; `null` hides it). `marks` puts a dot on the ring at each angle. `size` from `xs` (3rem) to `xl` (7.5rem).
 - **Screen readers** hear `90 degrees`; `valueText` changes it, e.g. to compass points.
 - **Forms:** with `name`, a hidden input submits the angle.
-- **Text:** it's an InputWrapper: `label`, `labelSection`, `description`, `error`, `size`.
+- **Text:** it's an InputWrapper: `label`, `labelSection`, `description`, `error`, `withAsterisk`, `size`, `id`.
 
 ## Props
 
 Other props are passed to the InputWrapper root.
 
-| Prop                                                    | Type                                                                                               | Default      | Description                            |
-| ------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ------------ | -------------------------------------- |
-| `value`                                                 | `number`                                                                                           | —            | The angle, controlled.                 |
-| `defaultValue`                                          | `number`                                                                                           | `0`          | The starting angle, uncontrolled.      |
-| `onChange`                                              | `(value: number) => void`                                                                          | —            | Called on every step.                  |
-| `onChangeEnd`                                           | `(value: number) => void`                                                                          | —            | Called when the user lets go.          |
-| `step`                                                  | `number`                                                                                           | `1`          | The step, and the grid angles snap to. |
-| `largeStep`                                             | `number`                                                                                           | `15`         | Page Up and Page Down.                 |
-| `marks`                                                 | `number[]`                                                                                         | —            | Angles to mark with a dot.             |
-| `valueLabel`                                            | `((value: number) => JSX.Element) \| null`                                                         | `90°`        | The text in the middle.                |
-| `valueText`                                             | `(value: number) => string`                                                                        | `90 degrees` | The angle as screen readers say it.    |
-| `color`                                                 | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'`  | Color of the arc and thumb.            |
-| `disabled`                                              | `boolean`                                                                                          | `false`      | Disables it.                           |
-| `name`                                                  | `string`                                                                                           | —            | Submits the angle with a form.         |
-| `label`, `labelSection`, `description`, `error`, `size` | —                                                                                                  | —            | InputWrapper's.                        |
+| Prop                                                                          | Type                                                                                               | Default      | Description                            |
+| ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ------------ | -------------------------------------- |
+| `value`                                                                       | `number`                                                                                           | —            | The angle, controlled.                 |
+| `defaultValue`                                                                | `number`                                                                                           | `0`          | The starting angle, uncontrolled.      |
+| `onChange`                                                                    | `(value: number) => void`                                                                          | —            | Called on every step.                  |
+| `onChangeEnd`                                                                 | `(value: number) => void`                                                                          | —            | Called when the user lets go.          |
+| `step`                                                                        | `number`                                                                                           | `1`          | The step, and the grid angles snap to. |
+| `largeStep`                                                                   | `number`                                                                                           | `15`         | Page Up and Page Down.                 |
+| `marks`                                                                       | `number[]`                                                                                         | —            | Angles to mark with a dot.             |
+| `valueLabel`                                                                  | `((value: number) => JSX.Element) \| null`                                                         | `90°`        | The text in the middle.                |
+| `valueText`                                                                   | `(value: number) => string`                                                                        | `90 degrees` | The angle as screen readers say it.    |
+| `color`                                                                       | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'`  | Color of the arc and thumb.            |
+| `disabled`                                                                    | `boolean`                                                                                          | `false`      | Disables it.                           |
+| `name`                                                                        | `string`                                                                                           | —            | Submits the angle with a form.         |
+| `label`, `labelSection`, `description`, `error`, `withAsterisk`, `size`, `id` | —                                                                                                  | —            | InputWrapper's.                        |
 
 ## Styling
 

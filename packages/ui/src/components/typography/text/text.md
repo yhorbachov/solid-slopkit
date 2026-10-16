@@ -44,6 +44,7 @@ Other props are passed to the rendered element.
 | Prop          | Type                                                                                               | Default | Description                                            |
 | ------------- | -------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------ |
 | `as`          | `ValidComponent`                                                                                   | `'p'`   | Element or component to render.                        |
+| `dynamicAs`   | `boolean`                                                                                          | `false` | Set when `as` changes after the first render.          |
 | `size`        | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| '4xl' \| '5xl'`                         | `'md'`  | Font size and line height. Ignored with `inherit`.     |
 | `color`       | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | —       | Color role. Inherits the parent's color when omitted.  |
 | `dimmed`      | `boolean`                                                                                          | `false` | Mutes the text (`--slp-color-muted-content`).          |

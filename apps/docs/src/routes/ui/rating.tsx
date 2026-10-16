@@ -38,7 +38,11 @@ export default function RatingPage() {
       <Example component={Options} code={optionsCode} />
 
       <H2 id="props">Props</H2>
-      <p>Other props are passed to the InputWrapper root.</p>
+      <p>
+        Other props are passed to the InputWrapper root. Plus InputWrapper's <code>label</code>, <code>labelSection</code>,{' '}
+        <code>description</code>, <code>error</code>, <code>withAsterisk</code>, <code>size</code> and <code>id</code>;{' '}
+        <code>aria-label</code> names the stars.
+      </p>
       <PropsTable
         rows={[
           { name: 'value', type: 'number', description: 'The rating, controlled; 0 is none.' },

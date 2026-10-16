@@ -130,9 +130,9 @@ export default function CarouselPage() {
       <p>
         The roots have the classes <code>.slp-carousel</code> (with <code>data-orientation</code>) and{' '}
         <code>.slp-carousel-slide</code>. The parts are <code>carousel-viewport</code>, <code>carousel-container</code>,{' '}
-        <code>carousel-previous</code> and <code>carousel-next</code> (with <code>data-disabled</code>),{' '}
-        <code>carousel-indicators</code> and <code>carousel-indicator</code> (with <code>data-active</code>). Its rules live in{' '}
-        <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>carousel-slide</code>, <code>carousel-controls</code>, <code>carousel-previous</code> and <code>carousel-next</code>{' '}
+        (with <code>data-disabled</code>), <code>carousel-indicators</code> and <code>carousel-indicator</code> (with{' '}
+        <code>data-active</code>). Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

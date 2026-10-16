@@ -28,7 +28,7 @@ const [range, setRange] = createSignal<[Date | null, Date | null]>([null, null])
 - **What it shows:** the year of the first chosen month, unless `date` or `defaultDate` says otherwise. `numberOfColumns` shows that many years side by side.
 - **Marks:** chosen months are filled with `color` and have `aria-selected="true"`; a range's ends are filled and the months between tinted (`data-in-range`, `data-first-in-range`, `data-last-in-range`). The marks are added to what `getMonthProps` returns, so it can still disable or mark months; `onMonthClick` is still called before the value changes. Years at the decade level aren't marked.
 - **Limits:** a month wholly before `minDate` or after `maxDate` is disabled.
-- **Keyboard and screen readers:** the Calendar's. Arrows move a month or a row, Home and End to the ends of the row, Page Up and Page Down a year (with Shift a decade), crossing into the neighboring year. Each year is a `grid` named after it ("2026"); months are named with their year ("October 2026"). Previous and next are named `Previous year` and `Next year` (decade); `previousLabel(level)` and `nextLabel(level)` rename them.
+- **Keyboard and screen readers:** the Calendar's. Arrows move a month or a row, Home and End to the ends of the row, Page Up and Page Down a year, crossing into the neighboring year. Each year is a `grid` named after it ("2026"); months are named with their year ("October 2026"). Previous and next are named `Previous year` and `Next year` (decade); `previousLabel(level)` and `nextLabel(level)` rename them.
 - The Calendar's props for days (`getDayProps`, `onDayClick`, `renderDay`, `excludeDate`, the week and weekday props) don't apply; `minLevel` is always `year`.
 
 ## Props

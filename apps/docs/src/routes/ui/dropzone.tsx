@@ -93,9 +93,9 @@ export default function DropzonePage() {
 
       <H2 id="styling">Styling</H2>
       <p>
-        The root has the class <code>.slp-dropzone</code>, with <code>data-accept</code> or <code>data-reject</code> while files
-        are dragged over, <code>data-disabled</code> and <code>data-loading</code>. The hidden input is{' '}
-        <code>dropzone-input</code>, the loading overlay <code>dropzone-loader</code>. Its rules live in{' '}
+        The root has the class <code>.slp-dropzone</code>, with <code>data-color</code>, <code>data-accept</code> or{' '}
+        <code>data-reject</code> while files are dragged over, <code>data-disabled</code> and <code>data-loading</code>. The
+        hidden input is <code>dropzone-input</code>, the loading overlay <code>dropzone-loader</code>. Its rules live in{' '}
         <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
       <CssVarsTable

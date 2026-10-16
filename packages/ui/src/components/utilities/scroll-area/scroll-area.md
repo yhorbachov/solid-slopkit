@@ -27,15 +27,15 @@ import { ScrollArea } from '@solid-slopkit/ui';
 
 Other props are passed to the root `div`.
 
-| Prop                     | Type                                         | Default   | Description                                                   |
-| ------------------------ | -------------------------------------------- | --------- | ------------------------------------------------------------- |
-| `type`                   | `'hover' \| 'scroll' \| 'always' \| 'never'` | `'hover'` | When the scrollbars show.                                     |
-| `scrollbars`             | `'x' \| 'y' \| 'xy'`                         | `'xy'`    | The directions it scrolls in.                                 |
-| `scrollbarSize`          | `number`                                     | `10`      | Thickness of a scrollbar, in px.                              |
-| `scrollHideDelay`        | `number`                                     | `800`     | How long the scrollbars stay after the pointer leaves, in ms. |
-| `offsetScrollbars`       | `boolean`                                    | `false`   | Pads the content on the side of a shown scrollbar.            |
-| `viewportRef`            | `Ref<HTMLDivElement>`                        | —         | The element that scrolls.                                     |
-| `onScrollPositionChange` | `(position: { x; y }) => void`               | —         | Called as it scrolls, with the scroll offsets in px.          |
+| Prop                     | Type                                           | Default   | Description                                                   |
+| ------------------------ | ---------------------------------------------- | --------- | ------------------------------------------------------------- |
+| `type`                   | `'hover' \| 'scroll' \| 'always' \| 'never'`   | `'hover'` | When the scrollbars show.                                     |
+| `scrollbars`             | `'x' \| 'y' \| 'xy'`                           | `'xy'`    | The directions it scrolls in.                                 |
+| `scrollbarSize`          | `number`                                       | `10`      | Thickness of a scrollbar, in px.                              |
+| `scrollHideDelay`        | `number`                                       | `800`     | How long the scrollbars stay after the pointer leaves, in ms. |
+| `offsetScrollbars`       | `boolean`                                      | `false`   | Pads the content on the side of a shown scrollbar.            |
+| `viewportRef`            | `Ref<HTMLDivElement>`                          | —         | The element that scrolls.                                     |
+| `onScrollPositionChange` | `(position: { x: number; y: number }) => void` | —         | Called as it scrolls, with the scroll offsets in px.          |
 
 ## Styling
 

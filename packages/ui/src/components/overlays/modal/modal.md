@@ -56,4 +56,4 @@ Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root class, on the `<dialog>`: `.slp-modal`; its backdrop is `.slp-modal::backdrop`.
 - Attributes on it: `data-size`, `data-centered`, `data-full-screen`, `data-status`.
-- Slots: `[data-slot="modal-content"]` (the box, with `data-transition`), `modal-header`, `modal-title`, `modal-close`, `modal-body`.
+- Slots: `[data-slot="modal-content"]` (the box, with `data-transition` and `data-status`), `modal-header`, `modal-title`, `modal-close`, `modal-body`.

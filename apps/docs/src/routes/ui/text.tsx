@@ -62,7 +62,7 @@ export default function TextPage() {
       <H2 id="figures">Figures and labels</H2>
       <p>
         <code>tabularNums</code> gives every digit the same width, so amounts line up in a column and don't shift as they change.{' '}
-        <code>align</code> sets the alignment. <code>transform="uppercase"</code> capitalizes a label and spaces its letters
+        <code>align</code> sets the alignment. <code>transform="uppercase"</code> uppercases a label and spaces its letters
         slightly; <code>lowercase</code> and <code>capitalize</code> only change the case.
       </p>
       <Example component={Figures} code={figuresCode} column />
@@ -86,6 +86,7 @@ export default function TextPage() {
       <PropsTable
         rows={[
           { name: 'as', type: 'ValidComponent', default: "'p'", description: 'Element or component to render.' },
+          { name: 'dynamicAs', type: 'boolean', default: 'false', description: 'Set when as changes after the first render.' },
           {
             name: 'size',
             type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl'",

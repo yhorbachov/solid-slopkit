@@ -22,13 +22,14 @@ import {
 - Elements are passed as accessors too, so plain `let` variables set by a ref callback work: they are read when the overlay opens or an option changes.
 - Nothing touches the DOM on the server; the overlays start closed or open without animating, which is also what the server renders.
 - The keyboard ones keep no state and know no elements. They tell you where to go (`onMove`, `onMatch`), and you focus it, select it or make it the active descendant. They handle a key only without Alt, Ctrl or Meta, skip an event that is already `defaultPrevented`, and prevent the keys they handle.
+- Their types are exported too: `PresenceOptions`, `Presence`, `PresenceStatus`; `FloatingOptions`, `Floating`, `FloatingPlacement`, `FloatingSide`; `DismissalOptions`, `DismissReason`; `FocusScopeOptions`; `ScrollLockOptions`; `ListNavigationOptions`, `ListNavigation`, `ListNavigationOrientation`; `TypeaheadOptions`, `Typeahead`.
 
 ## An overlay, put together
 
 A panel in the top layer under its button: animated in and out, positioned, closed by Escape or a press outside, with focus moved in and back.
 
 ```tsx
-import { createEffect, createSignal } from 'solid-js';
+import { createEffect, createSignal, type JSX } from 'solid-js';
 import { createDismissal, createFloating, createFocusScope, createPresence } from '@solid-slopkit/ui/primitives';
 
 function Details(props: { label: string; children: JSX.Element }) {

@@ -22,11 +22,11 @@ const [time, setTime] = createSignal('09:30');
 - **Keys:** Up and Down step a part around the clock, by `hoursStep`, `minutesStep` and `secondsStep` (default 1), and switch the day period. Home and End go to the ends of a part. Left and Right move between parts; Tab goes through them.
 - **Limits:** `minTime` and `maxTime` (`HH:mm` or `HH:mm:ss`). Leaving the field brings a time outside them to the nearest.
 - **Dropdown:** `withDropdown` adds one, opened by a click on the field, with a column of options per part (the steps apply), each a `listbox`; the chosen options are scrolled into view. A click on an option sets its part and keeps the focus in the field. Escape, a press outside, and focus leaving both the field and the dropdown close it.
-- **Clear:** `clearable` adds a button (named `clearLabel`, default `Clear`) while there's a time; it empties it and goes to the hours.
+- **Clear:** `clearable` adds a button (named `clearLabel`, default `Clear`), in place of `rightSection`, while there's a time or a part of one; it empties it and goes to the hours.
 - **Forms:** `name` adds a hidden input with the value.
 - **Label and texts:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. `variant`, the sections, `disabled` and `readOnly` (the time shows, and can't change).
 - **Locale:** the provider's, or `locale`. Needs a `<SlopkitUi>` above it.
-- `class` and `style` go to the root (with the label and texts).
+- `class` and `style` go to the root (with the label and texts); other props go to the group of segments.
 
 ## Props
 
@@ -52,6 +52,8 @@ const [time, setTime] = createSignal('09:30');
 | `readOnly`           | `boolean`                                    | `false`          | Shows the time without letting it change.         |
 | `disabled`           | `boolean`                                    | `false`          | Disables the field.                               |
 | `variant`            | `'outline' \| 'soft' \| 'ghost'`             | `'outline'`      | The box's look.                                   |
+| `leftSection`        | `JSX.Element`                                | —                | Content before the time.                          |
+| `rightSection`       | `JSX.Element`                                | —                | Content after the time.                           |
 | `position`           | `FloatingPlacement`                          | `'bottom-start'` | Where the dropdown goes against the field.        |
 | `offset`             | `number`                                     | `4`              | Gap between the field and the dropdown, in px.    |
 | `transition`         | `TransitionName`                             | `'fade'`         | The dropdown's animation.                         |

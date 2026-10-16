@@ -63,7 +63,12 @@ export default function YearPickerPage() {
             description: 'What it chooses. Read once.',
           },
           { name: 'value', type: 'YearPickerValue<Type>', description: 'The chosen years, when controlled.' },
-          { name: 'defaultValue', type: 'YearPickerValue<Type>', description: 'The years chosen first, when uncontrolled.' },
+          {
+            name: 'defaultValue',
+            type: 'YearPickerValue<Type>',
+            default: 'empty',
+            description: 'The years chosen first, when uncontrolled.',
+          },
           { name: 'onChange', type: '(value: YearPickerValue<Type>) => void', description: 'Called with the new value.' },
           { name: 'allowDeselect', type: 'boolean', default: 'false', description: 'A click on the chosen year clears it.' },
           {

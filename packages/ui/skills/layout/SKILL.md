@@ -9,7 +9,7 @@ Layout is done with layout components, not with margins on every element. Only l
 
 Each component's full props are in its reference, linked from `node_modules/@solid-slopkit/ui/dist/source/llms.md`. The Box reference documents every style prop.
 
-All layout components must render inside `<SlopkitUi>`: their style props become generated CSS classes that the provider collects. They throw without it.
+Layout components must render inside `<SlopkitUi>`: their style props become generated CSS classes that the provider collects. They throw without it (all but Center, which has no style props).
 
 ## Pick the component
 
@@ -152,7 +152,7 @@ When props overlap, the more specific one wins: a side (`pl`) over its axis (`px
 - Style props on non-layout components: `<Button mt={4}>` is a type error, on purpose. Wrap the component or use a gap.
 - Padding or margin on a layout component other than Box: `<Container py={8}>` and `<Stack p={4}>` are type errors. Wrap it in a `Box`.
 - `display="flex"` on Box: Box's `display` excludes the flex values. Use `Flex`.
-- Rendering layout components outside `<SlopkitUi>`, for example in a test: they throw. Wrap test renders in the provider.
+- Rendering layout components outside `<SlopkitUi>`, for example in a test: they throw (Center aside). Wrap test renders in the provider.
 - Rem strings for spacing (`gap="1rem"`): gaps take numbers, and numbers follow the theme's `--slp-spacing`.
 - A string value containing `;`, `{`, `}`, `<` or `>`: it's ignored, to keep generated CSS safe.
 - Expecting a responsive object on a non-responsive prop (see the list above).

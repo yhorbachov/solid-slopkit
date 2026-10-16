@@ -34,6 +34,7 @@ Other props are passed to the `input`. The wrapper's props (`label`, `labelSecti
 | `leftSection`        | `JSX.Element`                    | —                 | Content before the input.               |
 | `disabled`           | `boolean`                        | `false`           | Disables the input and the toggle.      |
 | `readOnly`           | `boolean`                        | `false`           | Makes the input read-only.              |
+| `ref`                | `Ref<HTMLElement>`               | —                 | The `input`.                            |
 
 ## Styling
 

@@ -78,6 +78,17 @@ export default function NumberInputPage() {
           { name: 'hideControls', type: 'boolean', default: 'false', description: 'Hides the buttons. Read once.' },
           { name: 'incrementLabel', type: 'string', default: "'Increase'", description: 'Accessible name of the up button.' },
           { name: 'decrementLabel', type: 'string', default: "'Decrease'", description: 'Accessible name of the down button.' },
+          {
+            name: 'variant',
+            type: "'outline' | 'soft' | 'ghost'",
+            default: "'outline'",
+            description: 'Visual style of the box.',
+          },
+          { name: 'leftSection', type: 'JSX.Element', description: 'Content before the input.' },
+          { name: 'rightSection', type: 'JSX.Element', description: 'Content after the input, before the controls.' },
+          { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input and the controls.' },
+          { name: 'readOnly', type: 'boolean', default: 'false', description: 'No typing or stepping.' },
+          { name: 'ref', type: 'Ref<HTMLElement>', description: 'The input.' },
         ]}
       />
 

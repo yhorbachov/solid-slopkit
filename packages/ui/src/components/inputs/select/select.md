@@ -65,5 +65,5 @@ Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`
 
 Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
-- Root class: `.slp-select`. The field box is an `.slp-input`, and the dropdown a [Combobox](../combobox/combobox.md)'s (`.slp-combobox`, `.slp-combobox-option`, …).
+- Root classes: `.slp-select`, plus `.slp-input-wrapper`, with InputWrapper's slots and attributes. The field box is an `.slp-input`, and the dropdown a [Combobox](../combobox/combobox.md)'s (`.slp-combobox`, `.slp-combobox-option`, …).
 - Slots: `select-value` (with `data-placeholder` while nothing is selected), `select-option-check`, `select-option-label`, `select-clear`.

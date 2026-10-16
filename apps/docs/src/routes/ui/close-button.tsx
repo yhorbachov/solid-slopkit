@@ -66,8 +66,8 @@ export default function CloseButtonPage() {
       <p>
         The root has the classes <code>.slp-close-button</code> and <code>.slp-button</code>, and Button's attributes and CSS
         variables: <code>data-variant="ghost"</code>, <code>data-shape="square"</code>, <code>data-size</code>,{' '}
-        <code>data-color</code>, <code>--slp-button-color</code>. The built-in X has the slot <code>close-button-icon</code>. Its
-        rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        <code>data-color</code>, <code>data-disabled</code>, <code>--slp-button-color</code>. The built-in X has the slot{' '}
+        <code>close-button-icon</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

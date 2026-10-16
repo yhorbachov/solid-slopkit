@@ -37,7 +37,9 @@ export default function RadioPage() {
 
       <H2 id="props">Props</H2>
       <p>
-        <code>Radio.Group</code>: other props go to the InputWrapper root.
+        <code>Radio.Group</code>: other props go to the InputWrapper root. Plus InputWrapper's <code>label</code>,{' '}
+        <code>labelSection</code>, <code>description</code>, <code>error</code>, <code>withAsterisk</code>, <code>size</code> and{' '}
+        <code>id</code>.
       </p>
       <PropsTable
         rows={[
@@ -77,6 +79,26 @@ export default function RadioPage() {
             description: "Which side the label goes; left puts the circle at the row's end.",
           },
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables it.' },
+          { name: 'checked, defaultChecked, onChange', type: '—', description: 'Outside a group only.' },
+        ]}
+      />
+      <p>
+        <code>Radio.Card</code>: other props go to the hidden <code>input</code>; <code>class</code> and <code>style</code> to the{' '}
+        <code>label</code>.
+      </p>
+      <PropsTable
+        rows={[
+          { name: 'value', type: 'string', description: 'Its value in the group.' },
+          { name: 'children', type: 'JSX.Element', description: 'The content, which is also its accessible name.' },
+          {
+            name: 'color',
+            type: "'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error'",
+            default: "'primary'",
+            description: 'Color of the chosen circle and border.',
+          },
+          { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables it.' },
+          { name: 'name', type: 'string', default: "group's", description: "The input's name." },
+          { name: 'checked, defaultChecked, onChange', type: '—', description: 'Outside a group only.' },
         ]}
       />
 

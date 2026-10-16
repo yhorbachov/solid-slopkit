@@ -67,9 +67,13 @@ export default function TreePage() {
             description: 'Called when a node expands or collapses.',
           },
           { name: 'multiple', type: 'boolean', default: 'false', description: 'Lets several nodes be selected.' },
-          { name: 'selected', type: 'string | null | string[]', description: 'The selection, when controlled.' },
-          { name: 'defaultSelected', type: 'string | null | string[]', description: 'The selection at first.' },
-          { name: 'onSelectedChange', type: '(selected) => void', description: 'Called when the selection changes.' },
+          { name: 'selected', type: 'string | null (string[] with multiple)', description: 'The selection, when controlled.' },
+          { name: 'defaultSelected', type: 'string | null (string[] with multiple)', description: 'The selection at first.' },
+          {
+            name: 'onSelectedChange',
+            type: '(selected: string | null) => void (string[] with multiple)',
+            description: 'Called when the selection changes.',
+          },
           { name: 'renderNode', type: '(payload: TreeRenderNodePayload) => JSX.Element', description: 'Replaces each label.' },
           { name: 'color', type: 'SlopColor', default: "'primary'", description: "The selected nodes' color role." },
         ]}
