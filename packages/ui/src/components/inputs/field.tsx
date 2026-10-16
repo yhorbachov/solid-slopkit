@@ -5,12 +5,17 @@ import { type JSX } from '@solidjs/web';
 import { joinClass } from '../../style-props';
 import { InputWrapper, type InputWrapperOwnProps } from './input-wrapper';
 
-/** The props a field passes to its InputWrapper. `class` and `style` go to the wrapper too: the whole field. */
+/**
+ * The props a field passes to its InputWrapper. `class`, `style` and `data-slot` go to the wrapper too: the whole
+ * field, so a component that holds a field names the whole field as its part.
+ */
 export interface FieldWrapperProps extends Omit<InputWrapperOwnProps, 'children' | 'labelElement'> {
   /** Classes for the field's root. */
   class?: JSX.ClassValue | JSX.RemoveAttribute;
   /** Styles for the field's root. */
   style?: JSX.CSSProperties;
+  /** The slot the field's root fills in a component around it. */
+  'data-slot'?: string;
 }
 
 const WRAPPER_KEYS = [
@@ -24,6 +29,7 @@ const WRAPPER_KEYS = [
   'id',
   'class',
   'style',
+  'data-slot',
 ] as const;
 
 /** The field's props without the wrapper's: what goes to the control. */
@@ -46,6 +52,7 @@ export function FieldWrapper(props: { field: FieldWrapperProps; rootClass: strin
       id={props.field.id}
       class={joinClass([props.rootClass], props.field.class)}
       style={props.field.style}
+      data-slot={props.field['data-slot']}
     >
       {props.children}
     </InputWrapper>

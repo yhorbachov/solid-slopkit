@@ -145,6 +145,18 @@ describe('<ColorInput />', () => {
     expect(field()).toHaveAttribute('aria-expanded', 'false');
   });
 
+  test('a ref gets the field, and the field keeps its own', () => {
+    let ref: HTMLElement | undefined;
+    const { field, blur, getByRole } = setup({ ref: (element: HTMLElement) => (ref = element) });
+
+    expect(ref).toBe(field());
+    fireEvent.click(field());
+    flush();
+    // Focus into the picker is inside the field's box, which the field's own ref finds.
+    blur(getByRole('slider', { name: 'Hue', hidden: true }));
+    expect(field()).toHaveAttribute('aria-expanded', 'true');
+  });
+
   test('controlled: shows value, and only asks to change it', () => {
     const [value, setValue] = createSignal('#000000');
     const onChange = vi.fn();

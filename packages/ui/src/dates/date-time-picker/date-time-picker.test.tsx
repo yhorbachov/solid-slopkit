@@ -84,7 +84,9 @@ describe('<DateTimePicker />: the dropdown', () => {
     expect(field()).toHaveAttribute('aria-expanded', 'true');
     expect(dropdown()).toHaveAttribute('aria-labelledby', getByRole('dialog', { hidden: true }).getAttribute('aria-labelledby')!);
     expect(dropdown()!.querySelector('.slp-date-picker')).toBeInTheDocument();
-    expect(getByRole('group', { name: 'Time', hidden: true })).toBeInTheDocument();
+    // The slot names the whole time picker; its group of segments stays the Input's control.
+    expect(dropdown()!.querySelector('[data-slot="date-time-picker-time"]')).toHaveClass('slp-time-picker');
+    expect(getByRole('group', { name: 'Time', hidden: true })).toHaveAttribute('data-slot', 'input-control');
     expect(getByRole('button', { name: 'Done', hidden: true })).toBeInTheDocument();
     expect(getByRole('spinbutton', { name: 'Hours', hidden: true })).toHaveValue('09');
   });

@@ -120,9 +120,10 @@ export function Input<T extends ValidComponent = 'input'>(props: InputProps<T>) 
         required={own.required ?? wrapper?.required()}
         aria-invalid={invalid() ? 'true' : undefined}
         aria-describedby={describedBy()}
-        data-slot="input-control"
         class={style.control}
         {...others}
+        // After the spread: the control is always this slot.
+        data-slot="input-control"
       />
       <Show when={hasContent(rightSection())}>
         <div data-slot="input-right-section" class={style.section}>

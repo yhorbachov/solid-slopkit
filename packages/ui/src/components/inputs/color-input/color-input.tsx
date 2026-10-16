@@ -10,7 +10,7 @@ import { ActionIcon } from '../../button/action-icon';
 import { ColorSwatch } from '../../data-display/color-swatch';
 import { createDismissal, createFloating, createPresence, type FloatingPlacement } from '../../primitives';
 import { transitionAttributes, type TransitionName } from '../../utilities/transition/transition-attributes';
-import { callHandler, type ElementProps } from '../../../utils';
+import { callHandler, mergeRefs, type ElementProps } from '../../../utils';
 import { joinClass } from '../../../style-props';
 import type { SlopSize } from '../../../core';
 
@@ -266,7 +266,11 @@ function ColorInputField(props: ColorInputProps) {
     <>
       <Input
         {...(others as Record<string, unknown>)}
-        ref={(element: HTMLElement) => (field = element as HTMLInputElement)}
+        // A ref is read once.
+        ref={mergeRefs(
+          (element: HTMLElement) => (field = element as HTMLInputElement),
+          untrack(() => props.ref) as (element: HTMLElement) => void,
+        )}
         variant={props.variant}
         leftSection={
           props.leftSection ??

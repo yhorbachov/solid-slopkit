@@ -9,7 +9,7 @@ import { useInputWrapper } from '../../components/inputs/input-wrapper';
 import { CloseButton } from '../../components/button/close-button';
 import { createDismissal, createFloating, createPresence, type FloatingPlacement } from '../../components/primitives';
 import { transitionAttributes, type TransitionName } from '../../components/utilities/transition/transition-attributes';
-import { type ElementProps } from '../../utils';
+import { callHandler, mergeRefs, type ElementProps } from '../../utils';
 import { joinClass } from '../../style-props';
 
 export interface TimePickerOwnProps
@@ -408,7 +408,8 @@ function TimePickerField(props: TimePickerProps) {
     <>
       <Input
         {...(others as Record<string, unknown>)}
-        ref={(element: HTMLElement) => (control = element)}
+        // A ref is read once.
+        ref={mergeRefs((element: HTMLElement) => (control = element), untrack(() => props.ref) as (element: HTMLElement) => void)}
         as="div"
         // Its own id: the label's `for` goes to the hours.
         id={`${id}-group`}
@@ -428,13 +429,17 @@ function TimePickerField(props: TimePickerProps) {
         data-empty={value() || draft() ? undefined : ''}
         // A press on the field but off a segment goes to the first empty one, or the hours.
         onMouseDown={(event: MouseEvent) => {
-          if ((event.target as Element).closest('input') || props.disabled) return;
+          callHandler(props.onMouseDown, event);
+          if (event.defaultPrevented || (event.target as Element).closest('input') || props.disabled) return;
           event.preventDefault();
           const current = parts();
           focusSegment(segments().find((segment) => segment !== 'dayPeriod' && current[segment] === null) ?? 'hours');
           if (props.withDropdown && !locked()) setOpened(true);
         }}
-        onFocusOut={onFocusOut}
+        onFocusOut={(event: FocusEvent) => {
+          callHandler(props.onFocusOut, event);
+          onFocusOut(event);
+        }}
       >
         {/* Keyed: each segment is a plain name, read anywhere, refs included. */}
         <For each={segments()}>

@@ -171,6 +171,30 @@ describe('<TimePicker />: keys', () => {
     late.leave();
     expect(late.onChange).toHaveBeenLastCalledWith('18:00');
   });
+
+  test('a ref, onMouseDown and onFocusOut reach the group, and it keeps its own', () => {
+    let ref: HTMLElement | undefined;
+    const onMouseDown = vi.fn();
+    const onFocusOut = vi.fn();
+    const { getByRole, segment, leave, onChange } = setup({
+      ref: (element: HTMLElement) => (ref = element),
+      onMouseDown,
+      onFocusOut,
+      defaultValue: '07:00',
+      minTime: '08:30',
+      format: '24h',
+    });
+
+    const group = getByRole('group', { name: 'Time' });
+    expect(ref).toBe(group);
+    fireEvent.mouseDown(group);
+    flush();
+    expect(onMouseDown).toHaveBeenCalledOnce();
+    expect(segment('Hours')).toHaveFocus();
+    leave();
+    expect(onFocusOut).toHaveBeenCalled();
+    expect(onChange).toHaveBeenLastCalledWith('08:30');
+  });
 });
 
 describe('<TimePicker />: the dropdown', () => {

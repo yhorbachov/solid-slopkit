@@ -67,6 +67,7 @@ export function TimeGrid(props: TimeGridProps) {
     'color',
     'size',
     'onKeyDown',
+    'ref',
   );
   const providerLocale = useLocale();
   const locale = () => props.locale ?? providerLocale();
@@ -175,7 +176,7 @@ export function TimeGrid(props: TimeGridProps) {
 
   return (
     <div
-      ref={(element: HTMLDivElement) => (root = element)}
+      ref={[(element: HTMLDivElement) => (root = element), untrack(() => props.ref)]}
       role="group"
       data-size={props.size ?? 'md'}
       data-color={props.color ?? 'primary'}

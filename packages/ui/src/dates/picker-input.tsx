@@ -139,7 +139,7 @@ function PickerInputField(props: PickerInputProps<object, PickerType> & { config
       name: `${config.name}.value`,
     },
   );
-  const value = (): AnyValue => (props.value as AnyValue | undefined) ?? own();
+  const value = (): AnyValue => (props.value !== undefined ? (props.value as AnyValue) : own());
   const chosen = (): Date[] => {
     const current = value();
     if (type === 'range') return (current as [Date | null, Date | null]).filter((date): date is Date => !!date);

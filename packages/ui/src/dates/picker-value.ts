@@ -104,7 +104,7 @@ export function createPickerValue(props: PickerValueProps, unit: PickerUnit, nam
       name: `${name}.value`,
     },
   );
-  const value = (): AnyValue => (props.value as AnyValue | undefined) ?? own();
+  const value = (): AnyValue => (props.value !== undefined ? (props.value as AnyValue) : own());
 
   /** The chosen dates, in order. */
   const chosen = (): Date[] => {

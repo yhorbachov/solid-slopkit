@@ -91,8 +91,8 @@ export default function DateTimePickerPage() {
       <p>
         The root is <code>.slp-date-time-picker</code>, and the field box an <code>.slp-input</code>. The text is the{' '}
         <code>date-time-picker-value</code> slot and the clear button <code>date-time-picker-clear</code>. The dropdown is{' '}
-        <code>.slp-date-time-picker-dropdown</code>, holding a <code>.slp-date-picker</code>, the time picker (its group of
-        segments is <code>date-time-picker-time</code>) and the button (<code>date-time-picker-submit</code>).
+        <code>.slp-date-time-picker-dropdown</code>, holding a <code>.slp-date-picker</code>, the time picker (its root is{' '}
+        <code>date-time-picker-time</code>) and the button (<code>date-time-picker-submit</code>).
       </p>
     </article>
   );

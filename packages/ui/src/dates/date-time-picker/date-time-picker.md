@@ -63,5 +63,5 @@ Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`
 Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root class: `.slp-date-time-picker`. The field box is an `.slp-input`; its button has `data-empty` while nothing is chosen.
-- Slots: `date-time-picker-value` (the text, with `data-placeholder`), `date-time-picker-clear`, and in the dropdown `date-time-picker-time` (the TimePicker's group of segments, inside its `.slp-time-picker`) and `date-time-picker-submit`.
+- Slots: `date-time-picker-value` (the text, with `data-placeholder`), `date-time-picker-clear`, and in the dropdown `date-time-picker-time` (the TimePicker, on its `.slp-time-picker` root) and `date-time-picker-submit`.
 - The dropdown: `.slp-date-time-picker-dropdown` (`[data-slot="date-time-picker-dropdown"]`), with `data-placement`, `data-status` and `data-transition`, holding a `.slp-date-picker`.

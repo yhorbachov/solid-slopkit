@@ -203,6 +203,11 @@ describe('<DatePickerInput />: the dropdown', () => {
     expect(shown()).toBe('Oct 25, 2026');
   });
 
+  test('a controlled null is no day, even with a defaultValue', () => {
+    const { field } = setup({ value: null, defaultValue: day(5) });
+    expect(field()).toHaveAttribute('data-empty');
+  });
+
   test('disabled and readOnly: it does not open', () => {
     const disabled = setup({ disabled: true });
     expect(disabled.field()).toBeDisabled();

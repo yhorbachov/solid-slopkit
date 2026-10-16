@@ -100,6 +100,16 @@ describe('<TimeGrid />', () => {
     expect(all.getAllByRole('button').every((button) => (button as HTMLButtonElement).disabled)).toBe(true);
   });
 
+  test('a ref gets the group, and the arrow keys still move between times', () => {
+    let ref: HTMLDivElement | undefined;
+    const { getByRole, time } = setup({ ref: (element: HTMLDivElement) => (ref = element), format: '24h' });
+
+    expect(ref).toBe(getByRole('group', { name: 'Slots' }));
+    time('09:00').focus();
+    fireEvent.keyDown(time('09:00'), { key: 'ArrowRight' });
+    expect(time('09:30')).toHaveFocus();
+  });
+
   test('one tab stop: the chosen time, else the first enabled one', () => {
     const tabStops = (result: ReturnType<typeof setup>) =>
       result

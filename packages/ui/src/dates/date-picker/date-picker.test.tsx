@@ -84,6 +84,11 @@ describe('<DatePicker />: one day', () => {
     expect(marked('data-selected')).toEqual(['31']);
   });
 
+  test('a controlled null is no day, even with a defaultValue', () => {
+    const { marked } = setup({ value: null, defaultValue: day(5) });
+    expect(marked('data-selected')).toEqual([]);
+  });
+
   test('keeps getDayProps and onDayClick, and the other Calendar props', () => {
     const onDayClick = vi.fn();
     const { cell, click, marked, getAllByRole } = setup({
