@@ -35,4 +35,15 @@ describe('<Title /> in a browser', () => {
     expect(css.fontWeight).toBe('400');
     expect(css.color).toBe(getComputedStyle(getByTestId('token')).color);
   });
+
+  test('dimmed takes the muted content color', () => {
+    const { getByText, getByTestId } = render(() => (
+      <>
+        <Title dimmed>Quiet</Title>
+        <span data-testid="muted" style={{ color: 'var(--slp-color-muted-content)' }} />
+      </>
+    ));
+
+    expect(getComputedStyle(getByText('Quiet')).color).toBe(getComputedStyle(getByTestId('muted')).color);
+  });
 });

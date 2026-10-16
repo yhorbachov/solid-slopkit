@@ -16,7 +16,7 @@ export const parts = () => (
         <button type="button">Action</button>
       </Card.Footer>
     </Card>
-    <Card>
+    <Card size="sm">
       <Card.Header>
         <Card.Title>Payout</Card.Title>
         <Card.Description>Set the minimum balance.</Card.Description>

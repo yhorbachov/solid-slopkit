@@ -30,6 +30,8 @@ The stylesheets declare these cascade layers, in order: `slopkit.reset`, `slopki
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | `--slp-color-base-100`, `-200`, `-300` | Surfaces: the page, then slightly darker (light) or lighter (dark) layers.                                     |
 | `--slp-color-base-content`             | Text on the base surfaces.                                                                                     |
+| `--slp-color-muted`                    | A quiet surface for parts that step back, such as a card footer.                                               |
+| `--slp-color-muted-content`            | De-emphasized text (descriptions, `dimmed` Text), readable on `muted` and on every base surface.               |
 | `--slp-color-<role>`                   | The eight **color roles**: `primary`, `secondary`, `accent`, `neutral`, `info`, `success`, `warning`, `error`. |
 | `--slp-color-<role>-content`           | Text that stays readable on that role's color. Always set it together with the role.                           |
 | `--slp-size-field`                     | Unit of control heights (buttons, inputs, tabs, pagination). A medium Button is 8 units tall.                  |
@@ -74,6 +76,8 @@ A theme is a rule on `[data-slp-theme="<name>"]`. Put it in the `slopkit.themes`
     --slp-color-base-200: light-dark(#eef5fc, #16232f);
     --slp-color-base-300: light-dark(#dce9f5, #1f3040);
     --slp-color-base-content: light-dark(#0f1a24, #d6e6f5);
+    --slp-color-muted: light-dark(#eef5fc, #16232f);
+    --slp-color-muted-content: light-dark(#4f6375, #8ea4b8);
     --slp-color-primary: light-dark(#1971c2, #4dabf7);
     --slp-color-primary-content: light-dark(#ffffff, #0f1a24);
     /* …every role you want to differ from the default theme */
@@ -102,7 +106,7 @@ Tokens the theme leaves out are inherited from the enclosing theme, usually the 
 }
 ```
 
-Check contrast in each scheme the theme supports: every role against its content color, every role as text on `base-100` (the soft, outline and ghost variants draw it there), and `base-content` against each base color. Aim for 4.5:1, as the default theme does.
+Check contrast in each scheme the theme supports: every role against its content color, every role as text on `base-100` (the soft, outline and ghost variants draw it there), `base-content` against each base color and `muted`, and `muted-content` against `muted` and each base color. Aim for 4.5:1, as the default theme does.
 
 ## Color scheme
 

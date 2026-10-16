@@ -10,7 +10,7 @@ const rect = (el: Element) => {
 };
 
 describe('<Card /> in a browser', () => {
-  test('vertical: a flush image, padded parts, the header padding shared with the body, and a footer divider', async () => {
+  test('vertical: a flush image, parts spaced by 16px, and a flush muted footer below a divider', async () => {
     const { getByRole, getByText, getByTestId } = render(() => (
       <Card data-testid="card" style={{ width: '402px' }}>
         <Card.Image src={IMAGE} alt="Cover" />
@@ -19,17 +19,48 @@ describe('<Card /> in a browser', () => {
         <Card.Footer>Footer</Card.Footer>
       </Card>
     ));
-    const card = rect(getByTestId('card'));
     const image = getByRole('img', { name: 'Cover' }) as HTMLImageElement;
     await image.decode();
+    const card = rect(getByTestId('card'));
 
     // A 1px border on each side.
     expect(rect(image)).toMatchObject({ left: card.left + 1, top: card.top + 1, width: 400, height: 300 });
-    const header = getComputedStyle(getByText('Header'));
-    expect([header.paddingTop, header.paddingLeft]).toEqual(['20px', '20px']);
-    expect(getComputedStyle(getByText('Body')).paddingTop).toBe('0px');
-    const footer = getComputedStyle(getByText('Footer'));
-    expect([footer.borderTopStyle, footer.justifyContent]).toEqual(['solid', 'flex-end']);
+    const header = rect(getByText('Header'));
+    const body = rect(getByText('Body'));
+    const footer = rect(getByText('Footer'));
+    expect(header.top).toBe(card.top + 1 + 300 + 16);
+    expect(getComputedStyle(getByText('Header')).paddingLeft).toBe('16px');
+    expect(body.top).toBe(header.top + header.height + 16);
+    expect(footer.top).toBe(body.top + body.height + 16);
+    // The footer ends at the card's inner bottom edge.
+    expect(footer.top + footer.height).toBe(card.top + card.height - 1);
+    const footerCss = getComputedStyle(getByText('Footer'));
+    expect([footerCss.borderTopStyle, footerCss.paddingTop]).toEqual(['solid', '16px']);
+    expect(footerCss.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+  });
+
+  test('without an image or footer, the card pads its top and bottom; size sm tightens the spacing to 12px', () => {
+    const { getByText, getByTestId } = render(() => (
+      <>
+        <Card data-testid="md">
+          <Card.Body>Medium</Card.Body>
+        </Card>
+        <Card data-testid="sm" size="sm">
+          <Card.Header>Small header</Card.Header>
+          <Card.Body>Small</Card.Body>
+        </Card>
+      </>
+    ));
+    const md = rect(getByTestId('md'));
+    const medium = rect(getByText('Medium'));
+    expect(medium.top).toBe(md.top + 1 + 16);
+    expect(md.top + md.height).toBe(medium.top + medium.height + 16 + 1);
+
+    const sm = rect(getByTestId('sm'));
+    const smallHeader = rect(getByText('Small header'));
+    expect(smallHeader.top).toBe(sm.top + 1 + 12);
+    expect(rect(getByText('Small')).top).toBe(smallHeader.top + smallHeader.height + 12);
+    expect(getComputedStyle(getByText('Small')).paddingLeft).toBe('12px');
   });
 
   test('a header with a title and description stacks the two at the start and puts the rest at the end, top-aligned', () => {
@@ -53,16 +84,16 @@ describe('<Card /> in a browser', () => {
     const a = rect(getByRole('button', { name: 'A' }));
     const b = rect(getByRole('button', { name: 'B' }));
 
-    // 20px padding; the description under the title with a 4px gap.
-    expect(title).toMatchObject({ left: header.left + 20, top: header.top + 20 });
+    // The header pads its sides by 16px (the card pads above it); the description under the title with a 4px gap.
+    expect(title).toMatchObject({ left: header.left + 16, top: header.top });
     expect(description.left).toBe(title.left);
     expect(description.top).toBe(title.top + title.height + 4);
-    // The buttons side by side at the end, level with the title, with the header's 10px gap between them.
+    // The buttons side by side at the end, level with the title, with the header's 8px gap between them.
     expect(a.top).toBe(title.top);
     expect(b.top).toBe(title.top);
-    expect(b.left + b.width).toBe(header.left + header.width - 20);
-    expect(b.left).toBe(a.left + a.width + 10);
-    expect(title.width).toBe(a.left - 10 - title.left);
+    expect(b.left + b.width).toBe(header.left + header.width - 16);
+    expect(b.left).toBe(a.left + a.width + 8);
+    expect(title.width).toBe(a.left - 8 - title.left);
   });
 
   test('variants', () => {

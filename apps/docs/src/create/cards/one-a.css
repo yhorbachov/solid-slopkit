@@ -1,9 +1,5 @@
 /* Cards of page one, columns 1 and 2. */
 
-.create-one-a-footer {
-  background: color-mix(in oklab, var(--slp-color-base-200) 50%, transparent);
-}
-
 .create-one-a-fill {
   flex: 1;
 }
@@ -143,10 +139,6 @@
 
 .create-one-a-ring-caption {
   font-size: 0.6875rem;
-}
-
-.create-one-a-divided {
-  border-top: 1px solid var(--slp-color-base-300);
 }
 
 /* Kitchen Island: bordered rows, an icon and label on the left, the slider on the right. */

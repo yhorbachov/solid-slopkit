@@ -52,7 +52,14 @@ describe('default theme contrast', () => {
     expect(contrast(token('color-warning').dark, token('color-base-100').dark)).toBeGreaterThanOrEqual(4.5);
   });
 
-  test.each(SCHEMES.flatMap((scheme) => ['base-100', 'base-200', 'base-300'].map((base) => [scheme, base] as const)))(
+  test.each(SCHEMES.flatMap((scheme) => ['base-100', 'base-200', 'base-300', 'muted'].map((base) => [scheme, base] as const)))(
+    '%s muted-content reaches 4.5:1 on %s',
+    (scheme, base) => {
+      expect(contrast(token('color-muted-content')[scheme], token(`color-${base}`)[scheme])).toBeGreaterThanOrEqual(4.5);
+    },
+  );
+
+  test.each(SCHEMES.flatMap((scheme) => ['base-100', 'base-200', 'base-300', 'muted'].map((base) => [scheme, base] as const)))(
     '%s base-content reaches 4.5:1 on %s',
     (scheme, base) => {
       expect(contrast(token('color-base-content')[scheme], token(`color-${base}`)[scheme])).toBeGreaterThanOrEqual(4.5);

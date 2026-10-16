@@ -37,9 +37,12 @@
       --_title-color: var(--slp-color-error);
     }
 
-    /* In the `color` property, currentColor is the inherited color. */
+    /* Dimmed: the theme's muted content color, or a role's color mixed toward transparent. */
     &[data-dimmed] {
-      color: color-mix(in oklab, var(--_title-color, currentColor) 65%, transparent);
+      color: var(--slp-color-muted-content);
+    }
+    &[data-dimmed][data-color] {
+      color: color-mix(in oklab, var(--_title-color) 65%, transparent);
     }
 
     /* Sizes */

@@ -8,6 +8,8 @@ import Basic from '../../examples/card/basic';
 import basicCode from '../../examples/card/basic.tsx?raw';
 import Variants from '../../examples/card/variants';
 import variantsCode from '../../examples/card/variants.tsx?raw';
+import Sizes from '../../examples/card/sizes';
+import sizesCode from '../../examples/card/sizes.tsx?raw';
 import Horizontal from '../../examples/card/horizontal';
 import horizontalCode from '../../examples/card/horizontal.tsx?raw';
 
@@ -36,8 +38,9 @@ export default function CardPage() {
         level-3 heading that looks like an <code>h5</code>, and <code>Card.Description</code> is a small, dimmed line under it;
         with them in the header, the two stack at the start and each other child takes a column at the end, aligned to the top.
         They take Title's and Text's props to change the level, size or color. The image is flush with the card's edges and
-        cropped to fit; <code>alt</code> is required. A body right after a header shares its padding. The footer is a row of
-        actions aligned to the end, below a divider.
+        cropped to fit; <code>alt</code> is required. The footer is a row of actions on a muted strip below a divider, flush with
+        the card's sides and bottom. One spacing value, 1rem, sets the gap between the parts and the padding around them; set{' '}
+        <code>--slp-card-spacing</code> to change it.
       </p>
       <Example component={Basic} code={basicCode} column />
 
@@ -47,6 +50,12 @@ export default function CardPage() {
         a shadow.
       </p>
       <Example component={Variants} code={variantsCode} column />
+
+      <H2 id="sizes">Sizes</H2>
+      <p>
+        <code>size="sm"</code> tightens the spacing to 0.75rem and makes <code>Card.Title</code> look like an <code>h6</code>.
+      </p>
+      <Example component={Sizes} code={sizesCode} column />
 
       <H2 id="horizontal">Horizontal</H2>
       <p>
@@ -65,6 +74,7 @@ export default function CardPage() {
       <PropsTable
         rows={[
           { name: 'variant', type: "'outline' | 'soft' | 'elevated'", default: "'outline'", description: 'Surface style.' },
+          { name: 'size', type: "'sm' | 'md'", default: "'md'", description: 'Spacing and title size.' },
           {
             name: 'orientation',
             type: "'vertical' | 'horizontal'",
@@ -80,13 +90,15 @@ export default function CardPage() {
 
       <H2 id="styling">Styling</H2>
       <p>
-        The root has the class <code>.slp-card</code>, with <code>data-variant</code> and <code>data-orientation</code>. Each part
+        The root has the class <code>.slp-card</code>, with <code>data-variant</code>, <code>data-orientation</code> and{' '}
+        <code>data-size</code>, and reads <code>--slp-card-spacing</code> for the spacing between and around the parts. Each part
         is a component with its own root class: <code>.slp-card-header</code>, <code>.slp-card-title</code>,{' '}
         <code>.slp-card-description</code>, <code>.slp-card-image</code>, <code>.slp-card-body</code> and{' '}
         <code>.slp-card-footer</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
       <CodeBlock
-        code={`.slp-card-image { aspect-ratio: 16 / 9; }
+        code={`.slp-card { --slp-card-spacing: 1.5rem; }
+.slp-card-image { aspect-ratio: 16 / 9; }
 .slp-card[data-orientation='horizontal'] { grid-template-columns: 8rem 1fr; }`}
       />
     </article>

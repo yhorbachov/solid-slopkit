@@ -9,6 +9,7 @@ import {
   Center,
   Chip,
   CloseButton,
+  Divider,
   Group,
   Loader,
   RingProgress,
@@ -77,7 +78,7 @@ export function Column1() {
             </SimpleGrid>
           </Stack>
         </Card.Body>
-        <Card.Footer class="create-one-a-footer">
+        <Card.Footer>
           <Button size="sm" color="primary" fullWidth>
             View Full Report
           </Button>
@@ -113,7 +114,7 @@ export function Column1() {
             </Text>
           </Stack>
         </Card.Body>
-        <Card.Footer class="create-one-a-footer">
+        <Card.Footer>
           <Button size="sm" variant="soft" fullWidth>
             Got it
           </Button>
@@ -238,7 +239,7 @@ export function Column2() {
             <Textarea label="Notes" size="sm" rows={3} placeholder="Add any notes for this payout configuration..." />
           </Stack>
         </Card.Body>
-        <Card.Footer class="create-one-a-footer">
+        <Card.Footer>
           <Button size="sm" color="primary" fullWidth>
             Save Threshold
           </Button>
@@ -277,7 +278,7 @@ export function Column2() {
             </div>
           </Stack>
         </Card.Body>
-        <Card.Footer class="create-one-a-footer">
+        <Card.Footer>
           <Box w="100%">
             <Text size="sm" dimmed>
               Once your bank is connected, balances over $10.00 are automatically eligible for monthly distribution on the 15th of
@@ -316,7 +317,7 @@ export function Column2() {
             </div>
           </Stack>
         </Card.Body>
-        <Card.Footer class="create-one-a-footer">
+        <Card.Footer>
           <Group justify="space-between" class="create-one-a-fill">
             <Button size="sm" variant="outline">
               Reset
@@ -337,7 +338,8 @@ export function Column2() {
             </RingProgress>
           </Center>
         </Card.Body>
-        <Card.Body class="create-one-a-divided">
+        <Divider />
+        <Card.Body>
           <Group justify="space-between" wrap="nowrap" gap={4} class="create-kv">
             <span class="create-muted">Projected Finish</span>
             <strong>October 2024</strong>

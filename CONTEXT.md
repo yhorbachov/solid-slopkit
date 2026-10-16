@@ -53,6 +53,10 @@ _Avoid_: on-color, contrast color, foreground
 The surface colors (`base-100`, `base-200`, `base-300`) and the text color on them (`base-content`), used where no color role applies.
 _Avoid_: background, neutral (which is a color role)
 
+**Muted colors**:
+A quiet surface (`muted`) and the de-emphasized text color (`muted-content`), for the parts that step back: a card footer, a description, dimmed text. Muted content stays readable on muted and on every base surface.
+_Avoid_: subtle, secondary text (secondary is a color role)
+
 **Palette**:
 A named scale of ten shades (`red-0` … `red-9`) that app authors can use directly. Components never read a palette's shades on their own.
 _Avoid_: swatch, color scale

@@ -4,7 +4,8 @@
  *
  * Contrast: every role reaches 4.5:1 (WCAG AA) against its content color, and as text on base-100, in both
  * schemes. Warning is the exception as text: no yellow reaches it on a light surface. In light the roles are deep
- * shades with white content; in dark they are bright shades with dark content.
+ * shades with white content; in dark they are bright shades with dark content. Muted content reaches 4.5:1 on
+ * muted and on every base surface.
  */
 @layer slopkit.themes {
   :root {
@@ -12,6 +13,8 @@
     --slp-color-base-200: light-dark(#f4f7fa, #2e2e2e);
     --slp-color-base-300: light-dark(#e8eef5, #3b3b3b);
     --slp-color-base-content: light-dark(#242424, #c9c9c9);
+    --slp-color-muted: light-dark(#f4f7fa, #2e2e2e);
+    --slp-color-muted-content: light-dark(#666666, #a6a6a6);
     --slp-color-primary: light-dark(#1971c2, #339af0);
     --slp-color-primary-content: light-dark(#ffffff, #141414);
     --slp-color-secondary: light-dark(#7048e8, #9775fa);

@@ -4,7 +4,7 @@ import { CodeBlock } from '../../components/CodeBlock';
 import { H2 } from '../../components/Heading';
 import { CssVarsTable } from '../../components/PropsTable';
 
-const surfaces = ['base-100', 'base-200', 'base-300'];
+const surfaces = ['base-100', 'base-200', 'base-300', 'muted'];
 const roles = ['primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'error'];
 
 export default function Theming() {
@@ -32,9 +32,11 @@ import './theme.css';`}
 
       <H2 id="colors">Colors</H2>
       <p>
-        The base colors are the surfaces and the text on them. The eight color roles are what the <code>color</code> prop takes;
-        each comes with a <code>-content</code> color, the text that stays readable on it. A theme sets solid colors only:
-        components derive their soft, outline and hover tints with <code>color-mix()</code>.
+        The base colors are the surfaces and the text on them. <code>muted</code> is a quiet surface for parts that step back,
+        such as a card footer, and <code>muted-content</code> is de-emphasized text, readable on it and on every base surface. The
+        eight color roles are what the <code>color</code> prop takes; each comes with a <code>-content</code> color, the text that
+        stays readable on it. A theme sets solid colors only: components derive their soft, outline and hover tints with{' '}
+        <code>color-mix()</code>.
       </p>
       <div class="docs-swatches">
         <For each={[...surfaces, ...roles]}>

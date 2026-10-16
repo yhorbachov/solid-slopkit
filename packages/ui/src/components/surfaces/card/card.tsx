@@ -1,4 +1,4 @@
-import { omit } from 'solid-js';
+import { createContext, omit, useContext } from 'solid-js';
 import { type JSX } from '@solidjs/web';
 import style from './card.module.css';
 import { mergeDefaultProps, type ElementProps } from '../../../utils';
@@ -8,12 +8,15 @@ import { Text, type TextOwnProps } from '../../typography/text';
 
 export type CardVariant = 'outline' | 'soft' | 'elevated';
 export type CardOrientation = 'vertical' | 'horizontal';
+export type CardSize = 'sm' | 'md';
 
 export interface CardOwnProps {
   /** `outline` (bordered, the default), `soft` (a quieter surface, no border) or `elevated` (a shadow). */
   variant?: CardVariant;
   /** `horizontal` puts Card.Image on the start side and stacks the other parts beside it. Defaults to `vertical`. */
   orientation?: CardOrientation;
+  /** `sm` tightens the spacing and makes Card.Title smaller. Defaults to `md`. */
+  size?: CardSize;
 }
 
 export type CardProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>, CardOwnProps>;
@@ -21,6 +24,9 @@ export type CardPartProps = ElementProps<JSX.HTMLAttributes<HTMLDivElement>>;
 export type CardImageProps = ElementProps<JSX.ImgHTMLAttributes<HTMLImageElement>, { alt: string }>;
 export type CardTitleProps = TitleProps;
 export type CardDescriptionProps = ElementProps<JSX.HTMLAttributes<HTMLParagraphElement>, Omit<TextOwnProps, 'children'>>;
+
+// The card's size, for Card.Title's default look.
+const CardSizeContext = createContext<() => CardSize>(() => 'md');
 
 /**
  * The top part, for a title: a row that puts anything after the title at the end. With Card.Title and
@@ -31,13 +37,17 @@ export function CardHeader(props: CardPartProps) {
   return <div class={joinClass(['slp-card-header', style.header], props.class)} {...others} />;
 }
 
-/** The card's heading: a Title at level 3 that looks like an `h5`. Takes Title's props to change either. */
+/**
+ * The card's heading: a Title at level 3 that looks like an `h5` (an `h6` in a small card). Takes Title's props to
+ * change either.
+ */
 export function CardTitle(props: CardTitleProps) {
+  const cardSize = useContext(CardSizeContext);
   const others = omit(props, 'class', 'order', 'size');
   return (
     <Title
       order={props.order ?? 3}
-      size={props.size ?? 'h5'}
+      size={props.size ?? (cardSize() === 'sm' ? 'h6' : 'h5')}
       class={joinClass(['slp-card-title', style.title], props.class)}
       {...others}
     />
@@ -63,7 +73,7 @@ export function CardBody(props: CardPartProps) {
   return <div class={joinClass(['slp-card-body', style.body], props.class)} {...others} />;
 }
 
-/** The bottom part: a row of actions aligned to the end, below a divider. */
+/** The bottom part: a row of actions on a muted strip, below a divider. */
 export function CardFooter(props: CardPartProps) {
   const others = omit(props, 'class');
   return <div class={joinClass(['slp-card-footer', style.footer], props.class)} {...others} />;
@@ -80,16 +90,19 @@ export function CardImage(props: CardImageProps) {
  * Card.Title and Card.Description for its heading.
  */
 export function Card(props: CardProps) {
-  const mergedProps = mergeDefaultProps({ variant: 'outline', orientation: 'vertical' } as const, props);
-  const others = omit(mergedProps, 'class', 'variant', 'orientation');
+  const mergedProps = mergeDefaultProps({ variant: 'outline', orientation: 'vertical', size: 'md' } as const, props);
+  const others = omit(mergedProps, 'class', 'children', 'variant', 'orientation', 'size');
 
   return (
     <div
       data-variant={mergedProps.variant}
       data-orientation={mergedProps.orientation}
+      data-size={mergedProps.size}
       class={joinClass(['slp-card', style.card], mergedProps.class)}
       {...others}
-    />
+    >
+      <CardSizeContext value={() => mergedProps.size}>{mergedProps.children}</CardSizeContext>
+    </div>
   );
 }
 

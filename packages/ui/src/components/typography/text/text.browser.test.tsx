@@ -21,7 +21,7 @@ describe('<Text /> in a browser', () => {
     expect(css('md').marginTop).toBe('0px');
   });
 
-  test('color reads the role token, dimmed mutes it, and without color the text inherits', () => {
+  test('color reads the role token, dimmed takes the muted content color or fades the role, and without color the text inherits', () => {
     const { getByText, getByTestId } = render(() => (
       <div style={{ color: 'rgb(10, 20, 30)' }}>
         <Text>Inherited</Text>
@@ -31,12 +31,13 @@ describe('<Text /> in a browser', () => {
           Primary dimmed
         </Text>
         <span data-testid="token" style={{ color: 'var(--slp-color-primary)' }} />
+        <span data-testid="muted" style={{ color: 'var(--slp-color-muted-content)' }} />
       </div>
     ));
     const color = (el: Element) => getComputedStyle(el).color;
 
     expect(color(getByText('Inherited'))).toBe('rgb(10, 20, 30)');
-    expect(color(getByText('Dimmed'))).not.toBe('rgb(10, 20, 30)');
+    expect(color(getByText('Dimmed'))).toBe(color(getByTestId('muted')));
     expect(color(getByText('Primary'))).toBe(color(getByTestId('token')));
     expect(color(getByText('Primary dimmed'))).not.toBe(color(getByText('Primary')));
   });

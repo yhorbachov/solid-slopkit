@@ -18,6 +18,22 @@ describe('<Card />', () => {
     expect(card).toHaveClass('slp-card');
     expect(card).toHaveAttribute('data-variant', 'outline');
     expect(card).toHaveAttribute('data-orientation', 'vertical');
+    expect(card).toHaveAttribute('data-size', 'md');
+  });
+
+  test('in a small card, Card.Title looks like an h6 unless its size says otherwise', () => {
+    const { getByRole } = render(() => (
+      <Card size="sm">
+        <Card.Header>
+          <Card.Title>Small</Card.Title>
+          <Card.Title size="h4">Explicit</Card.Title>
+        </Card.Header>
+      </Card>
+    ));
+
+    expect(getByRole('heading', { name: 'Small' }).parentElement!.parentElement).toHaveAttribute('data-size', 'sm');
+    expect(getByRole('heading', { name: 'Small' })).toHaveAttribute('data-size', 'h6');
+    expect(getByRole('heading', { name: 'Explicit' })).toHaveAttribute('data-size', 'h4');
   });
 
   test('renders its parts with their own root classes, and passes props through', () => {

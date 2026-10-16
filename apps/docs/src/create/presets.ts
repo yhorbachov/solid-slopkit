@@ -244,6 +244,8 @@ export function buildTokens(preset: Preset): Record<string, string> {
     '--slp-color-base-200': lightDark(surface(0.968, chroma), surface(0.255, chroma)),
     '--slp-color-base-300': lightDark(surface(0.922, chroma * 1.2), surface(0.315, chroma * 1.2)),
     '--slp-color-base-content': lightDark(surface(0.21, chroma * 1.5), surface(0.93, chroma)),
+    '--slp-color-muted': lightDark(surface(0.968, chroma), surface(0.255, chroma)),
+    '--slp-color-muted-content': lightDark(surface(0.5, chroma * 1.5), surface(0.72, chroma)),
     '--slp-color-neutral': lightDark(surface(0.3, chroma * 1.5), surface(0.8, chroma)),
     '--slp-color-neutral-content': lightDark(WHITE, surface(0.2, chroma)),
     '--slp-color-primary': primary.color!,

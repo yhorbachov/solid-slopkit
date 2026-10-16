@@ -17,7 +17,7 @@ import { Text } from '@solid-slopkit/ui';
 
 - **Element:** a `p` by default. `as` renders another element, such as `span`, `label`, `div` or `li`, and takes that element's attributes (`<Text as="label" for="email">`). The margin is reset to `0`, so space paragraphs with a Stack.
 - **Sizes:** `xs` to `xl`, from `--slp-font-size-*` and `--slp-line-height-*` (12/16, 14/20, 16/24, 18/28 and 20/28px with the default root size). The default is `md`.
-- **Color:** `color` takes a color role. Without it, Text inherits the color of its parent, so it works on colored surfaces too. `dimmed` mutes the text, with or without `color`.
+- **Color:** `color` takes a color role. Without it, Text inherits the color of its parent, so it works on colored surfaces too. `dimmed` mutes the text: without `color` it takes the theme's `--slp-color-muted-content`, with one it fades the role's color. On a colored surface, pair `dimmed` with a `color` or set the color in CSS.
 - **Weight:** `'normal'`, `'medium'`, `'semibold'` or `'bold'`. Without it, the weight is inherited.
 - **Truncation:** `truncate` cuts the text to one line with an ellipsis. `lineClamp={n}` cuts it after `n` lines. Both need a block element, such as the default `p` or `as="div"`; give the element or its parent a width.
 - **Inherit:** `inherit` takes font size and line height from the parent and ignores `size`, for Text inside a Title, a Button or another Text.
@@ -41,7 +41,7 @@ Other props are passed to the rendered element.
 | `as`        | `ValidComponent`                                                                                   | `'p'`   | Element or component to render.                       |
 | `size`      | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                             | `'md'`  | Font size and line height. Ignored with `inherit`.    |
 | `color`     | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | —       | Color role. Inherits the parent's color when omitted. |
-| `dimmed`    | `boolean`                                                                                          | `false` | Mutes the text.                                       |
+| `dimmed`    | `boolean`                                                                                          | `false` | Mutes the text (`--slp-color-muted-content`).         |
 | `weight`    | `'normal' \| 'medium' \| 'semibold' \| 'bold'`                                                     | —       | Font weight. Inherited when omitted.                  |
 | `truncate`  | `boolean`                                                                                          | `false` | One line, with an ellipsis.                           |
 | `lineClamp` | `number`                                                                                           | —       | Cuts the text after this many lines.                  |
