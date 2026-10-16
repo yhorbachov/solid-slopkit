@@ -749,15 +749,15 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/theming";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
-      $$route?: undefined;
-    },
-    {
       path: "/ui/mark";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/mark")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/theming";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
       $$route?: undefined;
     }
   ];
