@@ -1,6 +1,6 @@
 # Card
 
-Content grouped on a surface, built from fixed parts: `Card.Header`, `Card.Image`, `Card.Body` and `Card.Footer`.
+Content grouped on a surface, built from fixed parts: `Card.Header`, `Card.Image`, `Card.Body` and `Card.Footer`, with `Card.Title` and `Card.Description` for the heading.
 
 ```tsx
 import { Card } from '@solid-slopkit/ui';
@@ -12,15 +12,12 @@ import { Card } from '@solid-slopkit/ui';
 <Card>
   <Card.Image src="/norway.jpg" alt="A fjord at dawn" />
   <Card.Header>
-    <Title order={3} size="h5">
-      Norway
-    </Title>
+    <Card.Title>Norway</Card.Title>
+    <Card.Description>Fjords, mountains and the midnight sun.</Card.Description>
     <Badge>New</Badge>
   </Card.Header>
   <Card.Body>
-    <Text size="sm" dimmed>
-      Fjords, mountains and the midnight sun.
-    </Text>
+    <Text size="sm">Ten days from Bergen to the Lofoten islands, by train, ferry and on foot.</Text>
   </Card.Body>
   <Card.Footer>
     <Button variant="ghost">Details</Button>
@@ -30,7 +27,9 @@ import { Card } from '@solid-slopkit/ui';
 ```
 
 - **Parts:** each one is optional and renders its own element.
-  - `Card.Header`: a row; a title at the start and anything after it at the end.
+  - `Card.Header`: a row; a title at the start and anything after it at the end. With `Card.Title` and `Card.Description` in it, the two stack at the start and each other child (a badge, a close button, a switch) takes a column at the end, aligned to the top.
+  - `Card.Title`: the card's heading, a [Title](../../typography/title/title.md) at level 3 that looks like an `h5`. It takes Title's props: `order` for another level, `size`, `color`, `dimmed`, `weight`. It works in a body too, e.g. for a centered empty state.
+  - `Card.Description`: a line under the title, a [Text](../../typography/text/text.md) that is `sm` and dimmed. It takes Text's props, e.g. `size` or `dimmed={false}`.
   - `Card.Image`: a full-bleed `img`, flush with the card's edges and clipped to its corners. It takes the `img` attributes, and `alt` is required (`alt=""` for a decorative image). It's cropped to fit (`object-fit: cover`); set its height with `style` or a selector.
   - `Card.Body`: the padded main content. A body right after a header shares the header's padding instead of doubling it.
   - `Card.Footer`: a row of actions aligned to the end, below a divider.
@@ -53,12 +52,12 @@ Other props are passed to the `div`.
 
 ### Parts
 
-`Card.Header`, `Card.Body` and `Card.Footer` take the attributes of a `div`; `Card.Image` takes those of an `img`, with `alt` required. They are also exported as `CardHeader`, `CardImage`, `CardBody` and `CardFooter`.
+`Card.Header`, `Card.Body` and `Card.Footer` take the attributes of a `div`; `Card.Image` takes those of an `img`, with `alt` required. `Card.Title` takes Title's props (`order` defaults to `3`, `size` to `'h5'`), and `Card.Description` takes Text's props without `as` (`size` defaults to `'sm'`, `dimmed` to `true`). They are also exported as `CardHeader`, `CardTitle`, `CardDescription`, `CardImage`, `CardBody` and `CardFooter`.
 
 ## Styling
 
 Write plain CSS against these selectors. Component rules live in `@layer slopkit.components`, so unlayered CSS wins.
 
 - Root class: `.slp-card`, with `data-variant` and `data-orientation`.
-- Each part is a component with its own root class: `.slp-card-header`, `.slp-card-image`, `.slp-card-body`, `.slp-card-footer`.
+- Each part is a component with its own root class: `.slp-card-header`, `.slp-card-title`, `.slp-card-description`, `.slp-card-image`, `.slp-card-body`, `.slp-card-footer`. The title and description also keep `.slp-title` and `.slp-text`.
 - Examples: `.slp-card-image { aspect-ratio: 16 / 9 }`, or `.slp-card[data-orientation='horizontal'] { grid-template-columns: 8rem 1fr }` for a narrower side image.

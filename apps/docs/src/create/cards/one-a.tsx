@@ -19,7 +19,6 @@ import {
   Switch,
   Text,
   Textarea,
-  Title,
   Tooltip,
 } from '@solid-slopkit/ui';
 import { Bars, QrCode } from '../charts';
@@ -45,27 +44,13 @@ const LIGHTS = [
   { label: 'Fade', icon: Timer, value: 0 },
 ];
 
-function Heading(props: { title: string; subtitle?: string }) {
-  return (
-    <div>
-      <Title order={3} size="h5">
-        {props.title}
-      </Title>
-      {props.subtitle && (
-        <Text size="sm" dimmed>
-          {props.subtitle}
-        </Text>
-      )}
-    </div>
-  );
-}
-
 export function Column1() {
   return (
     <>
       <Card>
         <Card.Header>
-          <Heading title="Contribution History" subtitle="Last 6 months of activity" />
+          <Card.Title>Contribution History</Card.Title>
+          <Card.Description>Last 6 months of activity</Card.Description>
         </Card.Header>
         <Card.Body>
           <Stack>
@@ -107,9 +92,7 @@ export function Column1() {
                 <Plus />
               </Center>
             </Box>
-            <Title order={3} size="h6">
-              Distribute Track
-            </Title>
+            <Card.Title size="h6">Distribute Track</Card.Title>
             <Text size="sm" dimmed>
               Upload your first master to start reaching listeners on streaming services, and more.
             </Text>
@@ -124,9 +107,7 @@ export function Column1() {
         <Card.Body class="create-empty">
           <Stack align="center" gap={2}>
             <QrCode size="9rem" />
-            <Title order={3} size="h6">
-              Scan to connect your mobile device
-            </Title>
+            <Card.Title size="h6">Scan to connect your mobile device</Card.Title>
             <Text size="sm" dimmed>
               Open the Acme mobile app and scan this code to link your device.
             </Text>
@@ -141,7 +122,8 @@ export function Column1() {
 
       <Card>
         <Card.Header>
-          <Heading title="Q2 Dividend Income" subtitle="Quarterly dividend payouts across your portfolio holdings." />
+          <Card.Title>Q2 Dividend Income</Card.Title>
+          <Card.Description>Quarterly dividend payouts across your portfolio holdings.</Card.Description>
           <CloseButton size="sm" />
         </Card.Header>
         <Card.Body>
@@ -178,7 +160,8 @@ export function Column1() {
 
       <Card>
         <Card.Header>
-          <Heading title="Dollar-Cost Averaging" subtitle="A strategy for building wealth over time." />
+          <Card.Title>Dollar-Cost Averaging</Card.Title>
+          <Card.Description>A strategy for building wealth over time.</Card.Description>
         </Card.Header>
         <Card.Body>
           <Text size="sm" dimmed>
@@ -200,9 +183,7 @@ export function Column1() {
         <Card.Body class="create-empty">
           <Stack align="center" gap={2}>
             <Loader size="sm" label="Syncing" class="create-muted" />
-            <Title order={3} size="h6">
-              Syncing your accounts
-            </Title>
+            <Card.Title size="h6">Syncing your accounts</Card.Title>
             <Text size="sm" dimmed>
               We're pulling in your latest transactions. This usually takes a few seconds.
             </Text>
@@ -224,7 +205,8 @@ export function Column2() {
     <>
       <Card>
         <Card.Header>
-          <Heading title="Payout Threshold" subtitle="Set the minimum balance required before a payout is triggered." />
+          <Card.Title>Payout Threshold</Card.Title>
+          <Card.Description>Set the minimum balance required before a payout is triggered.</Card.Description>
           <CloseButton size="sm" />
         </Card.Header>
         <Card.Body>
@@ -307,7 +289,8 @@ export function Column2() {
 
       <Card>
         <Card.Header>
-          <Heading title="Preferences" subtitle="Manage your account settings and notifications." />
+          <Card.Title>Preferences</Card.Title>
+          <Card.Description>Manage your account settings and notifications.</Card.Description>
           <CloseButton size="sm" />
         </Card.Header>
         <Card.Body>
@@ -372,7 +355,8 @@ export function Column2() {
 
       <Card>
         <Card.Header>
-          <Heading title="Kitchen Island" subtitle="Hue Color Ambient" />
+          <Card.Title>Kitchen Island</Card.Title>
+          <Card.Description>Hue Color Ambient</Card.Description>
           <Switch aria-label="Kitchen Island light" size="sm" defaultChecked />
         </Card.Header>
         <Card.Body>

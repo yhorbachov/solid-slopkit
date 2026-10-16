@@ -19,21 +19,25 @@ export default function CardPage() {
       <h1>Card</h1>
       <p class="docs-lead">
         Content grouped on a surface, built from fixed parts: <code>Card.Header</code>, <code>Card.Image</code>,{' '}
-        <code>Card.Body</code> and <code>Card.Footer</code>.
+        <code>Card.Body</code> and <code>Card.Footer</code>, with <code>Card.Title</code> and <code>Card.Description</code> for
+        the heading.
       </p>
 
       <H2 id="import">Import</H2>
       <CodeBlock code={`import { Card } from '@solid-slopkit/ui';`} />
       <p>
-        The parts are also exported as <code>CardHeader</code>, <code>CardImage</code>, <code>CardBody</code> and{' '}
-        <code>CardFooter</code>.
+        The parts are also exported as <code>CardHeader</code>, <code>CardTitle</code>, <code>CardDescription</code>,{' '}
+        <code>CardImage</code>, <code>CardBody</code> and <code>CardFooter</code>.
       </p>
 
       <H2 id="parts">Parts</H2>
       <p>
-        Each part is optional. The header is a row that puts anything after the title at the end. The image is flush with the
-        card's edges and cropped to fit; <code>alt</code> is required. A body right after a header shares its padding. The footer
-        is a row of actions aligned to the end, below a divider.
+        Each part is optional. The header is a row that puts anything after the title at the end. <code>Card.Title</code> is a
+        level-3 heading that looks like an <code>h5</code>, and <code>Card.Description</code> is a small, dimmed line under it;
+        with them in the header, the two stack at the start and each other child takes a column at the end, aligned to the top.
+        They take Title's and Text's props to change the level, size or color. The image is flush with the card's edges and
+        cropped to fit; <code>alt</code> is required. A body right after a header shares its padding. The footer is a row of
+        actions aligned to the end, below a divider.
       </p>
       <Example component={Basic} code={basicCode} column />
 
@@ -54,7 +58,9 @@ export default function CardPage() {
       <H2 id="props">Props</H2>
       <p>
         Other props are passed to the root <code>div</code>. The parts take the attributes of a <code>div</code>, and{' '}
-        <code>Card.Image</code> those of an <code>img</code>.
+        <code>Card.Image</code> those of an <code>img</code>. <code>Card.Title</code> takes Title's props (<code>order</code>{' '}
+        defaults to <code>3</code>, <code>size</code> to <code>'h5'</code>) and <code>Card.Description</code> takes Text's (
+        <code>size</code> defaults to <code>'sm'</code>, <code>dimmed</code> to <code>true</code>).
       </p>
       <PropsTable
         rows={[
@@ -75,9 +81,9 @@ export default function CardPage() {
       <H2 id="styling">Styling</H2>
       <p>
         The root has the class <code>.slp-card</code>, with <code>data-variant</code> and <code>data-orientation</code>. Each part
-        is a component with its own root class: <code>.slp-card-header</code>, <code>.slp-card-image</code>,{' '}
-        <code>.slp-card-body</code> and <code>.slp-card-footer</code>. Its rules live in <code>@layer slopkit.components</code>,
-        so unlayered CSS wins.
+        is a component with its own root class: <code>.slp-card-header</code>, <code>.slp-card-title</code>,{' '}
+        <code>.slp-card-description</code>, <code>.slp-card-image</code>, <code>.slp-card-body</code> and{' '}
+        <code>.slp-card-footer</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
       <CodeBlock
         code={`.slp-card-image { aspect-ratio: 16 / 9; }

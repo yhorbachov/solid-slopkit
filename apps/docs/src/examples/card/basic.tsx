@@ -1,21 +1,18 @@
-import { Button, Card, Text, Title } from '@solid-slopkit/ui';
+import { Badge, Button, Card, Text } from '@solid-slopkit/ui';
 
 export default function Basic() {
   return (
     <Card style={{ width: '20rem' }}>
       <Card.Image src="/example-landscape.svg" alt="Mountains at sunset" style={{ height: '10rem' }} />
       <Card.Header>
-        <Title order={3} size="h5">
-          Norway
-        </Title>
-        <Text as="span" size="xs" color="success" weight="semibold">
+        <Card.Title>Norway</Card.Title>
+        <Card.Description>Fjords, mountains and the midnight sun.</Card.Description>
+        <Badge size="sm" variant="soft" color="success">
           New
-        </Text>
+        </Badge>
       </Card.Header>
       <Card.Body>
-        <Text size="sm" dimmed>
-          Fjords, mountains and the midnight sun, on a ten-day trip along the coast.
-        </Text>
+        <Text size="sm">Ten days along the coast, from Bergen to the Lofoten islands by train, ferry and on foot.</Text>
       </Card.Body>
       <Card.Footer>
         <Button variant="ghost" size="sm">

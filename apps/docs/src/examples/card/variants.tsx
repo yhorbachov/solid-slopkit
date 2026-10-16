@@ -1,5 +1,5 @@
 import { For } from 'solid-js';
-import { Card, SimpleGrid, Text, Title } from '@solid-slopkit/ui';
+import { Card, SimpleGrid, Text } from '@solid-slopkit/ui';
 
 export default function Variants() {
   return (
@@ -8,7 +8,7 @@ export default function Variants() {
         {(variant) => (
           <Card variant={variant}>
             <Card.Header>
-              <Title order={3} size="h6">{`variant="${variant}"`}</Title>
+              <Card.Title size="h6">{`variant="${variant}"`}</Card.Title>
             </Card.Header>
             <Card.Body>
               <Text size="sm" dimmed>

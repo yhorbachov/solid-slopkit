@@ -42,6 +42,49 @@ describe('<Card />', () => {
     expect(getByText('Footer')).toHaveClass('slp-card-footer');
   });
 
+  test('Card.Title is a level-3 heading that looks like an h5; Card.Description is small, dimmed text', () => {
+    const { getByRole, getByText } = render(() => (
+      <Card>
+        <Card.Header>
+          <Card.Title class="mine">Payout</Card.Title>
+          <Card.Description id="d">Set the minimum balance.</Card.Description>
+        </Card.Header>
+      </Card>
+    ));
+    const title = getByRole('heading', { level: 3, name: 'Payout' });
+    const description = getByText('Set the minimum balance.');
+
+    expect(title).toHaveClass('slp-card-title', 'slp-title', 'mine');
+    expect(title).toHaveAttribute('data-size', 'h5');
+    expect(description.tagName).toBe('P');
+    expect(description).toHaveClass('slp-card-description', 'slp-text');
+    expect(description).toHaveAttribute('data-size', 'sm');
+    expect(description).toHaveAttribute('data-dimmed');
+    expect(description).toHaveAttribute('id', 'd');
+  });
+
+  test("Card.Title and Card.Description take Title's and Text's props", () => {
+    const { getByRole, getByText } = render(() => (
+      <Card>
+        <Card.Header>
+          <Card.Title order={2} size="h4" color="primary">
+            Trip
+          </Card.Title>
+          <Card.Description size="xs" dimmed={false}>
+            Norway
+          </Card.Description>
+        </Card.Header>
+      </Card>
+    ));
+    const title = getByRole('heading', { level: 2, name: 'Trip' });
+    const description = getByText('Norway');
+
+    expect(title).toHaveAttribute('data-size', 'h4');
+    expect(title).toHaveAttribute('data-color', 'primary');
+    expect(description).toHaveAttribute('data-size', 'xs');
+    expect(description).not.toHaveAttribute('data-dimmed');
+  });
+
   test('changing variant and orientation updates attributes without diagnostics or waste', async () => {
     const [variant, setVariant] = createSignal<CardVariant>('outline', { name: 'variant' });
     const [orientation, setOrientation] = createSignal<CardOrientation>('vertical', { name: 'orientation' });
@@ -74,7 +117,9 @@ describe('<Card />', () => {
         <Card>
           <Card.Image src={IMAGE} alt="Fjord at dawn" />
           <Card.Header>
-            <h3>Norway</h3>
+            <Card.Title>Norway</Card.Title>
+            <Card.Description>Fjords and the midnight sun.</Card.Description>
+            <button type="button">Save</button>
           </Card.Header>
           <Card.Body>
             <p>Fjords and mountains.</p>

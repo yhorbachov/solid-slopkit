@@ -32,6 +32,39 @@ describe('<Card /> in a browser', () => {
     expect([footer.borderTopStyle, footer.justifyContent]).toEqual(['solid', 'flex-end']);
   });
 
+  test('a header with a title and description stacks the two at the start and puts the rest at the end, top-aligned', () => {
+    const { getByRole, getByText, getByTestId } = render(() => (
+      <Card style={{ width: '402px' }}>
+        <Card.Header data-testid="header">
+          <Card.Title>Payout</Card.Title>
+          <Card.Description>Set the minimum balance.</Card.Description>
+          <button type="button" style={{ width: '24px', height: '24px', padding: '0' }}>
+            A
+          </button>
+          <button type="button" style={{ width: '24px', height: '24px', padding: '0' }}>
+            B
+          </button>
+        </Card.Header>
+      </Card>
+    ));
+    const header = rect(getByTestId('header'));
+    const title = rect(getByRole('heading', { name: 'Payout' }));
+    const description = rect(getByText('Set the minimum balance.'));
+    const a = rect(getByRole('button', { name: 'A' }));
+    const b = rect(getByRole('button', { name: 'B' }));
+
+    // 20px padding; the description under the title with a 4px gap.
+    expect(title).toMatchObject({ left: header.left + 20, top: header.top + 20 });
+    expect(description.left).toBe(title.left);
+    expect(description.top).toBe(title.top + title.height + 4);
+    // The buttons side by side at the end, level with the title, with the header's 10px gap between them.
+    expect(a.top).toBe(title.top);
+    expect(b.top).toBe(title.top);
+    expect(b.left + b.width).toBe(header.left + header.width - 20);
+    expect(b.left).toBe(a.left + a.width + 10);
+    expect(title.width).toBe(a.left - 10 - title.left);
+  });
+
   test('variants', () => {
     const { getByText } = render(() => (
       <>

@@ -16,6 +16,13 @@ export const parts = () => (
         <button type="button">Action</button>
       </Card.Footer>
     </Card>
+    <Card>
+      <Card.Header>
+        <Card.Title>Payout</Card.Title>
+        <Card.Description>Set the minimum balance.</Card.Description>
+        <button type="button">Close</button>
+      </Card.Header>
+    </Card>
     <Card variant="soft" orientation="horizontal">
       <Card.Image src={IMAGE} alt="" />
       <Card.Body>Side</Card.Body>

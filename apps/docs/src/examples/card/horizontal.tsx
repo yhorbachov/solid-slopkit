@@ -1,13 +1,11 @@
-import { Button, Card, Text, Title } from '@solid-slopkit/ui';
+import { Button, Card, Text } from '@solid-slopkit/ui';
 
 export default function Horizontal() {
   return (
     <Card orientation="horizontal" style={{ 'max-width': '32rem' }}>
       <Card.Image src="/example-landscape.svg" alt="Mountains at sunset" />
       <Card.Header>
-        <Title order={3} size="h5">
-          Norway
-        </Title>
+        <Card.Title>Norway</Card.Title>
       </Card.Header>
       <Card.Body>
         <Text size="sm" dimmed>
