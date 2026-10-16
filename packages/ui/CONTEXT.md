@@ -1,6 +1,6 @@
-# slopkit UI
+# UI (`@solid-slopkit/ui`)
 
-A component library for SolidJS 2.x. Each component's API and look are chosen on their own merits.
+The component library: components, their look, theming and the provider. Each component's API and look are chosen on their own merits. Terms shared by every package live in [CONTEXT-MAP.md](../../CONTEXT-MAP.md).
 
 ## Language
 
@@ -28,16 +28,6 @@ _Avoid_: part, element, section (which is a Button prop)
 **Primitive**:
 A reusable piece of behavior with no markup or look of its own, such as a focus trap, dismissal or list keyboard navigation. Components are built by composing primitives.
 _Avoid_: hook, behavior, utility, headless component
-
-### Docs
-
-**Skill**:
-A task-oriented guide for coding agents (`skills/<area>/SKILL.md`), shipped in the package.
-_Avoid_: guide, recipe
-
-**LLM reference**:
-The handwritten Markdown page for one component or the provider (`<component>.md`, next to its source), shipped in the package. `llms.md` is their index.
-_Avoid_: llms.txt (that is only the index), API docs
 
 ### Color
 

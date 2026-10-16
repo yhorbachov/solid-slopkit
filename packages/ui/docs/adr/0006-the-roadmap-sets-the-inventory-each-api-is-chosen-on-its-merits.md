@@ -1,6 +1,6 @@
 # The roadmap sets the component inventory; each API is chosen on its merits
 
-The components 0.0.1 ships are the ones listed in `docs/roadmap.md`, including dates and notifications. Additions and exclusions are decided case by case. Each component's props, defaults, variant names and look are chosen on their merits when the component is designed, by comparing options, not by following an outside convention.
+The components 0.0.1 ships are the ones listed in `packages/ui/docs/roadmap.md`, including dates and notifications. Additions and exclusions are decided case by case. Each component's props, defaults, variant names and look are chosen on their merits when the component is designed, by comparing options, not by following an outside convention.
 
 Names are chosen per area: layout components are named for what they arrange (`Group`, `SimpleGrid`), variants for how they look (`soft`, `ghost`, `dash`), and tokens for what they color or shape (`base-100`, `radius-field`). Don't rename one area to match another.
 

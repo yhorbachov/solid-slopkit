@@ -1,6 +1,6 @@
 # @solid-slopkit/ui roadmap to 0.0.1
 
-0.0.1 is the first release. It ships the components listed below (ADR 0006). Decisions live in [docs/adr](./adr) and vocabulary in [CONTEXT.md](../CONTEXT.md).
+0.0.1 is the first release. It ships the components listed below (ADR 0006). Decisions live in [docs/adr](./adr) (repo-wide ones in [/docs/adr](../../../docs/adr)) and vocabulary in [CONTEXT.md](../CONTEXT.md).
 
 ## Rules for agents
 

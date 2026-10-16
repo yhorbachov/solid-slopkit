@@ -1,0 +1,19 @@
+# Packages are independent and meet through props
+
+The repo holds a family of packages: `@solid-slopkit/ui` (components), `@solid-slopkit/forms` (form state) and `@solid-slopkit/i18n` (translations). None of them depends on another at runtime. Forms and i18n are headless: no CSS and no components of their own besides i18n's provider. Where they work with the components, they produce values the components already take as props:
+
+- `bind()` from forms returns the props a slopkit input takes (`value`, `onChange(value)`, `error`, …).
+- A translation file's messages fill a component's text props, and the active locale is passed to `<SlopkitUi locale>`. The two providers don't know each other.
+
+`@solid-slopkit/ui` is a dev-only dependency of forms, so its tests and docs demos render the real inputs. Consumers of forms or i18n install no component library.
+
+## Considered Options
+
+- **Put the binding or the translations inside `@solid-slopkit/ui`:** rejected. The component library would have to know the forms or i18n API, and every app would ship it.
+- **Subpaths of `@solid-slopkit/ui`** (`/forms`, `/i18n`): rejected. A headless library would follow the UI package's release cadence and CSS build, which it has no use for.
+
+## Consequences
+
+- Each package is released on its own (ADR 0001), with its own tag (`forms-v<version>`, `i18n-v<version>`).
+- A change to the props an input takes can break `bind()`'s types. The forms tests render the real inputs to catch it.
+- Docs that show two packages together say how they are wired, since neither does it for the app.
