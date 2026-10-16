@@ -1,32 +1,35 @@
+import { Box, SimpleGrid, Stack } from '@solid-slopkit/ui';
 import * as A from './cards/two-a';
 import * as B from './cards/two-b';
 import * as C from './cards/two-c';
 
-// The second preview page: product and developer tools. Seven columns.
+// The second preview page: product and developer tools. Seven equal columns.
 export function PageTwo() {
   return (
-    <div class="create-grid">
-      <div class="create-col">
-        <A.Column1 />
-      </div>
-      <div class="create-col">
-        <A.Column2 />
-      </div>
-      <div class="create-col">
-        <A.Column3 />
-      </div>
-      <div class="create-col">
-        <B.Column4 />
-      </div>
-      <div class="create-col">
-        <B.Column5 />
-      </div>
-      <div class="create-col">
-        <C.Column6 />
-      </div>
-      <div class="create-col">
-        <C.Column7 />
-      </div>
-    </div>
+    <Box w="3000px" p={10}>
+      <SimpleGrid cols={7} spacing={10}>
+        <Stack gap={10}>
+          <A.Column1 />
+        </Stack>
+        <Stack gap={10}>
+          <A.Column2 />
+        </Stack>
+        <Stack gap={10}>
+          <A.Column3 />
+        </Stack>
+        <Stack gap={10}>
+          <B.Column4 />
+        </Stack>
+        <Stack gap={10}>
+          <B.Column5 />
+        </Stack>
+        <Stack gap={10}>
+          <C.Column6 />
+        </Stack>
+        <Stack gap={10}>
+          <C.Column7 />
+        </Stack>
+      </SimpleGrid>
+    </Box>
   );
 }

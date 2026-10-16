@@ -1,52 +1,18 @@
 /* Cards of page one, columns 1 and 2. */
 
-.create-one-a-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
 .create-one-a-footer {
   background: color-mix(in oklab, var(--slp-color-base-200) 50%, transparent);
 }
 
-.create-one-a-footer-text {
-  justify-content: flex-start;
-}
-
-.create-one-a-footer-split {
-  justify-content: space-between;
-}
-
-/* Contribution History */
-
-.create-one-a-history .create-bars-plot {
-  gap: 1rem;
-}
-
-.create-one-a-history .create-bars-labels {
-  gap: 1rem;
-}
-
-.create-one-a-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-
-  & .create-eyebrow {
-    margin-bottom: 0.375rem;
-  }
+.create-one-a-fill {
+  flex: 1;
 }
 
 /* Distribute Track */
 
 .create-one-a-icon-box {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   width: 2rem;
   height: 2rem;
-  margin-bottom: 0.5rem;
   border: 1px solid var(--slp-color-base-300);
   border-radius: 0.5rem;
 
@@ -58,31 +24,8 @@
 
 /* Q2 Dividend Income */
 
-.create-one-a-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.create-one-a-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.create-one-a-row-end {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
 .create-one-a-spark {
   width: 2.75rem;
-
-  & .create-bars-plot {
-    gap: 2px;
-  }
 
   & .create-bar {
     border-radius: 2px;
@@ -131,16 +74,12 @@
 }
 
 .create-one-a-range {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.375rem;
   font-size: 0.75rem;
 }
 
 /* Claimable Balance */
 
 .create-figure.create-one-a-balance {
-  margin-block: 0.25rem 0.5rem;
   font-size: 3rem;
 }
 
@@ -174,8 +113,6 @@
 /* Savings goal */
 
 .create-one-a-donut {
-  display: flex;
-  justify-content: center;
   padding-block: 1.5rem;
 }
 
@@ -213,12 +150,6 @@
 }
 
 /* Kitchen Island: bordered rows, an icon and label on the left, the slider on the right. */
-
-.create-one-a-lights {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
 
 .create-one-a-light {
   display: grid;

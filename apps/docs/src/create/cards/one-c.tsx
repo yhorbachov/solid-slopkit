@@ -5,6 +5,7 @@ import {
   Badge,
   Button,
   Card,
+  Center,
   Checkbox,
   CloseButton,
   Divider,
@@ -113,16 +114,18 @@ function PowerUsageCard() {
           </SimpleGrid>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-one-c-footer-stack">
-        <Text id="create-one-c-battery" size="sm" dimmed>
-          Battery Level
-        </Text>
-        <Group gap={3} wrap="nowrap">
-          <Progress value={85} size="sm" aria-labelledby="create-one-c-battery" style={{ flex: '1' }} />
-          <Text size="sm" weight="medium">
-            85%
+      <Card.Footer>
+        <Stack gap={2} style={{ flex: '1' }}>
+          <Text id="create-one-c-battery" size="sm" dimmed>
+            Battery Level
           </Text>
-        </Group>
+          <Group gap={3} wrap="nowrap">
+            <Progress value={85} size="sm" aria-labelledby="create-one-c-battery" style={{ flex: '1' }} />
+            <Text size="sm" weight="medium">
+              85%
+            </Text>
+          </Group>
+        </Stack>
       </Card.Footer>
     </Card>
   );
@@ -132,7 +135,7 @@ function EmptyCard(props: { icon: typeof CreditCard; title: string; text: string
   return (
     <Card>
       <Card.Body>
-        <div class="create-empty">
+        <Stack align="center" gap={2} class="create-empty">
           <ThemeIcon variant="soft" size="md">
             <props.icon aria-hidden="true" />
           </ThemeIcon>
@@ -145,7 +148,7 @@ function EmptyCard(props: { icon: typeof CreditCard; title: string; text: string
           <Button size="sm" color="primary">
             {props.action}
           </Button>
-        </div>
+        </Stack>
       </Card.Body>
     </Card>
   );
@@ -173,14 +176,14 @@ function UpcomingPaymentsCard() {
       </Card.Header>
       <Card.Body>
         <Stack gap={3}>
-          <div class="create-one-c-calendar">
+          <Center class="create-one-c-calendar">
             <Calendar
               defaultDate={new Date(2026, 9, 1)}
               weekendDays={[]}
               getDayProps={(date) => ({ selected: isSameDay(date, picked()) })}
               onDayClick={(date) => setPicked(date)}
             />
-          </div>
+          </Center>
           <For each={PAYMENTS}>
             {(payment) => (
               <Group class="create-inset" justify="space-between" wrap="nowrap">
@@ -318,13 +321,15 @@ function MilestoneCard() {
           </SimpleGrid>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-one-c-footer-stack">
-        <Button fullWidth color="primary">
-          Create Goal
-        </Button>
-        <Button fullWidth variant="outline">
-          Cancel
-        </Button>
+      <Card.Footer>
+        <Stack gap={2} style={{ flex: '1' }}>
+          <Button fullWidth color="primary">
+            Create Goal
+          </Button>
+          <Button fullWidth variant="outline">
+            Cancel
+          </Button>
+        </Stack>
       </Card.Footer>
     </Card>
   );

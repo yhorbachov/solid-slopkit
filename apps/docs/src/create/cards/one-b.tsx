@@ -42,17 +42,21 @@ import {
   ActionIcon,
   Anchor,
   Badge,
+  Box,
   Breadcrumbs,
   Button,
   Card,
+  Center,
   Chip,
   CloseButton,
+  Group,
   Menu,
   NavLink,
   PasswordInput,
   Progress,
   SegmentedControl,
   Select,
+  SimpleGrid,
   Skeleton,
   Stack,
   Table,
@@ -65,7 +69,7 @@ import { Bars } from '../charts';
 // A card title with a muted line under it, for the start of a Card.Header.
 function Heading(props: { title: string; subtitle?: string }) {
   return (
-    <div class="create-one-b-heading">
+    <Stack gap={0.5} class="create-one-b-heading">
       <Title order={3} size="h6">
         {props.title}
       </Title>
@@ -74,7 +78,7 @@ function Heading(props: { title: string; subtitle?: string }) {
           {props.subtitle}
         </Text>
       )}
-    </div>
+    </Stack>
   );
 }
 
@@ -95,23 +99,27 @@ function SavingsTargets() {
         <Stack gap={3}>
           <For each={targets}>
             {(target) => (
-              <div class="create-inset create-one-b-target">
+              <Stack gap={2.5} class="create-inset">
                 <p class="create-eyebrow">{target.name}</p>
-                <p class="create-figure">{target.goal}</p>
+                <Box mt={1} mb={1.5}>
+                  <p class="create-figure">{target.goal}</p>
+                </Box>
                 <Progress value={target.percent} size="xs" label={`${target.name} progress`} />
-                <div class="create-kv">
+                <Group justify="space-between" wrap="nowrap" gap={4} class="create-kv">
                   <span class="create-muted">{target.percent}% achieved</span>
                   <strong>{target.saved}</strong>
-                </div>
-              </div>
+                </Group>
+              </Stack>
             )}
           </For>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-one-b-footer">
-        <Text size="sm" class="create-muted">
-          You have not met your targets for this year.
-        </Text>
+      <Card.Footer>
+        <Stack gap={3} class="create-one-b-fill">
+          <Text size="sm" class="create-muted">
+            You have not met your targets for this year.
+          </Text>
+        </Stack>
       </Card.Footer>
     </Card>
   );
@@ -148,22 +156,24 @@ function BuyInvestment() {
             </Text>
           </Stack>
           <Stack gap={2}>
-            <div class="create-one-b-row-kv">
+            <Group justify="space-between" wrap="nowrap" gap={4} class="create-one-b-row-kv">
               <span class="create-muted">Estimated Shares</span>
               <strong>1.95</strong>
-            </div>
-            <div class="create-one-b-row-kv">
+            </Group>
+            <Group justify="space-between" wrap="nowrap" gap={4} class="create-one-b-row-kv">
               <span class="create-muted">Buying Power</span>
               <strong>$12,450.00</strong>
-            </div>
+            </Group>
           </Stack>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-one-b-footer">
-        <Button fullWidth>Review Order</Button>
-        <Text size="xs" class="create-muted create-one-b-center">
-          Trades are typically executed within minutes during market hours.
-        </Text>
+      <Card.Footer>
+        <Stack gap={3} class="create-one-b-fill">
+          <Button fullWidth>Review Order</Button>
+          <Text size="xs" class="create-muted create-one-b-center">
+            Trades are typically executed within minutes during market hours.
+          </Text>
+        </Stack>
       </Card.Footer>
     </Card>
   );
@@ -192,10 +202,10 @@ function RecentTransactions() {
               {(row) => (
                 <Table.Tr>
                   <Table.Td>
-                    <div class="create-one-b-merchant">
-                      <span class="create-one-b-tile">
+                    <Group gap={3} wrap="nowrap">
+                      <Center class="create-one-b-tile">
                         <row.icon aria-hidden="true" />
-                      </span>
+                      </Center>
                       <div>
                         <Text size="sm" weight="medium">
                           {row.name}
@@ -204,7 +214,7 @@ function RecentTransactions() {
                           {row.category}
                         </Text>
                       </div>
-                    </div>
+                    </Group>
                   </Table.Td>
                   <Table.Td class="create-muted">{row.date}</Table.Td>
                   <Table.Td class="create-one-b-amount" data-income={row.income ? '' : undefined}>
@@ -307,10 +317,12 @@ function Faq() {
           </Accordion>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-one-b-footer">
-        <Button variant="outline" size="sm" fullWidth>
-          Contact Support
-        </Button>
+      <Card.Footer>
+        <Stack gap={3} class="create-one-b-fill">
+          <Button variant="outline" size="sm" fullWidth>
+            Contact Support
+          </Button>
+        </Stack>
       </Card.Footer>
     </Card>
   );
@@ -341,16 +353,18 @@ function AccountOptions() {
           <For each={options}>
             {(option) => (
               <a href="#" class="create-inset create-one-b-option">
-                <option.icon aria-hidden="true" class="create-one-b-option-icon" />
-                <span class="create-one-b-option-text">
-                  <Text as="span" size="sm" weight="medium">
-                    {option.title}
-                  </Text>
-                  <Text as="span" size="sm" class="create-muted">
-                    {option.text}
-                  </Text>
-                </span>
-                <ChevronRight aria-hidden="true" class="create-one-b-option-chevron" />
+                <Group gap={3} wrap="nowrap">
+                  <option.icon aria-hidden="true" class="create-one-b-option-icon" />
+                  <Stack gap={0.5} class="create-one-b-fill">
+                    <Text as="span" size="sm" weight="medium">
+                      {option.title}
+                    </Text>
+                    <Text as="span" size="sm" class="create-muted">
+                      {option.text}
+                    </Text>
+                  </Stack>
+                  <ChevronRight aria-hidden="true" class="create-one-b-option-chevron" />
+                </Group>
               </a>
             )}
           </For>
@@ -365,10 +379,12 @@ function FrontDoor() {
     <Card>
       <Card.Header>
         <Heading title="Front Door" subtitle="Smart Lock Pro" />
-        <Text as="span" size="sm" class="create-muted create-one-b-status">
-          Locked
+        <Group gap={1.5} wrap="nowrap" class="create-muted create-one-b-status">
+          <Text as="span" size="sm">
+            Locked
+          </Text>
           <Lock aria-hidden="true" />
-        </Text>
+        </Group>
       </Card.Header>
       <Card.Body>
         <div class="create-one-b-camera" role="img" aria-label="Front door camera, live">
@@ -392,7 +408,7 @@ function Holdings() {
     <Card>
       <Card.Body>
         <Stack gap={3}>
-          <div class="create-one-b-holdings-bar">
+          <Group justify="space-between" wrap="nowrap" gap={4}>
             <TextInput
               aria-label="Search holdings"
               placeholder="Search holdings or tickers..."
@@ -406,12 +422,12 @@ function Holdings() {
               <Chip value="etfs">ETFs</Chip>
               <Chip value="reits">REITs</Chip>
             </Chip.Group>
-          </div>
+          </Group>
           <For each={holdings}>
             {(holding) => (
-              <div class="create-inset create-one-b-holding">
-                <span class="create-one-b-ticker">{holding.ticker}</span>
-                <div class="create-one-b-grow">
+              <Group gap={3} wrap="nowrap" class="create-inset">
+                <Center class="create-one-b-ticker">{holding.ticker}</Center>
+                <div class="create-one-b-fill">
                   <Text size="sm" weight="medium">
                     {holding.name}
                   </Text>
@@ -426,7 +442,7 @@ function Holdings() {
                     {holding.value}
                   </Text>
                 </div>
-              </div>
+              </Group>
             )}
           </For>
         </Stack>
@@ -438,14 +454,14 @@ function Holdings() {
 export function Column3() {
   return (
     <>
-      <div class="create-pair">
+      <SimpleGrid cols={2} spacing={10}>
         <SavingsTargets />
         <BuyInvestment />
-      </div>
+      </SimpleGrid>
       <RecentTransactions />
-      <div class="create-pair">
-        <div class="create-col">
-          <div class="create-pair">
+      <SimpleGrid cols={2} spacing={10}>
+        <Stack gap={10}>
+          <SimpleGrid cols={2} spacing={10}>
             <NavCard
               label="Finances"
               groups={[
@@ -494,14 +510,14 @@ export function Column3() {
                 },
               ]}
             />
-          </div>
+          </SimpleGrid>
           <Faq />
-        </div>
-        <div class="create-col">
+        </Stack>
+        <Stack gap={10}>
           <AccountOptions />
           <FrontDoor />
-        </div>
-      </div>
+        </Stack>
+      </SimpleGrid>
       <Holdings />
     </>
   );
@@ -524,22 +540,26 @@ function AccountAccess() {
           </div>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-one-b-footer">
-        <Button fullWidth size="sm" leftSection={<Lock aria-hidden="true" />}>
-          Update Security
-        </Button>
-        <a href="#" class="create-inset create-one-b-option">
-          <CircleAlert aria-hidden="true" class="create-one-b-option-icon create-one-b-danger" />
-          <span class="create-one-b-option-text">
-            <Text as="span" size="sm" weight="semibold">
-              Danger Zone
-            </Text>
-            <Text as="span" size="sm" class="create-muted">
-              Archive account and remove catalog
-            </Text>
-          </span>
-          <ArrowRight aria-hidden="true" class="create-one-b-option-chevron" />
-        </a>
+      <Card.Footer>
+        <Stack gap={3} class="create-one-b-fill">
+          <Button fullWidth size="sm" leftSection={<Lock aria-hidden="true" />}>
+            Update Security
+          </Button>
+          <a href="#" class="create-inset create-one-b-option">
+            <Group gap={3} wrap="nowrap">
+              <CircleAlert aria-hidden="true" class="create-one-b-option-icon create-one-b-danger" />
+              <Stack gap={0.5} class="create-one-b-fill">
+                <Text as="span" size="sm" weight="semibold">
+                  Danger Zone
+                </Text>
+                <Text as="span" size="sm" class="create-muted">
+                  Archive account and remove catalog
+                </Text>
+              </Stack>
+              <ArrowRight aria-hidden="true" class="create-one-b-option-chevron" />
+            </Group>
+          </a>
+        </Stack>
       </Card.Footer>
     </Card>
   );
@@ -547,42 +567,50 @@ function AccountAccess() {
 
 function CardBalance() {
   return (
-    <div class="create-col create-one-b-tight">
-      <div class="create-pair create-one-b-tight">
+    <Stack gap={3}>
+      <SimpleGrid cols={2} spacing={3}>
         <Card>
           <Card.Body class="create-one-b-small">
-            <Text size="sm" class="create-muted">
-              Card Balance
-            </Text>
-            <p class="create-figure">US$12.94</p>
-            <Text size="sm" class="create-muted">
-              US$11,337.06 Available
-            </Text>
+            <Stack gap={1}>
+              <Text size="sm" class="create-muted">
+                Card Balance
+              </Text>
+              <Box mb={1}>
+                <p class="create-figure">US$12.94</p>
+              </Box>
+              <Text size="sm" class="create-muted">
+                US$11,337.06 Available
+              </Text>
+            </Stack>
           </Card.Body>
         </Card>
         <Card>
           <Card.Body class="create-one-b-small">
-            <Text size="sm" class="create-muted">
-              Payment Due
-            </Text>
-            <p class="create-figure">1 Apr</p>
-            <Button size="xs" variant="outline" fullWidth>
-              Pay Early
-            </Button>
+            <Stack gap={1}>
+              <Text size="sm" class="create-muted">
+                Payment Due
+              </Text>
+              <Box mb={1}>
+                <p class="create-figure">1 Apr</p>
+              </Box>
+              <Button size="xs" variant="outline" fullWidth>
+                Pay Early
+              </Button>
+            </Stack>
           </Card.Body>
         </Card>
-      </div>
+      </SimpleGrid>
       <Card>
         <Card.Body>
           <Stack gap={3}>
-            <div class="create-one-b-row-kv">
+            <Group justify="space-between" wrap="nowrap" gap={4} class="create-one-b-row-kv">
               <Title order={3} size="h6" class="create-muted create-one-b-quiet">
                 Yearly Activity
               </Title>
               <Badge size="sm" variant="soft">
                 +US$0.25 Daily Cash
               </Badge>
-            </div>
+            </Group>
             <Bars
               values={[32, 45, 30, 50, 40, 44, 55, 36, 46, 58, 42, 68]}
               labels={['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']}
@@ -592,7 +620,7 @@ function CardBalance() {
           </Stack>
         </Card.Body>
       </Card>
-    </div>
+    </Stack>
   );
 }
 
@@ -631,25 +659,27 @@ function TransferFunds() {
             ]}
           />
           <div class="create-inset create-one-b-summary">
-            <div class="create-kv">
+            <Group justify="space-between" wrap="nowrap" gap={4} class="create-kv">
               <span class="create-muted">Estimated arrival</span>
               <span>Today, Apr 14</span>
-            </div>
-            <div class="create-kv">
+            </Group>
+            <Group justify="space-between" wrap="nowrap" gap={4} class="create-kv">
               <span class="create-muted">Transaction fee</span>
               <span>$0.00</span>
-            </div>
-            <div class="create-kv">
+            </Group>
+            <Group justify="space-between" wrap="nowrap" gap={4} class="create-kv">
               <strong>Total amount</strong>
               <strong>$1,200.00</strong>
-            </div>
+            </Group>
           </div>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-one-b-footer">
-        <Button fullWidth size="sm">
-          Confirm Transfer
-        </Button>
+      <Card.Footer>
+        <Stack gap={3} class="create-one-b-fill">
+          <Button fullWidth size="sm">
+            Confirm Transfer
+          </Button>
+        </Stack>
       </Card.Footer>
     </Card>
   );
@@ -661,20 +691,22 @@ function CoverArt() {
       <Card.Body>
         <Stack gap={3}>
           <p class="create-eyebrow">Cover Art</p>
-          <div class="create-one-b-artwork">
+          <Center class="create-one-b-artwork">
             <ImageIcon aria-hidden="true" />
-          </div>
+          </Center>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-one-b-footer">
-        <Button variant="soft" size="sm" fullWidth>
-          Upload Artwork
-        </Button>
-        <Text size="xs" class="create-muted create-one-b-center">
-          Minimum 3000 × 3000px
-          <br />
-          JPEG or PNG only
-        </Text>
+      <Card.Footer>
+        <Stack gap={3} class="create-one-b-fill">
+          <Button variant="soft" size="sm" fullWidth>
+            Upload Artwork
+          </Button>
+          <Text size="xs" class="create-muted create-one-b-center">
+            Minimum 3000 × 3000px
+            <br />
+            JPEG or PNG only
+          </Text>
+        </Stack>
       </Card.Footer>
     </Card>
   );
@@ -695,10 +727,10 @@ function LoadingCard() {
             <Skeleton style={{ height: '0.75rem', width: '75%' }} />
             <Skeleton style={{ height: '0.75rem', width: '50%' }} />
           </Stack>
-          <div class="create-one-b-skeleton-actions">
+          <SimpleGrid cols={2} spacing={2}>
             <Skeleton style={{ height: '2rem' }} />
             <Skeleton style={{ height: '2rem' }} />
-          </div>
+          </SimpleGrid>
         </Stack>
       </Card.Body>
     </Card>

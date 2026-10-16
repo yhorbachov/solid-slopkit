@@ -1,15 +1,23 @@
 import { For, Show } from 'solid-js';
+import { Flex, Stack } from '@solid-slopkit/ui';
 
 // Small drawings for the theme builder's preview cards. The library has no chart component, so these are plain
 // markup colored with the canvas's chart colors (--create-chart-1 … -5, derived from the theme in create.css).
 // They're decorative: each is hidden from screen readers, and a card states the numbers in text where they matter.
 
-/** Vertical bars, tallest value full height, with optional labels under them. */
-export function Bars(props: { values: number[]; labels?: string[]; height?: string; color?: string; class?: string }) {
+/** Vertical bars, tallest value full height, with optional labels under them. `gap` is between bars, in spacing units. */
+export function Bars(props: {
+  values: number[];
+  labels?: string[];
+  height?: string;
+  color?: string;
+  gap?: number;
+  class?: string;
+}) {
   const max = () => Math.max(...props.values);
   return (
-    <div class={['create-bars', props.class]} aria-hidden="true" style={{ '--h': props.height ?? '8rem' }}>
-      <div class="create-bars-plot">
+    <Stack gap={2} class={props.class} aria-hidden="true">
+      <Flex align="flex-end" gap={props.gap ?? 2} style={{ height: props.height ?? '8rem' }}>
         <For each={props.values}>
           {(value) => (
             <span
@@ -18,15 +26,17 @@ export function Bars(props: { values: number[]; labels?: string[]; height?: stri
             />
           )}
         </For>
-      </div>
-      <Show when={props.labels}>
-        {(labels) => (
-          <div class="create-bars-labels">
-            <For each={labels()}>{(label) => <span>{label}</span>}</For>
-          </div>
-        )}
-      </Show>
-    </div>
+      </Flex>
+      <Show when={props.labels}>{(labels) => <Labels labels={labels()} gap={props.gap} />}</Show>
+    </Stack>
+  );
+}
+
+function Labels(props: { labels: string[]; gap?: number }) {
+  return (
+    <Flex gap={props.gap ?? 2} class="create-bars-labels">
+      <For each={props.labels}>{(label) => <span>{label}</span>}</For>
+    </Flex>
   );
 }
 
@@ -34,11 +44,11 @@ export function Bars(props: { values: number[]; labels?: string[]; height?: stri
 export function GroupedBars(props: { groups: number[][]; labels?: string[]; height?: string }) {
   const max = () => Math.max(...props.groups.flat());
   return (
-    <div class="create-bars" aria-hidden="true" style={{ '--h': props.height ?? '8rem' }}>
-      <div class="create-bars-plot">
+    <Stack gap={2} aria-hidden="true">
+      <Flex align="flex-end" gap={2} style={{ height: props.height ?? '8rem' }}>
         <For each={props.groups}>
           {(group) => (
-            <span class="create-bar-group">
+            <Flex align="flex-end" gap={0.5} class="create-bar-group">
               <For each={group}>
                 {(value, series) => (
                   <span
@@ -47,18 +57,12 @@ export function GroupedBars(props: { groups: number[][]; labels?: string[]; heig
                   />
                 )}
               </For>
-            </span>
+            </Flex>
           )}
         </For>
-      </div>
-      <Show when={props.labels}>
-        {(labels) => (
-          <div class="create-bars-labels">
-            <For each={labels()}>{(label) => <span>{label}</span>}</For>
-          </div>
-        )}
-      </Show>
-    </div>
+      </Flex>
+      <Show when={props.labels}>{(labels) => <Labels labels={labels()} />}</Show>
+    </Stack>
   );
 }
 
@@ -66,37 +70,40 @@ export function GroupedBars(props: { groups: number[][]; labels?: string[]; heig
 export function StackedBars(props: { stacks: number[][]; height?: string }) {
   const max = () => Math.max(...props.stacks.map((stack) => stack.reduce((a, b) => a + b, 0)));
   return (
-    <div class="create-bars" aria-hidden="true" style={{ '--h': props.height ?? '8rem' }}>
-      <div class="create-bars-plot">
-        <For each={props.stacks}>
-          {(stack) => (
-            <span class="create-bar-stack" style={{ height: `${(stack.reduce((a, b) => a + b, 0) / max()) * 100}%` }}>
-              <For each={stack}>
-                {(value, series) => <span style={{ flex: `${value} 0 0`, background: `var(--create-chart-${series() + 1})` }} />}
-              </For>
-            </span>
-          )}
-        </For>
-      </div>
-    </div>
+    <Flex align="flex-end" gap={2} aria-hidden="true" style={{ height: props.height ?? '8rem' }}>
+      <For each={props.stacks}>
+        {(stack) => (
+          <Flex
+            direction="column-reverse"
+            gap={0.5}
+            class="create-bar-stack"
+            style={{ height: `${(stack.reduce((a, b) => a + b, 0) / max()) * 100}%` }}
+          >
+            <For each={stack}>
+              {(value, series) => <span style={{ flex: `${value} 0 0`, background: `var(--create-chart-${series() + 1})` }} />}
+            </For>
+          </Flex>
+        )}
+      </For>
+    </Flex>
   );
 }
 
 /** Bars inside full-height tracks, like a weekly goal. */
 export function TrackBars(props: { values: number[]; labels: string[]; height?: string }) {
   return (
-    <div class="create-track-bars" aria-hidden="true" style={{ '--h': props.height ?? '4rem' }}>
+    <Flex gap={1.5} aria-hidden="true">
       <For each={props.values}>
         {(value, index) => (
-          <span class="create-track">
+          <Stack align="center" gap={1.5} class="create-track">
             <span class="create-track-label">{props.labels[index()]}</span>
-            <span class="create-track-plot">
+            <Flex align="flex-end" class="create-track-plot" style={{ height: props.height ?? '4rem' }}>
               <span style={{ height: `${value}%` }} />
-            </span>
-          </span>
+            </Flex>
+          </Stack>
         )}
       </For>
-    </div>
+    </Flex>
   );
 }
 
@@ -148,9 +155,9 @@ export function Waveform(props: { count?: number }) {
     );
   };
   return (
-    <div class="create-waveform" aria-hidden="true">
+    <Flex align="center" gap={0.5} class="create-waveform" aria-hidden="true">
       <For each={bars()}>{(height) => <span style={{ height: `${height}%` }} />}</For>
-    </div>
+    </Flex>
   );
 }
 

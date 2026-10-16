@@ -23,15 +23,20 @@ import {
   ActionIcon,
   Anchor,
   Badge,
+  Box,
   Button,
   Card,
+  Center,
   Checkbox,
   CopyButton,
   Divider,
+  Flex,
+  Grid,
   Group,
   Radio,
   SegmentedControl,
   Select,
+  SimpleGrid,
   Slider,
   Stack,
   Switch,
@@ -72,16 +77,16 @@ function Typography() {
               Designers love packing quirky glyphs into test phrases. This is a preview of the typography styles.
             </Text>
           </Stack>
-          <div class="create-two-a-swatches">
+          <SimpleGrid cols={6} spacing={2} verticalSpacing={3}>
             <For each={SWATCHES}>
               {(name) => (
-                <div class="create-two-a-swatch">
+                <Stack gap={1.5} class="create-two-a-swatch">
                   <span style={{ background: `var(--slp-color-${name})` }} />
                   <code>--{name}</code>
-                </div>
+                </Stack>
               )}
             </For>
-          </div>
+          </SimpleGrid>
         </Stack>
       </Card.Body>
     </Card>
@@ -139,7 +144,7 @@ function Codespaces() {
             </Group>
           </Group>
           <Divider />
-          <div class="create-empty">
+          <Stack align="center" gap={2} class="create-empty">
             <Server aria-hidden="true" class="create-two-a-empty-icon" />
             <Text size="sm" weight="medium">
               No codespaces
@@ -151,11 +156,11 @@ function Codespaces() {
             <Anchor href="#" size="xs" class="create-muted">
               Learn more about codespaces
             </Anchor>
-          </div>
+          </Stack>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-two-a-note-footer">
-        <Text size="xs" class="create-muted">
+      <Card.Footer>
+        <Text size="xs" class="create-muted create-two-a-fill">
           Codespace usage for this repository is paid for by slopkit.
         </Text>
       </Card.Footer>
@@ -231,13 +236,15 @@ function Invoice() {
           </Table>
         </Table.ScrollContainer>
       </Card.Body>
-      <Card.Footer class="create-two-a-split">
-        <Button variant="outline" size="sm">
-          Download PDF
-        </Button>
-        <Button color="primary" size="sm">
-          Pay Now
-        </Button>
+      <Card.Footer>
+        <Group justify="space-between" gap={2.5} class="create-two-a-fill">
+          <Button variant="outline" size="sm">
+            Download PDF
+          </Button>
+          <Button color="primary" size="sm">
+            Pay Now
+          </Button>
+        </Group>
       </Card.Footer>
     </Card>
   );
@@ -276,15 +283,17 @@ function IconButtons() {
   return (
     <Card>
       <Card.Body>
-        <div class="create-two-a-icon-grid">
+        <SimpleGrid cols={8} spacing={1} verticalSpacing={3}>
           <For each={ICON_BUTTONS}>
             {(button) => (
-              <ActionIcon label={button.label} variant="outline" size="sm">
-                <button.icon aria-hidden="true" />
-              </ActionIcon>
+              <Center>
+                <ActionIcon label={button.label} variant="outline" size="sm">
+                  <button.icon aria-hidden="true" />
+                </ActionIcon>
+              </Center>
             )}
           </For>
-        </div>
+        </SimpleGrid>
       </Card.Body>
     </Card>
   );
@@ -346,14 +355,14 @@ function Sampler() {
               <Button variant="outline" size="sm">
                 Alert Dialog
               </Button>
-              <div class="create-two-a-joined">
+              <Flex class="create-two-a-joined">
                 <Button variant="outline" size="sm">
                   Button Group
                 </Button>
                 <ActionIcon label="More actions" variant="outline" size="sm">
                   <ChevronUp aria-hidden="true" />
                 </ActionIcon>
-              </div>
+              </Flex>
             </Group>
             <Switch aria-label="Sample switch" defaultChecked />
           </Group>
@@ -378,13 +387,15 @@ function Observability() {
           </Text>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-two-a-split">
-        <Button variant="outline" size="sm" rightSection={<Plus aria-hidden="true" />}>
-          Create Query
-        </Button>
-        <Badge color="warning" variant="soft" size="sm">
-          Warning
-        </Badge>
+      <Card.Footer>
+        <Group justify="space-between" gap={2.5} class="create-two-a-fill">
+          <Button variant="outline" size="sm" rightSection={<Plus aria-hidden="true" />}>
+            Create Query
+          </Button>
+          <Badge color="warning" variant="soft" size="sm">
+            Warning
+          </Badge>
+        </Group>
       </Card.Footer>
     </Card>
   );
@@ -407,7 +418,7 @@ function ShippingAddress() {
         <Stack gap={3}>
           <TextInput label="Street address" placeholder="123 Main Street" size="sm" />
           <TextInput label="Apt / Suite" placeholder="Apt 4B" size="sm" />
-          <div class="create-two-a-fields">
+          <SimpleGrid cols={2} spacing={3}>
             <TextInput label="City" placeholder="San Francisco" size="sm" />
             <Select
               label="State"
@@ -415,21 +426,23 @@ function ShippingAddress() {
               defaultValue="California"
               data={['California', 'New York', 'Oregon', 'Texas', 'Washington']}
             />
-          </div>
-          <div class="create-two-a-fields">
+          </SimpleGrid>
+          <SimpleGrid cols={2} spacing={3}>
             <TextInput label="ZIP Code" placeholder="94102" size="sm" />
             <Select label="Country" size="sm" defaultValue="United States" data={['United States', 'Canada', 'Mexico']} />
-          </div>
+          </SimpleGrid>
           <Checkbox label="Save as default address" defaultChecked size="sm" />
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-two-a-split">
-        <Button variant="outline" size="sm">
-          Cancel
-        </Button>
-        <Button color="primary" size="sm">
-          Save Address
-        </Button>
+      <Card.Footer>
+        <Group justify="space-between" gap={2.5} class="create-two-a-fill">
+          <Button variant="outline" size="sm">
+            Cancel
+          </Button>
+          <Button color="primary" size="sm">
+            Save Address
+          </Button>
+        </Group>
       </Card.Footer>
     </Card>
   );
@@ -469,21 +482,23 @@ function EnvironmentVariables() {
         <Stack gap={2}>
           <For each={VARIABLES}>
             {([name, value]) => (
-              <div class="create-inset create-two-a-variable">
+              <Group justify="space-between" wrap="nowrap" gap={4} class="create-inset create-two-a-variable">
                 <span>{name}</span>
                 <span class="create-muted">{value}</span>
-              </div>
+              </Group>
             )}
           </For>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-two-a-split">
-        <Button variant="outline" size="sm">
-          Edit
-        </Button>
-        <Button color="primary" size="sm">
-          Deploy
-        </Button>
+      <Card.Footer>
+        <Group justify="space-between" gap={2.5} class="create-two-a-fill">
+          <Button variant="outline" size="sm">
+            Edit
+          </Button>
+          <Button color="primary" size="sm">
+            Deploy
+          </Button>
+        </Group>
       </Card.Footer>
     </Card>
   );
@@ -516,16 +531,16 @@ function TrafficChannels() {
         <Stack gap={4}>
           <GroupedBars groups={TRAFFIC} labels={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']} height="6rem" />
           <Group gap={4} justify="center">
-            <Text size="xs" class="create-two-a-legend">
-              <span style={{ background: 'var(--create-chart-1)' }} aria-hidden="true" />
-              Desktop
-            </Text>
-            <Text size="xs" class="create-two-a-legend">
-              <span style={{ background: 'var(--create-chart-2)' }} aria-hidden="true" />
-              Mobile
-            </Text>
+            <Group gap={1.5} wrap="nowrap">
+              <span class="create-two-a-dot" style={{ background: 'var(--create-chart-1)' }} aria-hidden="true" />
+              <Text size="xs">Desktop</Text>
+            </Group>
+            <Group gap={1.5} wrap="nowrap">
+              <span class="create-two-a-dot" style={{ background: 'var(--create-chart-2)' }} aria-hidden="true" />
+              <Text size="xs">Mobile</Text>
+            </Group>
           </Group>
-          <div class="create-two-a-stats">
+          <SimpleGrid cols={3} spacing={0} class="create-two-a-stats">
             <div>
               <p class="create-eyebrow">Desktop</p>
               <Text size="sm" weight="semibold">
@@ -544,7 +559,7 @@ function TrafficChannels() {
                 +42%
               </Text>
             </div>
-          </div>
+          </SimpleGrid>
         </Stack>
       </Card.Body>
       <Card.Footer>
@@ -578,15 +593,21 @@ function InviteTeam() {
         <Stack gap={3}>
           <For each={INVITES}>
             {(invite, index) => (
-              <div class="create-two-a-invite">
-                <TextInput aria-label={`Email ${index() + 1}`} type="email" defaultValue={invite.email} size="sm" />
-                <Select
-                  aria-label={`Role ${index() + 1}`}
-                  size="sm"
-                  defaultValue={invite.role}
-                  data={['Admin', 'Editor', 'Viewer']}
-                />
-              </div>
+              <Grid gutter={2}>
+                <Grid.Col span="auto">
+                  <TextInput aria-label={`Email ${index() + 1}`} type="email" defaultValue={invite.email} size="sm" />
+                </Grid.Col>
+                <Grid.Col span="content">
+                  <Box w="6.5rem">
+                    <Select
+                      aria-label={`Role ${index() + 1}`}
+                      size="sm"
+                      defaultValue={invite.role}
+                      data={['Admin', 'Editor', 'Viewer']}
+                    />
+                  </Box>
+                </Grid.Col>
+              </Grid>
             )}
           </For>
           <Button variant="outline" size="sm" fullWidth leftSection={<Plus aria-hidden="true" />}>
@@ -625,20 +646,20 @@ function Agent() {
       </Card.Header>
       <Card.Body>
         <Stack gap={4}>
-          <ul class="create-two-a-checks">
-            <li>
+          <Stack role="list" gap={3} class="create-two-a-checks">
+            <Group role="listitem" align="flex-start" gap={2} wrap="nowrap">
               <CircleCheck aria-hidden="true" />
               <Text size="sm" as="span">
                 <strong>Code reviews</strong> with full codebase context to catch <strong>hard-to-find</strong> bugs.
               </Text>
-            </li>
-            <li>
+            </Group>
+            <Group role="listitem" align="flex-start" gap={2} wrap="nowrap">
               <CircleCheck aria-hidden="true" />
               <Text size="sm" as="span">
                 <strong>Code suggestions</strong> validated in sandboxes before you merge.
               </Text>
-            </li>
-            <li>
+            </Group>
+            <Group role="listitem" align="flex-start" gap={2} wrap="nowrap">
               <CircleCheck aria-hidden="true" />
               <Text size="sm" as="span">
                 <strong>Root-cause analysis</strong> for production issues with deployment context.{' '}
@@ -646,8 +667,8 @@ function Agent() {
                   Requires Observability Plus
                 </Badge>
               </Text>
-            </li>
-          </ul>
+            </Group>
+          </Stack>
           <Text size="sm" class="create-muted create-two-a-note">
             Pro teams get $100 in Acme Agent trial credit for 2 weeks after activation.
           </Text>

@@ -2,7 +2,7 @@ import { createMemo, createSignal, For, Show } from 'solid-js';
 import type { JSX } from '@solidjs/web';
 import { Title } from '@solidjs/meta';
 import { Check, Code as CodeIcon, RotateCcw, Shuffle, SlidersHorizontal } from '@lucide/solid';
-import { Button, ColorSwatch, Menu, Modal } from '@solid-slopkit/ui';
+import { Box, Button, ColorSwatch, Flex, Group, Menu, Modal, SimpleGrid, Stack } from '@solid-slopkit/ui';
 import { CodeBlock } from '../components/CodeBlock';
 import { ColorSchemeToggle } from '../layout/ColorSchemeToggle';
 // Before the pages, so the cards' own styles come after the shared ones.
@@ -101,36 +101,43 @@ export default function Create() {
   );
 
   return (
-    <div class="create">
+    <Stack gap={0} class="create">
       <Title>Create a theme · slopkit</Title>
-      <header class="create-header">
-        <a class="docs-wordmark" href="/">
-          slopkit
-        </a>
-        <nav class="create-header-nav" aria-label="Main">
-          <a href="/">Docs</a>
-          <a href="/ui">Components</a>
-          <a href="/ui/theming">Theming</a>
-          <a href="/create" aria-current="page">
-            Create
+      <Group justify="space-between" wrap="nowrap" class="create-header" role="banner">
+        <Group gap={6} wrap="nowrap">
+          <a class="docs-wordmark" href="/">
+            slopkit
           </a>
-        </nav>
-        <div class="create-header-actions">
+          <Box display={{ base: 'none', sm: 'block' }}>
+            <Group gap={4} class="create-header-nav" role="navigation" aria-label="Main">
+              <a href="/">Docs</a>
+              <a href="/ui">Components</a>
+              <a href="/ui/theming">Theming</a>
+              <a href="/create" aria-current="page">
+                Create
+              </a>
+            </Group>
+          </Box>
+        </Group>
+        <Group gap={2} wrap="nowrap">
           <ColorSchemeToggle pinned={false} />
           <Button size="sm" color="primary" onClick={() => setCodeOpened(true)}>
             Get CSS
           </Button>
-        </div>
-      </header>
+        </Group>
+      </Group>
 
-      <div class="create-body">
-        <aside class="create-rail" aria-label="Theme options">
-          <div class="create-rail-panel">
-            <div class="create-rail-head">
-              <h1>Create a theme</h1>
-              <SlidersHorizontal aria-hidden="true" />
-            </div>
-            <div class="create-rail-group">
+      {/* Narrow, the rail turns into a scrolling row above the canvas. */}
+      <Flex direction={{ base: 'column', sm: 'row' }} gap={4} class="create-body">
+        <Stack gap={3} class="create-rail" role="complementary" aria-label="Theme options">
+          <Flex direction={{ base: 'row', sm: 'column' }} class="create-rail-panel">
+            <Box display={{ base: 'none', sm: 'block' }}>
+              <Group justify="space-between" wrap="nowrap" class="create-rail-head">
+                <h1>Create a theme</h1>
+                <SlidersHorizontal aria-hidden="true" />
+              </Group>
+            </Box>
+            <Flex direction={{ base: 'row', sm: 'column' }} gap={1} class="create-rail-group">
               <Picker
                 label="Start From"
                 options={STARTERS}
@@ -140,10 +147,10 @@ export default function Create() {
                   if (next) setPreset(next.preset);
                 }}
               />
-            </div>
+            </Flex>
             <For each={GROUPS}>
               {(group) => (
-                <div class="create-rail-group">
+                <Flex direction={{ base: 'row', sm: 'column' }} gap={1} class="create-rail-group">
                   <For each={group}>
                     {(control) => (
                       <Picker
@@ -155,11 +162,11 @@ export default function Create() {
                       />
                     )}
                   </For>
-                </div>
+                </Flex>
               )}
             </For>
-          </div>
-          <div class="create-rail-actions">
+          </Flex>
+          <SimpleGrid cols={{ base: 3, sm: 1 }} spacing={2}>
             <Button
               variant="outline"
               size="sm"
@@ -187,16 +194,16 @@ export default function Create() {
             >
               Get CSS
             </Button>
-          </div>
-        </aside>
+          </SimpleGrid>
+        </Stack>
 
-        <main class="create-stage">
+        <Box class="create-stage" role="main">
           <div class="create-canvas" style={tokens()}>
             <Show when={page() === 1} fallback={<PageTwo />}>
               <PageOne />
             </Show>
           </div>
-          <div class="create-pager" role="group" aria-label="Preview page">
+          <Group gap={1} class="create-pager" role="group" aria-label="Preview page">
             <For each={[1, 2] as const}>
               {(n) => (
                 <button type="button" aria-pressed={page() === n ? 'true' : 'false'} onClick={() => setPage(n)}>
@@ -204,9 +211,9 @@ export default function Create() {
                 </button>
               )}
             </For>
-          </div>
-        </main>
-      </div>
+          </Group>
+        </Box>
+      </Flex>
 
       <Modal opened={codeOpened()} onClose={() => setCodeOpened(false)} title="Theme CSS" size="lg">
         <p class="create-modal-lead">
@@ -215,6 +222,6 @@ export default function Create() {
         </p>
         <CodeBlock code={toCss(tokens())} lang="css" />
       </Modal>
-    </div>
+    </Stack>
   );
 }

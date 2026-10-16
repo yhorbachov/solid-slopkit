@@ -1,25 +1,18 @@
-/* The theme builder: a header, a rail of pickers, and a canvas that carries the generated theme. Card-specific
-   styles live next to the cards (cards/*.css); the shared helpers they use are at the end of this file. */
+/* The theme builder: a header, a rail of pickers, and a canvas that carries the generated theme. Layout comes from
+   the library's layout components; this file sizes, scrolls and colors. Card-specific styles live next to the cards
+   (cards/*.css); the shared helpers they use and the drawings' styles are at the end. */
 
 .create {
-  display: flex;
-  flex-direction: column;
   height: 100dvh;
   overflow: hidden;
 }
 
 .create-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
   flex: none;
-  height: 3.5rem;
-  padding-inline: 1rem;
+  padding: 0.625rem 1rem;
 }
 
 .create-header-nav {
-  display: flex;
-  gap: 1rem;
   font-size: 0.875rem;
 
   & a {
@@ -31,66 +24,37 @@
       color: inherit;
     }
   }
-
-  @media (width < 48em) {
-    display: none;
-  }
-}
-
-.create-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-inline-start: auto;
 }
 
 .create-body {
-  display: grid;
-  grid-template-columns: 13rem minmax(0, 1fr);
-  gap: 1rem;
   flex: 1;
   min-height: 0;
   padding: 0 1rem 1rem;
-
-  @media (width < 48em) {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto minmax(0, 1fr);
-  }
 }
 
 /* Rail */
 
 .create-rail {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  flex: none;
+  width: 13rem;
   min-height: 0;
+
+  @media (width < 48em) {
+    width: auto;
+  }
 }
 
 .create-rail-panel {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow: auto;
   padding: 0.375rem;
   border: var(--docs-border);
   border-radius: 0.875rem;
   background: var(--slp-color-base-100);
-
-  @media (width < 48em) {
-    display: flex;
-    gap: 0.375rem;
-    overflow-x: auto;
-
-    & .create-rail-head {
-      display: none;
-    }
-  }
 }
 
 .create-rail-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 0.5rem 0.625rem;
 
   & h1 {
@@ -106,18 +70,15 @@
 }
 
 .create-rail-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
   padding-block: 0.375rem;
   border-top: var(--docs-border);
 
   @media (width < 48em) {
-    flex-direction: row;
     border-top: 0;
   }
 }
 
+/* A picker's trigger: a native button, so its inside is laid out here (a button can't hold the layout divs). */
 .create-rail-row {
   display: flex;
   align-items: center;
@@ -178,20 +139,11 @@
   overflow-y: auto;
 }
 
-.create-rail-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  @media (width < 48em) {
-    flex-direction: row;
-  }
-}
-
 /* Stage: the canvas scrolls both ways; the pager floats in its corner. */
 
 .create-stage {
   position: relative;
+  flex: 1;
   min-width: 0;
   min-height: 0;
 }
@@ -217,8 +169,6 @@
   position: absolute;
   right: 1rem;
   bottom: 1rem;
-  display: flex;
-  gap: 0.25rem;
   padding: 0.25rem;
   border: var(--docs-border);
   border-radius: 0.625rem;
@@ -244,43 +194,12 @@
   }
 }
 
-/* The pages: a fixed-width grid of columns, wider than the screen on purpose, like a board of screens. */
-.create-grid {
-  --create-gap: 2.5rem;
-
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  align-items: start;
-  gap: var(--create-gap);
-  width: 3000px;
-  padding: var(--create-gap);
-}
-
-.create-col {
-  display: flex;
-  flex-direction: column;
-  gap: var(--create-gap);
-  min-width: 0;
-}
-
-.create-col-wide {
-  grid-column: span 2;
-}
-
 .create-modal-lead {
   margin: 0 0 1rem;
   font-size: 0.875rem;
 }
 
-/* Shared helpers for the cards. */
-
-/* Two (or more) cards side by side inside one column. */
-.create-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
-  gap: var(--create-gap);
-}
+/* Shared helpers for the cards. None lays anything out: wrap them in a Stack or Group. */
 
 /* A tinted panel inside a card, e.g. a stat block or a list row. */
 .create-inset {
@@ -313,12 +232,8 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Label on the left, value on the right; stacked rows get a line between them. */
+/* A label/value row (a Group with justify="space-between"); consecutive rows get a line between them. */
 .create-kv {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
   font-size: 0.875rem;
 
   & + & {
@@ -328,12 +243,8 @@
   }
 }
 
-/* Centered empty state: icon, title, text, action. */
+/* A centered empty state (a Stack with align="center"): icon, title, text, action. */
 .create-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
   padding: 1.5rem 1rem;
   text-align: center;
 
@@ -343,20 +254,7 @@
   }
 }
 
-/* Drawings (charts.tsx) */
-
-.create-bars {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.create-bars-plot {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.5rem;
-  height: var(--h);
-}
+/* Drawings (charts.tsx): sizes and colors; Flex and Stack arrange them. */
 
 .create-bar {
   flex: 1;
@@ -365,25 +263,17 @@
 }
 
 .create-bar-group {
-  display: flex;
   flex: 1;
-  align-items: flex-end;
-  gap: 2px;
   height: 100%;
 }
 
 .create-bar-stack {
-  display: flex;
   flex: 1;
-  flex-direction: column-reverse;
-  gap: 2px;
   overflow: hidden;
   border-radius: 0.25rem;
 }
 
 .create-bars-labels {
-  display: flex;
-  gap: 0.5rem;
   color: color-mix(in oklab, var(--slp-color-base-content) 60%, transparent);
   font-size: 0.6875rem;
 
@@ -393,17 +283,8 @@
   }
 }
 
-.create-track-bars {
-  display: flex;
-  gap: 0.375rem;
-}
-
 .create-track {
-  display: flex;
   flex: 1;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.375rem;
   padding: 0.375rem 0.25rem 0.25rem;
   border: 1px solid var(--slp-color-base-300);
   border-radius: 0.5rem;
@@ -414,10 +295,7 @@
 }
 
 .create-track-plot {
-  display: flex;
-  align-items: flex-end;
   width: 100%;
-  height: var(--h);
   overflow: hidden;
   border-radius: 0.25rem;
   background: var(--slp-color-base-200);
@@ -446,9 +324,6 @@
 }
 
 .create-waveform {
-  display: flex;
-  align-items: center;
-  gap: 2px;
   height: 1.25rem;
 
   & span {

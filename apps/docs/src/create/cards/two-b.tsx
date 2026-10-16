@@ -6,6 +6,7 @@ import {
   Badge,
   Button,
   Card,
+  Flex,
   Group,
   Progress,
   RingProgress,
@@ -13,6 +14,7 @@ import {
   Select,
   SimpleGrid,
   Skeleton,
+  Box,
   Stack,
   Text,
   TextInput,
@@ -79,27 +81,31 @@ function BrowserShare() {
       <Card.Body>
         <Stack gap={4} align="center">
           <RingProgress value={70} size="xl" label="Browser share" class="create-two-b-donut">
-            <span class="create-two-b-donut-value">935</span>
-            <span class="create-two-b-donut-label">Visitors</span>
+            <Stack gap={0} align="center">
+              <span class="create-two-b-donut-value">935</span>
+              <span class="create-two-b-donut-label">Visitors</span>
+            </Stack>
           </RingProgress>
-          <ul class="create-two-b-legend">
+          <Flex wrap="wrap" justify="center" rowGap={2} columnGap={4} role="list" class="create-two-b-legend">
             <For each={BROWSERS}>
               {(browser, i) => (
-                <li>
+                <Group gap={1.5} wrap="nowrap" role="listitem">
                   <span class="create-two-b-dot" style={{ background: `var(--create-chart-${i() + 1})` }} />
                   {browser}
-                </li>
+                </Group>
               )}
             </For>
-          </ul>
+          </Flex>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-two-b-stack">
-        <div class="create-kv">
-          <span id="create-two-b-firefox">Firefox</span>
-          <span class="create-muted">31%</span>
-        </div>
-        <Progress value={31} size="xs" aria-labelledby="create-two-b-firefox" />
+      <Card.Footer>
+        <Stack gap={2} class="create-two-b-grow">
+          <Group justify="space-between" wrap="nowrap" gap={4} class="create-kv">
+            <span id="create-two-b-firefox">Firefox</span>
+            <span class="create-muted">31%</span>
+          </Group>
+          <Progress value={31} size="xs" aria-labelledby="create-two-b-firefox" />
+        </Stack>
       </Card.Footer>
     </Card>
   );
@@ -109,7 +115,7 @@ function NoTeamMembers() {
   return (
     <Card>
       <Card.Body>
-        <div class="create-empty create-two-b-dashed">
+        <Stack align="center" gap={2} class="create-empty create-two-b-dashed">
           <Avatar.Group>
             <Avatar name="Maya Lin" alt="" />
             <Avatar name="Omar Diaz" color="primary" alt="" />
@@ -122,7 +128,7 @@ function NoTeamMembers() {
             Invite your team to collaborate on this project.
           </Text>
           <Button size="sm">Invite Members</Button>
-        </div>
+        </Stack>
       </Card.Body>
     </Card>
   );
@@ -174,23 +180,27 @@ const CONTRIBUTORS: { name: string; color?: 'primary' | 'secondary' | 'neutral' 
 function Contributors() {
   return (
     <Card>
-      <Card.Header class="create-two-b-start">
-        <Title order={3} size="h5">
-          Contributors
-        </Title>
-        <Badge variant="soft" size="sm">
-          312
-        </Badge>
+      <Card.Header>
+        <Group gap={2.5} class="create-two-b-grow">
+          <Title order={3} size="h5">
+            Contributors
+          </Title>
+          <Badge variant="soft" size="sm">
+            312
+          </Badge>
+        </Group>
       </Card.Header>
       <Card.Body>
-        <div class="create-two-b-avatars" role="group" aria-label="Top contributors">
+        <Group gap={2.5} role="group" aria-label="Top contributors">
           <For each={CONTRIBUTORS}>{(person) => <Avatar size="sm" name={person.name} color={person.color} />}</For>
-        </div>
+        </Group>
       </Card.Body>
-      <Card.Footer class="create-two-b-start">
-        <Anchor href="#" size="sm" color="neutral">
-          + 810 contributors
-        </Anchor>
+      <Card.Footer>
+        <Group class="create-two-b-grow">
+          <Anchor href="#" size="sm" color="neutral">
+            + 810 contributors
+          </Anchor>
+        </Group>
       </Card.Footer>
     </Card>
   );
@@ -231,8 +241,10 @@ function TopicFeedback() {
           <Textarea label="Feedback" placeholder="Your feedback helps us improve..." rows={2} />
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-two-b-start">
-        <Button size="sm">Submit</Button>
+      <Card.Footer>
+        <Group class="create-two-b-grow">
+          <Button size="sm">Submit</Button>
+        </Group>
       </Card.Footer>
     </Card>
   );
@@ -255,14 +267,14 @@ function BookAppointment() {
             fullWidth
             withItemsBorders={false}
           />
-          <div class="create-two-b-note">
+          <Box py={2.5} px={3} class="create-two-b-note">
             <Text size="sm" weight="medium">
               New patient?
             </Text>
             <Text size="sm" dimmed>
               Please arrive 15 minutes early.
             </Text>
-          </div>
+          </Box>
         </Stack>
       </Card.Body>
       <Card.Footer>
@@ -300,25 +312,29 @@ function SleepReport() {
       <Card.Body>
         <Stack gap={4}>
           <StackedBars stacks={SLEEP} height="9rem" />
-          <dl class="create-two-b-stats">
+          <SimpleGrid cols={4} spacing={0} class="create-two-b-stats">
             <For each={SLEEP_STATS}>
               {(stat) => (
-                <div>
-                  <dt>{stat.label}</dt>
-                  <dd>{stat.value}</dd>
-                </div>
+                <dl>
+                  <Flex direction="column-reverse">
+                    <dt>{stat.label}</dt>
+                    <dd>{stat.value}</dd>
+                  </Flex>
+                </dl>
               )}
             </For>
-          </dl>
+          </SimpleGrid>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-two-b-split">
-        <Badge variant="soft" size="sm">
-          Good
-        </Badge>
-        <Button size="xs" variant="outline">
-          Details
-        </Button>
+      <Card.Footer>
+        <Group justify="space-between" class="create-two-b-grow">
+          <Badge variant="soft" size="sm">
+            Good
+          </Badge>
+          <Button size="xs" variant="outline">
+            Details
+          </Button>
+        </Group>
       </Card.Footer>
     </Card>
   );
@@ -327,7 +343,7 @@ function SleepReport() {
 // Help text under a field rather than between its label and the field.
 function Help(props: { id: string; children: JSX.Element }) {
   return (
-    <Text size="sm" dimmed id={props.id} class="create-two-b-help">
+    <Text size="sm" dimmed id={props.id}>
       {props.children}
     </Text>
   );
@@ -339,13 +355,13 @@ function Profile() {
       <Head title="Profile" subtitle="Manage your profile information." />
       <Card.Body>
         <Stack gap={4}>
-          <div>
+          <Stack gap={2}>
             <TextInput label="Name" placeholder="slopkit" aria-describedby="create-two-b-name-help" />
             <Help id="create-two-b-name-help">
               Your name may appear around the platform where you contribute or are mentioned. You can remove it at any time.
             </Help>
-          </div>
-          <div>
+          </Stack>
+          <Stack gap={2}>
             <Select
               label="Public Email"
               defaultValue="m@slopkit.dev"
@@ -359,8 +375,8 @@ function Profile() {
               </Anchor>
               .
             </Help>
-          </div>
-          <div>
+          </Stack>
+          <Stack gap={2}>
             <Textarea
               label="Bio"
               placeholder="Tell us a little bit about yourself"
@@ -368,11 +384,13 @@ function Profile() {
               aria-describedby="create-two-b-bio-help"
             />
             <Help id="create-two-b-bio-help">You can @mention other users and organizations to link to them.</Help>
-          </div>
+          </Stack>
         </Stack>
       </Card.Body>
-      <Card.Footer class="create-two-b-start">
-        <Button size="sm">Save Profile</Button>
+      <Card.Footer>
+        <Group class="create-two-b-grow">
+          <Button size="sm">Save Profile</Button>
+        </Group>
       </Card.Footer>
     </Card>
   );
