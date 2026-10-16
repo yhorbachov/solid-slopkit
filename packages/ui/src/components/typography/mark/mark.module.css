@@ -14,7 +14,7 @@
 
     padding-inline: 0.15em;
     border-radius: 0.2em;
-    background-color: color-mix(in oklab, var(--_mark-color) 35%, transparent);
+    background-color: color-mix(in oklab, var(--_mark-color) 30%, transparent);
     color: inherit;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;

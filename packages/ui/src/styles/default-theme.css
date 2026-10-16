@@ -2,7 +2,9 @@
  * The default theme supports both color schemes: colors that differ are written as light-dark(<light>, <dark>),
  * and the theme does not set color-scheme, so slopkit.base (the OS, or [data-slp-color-scheme]) picks one.
  *
- * The values are a work in progress, to be decided before 0.0.1 (roadmap M8.02).
+ * Contrast: every role reaches 4.5:1 (WCAG AA) against its content color, and as text on base-100, in both
+ * schemes. Warning is the exception as text: no yellow reaches it on a light surface. In light the roles are deep
+ * shades with white content; in dark they are bright shades with dark content.
  */
 @layer slopkit.themes {
   :root {
@@ -10,26 +12,25 @@
     --slp-color-base-200: light-dark(#f4f7fa, #2e2e2e);
     --slp-color-base-300: light-dark(#e8eef5, #3b3b3b);
     --slp-color-base-content: light-dark(#242424, #c9c9c9);
-    --slp-color-primary: light-dark(#1971c2, #228be6);
-    --slp-color-primary-content: #ffffff;
-    --slp-color-secondary: light-dark(#7048e8, #845ef7);
-    --slp-color-secondary-content: #ffffff;
+    --slp-color-primary: light-dark(#1971c2, #339af0);
+    --slp-color-primary-content: light-dark(#ffffff, #141414);
+    --slp-color-secondary: light-dark(#7048e8, #9775fa);
+    --slp-color-secondary-content: light-dark(#ffffff, #141414);
     --slp-color-accent: light-dark(oklch(0% 0 0), oklch(100% 0 0));
     --slp-color-accent-content: light-dark(oklch(100% 0 0), oklch(0% 0 0));
-    --slp-color-neutral: light-dark(#242424, #424242);
-    --slp-color-neutral-content: #ffffff;
-    --slp-color-info: light-dark(#0c8599, #1098ad);
-    --slp-color-info-content: #ffffff;
-    --slp-color-success: light-dark(#0c9b4e, #2f9e44);
-    --slp-color-success-content: #ffffff;
-    --slp-color-warning: #d99c07;
-    --slp-color-warning-content: #242424;
-    --slp-color-error: light-dark(#cb2824, #e03131);
-    --slp-color-error-content: #ffffff;
+    --slp-color-neutral: light-dark(#242424, #b8b8b8);
+    --slp-color-neutral-content: light-dark(#ffffff, #141414);
+    --slp-color-info: light-dark(#0b7285, #15aabf);
+    --slp-color-info-content: light-dark(#ffffff, #141414);
+    --slp-color-success: light-dark(#087f5b, #37b24d);
+    --slp-color-success-content: light-dark(#ffffff, #141414);
+    --slp-color-warning: light-dark(#d99c07, #fab005);
+    --slp-color-warning-content: #141414;
+    --slp-color-error: light-dark(#c92a2a, #fa5252);
+    --slp-color-error-content: light-dark(#ffffff, #141414);
     --slp-size-selector: 0.25rem;
     --slp-size-field: 0.25rem;
     --slp-spacing: 0.25rem;
     --slp-depth: 0;
-    --slp-noise: 0;
   }
 }

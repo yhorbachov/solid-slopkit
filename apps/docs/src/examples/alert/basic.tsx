@@ -3,8 +3,8 @@ import { Info } from '@lucide/solid';
 
 export default function Basic() {
   return (
-    <Alert title="The default theme is a work in progress" icon={<Info aria-hidden="true" />} role="note">
-      Components read only tokens, so they follow whatever the theme ends up being.
+    <Alert title="Themes are plain CSS" icon={<Info aria-hidden="true" />} role="note">
+      Components read only tokens, so a theme restyles all of them at once.
     </Alert>
   );
 }

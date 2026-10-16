@@ -63,7 +63,7 @@ export default function MarkPage() {
           {
             name: '--slp-mark-color',
             default: 'var(--slp-color-<color>)',
-            description: "The color the tint is made from, at 35%. For a color that isn't a role.",
+            description: "The color the tint is made from, at 30%. For a color that isn't a role.",
           },
         ]}
       />

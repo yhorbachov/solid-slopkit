@@ -6,7 +6,7 @@ import type { SlopColor } from '../../../core';
 import { Mark } from './mark';
 
 // Not accent: in the default theme's dark scheme it is pure white, and any tint strong enough to show is too light
-// under light text. That is a theme value, decided with the default theme (roadmap M8.02).
+// under light text.
 const colors: SlopColor[] = ['neutral', 'primary', 'secondary', 'info', 'success', 'warning', 'error'];
 
 describe('<Mark /> in a browser', () => {
@@ -19,7 +19,7 @@ describe('<Mark /> in a browser', () => {
     const css = getComputedStyle(getByText('match'));
 
     expect(css.color).toBe('rgb(10, 20, 30)');
-    expect(css.backgroundColor).toMatch(/\/ 0\.35\)$/);
+    expect(css.backgroundColor).toMatch(/\/ 0\.3\)$/);
   });
 
   test('a mark that wraps gets its padding on every line', () => {
@@ -40,7 +40,7 @@ describe('<Mark /> in a browser', () => {
         <Mark color="primary" style={{ '--slp-mark-color': 'rgb(255, 0, 0)' }}>
           custom
         </Mark>
-        <span data-testid="tint" style={{ 'background-color': 'color-mix(in oklab, rgb(255, 0, 0) 35%, transparent)' }} />
+        <span data-testid="tint" style={{ 'background-color': 'color-mix(in oklab, rgb(255, 0, 0) 30%, transparent)' }} />
       </>
     ));
 

@@ -149,6 +149,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/calendar";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/calendar")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/card";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/card")>;
@@ -236,6 +242,30 @@ declare module "virtual:file-routes" {
       path: "/ui/copy-button";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/copy-button")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/date-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-input")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/date-picker-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-picker-input")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/date-picker";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-picker")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/date-time-picker";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-time-picker")>;
       $$route?: undefined;
     },
     {
@@ -377,15 +407,15 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/mark";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/mark")>;
-      $$route?: undefined;
-    },
-    {
       path: "/ui/menu";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/menu")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/mini-calendar";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/mini-calendar")>;
       $$route?: undefined;
     },
     {
@@ -398,6 +428,18 @@ declare module "virtual:file-routes" {
       path: "/ui/modals";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/modals")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/month-picker-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/month-picker-input")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/month-picker";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/month-picker")>;
       $$route?: undefined;
     },
     {
@@ -641,6 +683,24 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/time-grid";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/time-grid")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/time-input";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/time-input")>;
+      $$route?: undefined;
+    },
+    {
+      path: "/ui/time-picker";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/time-picker")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/timeline";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/timeline")>;
@@ -677,27 +737,9 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/calendar";
+      path: "/ui/year-picker-input";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/calendar")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/mini-calendar";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/mini-calendar")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/date-picker";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-picker")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/month-picker";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/month-picker")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/year-picker-input")>;
       $$route?: undefined;
     },
     {
@@ -707,51 +749,15 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
-      path: "/ui/date-picker-input";
+      path: "/ui/theming";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-picker-input")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
       $$route?: undefined;
     },
     {
-      path: "/ui/month-picker-input";
+      path: "/ui/mark";
       page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/month-picker-input")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/year-picker-input";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/year-picker-input")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/date-input";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-input")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/time-input";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/time-input")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/time-picker";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/time-picker")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/time-grid";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/time-grid")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/date-time-picker";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/date-time-picker")>;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/mark")>;
       $$route?: undefined;
     }
   ];
@@ -1148,6 +1154,14 @@ declare module "virtual:file-routes" {
       id: "/ui/stepper";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/stepper")>;
+      $$route?: undefined;
+      children?: undefined;
+    },
+    {
+      path: "/ui/theming";
+      id: "/ui/theming";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
       $$route?: undefined;
       children?: undefined;
     },

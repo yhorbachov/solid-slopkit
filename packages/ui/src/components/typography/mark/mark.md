@@ -42,7 +42,7 @@ CSS variables, set on the mark or any ancestor:
 
 | Variable           | Default                    | Description                                                                    |
 | ------------------ | -------------------------- | ------------------------------------------------------------------------------ |
-| `--slp-mark-color` | `var(--slp-color-<color>)` | The color the tint is made from, at 35%. Use it for a color that isn't a role. |
+| `--slp-mark-color` | `var(--slp-color-<color>)` | The color the tint is made from, at 30%. Use it for a color that isn't a role. |
 
 ```tsx
 <Mark style={{ '--slp-mark-color': '#e64980' }}>pink</Mark>

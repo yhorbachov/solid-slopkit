@@ -9,7 +9,7 @@
 - A step marked **Gate** is a decision the maintainer makes. Don't implement anything that depends on it until the gate is marked decided.
 - When a step is done, tick its box in this file in the same commit.
 - The API of each component is chosen on its merits (ADR 0006). Compare options and recommend one; don't copy another library.
-- The default theme's values are a work in progress until M8.02. Don't tune them inside other steps; components read only tokens, so they follow whatever the theme ends up being.
+- The default theme's values were decided in M8.02, with a contrast rule its test enforces. Don't tune them inside other steps; components read only tokens, so they follow the theme.
 
 ## Definition of done (every component step)
 
@@ -203,7 +203,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 ## M8 — Release 0.0.1
 
 - [x] **M8.01** Export the stable primitives from `@solid-slopkit/ui/primitives` (ADR 0007)
-- [ ] **M8.02** Decide the default theme's values (it is a work in progress until then), then write the docs Theming page and the theming skill (both removed until then, so they can't mislead) and update the LLM references that quote them.
+- [x] **M8.02** Decide the default theme's values (it is a work in progress until then), then write the docs Theming page and the theming skill (both removed until then, so they can't mislead) and update the LLM references that quote them.
 - [ ] **M8.03** Audit the docs, LLM references and skills against the shipped API
 - [ ] **M8.04** Tag `ui-v0.0.1` and publish the GitHub Release
 

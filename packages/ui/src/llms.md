@@ -6,6 +6,7 @@ Each link below is the reference for one component: its props, examples, and the
 
 Task guides live next to `dist/` in the package, at `node_modules/@solid-slopkit/ui/skills/<area>/SKILL.md`:
 
+- `skills/theming/SKILL.md`: change the look, write themes, light/dark toggle, customize one component.
 - `skills/layout/SKILL.md`: pick a layout component, style props, responsive values.
 
 ## Setup
@@ -29,7 +30,7 @@ export function Root() {
 
 ## Theming in one paragraph
 
-A theme is a CSS rule that sets the `--slp-*` tokens: the default theme sets them on `:root`, and any other theme on `[data-slp-theme="<name>"]`, for the whole page or a subtree. Components read only tokens. The `color` prop of a component takes a color role: `primary`, `secondary`, `accent`, `neutral`, `info`, `success`, `warning` or `error`. A one-off color goes through the component's CSS variable, like `--slp-button-color`. Every component rule lives in `@layer slopkit.components`, so unlayered app CSS overrides it.
+A theme is a CSS rule that sets the `--slp-*` tokens: the default theme sets them on `:root`, and any other theme on `[data-slp-theme="<name>"]`, for the whole page or a subtree. Components read only tokens. The `color` prop of a component takes a color role: `primary`, `secondary`, `accent`, `neutral`, `info`, `success`, `warning` or `error`. A one-off color goes through the component's CSS variable, like `--slp-button-color`. Every component rule lives in `@layer slopkit.components`, so unlayered app CSS overrides it. The default theme's roles reach 4.5:1 against their content colors and as text on `base-100`, in light and dark. The theming skill has the full token list.
 
 ## Layout
 
