@@ -1,0 +1,114 @@
+.create-two-b-grow {
+  flex: 1;
+}
+
+/* Card parts that hug the start instead of the end, or spread out. */
+.create-two-b-start {
+  justify-content: flex-start;
+}
+
+.create-two-b-split {
+  justify-content: space-between;
+}
+
+.create-two-b-stack {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.create-two-b-donut {
+  --slp-ring-progress-color: var(--create-chart-1);
+
+  & [data-slot='ring-progress-label'] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.create-two-b-donut-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.create-two-b-donut-label {
+  color: color-mix(in oklab, var(--slp-color-base-content) 60%, transparent);
+  font-size: 0.75rem;
+}
+
+.create-two-b-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.75rem;
+
+  & li {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+}
+
+.create-two-b-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 2px;
+}
+
+.create-two-b-dashed {
+  border: 1px dashed var(--slp-color-base-300);
+  border-radius: 0.75rem;
+}
+
+.create-two-b-avatars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+.create-two-b-slots.slp-segmented-control {
+  --slp-segmented-control-color: var(--slp-color-base-200);
+
+  background: transparent;
+}
+
+.create-two-b-note {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--slp-color-base-300);
+  border-radius: 0.625rem;
+}
+
+.create-two-b-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  text-align: center;
+
+  & div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  & dt {
+    color: color-mix(in oklab, var(--slp-color-base-content) 60%, transparent);
+    font-size: 0.75rem;
+  }
+
+  & dd {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.create-two-b-help {
+  margin-top: 0.5rem;
+}

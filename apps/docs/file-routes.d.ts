@@ -41,6 +41,12 @@ declare module "virtual:file-routes" {
       $$route: FileRouteEagerRef<typeof import("./src/routes/[...404]")>;
     },
     {
+      path: "/create";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/create")>;
+      $$route?: undefined;
+    },
+    {
       path: "/";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/index")>;
@@ -407,6 +413,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/mark";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/mark")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/menu";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/menu")>;
@@ -683,6 +695,12 @@ declare module "virtual:file-routes" {
       $$route?: undefined;
     },
     {
+      path: "/ui/theming";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
+      $$route?: undefined;
+    },
+    {
       path: "/ui/time-grid";
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/time-grid")>;
@@ -747,18 +765,6 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/ui/year-picker")>;
       $$route?: undefined;
-    },
-    {
-      path: "/ui/mark";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/mark")>;
-      $$route?: undefined;
-    },
-    {
-      path: "/ui/theming";
-      page: true;
-      $component: FileRouteLazyRef<typeof import("./src/routes/ui/theming")>;
-      $$route?: undefined;
     }
   ];
   export default routes;
@@ -787,6 +793,14 @@ declare module "virtual:file-routes" {
       page: true;
       $component: FileRouteLazyRef<typeof import("./src/routes/[...404]")>;
       $$route: FileRouteEagerRef<typeof import("./src/routes/[...404]")>;
+      children?: undefined;
+    },
+    {
+      path: "/create";
+      id: "/create";
+      page: true;
+      $component: FileRouteLazyRef<typeof import("./src/routes/create")>;
+      $$route?: undefined;
       children?: undefined;
     },
     {
