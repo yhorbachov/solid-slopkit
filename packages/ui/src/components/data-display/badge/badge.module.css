@@ -91,9 +91,12 @@
     }
 
     &:is([data-variant='outline'], [data-variant='dash']) {
+      /* A faded text color: half the accent, or a fifth of the base text. Without an accent, --_badge-outline is
+         invalid (it reads an unset --_badge-color), so the base fallback applies. */
+      --_badge-outline: color-mix(in oklab, var(--_badge-color) 50%, transparent);
       --_badge-fg: var(--_badge-color, var(--slp-color-base-content));
       --_badge-bg: transparent;
-      --_badge-border: var(--_badge-color, color-mix(in oklab, var(--slp-color-base-content) 25%, transparent));
+      --_badge-border: var(--_badge-outline, color-mix(in oklab, var(--slp-color-base-content) 20%, transparent));
     }
 
     &[data-variant='dash'] {

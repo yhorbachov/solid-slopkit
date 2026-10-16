@@ -57,6 +57,23 @@ describe('<Chip /> in a browser', () => {
     expect(getComputedStyle(icon).display).toBe('block');
   });
 
+  test('an outline chip that is on has a border of half its color, over the faint border of one that is off', () => {
+    const { container } = render(() => (
+      <>
+        <Chip variant="outline" color="primary" defaultChecked>
+          On
+        </Chip>
+        <Chip variant="outline" color="primary">
+          Off
+        </Chip>
+      </>
+    ));
+    const [on, off] = [...container.querySelectorAll('.slp-chip')].map((el) => getComputedStyle(el).borderTopColor);
+
+    expect(on).toMatch(/\/ 0\.5\)$/);
+    expect(off).toMatch(/\/ 0\.2\)$/);
+  });
+
   test('chips wrap in a group', () => {
     const { container } = render(() => (
       <div style={{ width: '160px' }}>

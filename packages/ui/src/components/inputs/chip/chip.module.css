@@ -57,8 +57,9 @@
         --_chip-bg: color-mix(in oklab, var(--_chip-color) 15%, var(--slp-color-base-100));
         --_chip-icon: var(--_chip-color);
       }
+      /* Half the color, like the other outline variants; the check keeps the full color. */
       &[data-variant='outline'] {
-        --_chip-border: var(--_chip-color);
+        --_chip-border: color-mix(in oklab, var(--_chip-color) 50%, transparent);
         --_chip-icon: var(--_chip-color);
       }
       &[data-variant='filled'] {

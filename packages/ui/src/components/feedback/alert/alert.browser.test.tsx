@@ -83,7 +83,9 @@ describe('<Alert /> in a browser', () => {
     const role = getComputedStyle(getByTestId('role')).color;
 
     expect([solid.backgroundColor, solid.color]).toEqual([role, getComputedStyle(getByTestId('content')).color]);
-    expect([outline.backgroundColor, outline.borderTopColor]).toEqual(['rgba(0, 0, 0, 0)', role]);
+    expect(outline.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    // The border is half the role.
+    expect(outline.borderTopColor).toMatch(/\/ 0\.5\)$/);
   });
 
   test('soft and outline text stay readable for every color, in both color schemes', async () => {

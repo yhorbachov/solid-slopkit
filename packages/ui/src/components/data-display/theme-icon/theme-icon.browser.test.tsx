@@ -61,7 +61,9 @@ describe('<ThemeIcon /> in a browser', () => {
     expect([solid.backgroundColor, solid.color]).toEqual([role, content]);
     expect(soft.color).toBe(role);
     expect(soft.backgroundColor).toMatch(/\/ 0\.12\)$/);
-    expect([outline.backgroundColor, outline.color, outline.borderTopColor]).toEqual(['rgba(0, 0, 0, 0)', role, role]);
+    expect([outline.backgroundColor, outline.color]).toEqual(['rgba(0, 0, 0, 0)', role]);
+    // The border is half the role.
+    expect(outline.borderTopColor).toMatch(/\/ 0\.5\)$/);
   });
 
   test('--slp-theme-icon-color overrides the role', () => {

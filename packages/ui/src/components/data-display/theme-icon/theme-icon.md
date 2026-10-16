@@ -20,7 +20,7 @@ import { ThemeIcon } from '@solid-slopkit/ui';
 
 - **Element:** a `span` with no role. Next to a label, such as a feature title or a list item, the icon is decoration: mark the SVG `aria-hidden="true"`. When the icon alone carries meaning, give the ThemeIcon `role="img"` and an `aria-label`.
 - **Child:** usually one SVG icon, sized to 60% of the box and centered. Text, such as a digit, works too and is sized to the box.
-- **Variants:** `solid` (the default), `soft` (a light tint of the color) and `outline`.
+- **Variants:** `solid` (the default), `soft` (a light tint of the color) and `outline`, whose border is half the color, or a faint base border without one.
 - **Colors:** `color` takes a color role. Without it, the box uses the base colors.
 - **Sizes:** `xs` to `xl`: 20, 26, 32, 40 and 48px. The corners scale with the box.
 - ThemeIcon isn't interactive. For a clickable icon, use a Button with `shape="square"`.

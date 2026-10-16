@@ -16,7 +16,7 @@ import { Badge } from '@solid-slopkit/ui';
 ```
 
 - **Element:** a `span` with no role, so assistive technology reads its text in line. Make that text make sense in context: `Inbox <Badge>3</Badge>` reads "Inbox 3". Badge is not interactive; for a clickable one, use a Button.
-- **Variants:** `solid` (the default), `soft` (a light tint of the color), `outline` and `dash` (a dashed outline).
+- **Variants:** `solid` (the default), `soft` (a light tint of the color), `outline` and `dash` (a dashed outline). Outline and dash borders are half the color, or a faint base border without one.
 - **Colors:** `color` takes a color role. Without it the badge uses the base colors. Every variant works with every color.
 - **Sizes:** `xs` to `xl`, 16 to 28px tall. Heights are multiples of `--slp-size-selector`.
 - **Circle:** `circle` makes a badge for a single digit or character round. A longer count, like `99+`, grows into a pill.

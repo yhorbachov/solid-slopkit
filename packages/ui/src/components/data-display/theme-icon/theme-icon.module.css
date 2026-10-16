@@ -46,9 +46,12 @@
     }
 
     &[data-variant='outline'] {
+      /* A faded text color: half the accent, or a fifth of the base text. Without an accent, --_ti-outline is
+         invalid (it reads an unset --_ti-color), so the base fallback applies. */
+      --_ti-outline: color-mix(in oklab, var(--_ti-color) 50%, transparent);
       --_ti-fg: var(--_ti-color, var(--slp-color-base-content));
       --_ti-bg: transparent;
-      --_ti-border: var(--_ti-color, color-mix(in oklab, var(--slp-color-base-content) 25%, transparent));
+      --_ti-border: var(--_ti-outline, color-mix(in oklab, var(--slp-color-base-content) 20%, transparent));
     }
 
     /* Colors */

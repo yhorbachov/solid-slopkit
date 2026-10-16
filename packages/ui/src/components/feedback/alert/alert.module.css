@@ -38,9 +38,10 @@
       --_alert-icon: var(--_alert-content);
     }
 
+    /* The border is half the color, like the other outline variants. */
     &[data-variant='outline'] {
       --_alert-bg: transparent;
-      --_alert-border: var(--_alert-color);
+      --_alert-border: color-mix(in oklab, var(--_alert-color) 50%, transparent);
     }
 
     /* Colors */

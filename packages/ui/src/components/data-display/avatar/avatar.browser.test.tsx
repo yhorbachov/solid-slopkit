@@ -72,4 +72,17 @@ describe('<Avatar /> in a browser', () => {
       expect(getComputedStyle(avatar).backgroundColor).not.toMatch(/\/ 0(\.\d+)?\)$|rgba\(.*, 0(\.\d+)?\)$/);
     }
   });
+
+  test('an outline placeholder has a border of half its color, or a faint one without a color', () => {
+    const { container } = render(() => (
+      <>
+        <Avatar variant="outline" color="primary" name="Ada Lovelace" />
+        <Avatar variant="outline" name="Alan Turing" />
+      </>
+    ));
+    const [colored, plain] = [...container.querySelectorAll('.slp-avatar')].map((el) => getComputedStyle(el).borderTopColor);
+
+    expect(colored).toMatch(/\/ 0\.5\)$/);
+    expect(plain).toMatch(/\/ 0\.2\)$/);
+  });
 });

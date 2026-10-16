@@ -26,7 +26,7 @@ import { Chip } from '@solid-slopkit/ui';
 - **Text:** the group is an InputWrapper: `label`, `labelSection`, `description`, `error`, `size`; the chips sit in a `role="radiogroup"` or `role="group"` named by the label. Without a visible label, pass `aria-label`. The chips wrap onto new lines, 0.5rem apart.
 - **Alone,** a chip is a toggle: `checked`, `defaultChecked` and `onChange` (with a `boolean`).
 - **Name:** the chip's text is its accessible name. Keep it short; don't put links or buttons inside.
-- **Look:** `variant` sets how a chip looks when on: `soft` (the default, a tint), `outline` (a border) or `filled`. Soft and outline keep the text in the base color, so it stays readable whatever the color; the check takes the role. `color` takes a color role (`primary` by default). Heights match Button's.
+- **Look:** `variant` sets how a chip looks when on: `soft` (the default, a tint), `outline` (a border of half the color, with the check in full color) or `filled`. Soft and outline keep the text in the base color, so it stays readable whatever the color; the check takes the role. `color` takes a color role (`primary` by default). Heights match Button's.
 - **Focus:** the pill gets a focus ring while its hidden input has focus.
 
 ## Props

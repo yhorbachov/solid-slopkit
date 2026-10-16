@@ -44,8 +44,11 @@
     }
 
     &[data-variant='outline'] {
+      /* A faded text color: half the accent, or a fifth of the base text. Without an accent, --_avatar-outline is
+         invalid (it reads an unset --_avatar-color), so the base fallback applies. */
+      --_avatar-outline: color-mix(in oklab, var(--_avatar-color) 50%, transparent);
       --_avatar-bg: var(--slp-color-base-100);
-      --_avatar-border: var(--_avatar-color, color-mix(in oklab, var(--slp-color-base-content) 25%, transparent));
+      --_avatar-border: var(--_avatar-outline, color-mix(in oklab, var(--slp-color-base-content) 20%, transparent));
     }
 
     /* A picture covers the box edge to edge; the outline variant's border is only for a placeholder. */

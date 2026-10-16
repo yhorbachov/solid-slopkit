@@ -101,11 +101,9 @@ describe('<Badge /> in a browser', () => {
     ]);
     expect(style('Soft').color).toBe(primary);
     expect(style('Soft').backgroundColor).toMatch(/\/ 0\.12\)$/);
-    expect([style('Outline').backgroundColor, style('Outline').color, style('Outline').borderTopColor]).toEqual([
-      'rgba(0, 0, 0, 0)',
-      primary,
-      primary,
-    ]);
+    expect([style('Outline').backgroundColor, style('Outline').color]).toEqual(['rgba(0, 0, 0, 0)', primary]);
+    // The border is half the role.
+    expect(style('Outline').borderTopColor).toMatch(/\/ 0\.5\)$/);
     expect(style('Outline').borderTopStyle).toBe('solid');
     expect(style('Dash').borderTopStyle).toBe('dashed');
   });
@@ -139,6 +137,7 @@ describe('<Badge /> in a browser', () => {
     const outline = getComputedStyle(badgeOf(getByText('Custom outline')));
 
     expect([solid.backgroundColor, solid.color]).toEqual(['rgb(112, 72, 232)', 'rgb(1, 2, 3)']);
-    expect([outline.color, outline.borderTopColor]).toEqual(['rgb(112, 72, 232)', 'rgb(112, 72, 232)']);
+    expect(outline.color).toBe('rgb(112, 72, 232)');
+    expect(outline.borderTopColor).toMatch(/\/ 0\.5\)$/);
   });
 });
