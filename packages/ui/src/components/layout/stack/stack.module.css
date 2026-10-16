@@ -1,0 +1,14 @@
+/*
+ * Stack's dividers. A line sits in the middle of the gap between two children: each child after the first pulls up
+ * by half the gap and pads its top by the other half, below its top border. `:where()` keeps these at zero
+ * specificity, so a child's own classes still win.
+ *
+ * Everything prefixed `--_stack-` is internal.
+ */
+@layer slopkit.components {
+  :where(.stack[data-divided]) > * + * {
+    margin-top: calc(var(--_stack-gap) / -2);
+    padding-top: calc(var(--_stack-gap) / 2);
+    border-top: 1px solid color-mix(in oklab, var(--slp-color-base-content) 10%, transparent);
+  }
+}

@@ -15,7 +15,7 @@ All layout components must render inside `<SlopkitUi>`: their style props become
 
 | You want                                                          | Use                 | Key props (defaults)                                                                   |
 | ----------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------------------- |
-| Children in a column with even gaps                               | `Stack`             | `gap` (4), `align` (`stretch`), `justify`                                              |
+| Children in a column with even gaps                               | `Stack`             | `gap` (4), `align` (`stretch`), `justify`, `divided` (lines between children)          |
 | Children in a row that wraps, like a toolbar or a button row      | `Group`             | `gap` (4), `align` (`center`), `justify`, `wrap` (`wrap`), `grow`                      |
 | Any flex layout, or one that changes direction by breakpoint      | `Flex`              | `direction`, `wrap`, `align`, `justify`, `gap`, `rowGap`, `columnGap` (all responsive) |
 | Equal-width columns, like a card grid                             | `SimpleGrid`        | `cols` (1), `spacing` (4), `verticalSpacing` (all responsive)                          |

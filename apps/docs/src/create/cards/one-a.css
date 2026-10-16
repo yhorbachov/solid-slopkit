@@ -91,11 +91,6 @@
 .create-one-a-setting {
   justify-content: space-between;
   width: 100%;
-  padding-block: 0.75rem;
-
-  & + & {
-    border-top: 1px solid var(--slp-color-base-300);
-  }
 
   & [data-slot='switch-text'] {
     flex: 1;

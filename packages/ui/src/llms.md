@@ -38,7 +38,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 
 - [Box](components/layout/box/box.md): a div with style props. Includes the style props reference.
 - [Flex](components/layout/flex/flex.md)
-- [Stack](components/layout/stack/stack.md)
+- [Stack](components/layout/stack/stack.md): optionally divided by lines
 - [Group](components/layout/group/group.md)
 - [SimpleGrid](components/layout/simple-grid/simple-grid.md)
 - [Grid](components/layout/grid/grid.md)

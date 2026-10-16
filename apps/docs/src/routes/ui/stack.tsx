@@ -6,6 +6,8 @@ import { PropsTable } from '../../components/PropsTable';
 
 import Basic from '../../examples/stack/basic';
 import basicCode from '../../examples/stack/basic.tsx?raw';
+import Divided from '../../examples/stack/divided';
+import dividedCode from '../../examples/stack/divided.tsx?raw';
 
 export default function StackPage() {
   return (
@@ -23,6 +25,13 @@ export default function StackPage() {
 
       <H2 id="usage">Usage</H2>
       <Example component={Basic} code={basicCode} column />
+
+      <H2 id="divided">Divided</H2>
+      <p>
+        <code>divided</code> draws a line between children, in the middle of the gap, for lists of rows such as settings or a
+        summary. The children after the first carry the line as their top border.
+      </p>
+      <Example component={Divided} code={dividedCode} column />
 
       <H2 id="props">Props</H2>
       <p>
@@ -43,13 +52,20 @@ export default function StackPage() {
             default: "'flex-start'",
             description: <code>justify-content</code>,
           },
+          {
+            name: 'divided',
+            type: 'boolean',
+            default: 'false',
+            description: 'Draws a line between children, in the middle of the gap.',
+          },
         ]}
       />
 
       <H2 id="styling">Styling</H2>
       <p>
-        The root has the classes <code>.slp-stack</code> and <code>.slp-flex</code>, and no data attributes. Its layout is
-        generated into <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        The root has the classes <code>.slp-stack</code> and <code>.slp-flex</code>, and <code>data-divided</code> when divided;
+        the lines are the top borders of <code>.slp-stack[data-divided] &gt; * + *</code>. Its layout is generated into{' '}
+        <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>
   );

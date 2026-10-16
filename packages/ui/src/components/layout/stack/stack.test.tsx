@@ -25,6 +25,24 @@ describe('<Stack />', () => {
     expect(stack).toHaveClass(flexClass({ direction: 'column', gap: 4, align: 'stretch', justify: 'flex-start' }));
   });
 
+  test('divided marks the root and passes the gap to its CSS, keeping the style it is given', () => {
+    const { getByTestId } = render(() => (
+      <SlopkitUi>
+        <Stack data-testid="plain" />
+        <Stack data-testid="divided" divided gap={2} style={{ color: 'red' }} />
+      </SlopkitUi>
+    ));
+    flush();
+    const plain = getByTestId('plain');
+    const divided = getByTestId('divided');
+
+    expect(plain).not.toHaveAttribute('data-divided');
+    expect(plain.style.getPropertyValue('--_stack-gap')).toBe('');
+    expect(divided).toHaveAttribute('data-divided', '');
+    expect(divided.style.getPropertyValue('--_stack-gap')).toBe('calc(var(--slp-spacing) * 2)');
+    expect(divided.style.color).toBe('red');
+  });
+
   test('passes gap, align and justify to Flex, and the rest to the div', () => {
     const { getByTestId } = render(() => (
       <SlopkitUi>
