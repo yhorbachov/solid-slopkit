@@ -24,12 +24,12 @@ Name your signals/memos/effects (the `{ name: "..." }` option) — attribution r
 
 ## Roadmap, decisions and vocabulary
 
-Each package (`ui`, `forms`, `i18n`) is its own context. Read only what your task touches:
+Each package (`ui`, `forms`, `i18n`, `threejs`) is its own context. Read only what your task touches:
 
 - `CONTEXT-MAP.md`: the packages, how they relate, the terms they share, and where repo-wide decisions are. Start here.
 - `packages/<name>/CONTEXT.md`: that package's vocabulary. Use its terms in code, docs and replies.
 - `packages/<name>/docs/adr/` and `docs/adr/`: architecture decisions for that package and for the whole repo. Read the relevant ones before designing something, and don't silently go against one.
-- `packages/ui/docs/roadmap.md`: the ordered steps to 0.0.1. **Implement only the step you were asked for, by its ID.** Never continue into the next step or a whole milestone on your own.
+- `packages/ui/docs/roadmap.md` and `packages/threejs/docs/roadmap.md`: the ordered steps to each package's 0.0.1. **Implement only the step you were asked for, by its ID.** Never continue into the next step or a whole milestone on your own.
 
 ## This library stands alone
 
