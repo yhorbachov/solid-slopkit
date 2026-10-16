@@ -13,6 +13,9 @@ export const variants = () => (
     <Text as="span" lineClamp={2} style={{ color: 'red' }}>
       Inline, clamped
     </Text>
+    <Text size="4xl" align="end" tabularNums transform="uppercase">
+      $1,240
+    </Text>
     <Text as="label" inherit for="x">
       Label
     </Text>

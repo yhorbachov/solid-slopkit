@@ -16,7 +16,7 @@ describe('<Title />', () => {
     expect(title).toHaveClass('slp-title');
     expect(title).toHaveAttribute('data-order', '1');
     expect(title).toHaveAttribute('data-size', 'h1');
-    for (const name of ['data-color', 'data-dimmed', 'data-weight']) expect(title).not.toHaveAttribute(name);
+    for (const name of ['data-color', 'data-dimmed', 'data-weight', 'data-align']) expect(title).not.toHaveAttribute(name);
   });
 
   test('order picks the element and the look; size changes only the look', () => {
@@ -37,7 +37,7 @@ describe('<Title />', () => {
 
   test('reflects color, dimmed and weight, and passes the rest to the heading', () => {
     const { getByRole } = render(() => (
-      <Title order={2} color="primary" dimmed weight="medium" id="t" class="mine">
+      <Title order={2} color="primary" dimmed weight="medium" align="center" id="t" class="mine">
         Section
       </Title>
     ));
@@ -47,6 +47,7 @@ describe('<Title />', () => {
     expect(title).toHaveAttribute('data-color', 'primary');
     expect(title).toHaveAttribute('data-dimmed', '');
     expect(title).toHaveAttribute('data-weight', 'medium');
+    expect(title).toHaveAttribute('data-align', 'center');
     expect(title).toHaveAttribute('id', 't');
     expect(title).not.toHaveAttribute('order');
     expect(title).not.toHaveAttribute('color');

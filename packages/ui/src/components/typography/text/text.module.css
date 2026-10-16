@@ -63,6 +63,28 @@
       line-height: var(--slp-line-height-xl);
     }
 
+    /* Display sizes, for figures: tighter tracking as the size grows. */
+    &[data-size='2xl'] {
+      font-size: var(--slp-font-size-2xl);
+      line-height: var(--slp-line-height-2xl);
+      letter-spacing: -0.01em;
+    }
+    &[data-size='3xl'] {
+      font-size: var(--slp-font-size-3xl);
+      line-height: var(--slp-line-height-3xl);
+      letter-spacing: -0.02em;
+    }
+    &[data-size='4xl'] {
+      font-size: var(--slp-font-size-4xl);
+      line-height: var(--slp-line-height-4xl);
+      letter-spacing: -0.02em;
+    }
+    &[data-size='5xl'] {
+      font-size: var(--slp-font-size-5xl);
+      line-height: var(--slp-line-height-5xl);
+      letter-spacing: -0.02em;
+    }
+
     &[data-inherit] {
       font-size: inherit;
       line-height: inherit;
@@ -80,6 +102,35 @@
     }
     &[data-weight='bold'] {
       font-weight: 700;
+    }
+
+    /* Alignment */
+    &[data-align='start'] {
+      text-align: start;
+    }
+    &[data-align='center'] {
+      text-align: center;
+    }
+    &[data-align='end'] {
+      text-align: end;
+    }
+    &[data-align='justify'] {
+      text-align: justify;
+    }
+
+    &[data-tabular-nums] {
+      font-variant-numeric: tabular-nums;
+    }
+
+    &[data-transform='uppercase'] {
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    &[data-transform='lowercase'] {
+      text-transform: lowercase;
+    }
+    &[data-transform='capitalize'] {
+      text-transform: capitalize;
     }
 
     &[data-truncate] {

@@ -67,12 +67,26 @@ export default function TitlePage() {
             type: "'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error'",
             description: "Color role. Inherits the parent's color when omitted.",
           },
-          { name: 'dimmed', type: 'boolean', default: 'false', description: 'Mutes the heading.' },
+          {
+            name: 'dimmed',
+            type: 'boolean',
+            default: 'false',
+            description: (
+              <>
+                Mutes the heading (<code>--slp-color-muted-content</code>).
+              </>
+            ),
+          },
           {
             name: 'weight',
             type: "'normal' | 'medium' | 'semibold' | 'bold'",
             default: 'heading weight',
             description: 'Font weight.',
+          },
+          {
+            name: 'align',
+            type: "'start' | 'center' | 'end' | 'justify'",
+            description: 'Text alignment. Inherited when omitted.',
           },
         ]}
       />
@@ -81,7 +95,7 @@ export default function TitlePage() {
       <p>
         The root has the class <code>.slp-title</code>, and no slots. State and variant are attributes on it:{' '}
         <code>data-order</code>, <code>data-size</code> (the order's level unless <code>size</code> is set),{' '}
-        <code>data-color</code>, <code>data-dimmed</code> and <code>data-weight</code>. Its rules live in{' '}
+        <code>data-color</code>, <code>data-dimmed</code>, <code>data-weight</code> and <code>data-align</code>. Its rules live in{' '}
         <code>@layer slopkit.components</code>, so unlayered CSS wins. The heading tokens are set on <code>:root</code> in{' '}
         <code>slopkit.css</code>.
       </p>

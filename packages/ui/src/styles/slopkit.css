@@ -212,11 +212,19 @@
     --slp-font-size-md: 1rem;
     --slp-font-size-lg: 1.125rem;
     --slp-font-size-xl: 1.25rem;
+    --slp-font-size-2xl: 1.5rem;
+    --slp-font-size-3xl: 1.875rem;
+    --slp-font-size-4xl: 2.25rem;
+    --slp-font-size-5xl: 3rem;
     --slp-line-height-xs: 1rem;
     --slp-line-height-sm: 1.25rem;
     --slp-line-height-md: 1.5rem;
     --slp-line-height-lg: 1.75rem;
     --slp-line-height-xl: 1.75rem;
+    --slp-line-height-2xl: 2rem;
+    --slp-line-height-3xl: 2.25rem;
+    --slp-line-height-4xl: 2.5rem;
+    --slp-line-height-5xl: 3rem;
 
     /* Headings, h1 to h6. */
     --slp-heading-weight: 700;

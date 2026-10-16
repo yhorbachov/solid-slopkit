@@ -58,7 +58,9 @@ export function Column1() {
             <Bars values={[48, 66, 57, 82, 45, 88]} labels={['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May']} height="9rem" gap={4} />
             <SimpleGrid cols={2} spacing={3}>
               <Stack gap={1.5} class="create-inset">
-                <p class="create-eyebrow">Upcoming</p>
+                <Text size="xs" weight="medium" transform="uppercase" dimmed>
+                  Upcoming
+                </Text>
                 <div>
                   <Text weight="semibold">May 25, 2024</Text>
                   <Text size="xs" dimmed>
@@ -67,7 +69,9 @@ export function Column1() {
                 </div>
               </Stack>
               <Stack gap={1.5} class="create-inset">
-                <p class="create-eyebrow">Auto-Save Plan</p>
+                <Text size="xs" weight="medium" transform="uppercase" dimmed>
+                  Auto-Save Plan
+                </Text>
                 <div>
                   <Text weight="semibold">Accelerated</Text>
                   <Text size="xs" dimmed>
@@ -148,7 +152,7 @@ export function Column1() {
                       color="var(--create-chart-2)"
                       class="create-one-a-spark"
                     />
-                    <Text size="sm" weight="semibold" class="create-one-a-amount">
+                    <Text size="sm" weight="semibold" tabularNums align="end" class="create-one-a-amount">
                       {row.amount}
                     </Text>
                   </Group>
@@ -219,9 +223,9 @@ export function Column2() {
                 label={
                   <>
                     <span>Minimum Payout Amount</span>
-                    <span class="create-one-a-payout-value" aria-hidden="true">
+                    <Text as="span" size="2xl" weight="semibold" tabularNums aria-hidden="true">
                       ${payout().toFixed(2)}
-                    </span>
+                    </Text>
                   </>
                 }
                 min={50}
@@ -231,9 +235,13 @@ export function Column2() {
                 valueLabel={null}
                 valueText={money}
               />
-              <Group justify="space-between" wrap="nowrap" gap={0} class="create-one-a-range create-muted">
-                <span>$50 (MIN)</span>
-                <span>$10,000 (MAX)</span>
+              <Group justify="space-between" wrap="nowrap" gap={0}>
+                <Text as="span" size="xs" dimmed>
+                  $50 (MIN)
+                </Text>
+                <Text as="span" size="xs" dimmed>
+                  $10,000 (MAX)
+                </Text>
               </Group>
             </Stack>
             <Textarea label="Notes" size="sm" rows={3} placeholder="Add any notes for this payout configuration..." />
@@ -254,7 +262,9 @@ export function Column2() {
                 <Text size="sm" dimmed>
                   Claimable Balance
                 </Text>
-                <p class="create-figure create-one-a-balance">$0.00</p>
+                <Text size="5xl" weight="semibold" tabularNums>
+                  $0.00
+                </Text>
               </Stack>
               <div>
                 <Badge size="sm" variant="soft" leftSection={<span class="create-one-a-dot" aria-hidden="true" />}>
@@ -333,8 +343,12 @@ export function Column2() {
         <Card.Body class="create-one-a-donut">
           <Center>
             <RingProgress value={80} size="xl" label="Savings goal" class="create-one-a-ring">
-              <span class="create-one-a-ring-value">$24,000</span>
-              <span class="create-one-a-ring-caption create-muted">80% of $30,000</span>
+              <Text as="span" size="2xl" weight="semibold" tabularNums>
+                $24,000
+              </Text>
+              <Text as="span" size="xs" dimmed>
+                80% of $30,000
+              </Text>
             </RingProgress>
           </Center>
         </Card.Body>

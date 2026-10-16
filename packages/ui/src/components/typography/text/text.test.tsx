@@ -16,7 +16,17 @@ describe('<Text />', () => {
     expect(text.tagName).toBe('P');
     expect(text).toHaveClass('slp-text');
     expect(text).toHaveAttribute('data-size', 'md');
-    for (const name of ['data-color', 'data-dimmed', 'data-weight', 'data-truncate', 'data-line-clamp', 'data-inherit']) {
+    for (const name of [
+      'data-color',
+      'data-dimmed',
+      'data-weight',
+      'data-align',
+      'data-tabular-nums',
+      'data-transform',
+      'data-truncate',
+      'data-line-clamp',
+      'data-inherit',
+    ]) {
       expect(text).not.toHaveAttribute(name);
     }
     expect(text).not.toHaveAttribute('style');
@@ -24,7 +34,19 @@ describe('<Text />', () => {
 
   test('reflects its props as data attributes, and passes the rest to the element', () => {
     const { getByText } = render(() => (
-      <Text size="sm" color="error" dimmed weight="semibold" truncate id="t" class="mine" aria-live="polite">
+      <Text
+        size="sm"
+        color="error"
+        dimmed
+        weight="semibold"
+        align="center"
+        tabularNums
+        transform="uppercase"
+        truncate
+        id="t"
+        class="mine"
+        aria-live="polite"
+      >
         Hello
       </Text>
     ));
@@ -35,11 +57,16 @@ describe('<Text />', () => {
     expect(text).toHaveAttribute('data-color', 'error');
     expect(text).toHaveAttribute('data-dimmed', '');
     expect(text).toHaveAttribute('data-weight', 'semibold');
+    expect(text).toHaveAttribute('data-align', 'center');
+    expect(text).toHaveAttribute('data-tabular-nums', '');
+    expect(text).toHaveAttribute('data-transform', 'uppercase');
     expect(text).toHaveAttribute('data-truncate', '');
     expect(text).toHaveAttribute('id', 't');
     expect(text).toHaveAttribute('aria-live', 'polite');
     expect(text).not.toHaveAttribute('size');
     expect(text).not.toHaveAttribute('color');
+    expect(text).not.toHaveAttribute('align');
+    expect(text).not.toHaveAttribute('transform');
   });
 
   test('as renders another element, with its own attributes', () => {

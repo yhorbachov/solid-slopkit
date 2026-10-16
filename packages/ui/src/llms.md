@@ -95,7 +95,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Kbd](components/typography/kbd/kbd.md)
 - [List](components/typography/list/list.md)
 - [Mark](components/typography/mark/mark.md)
-- [Text](components/typography/text/text.md)
+- [Text](components/typography/text/text.md): copy and display sizes, alignment, tabular numbers, uppercase labels
 - [Title](components/typography/title/title.md)
 - [VisuallyHidden](components/typography/visually-hidden/visually-hidden.md)
 

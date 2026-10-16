@@ -84,5 +84,19 @@
     &[data-weight='bold'] {
       font-weight: 700;
     }
+
+    /* Alignment */
+    &[data-align='start'] {
+      text-align: start;
+    }
+    &[data-align='center'] {
+      text-align: center;
+    }
+    &[data-align='end'] {
+      text-align: end;
+    }
+    &[data-align='justify'] {
+      text-align: justify;
+    }
   }
 }

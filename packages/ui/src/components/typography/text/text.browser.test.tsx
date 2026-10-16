@@ -42,6 +42,44 @@ describe('<Text /> in a browser', () => {
     expect(color(getByText('Primary dimmed'))).not.toBe(color(getByText('Primary')));
   });
 
+  test('display sizes read the type scale with tighter tracking', () => {
+    const { getByText } = render(() => (
+      <>
+        <Text size="2xl">2xl</Text>
+        <Text size="3xl">3xl</Text>
+        <Text size="4xl">4xl</Text>
+        <Text size="5xl">5xl</Text>
+      </>
+    ));
+    const css = (label: string) => getComputedStyle(getByText(label));
+
+    expect([css('2xl').fontSize, css('2xl').lineHeight, css('2xl').letterSpacing]).toEqual(['24px', '32px', '-0.24px']);
+    expect([css('3xl').fontSize, css('3xl').lineHeight]).toEqual(['30px', '36px']);
+    expect([css('4xl').fontSize, css('4xl').lineHeight]).toEqual(['36px', '40px']);
+    expect([css('5xl').fontSize, css('5xl').lineHeight, css('5xl').letterSpacing]).toEqual(['48px', '48px', '-0.96px']);
+  });
+
+  test('align, tabularNums and transform set the alignment, digits and case', () => {
+    const { getByText } = render(() => (
+      <div style={{ 'text-align': 'center' }}>
+        <Text>Inherited</Text>
+        <Text align="end">End</Text>
+        <Text tabularNums>1,111</Text>
+        <Text transform="uppercase" size="xs">
+          Label
+        </Text>
+        <Text transform="capitalize">word</Text>
+      </div>
+    ));
+    const css = (label: string) => getComputedStyle(getByText(label));
+
+    expect(css('Inherited').textAlign).toBe('center');
+    expect(css('End').textAlign).toBe('end');
+    expect(css('1,111').fontVariantNumeric).toBe('tabular-nums');
+    expect([css('Label').textTransform, css('Label').letterSpacing]).toEqual(['uppercase', '0.6px']);
+    expect([css('word').textTransform, css('word').letterSpacing]).toEqual(['capitalize', 'normal']);
+  });
+
   test('weight sets the font weight, and inherit takes size and line height from the parent', () => {
     const { getByText } = render(() => (
       <div style={{ 'font-size': '30px', 'line-height': '40px' }}>

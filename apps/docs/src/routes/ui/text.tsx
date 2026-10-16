@@ -12,6 +12,8 @@ import Colors from '../../examples/text/colors';
 import colorsCode from '../../examples/text/colors.tsx?raw';
 import Weights from '../../examples/text/weights';
 import weightsCode from '../../examples/text/weights.tsx?raw';
+import Figures from '../../examples/text/figures';
+import figuresCode from '../../examples/text/figures.tsx?raw';
 import Truncation from '../../examples/text/truncation';
 import truncationCode from '../../examples/text/truncation.tsx?raw';
 import Polymorphic from '../../examples/text/polymorphic';
@@ -39,21 +41,31 @@ export default function TextPage() {
 
       <H2 id="sizes">Sizes</H2>
       <p>
-        <code>xs</code> to <code>xl</code>, from <code>--slp-font-size-*</code> and <code>--slp-line-height-*</code>. The default
-        is <code>md</code>.
+        <code>xs</code> to <code>xl</code> for copy and <code>2xl</code> to <code>5xl</code> for display figures, from{' '}
+        <code>--slp-font-size-*</code> and <code>--slp-line-height-*</code>. Display sizes track slightly tighter. The default is{' '}
+        <code>md</code>.
       </p>
       <Example component={Sizes} code={sizesCode} column />
 
       <H2 id="colors">Colors</H2>
       <p>
         <code>color</code> takes a color role. Without it, Text inherits its parent's color, so it works on colored surfaces too.{' '}
-        <code>dimmed</code> mutes the text, with or without <code>color</code>.
+        <code>dimmed</code> mutes the text: without <code>color</code> it takes the theme's <code>--slp-color-muted-content</code>
+        , with one it fades the role's color.
       </p>
       <Example component={Colors} code={colorsCode} column />
 
       <H2 id="weights">Weights</H2>
       <p>Without a weight, Text inherits its parent's.</p>
       <Example component={Weights} code={weightsCode} column />
+
+      <H2 id="figures">Figures and labels</H2>
+      <p>
+        <code>tabularNums</code> gives every digit the same width, so amounts line up in a column and don't shift as they change.{' '}
+        <code>align</code> sets the alignment. <code>transform="uppercase"</code> capitalizes a label and spaces its letters
+        slightly; <code>lowercase</code> and <code>capitalize</code> only change the case.
+      </p>
+      <Example component={Figures} code={figuresCode} column />
 
       <H2 id="truncation">Truncate and line clamp</H2>
       <p>
@@ -76,7 +88,7 @@ export default function TextPage() {
           { name: 'as', type: 'ValidComponent', default: "'p'", description: 'Element or component to render.' },
           {
             name: 'size',
-            type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
+            type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl'",
             default: "'md'",
             description: (
               <>
@@ -89,11 +101,35 @@ export default function TextPage() {
             type: "'neutral' | 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error'",
             description: "Color role. Inherits the parent's color when omitted.",
           },
-          { name: 'dimmed', type: 'boolean', default: 'false', description: 'Mutes the text.' },
+          {
+            name: 'dimmed',
+            type: 'boolean',
+            default: 'false',
+            description: (
+              <>
+                Mutes the text (<code>--slp-color-muted-content</code>).
+              </>
+            ),
+          },
           {
             name: 'weight',
             type: "'normal' | 'medium' | 'semibold' | 'bold'",
             description: 'Font weight. Inherited when omitted.',
+          },
+          {
+            name: 'align',
+            type: "'start' | 'center' | 'end' | 'justify'",
+            description: 'Text alignment. Inherited when omitted.',
+          },
+          { name: 'tabularNums', type: 'boolean', default: 'false', description: 'Digits of equal width.' },
+          {
+            name: 'transform',
+            type: "'uppercase' | 'lowercase' | 'capitalize'",
+            description: (
+              <>
+                Changes the case; <code>uppercase</code> also spaces the letters.
+              </>
+            ),
           },
           { name: 'truncate', type: 'boolean', default: 'false', description: 'One line, with an ellipsis.' },
           { name: 'lineClamp', type: 'number', description: 'Cuts the text after this many lines.' },
@@ -110,9 +146,10 @@ export default function TextPage() {
       <p>
         The root has the class <code>.slp-text</code>, and no slots. State and variant are attributes on it:{' '}
         <code>data-size</code> (absent with <code>inherit</code>), <code>data-color</code>, <code>data-dimmed</code>,{' '}
-        <code>data-weight</code>, <code>data-truncate</code>, <code>data-line-clamp</code> and <code>data-inherit</code>. Its
-        rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins. The type scale tokens are set on{' '}
-        <code>:root</code> in <code>slopkit.css</code>.
+        <code>data-weight</code>, <code>data-align</code>, <code>data-tabular-nums</code>, <code>data-transform</code>,{' '}
+        <code>data-truncate</code>, <code>data-line-clamp</code> and <code>data-inherit</code>. Its rules live in{' '}
+        <code>@layer slopkit.components</code>, so unlayered CSS wins. The type scale tokens are set on <code>:root</code> in{' '}
+        <code>slopkit.css</code>.
       </p>
     </article>
   );
