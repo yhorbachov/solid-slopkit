@@ -202,7 +202,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 
 ## M8 — Release 0.0.1
 
-- [ ] **M8.01** Export the stable primitives from `@solid-slopkit/ui/primitives` (ADR 0007)
+- [x] **M8.01** Export the stable primitives from `@solid-slopkit/ui/primitives` (ADR 0007)
 - [ ] **M8.02** Decide the default theme's values (it is a work in progress until then), then write the docs Theming page and the theming skill (both removed until then, so they can't mislead) and update the LLM references that quote them.
 - [ ] **M8.03** Audit the docs, LLM references and skills against the shipped API
 - [ ] **M8.04** Tag `ui-v0.0.1` and publish the GitHub Release

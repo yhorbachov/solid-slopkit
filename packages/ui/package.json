@@ -28,6 +28,11 @@
       "solid": "./dist/source/dates/index.js",
       "default": "./dist/source/dates/index.js"
     },
+    "./primitives": {
+      "types": "./dist/types/primitives/index.d.ts",
+      "solid": "./dist/source/primitives/index.js",
+      "default": "./dist/source/primitives/index.js"
+    },
     "./styles/slopkit.css": "./dist/source/styles/slopkit.css",
     "./styles/default-theme.css": "./dist/source/styles/default-theme.css"
   },

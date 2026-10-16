@@ -54,6 +54,10 @@ describe('LLM references', () => {
     expect(links).toContain('dates/time-grid/time-grid.md');
     expect(links).toContain('dates/date-time-picker/date-time-picker.md');
   });
+
+  test('the primitives entry has a reference, linked from llms.md', () => {
+    expect(links).toContain('primitives/primitives.md');
+  });
 });
 
 const skills = join(src, '../skills');

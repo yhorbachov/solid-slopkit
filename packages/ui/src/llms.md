@@ -190,3 +190,9 @@ A separate entry for dates and the date components, on native `Date` and `Intl` 
 - [TimePicker](dates/time-picker/time-picker.md): a time field in the locale's 12 or 24 hours, with segments and a dropdown
 - [TimeGrid](dates/time-grid/time-grid.md): a grid of times to choose one from, such as free slots
 - [DateTimePicker](dates/date-time-picker/date-time-picker.md): a field for a date and time, chosen in a calendar and a time picker
+
+## Primitives (`@solid-slopkit/ui/primitives`)
+
+The behavior the components are built from, for building your own: overlays that animate, position, close and handle focus like the library's, and list keyboard navigation with typeahead.
+
+- [Primitives](primitives/primitives.md): createPresence, createFloating, createDismissal, createFocusScope with getTabbables, createScrollLock, createListNavigation, createTypeahead
