@@ -1,6 +1,7 @@
 import { fileRoutes } from 'filesystem-routing/vite';
 import { defineConfig } from 'vitest/config';
 import solid from '@solidjs/vite-plugin';
+import { slopkitI18n } from '../../packages/i18n/src/vite.ts';
 import { slopkitFromSource } from './slopkit-from-source.ts';
 
 export default defineConfig({
@@ -9,6 +10,8 @@ export default defineConfig({
   // prerenders the shell into a purely static dist/client.
   plugins: [
     slopkitFromSource(),
+    // Translation files of the i18n examples. From source, so the dev server needs no i18n build.
+    slopkitI18n({ locales: ['en', 'de', 'uk'], defaultLocale: 'en' }),
     // `extensions` makes @solidjs/vite-plugin also compile the `?pick=` route
     // modules the fileRoutes plugin emits (their ids end in a query string).
     solid({ start: true, ssr: true, extensions: ['.jsx', '.tsx'], diagnostics: true }),

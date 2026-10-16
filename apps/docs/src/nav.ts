@@ -205,4 +205,26 @@ export const nav: NavSection[] = [
       },
     ],
   },
+  {
+    title: 'Forms',
+    items: [
+      { title: 'Overview', href: '/forms' },
+      { title: 'Binding', href: '/forms/binding' },
+      { title: 'Validation', href: '/forms/validation' },
+      { title: 'Conditions and combinators', href: '/forms/conditions' },
+      { title: 'Submit and async', href: '/forms/submit' },
+      { title: 'Metadata', href: '/forms/metadata' },
+    ],
+  },
+  {
+    title: 'i18n',
+    items: [
+      { title: 'Overview', href: '/i18n' },
+      { title: 'Setup', href: '/i18n/setup' },
+      { title: 'Messages', href: '/i18n/messages' },
+      { title: 'Locale', href: '/i18n/locale' },
+      { title: 'Loading', href: '/i18n/loading' },
+      { title: 'With slopkit components', href: '/i18n/slopkit-ui' },
+    ],
+  },
 ];

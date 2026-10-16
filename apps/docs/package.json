@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@lucide/solid": "^1.52.0",
+    "@solid-slopkit/forms": "workspace:*",
+    "@solid-slopkit/i18n": "workspace:*",
     "@solid-slopkit/ui": "workspace:*",
     "@solidjs/meta": "^1.0.0-next.2",
     "@solidjs/router": "^2.0.0-next.30",

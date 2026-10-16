@@ -1,6 +1,6 @@
 import type { HighlighterCore } from 'shiki/core';
 
-export type CodeLang = 'tsx' | 'css' | 'bash';
+export type CodeLang = 'tsx' | 'css' | 'bash' | 'jsonc';
 
 let highlighter: Promise<HighlighterCore> | undefined;
 
@@ -11,7 +11,12 @@ function getHighlighter() {
     ([{ createHighlighterCore }, { createJavaScriptRegexEngine }]) =>
       createHighlighterCore({
         themes: [import('shiki/themes/github-light.mjs'), import('shiki/themes/github-dark.mjs')],
-        langs: [import('shiki/langs/tsx.mjs'), import('shiki/langs/css.mjs'), import('shiki/langs/bash.mjs')],
+        langs: [
+          import('shiki/langs/tsx.mjs'),
+          import('shiki/langs/css.mjs'),
+          import('shiki/langs/bash.mjs'),
+          import('shiki/langs/jsonc.mjs'),
+        ],
         engine: createJavaScriptRegexEngine(),
       }),
   );

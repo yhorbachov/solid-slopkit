@@ -21,8 +21,15 @@
     "paths": {
       "@solid-slopkit/ui": ["../../packages/ui/src/index.ts"],
       "@solid-slopkit/ui/carousel": ["../../packages/ui/src/carousel/index.ts"],
-      "@solid-slopkit/ui/dates": ["../../packages/ui/src/dates/index.ts"]
-    }
+      "@solid-slopkit/ui/dates": ["../../packages/ui/src/dates/index.ts"],
+      "@solid-slopkit/forms": ["../../packages/forms/src/index.ts"],
+      "@solid-slopkit/i18n": ["../../packages/i18n/src/runtime/index.ts"],
+      "@solid-slopkit/i18n/vite": ["../../packages/i18n/src/vite.ts"]
+    },
+
+    // Translation files: the i18n plugin writes their types outside src
+    "allowArbitraryExtensions": true,
+    "rootDirs": ["src", "node_modules/.slopkit-i18n/types/src"]
   },
   "include": ["src", "*.ts", "file-routes.d.ts"]
 }

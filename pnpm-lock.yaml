@@ -26,6 +26,12 @@ importers:
       '@lucide/solid':
         specifier: ^1.52.0
         version: 1.52.0(solid-js@2.0.0-rc.14)
+      '@solid-slopkit/forms':
+        specifier: workspace:*
+        version: link:../../packages/forms
+      '@solid-slopkit/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
       '@solid-slopkit/ui':
         specifier: workspace:*
         version: link:../../packages/ui
