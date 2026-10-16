@@ -62,4 +62,29 @@ describe('<RingProgress /> in a browser', () => {
     expect(getComputedStyle(part(indeterminate, 'arc')).animationName).toMatch(/slp-ring-progress-turn/);
     expect(getComputedStyle(part(indeterminate, 'arc')).strokeDasharray).toBe('25px, 100px');
   });
+
+  test('a CSS length size, a thicker flat stroke, and stacked children', () => {
+    const { getByRole, getByText } = render(() => (
+      <RingProgress value={50} size="12rem" thickness={14} roundCaps={false}>
+        <span>$24,000</span>
+        <span>80%</span>
+      </RingProgress>
+    ));
+    const ring = getByRole('progressbar');
+    const arc = getComputedStyle(part(ring, 'arc'));
+
+    expect(Math.round(ring.getBoundingClientRect().width)).toBe(192);
+    expect([arc.strokeWidth, arc.strokeLinecap]).toEqual(['14px', 'butt']);
+    expect(getComputedStyle(part(ring, 'track')).strokeWidth).toBe('14px');
+    const value = getByText('$24,000').getBoundingClientRect();
+    const percent = getByText('80%').getBoundingClientRect();
+    expect(Math.round(percent.top)).toBe(Math.round(value.bottom));
+    expect(Math.round(percent.left + percent.width / 2)).toBe(Math.round(value.left + value.width / 2));
+  });
+
+  test('round caps by default', () => {
+    const { getByRole } = render(() => <RingProgress value={50} />);
+
+    expect(getComputedStyle(part(getByRole('progressbar'), 'arc')).strokeLinecap).toBe('round');
+  });
 });

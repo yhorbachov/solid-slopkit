@@ -77,7 +77,7 @@ Only layout components take style props, and each takes its own set. The Box ref
 - [Notification](components/feedback/notification/notification.md)
 - [Notifications](components/feedback/notifications/notifications.md): the region notifications appear in, `useNotifications()` and the `notifications` facade
 - [Progress](components/feedback/progress/progress.md)
-- [RingProgress](components/feedback/ring-progress/ring-progress.md)
+- [RingProgress](components/feedback/ring-progress/ring-progress.md): any diameter, stroke thickness, round or flat caps, stacked center
 - [SemiCircleProgress](components/feedback/semi-circle-progress/semi-circle-progress.md)
 - [Skeleton](components/feedback/skeleton/skeleton.md)
 

@@ -90,25 +90,6 @@
   padding-block: 1.5rem;
 }
 
-.create-one-a-ring {
-  width: 12rem;
-  height: 12rem;
-
-  & circle {
-    stroke-width: 13;
-  }
-
-  & [data-slot='ring-progress-arc'] {
-    stroke-linecap: butt;
-  }
-
-  & [data-slot='ring-progress-label'] {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
 /* Kitchen Island: bordered rows, an icon and label on the left, the slider on the right. */
 
 .create-one-a-light {

@@ -1,6 +1,7 @@
 /*
  * RingProgress. An SVG ring: a muted track and an arc that starts at the top and runs clockwise. The arc's length is
- * --_ring-value out of the circle's pathLength of 100 (set inline by the component). Indeterminate, a quarter arc
+ * --_ring-value out of the circle's pathLength of 100, and its width --_ring-thickness in the same 100-unit box (both
+ * set inline by the component, which also sets the radius to match). Indeterminate, a quarter arc
  * turns around the track; with reduced motion, it turns slowly. Children are centered in the ring.
  *
  * Public custom properties (set on the ring or any ancestor):
@@ -13,6 +14,7 @@
     --_ring-color: var(--slp-ring-progress-color, var(--_ring-theme-color));
     --_ring-size: 5rem;
     --_ring-value: 0;
+    --_ring-thickness: 10;
 
     position: relative;
     display: inline-flex;
@@ -76,7 +78,7 @@
   .track,
   .arc {
     fill: none;
-    stroke-width: 10;
+    stroke-width: var(--_ring-thickness);
   }
 
   .track {
@@ -86,8 +88,12 @@
   .arc {
     stroke: var(--_ring-color);
     stroke-dasharray: var(--_ring-value) 100;
-    stroke-linecap: round;
+    stroke-linecap: butt;
     transition: stroke-dasharray 0.25s ease;
+
+    [data-round-caps] & {
+      stroke-linecap: round;
+    }
 
     /* A round cap on an empty arc would still draw a dot. */
     [data-empty] & {
@@ -109,9 +115,11 @@
     }
   }
 
+  /* Several children stack in a centered column. */
   .label {
     position: relative;
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     max-width: 70%;

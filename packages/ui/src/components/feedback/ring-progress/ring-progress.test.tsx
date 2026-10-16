@@ -26,6 +26,36 @@ describe('<RingProgress />', () => {
     expect(ring.querySelector('[data-slot="ring-progress-track"]')).not.toBeNull();
     expect(ring.querySelector('[data-slot="ring-progress-arc"]')).toHaveAttribute('pathLength', '100');
     expect(ring.querySelector('[data-slot="ring-progress-label"]')).toHaveTextContent('40%');
+    expect(ring).toHaveAttribute('data-round-caps', '');
+    expect(ring.querySelector('[data-slot="ring-progress-arc"]')).toHaveAttribute('r', '44');
+    expect(ring.style.getPropertyValue('--_ring-thickness')).toBe('');
+  });
+
+  test('thickness sets the stroke and a radius that keeps it inside the box; roundCaps={false} cuts the ends flat', () => {
+    const { getAllByRole } = render(() => (
+      <>
+        <RingProgress value={50} thickness={14} roundCaps={false} />
+        <RingProgress value={50} thickness={80} />
+      </>
+    ));
+    const [thick, clamped] = getAllByRole('progressbar');
+
+    expect(thick.style.getPropertyValue('--_ring-thickness')).toBe('14');
+    expect(thick.querySelector('[data-slot="ring-progress-track"]')).toHaveAttribute('r', '42');
+    expect(thick.querySelector('[data-slot="ring-progress-arc"]')).toHaveAttribute('r', '42');
+    expect(thick).not.toHaveAttribute('data-round-caps');
+    expect(clamped.style.getPropertyValue('--_ring-thickness')).toBe('48');
+    expect(clamped.querySelector('[data-slot="ring-progress-arc"]')).toHaveAttribute('r', '25');
+  });
+
+  test('size takes a CSS length, set as the diameter instead of a named size', () => {
+    const { getByRole } = render(() => <RingProgress value={50} size="12rem" style={{ color: 'red' }} />);
+    const ring = getByRole('progressbar');
+
+    expect(ring).not.toHaveAttribute('data-size');
+    expect(ring.style.getPropertyValue('--_ring-size')).toBe('12rem');
+    expect(ring.style.getPropertyValue('--_ring-value')).toBe('50');
+    expect(ring.style.color).toBe('red');
   });
 
   test('max sets the range; the value is clamped; zero marks it empty', () => {

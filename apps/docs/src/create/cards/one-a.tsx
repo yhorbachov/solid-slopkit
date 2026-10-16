@@ -342,7 +342,7 @@ export function Column2() {
       <Card>
         <Card.Body class="create-one-a-donut">
           <Center>
-            <RingProgress value={80} size="xl" label="Savings goal" class="create-one-a-ring">
+            <RingProgress value={80} size="12rem" thickness={13} roundCaps={false} label="Savings goal">
               <Text as="span" size="2xl" weight="semibold" tabularNums>
                 $24,000
               </Text>

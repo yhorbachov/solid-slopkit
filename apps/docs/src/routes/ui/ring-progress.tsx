@@ -10,6 +10,8 @@ import Colors from '../../examples/ring-progress/colors';
 import colorsCode from '../../examples/ring-progress/colors.tsx?raw';
 import Sizes from '../../examples/ring-progress/sizes';
 import sizesCode from '../../examples/ring-progress/sizes.tsx?raw';
+import Stroke from '../../examples/ring-progress/stroke';
+import strokeCode from '../../examples/ring-progress/stroke.tsx?raw';
 
 export default function RingProgressPage() {
   return (
@@ -46,6 +48,14 @@ export default function RingProgressPage() {
       </p>
       <Example component={Sizes} code={sizesCode} />
 
+      <H2 id="stroke">Custom size, stroke and center</H2>
+      <p>
+        <code>size</code> also takes a CSS length, such as <code>"12rem"</code>. <code>thickness</code> sets the stroke width in
+        hundredths of the diameter (10 by default), and <code>roundCaps={'{false}'}</code> cuts the arc's ends flat. Several
+        children in the center stack in a column.
+      </p>
+      <Example component={Stroke} code={strokeCode} column />
+
       <H2 id="props">Props</H2>
       <p>
         Other props, such as <code>aria-valuetext</code>, are passed to the <code>div</code>.
@@ -60,23 +70,35 @@ export default function RingProgressPage() {
             default: "'primary'",
             description: 'Color role of the arc.',
           },
-          { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Diameter of the ring.' },
+          {
+            name: 'size',
+            type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | string",
+            default: "'md'",
+            description: 'Diameter of the ring: a named size or a CSS length.',
+          },
+          { name: 'thickness', type: 'number', default: '10', description: 'Stroke width, in hundredths of the diameter.' },
+          { name: 'roundCaps', type: 'boolean', default: 'true', description: "Rounds the arc's ends; false cuts them flat." },
           {
             name: 'label',
             type: 'string',
             default: "'Progress'",
             description: 'The accessible name, unless aria-labelledby is set.',
           },
-          { name: 'children', type: 'JSX.Element', description: 'Content centered in the ring.' },
+          {
+            name: 'children',
+            type: 'JSX.Element',
+            description: 'Content centered in the ring. Several children stack in a column.',
+          },
         ]}
       />
 
       <H2 id="styling">Styling</H2>
       <p>
-        The root has the class <code>.slp-ring-progress</code>, with <code>data-color</code>, <code>data-size</code>,{' '}
-        <code>data-indeterminate</code> and <code>data-empty</code>. Its slots are <code>ring-progress-track</code> and{' '}
-        <code>ring-progress-arc</code>, the two SVG circles, and <code>ring-progress-label</code>, the center. Its rules live in{' '}
-        <code>@layer slopkit.components</code>, so unlayered CSS wins.
+        The root has the class <code>.slp-ring-progress</code>, with <code>data-color</code>, <code>data-size</code> (a named size
+        only), <code>data-round-caps</code>, <code>data-indeterminate</code> and <code>data-empty</code>. Its slots are{' '}
+        <code>ring-progress-track</code> and <code>ring-progress-arc</code>, the two SVG circles, and{' '}
+        <code>ring-progress-label</code>, the center. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS
+        wins.
       </p>
       <CssVarsTable
         rows={[
