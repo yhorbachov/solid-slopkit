@@ -23,7 +23,7 @@ const [accepted, setAccepted] = createSignal(false);
 
 - **State:** controlled with `checked` and `onChange`, which gets the new `boolean`; a click the parent doesn't apply is undone. Uncontrolled, it starts at `defaultChecked`.
 - **Indeterminate:** `indeterminate` shows a dash, for "some of these are checked", and screen readers say "mixed". It's the browser's property, not an attribute, so it's set after hydration. The next toggle checks or unchecks as usual; update `indeterminate` yourself.
-- **Text:** `label` sits next to the box (`labelPosition="left"` puts it before), with `description` and `error` under it. A click on the label toggles. `error` describes the checkbox and marks it invalid (`aria-invalid`, a red box border). Without `label`, give it an `aria-label`.
+- **Text:** `label` sits next to the box (`labelPosition="left"` puts it before), with `description` and `error` under it. With the label on the left, the text fills the row and the box sits at its end, as in a settings list; to keep the two together, give the Checkbox a narrower parent or `width: fit-content`. A click on the label toggles. `error` describes the checkbox and marks it invalid (`aria-invalid`, a red box border). Without `label`, give it an `aria-label`.
 - **Forms:** `name` and `value` are the input's: a checked box submits `value` (or `on`).
 - **Look:** `color` takes a color role (`primary` by default) for the checked box. `size` (`xs` to `xl`) sizes the box and text together.
 - **Props:** `class` and `style` go to the root; every other prop goes to the `input`.
@@ -51,22 +51,22 @@ A card that is a checkbox: a `label` around a hidden native checkbox, a check in
 
 Other props are passed to the `input`.
 
-| Prop             | Type                                                                                               | Default         | Description                                 |
-| ---------------- | -------------------------------------------------------------------------------------------------- | --------------- | ------------------------------------------- |
-| `checked`        | `boolean`                                                                                          | —               | Whether it's checked, controlled.           |
-| `defaultChecked` | `boolean`                                                                                          | `false`         | Whether it starts checked, uncontrolled.    |
-| `onChange`       | `(checked: boolean) => void`                                                                       | —               | Called with the new state.                  |
-| `indeterminate`  | `boolean`                                                                                          | `false`         | Shows a dash; the state is mixed.           |
-| `label`          | `JSX.Element`                                                                                      | —               | The label next to the box.                  |
-| `description`    | `JSX.Element`                                                                                      | —               | Help text under the label.                  |
-| `error`          | `JSX.Element`                                                                                      | —               | Error message; marks it invalid.            |
-| `value`          | `string`                                                                                           | —               | Submitted when checked; the key in a group. |
-| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                             | group's, `'md'` | Size of the box and text.                   |
-| `color`          | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'`     | Color of the checked box.                   |
-| `labelPosition`  | `'right' \| 'left'`                                                                                | `'right'`       | Which side of the box the label goes.       |
-| `disabled`       | `boolean`                                                                                          | `false`         | Disables it.                                |
-| `class`, `style` | —                                                                                                  | —               | For the root.                               |
-| `ref`            | `Ref<HTMLInputElement>`                                                                            | —               | The `input`.                                |
+| Prop             | Type                                                                                               | Default         | Description                                                                 |
+| ---------------- | -------------------------------------------------------------------------------------------------- | --------------- | --------------------------------------------------------------------------- |
+| `checked`        | `boolean`                                                                                          | —               | Whether it's checked, controlled.                                           |
+| `defaultChecked` | `boolean`                                                                                          | `false`         | Whether it starts checked, uncontrolled.                                    |
+| `onChange`       | `(checked: boolean) => void`                                                                       | —               | Called with the new state.                                                  |
+| `indeterminate`  | `boolean`                                                                                          | `false`         | Shows a dash; the state is mixed.                                           |
+| `label`          | `JSX.Element`                                                                                      | —               | The label next to the box.                                                  |
+| `description`    | `JSX.Element`                                                                                      | —               | Help text under the label.                                                  |
+| `error`          | `JSX.Element`                                                                                      | —               | Error message; marks it invalid.                                            |
+| `value`          | `string`                                                                                           | —               | Submitted when checked; the key in a group.                                 |
+| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                             | group's, `'md'` | Size of the box and text.                                                   |
+| `color`          | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'`     | Color of the checked box.                                                   |
+| `labelPosition`  | `'right' \| 'left'`                                                                                | `'right'`       | Which side of the box the label goes; `left` puts the box at the row's end. |
+| `disabled`       | `boolean`                                                                                          | `false`         | Disables it.                                                                |
+| `class`, `style` | —                                                                                                  | —               | For the root.                                                               |
+| `ref`            | `Ref<HTMLInputElement>`                                                                            | —               | The `input`.                                                                |
 
 ### Checkbox.Group
 

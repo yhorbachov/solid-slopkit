@@ -24,7 +24,7 @@ const [wifi, setWifi] = createSignal(true);
 - **When:** a switch is for a setting that takes effect at once, like a light switch. For a choice that's only applied when a form is sent, use a Checkbox.
 - **State:** controlled with `checked` and `onChange`, which gets the new `boolean`; a flip the parent doesn't apply is undone. Uncontrolled, it starts at `defaultChecked`.
 - **Screen readers** say "Wi-Fi, switch, on" or "off": the role is `switch`, the state is the checkbox's.
-- **Text:** `label` next to the track (`labelPosition="left"` puts it before), `description` and `error` under it. A click on the label flips it. `error` describes it and marks it invalid.
+- **Text:** `label` next to the track (`labelPosition="left"` puts it before), `description` and `error` under it. With the label on the left, the text fills the row and the switch sits at its end, as in a settings list; to keep the two together, give the Switch a narrower parent or `width: fit-content`. A click on the label flips it. `error` describes it and marks it invalid.
 - **Look:** `color` takes a color role (`primary` by default) for the track when on; the thumb then takes the role's content color. `size` (`xs` to `xl`) sizes the track and text. The thumb slides over 0.15s, at once with reduced motion.
 - **Forms:** `name` and `value` are the input's: a switch that's on submits `value` (or `on`).
 - **Props:** `class` and `style` go to the root; every other prop goes to the `input`.
@@ -39,19 +39,19 @@ A labelled group with one value: the array of the `value`s of the switches that 
 
 Other props are passed to the `input`.
 
-| Prop             | Type                                                                                               | Default         | Description                            |
-| ---------------- | -------------------------------------------------------------------------------------------------- | --------------- | -------------------------------------- |
-| `checked`        | `boolean`                                                                                          | —               | Whether it's on, controlled.           |
-| `defaultChecked` | `boolean`                                                                                          | `false`         | Whether it starts on, uncontrolled.    |
-| `onChange`       | `(checked: boolean) => void`                                                                       | —               | Called with the new state.             |
-| `label`          | `JSX.Element`                                                                                      | —               | The label next to the track.           |
-| `description`    | `JSX.Element`                                                                                      | —               | Help text under the label.             |
-| `error`          | `JSX.Element`                                                                                      | —               | Error message; marks it invalid.       |
-| `value`          | `string`                                                                                           | —               | Submitted when on; the key in a group. |
-| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                             | group's, `'md'` | Size of the track and text.            |
-| `color`          | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'`     | Color of the track when on.            |
-| `labelPosition`  | `'right' \| 'left'`                                                                                | `'right'`       | Which side the label goes.             |
-| `disabled`       | `boolean`                                                                                          | `false`         | Disables it.                           |
+| Prop             | Type                                                                                               | Default         | Description                                                         |
+| ---------------- | -------------------------------------------------------------------------------------------------- | --------------- | ------------------------------------------------------------------- |
+| `checked`        | `boolean`                                                                                          | —               | Whether it's on, controlled.                                        |
+| `defaultChecked` | `boolean`                                                                                          | `false`         | Whether it starts on, uncontrolled.                                 |
+| `onChange`       | `(checked: boolean) => void`                                                                       | —               | Called with the new state.                                          |
+| `label`          | `JSX.Element`                                                                                      | —               | The label next to the track.                                        |
+| `description`    | `JSX.Element`                                                                                      | —               | Help text under the label.                                          |
+| `error`          | `JSX.Element`                                                                                      | —               | Error message; marks it invalid.                                    |
+| `value`          | `string`                                                                                           | —               | Submitted when on; the key in a group.                              |
+| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                             | group's, `'md'` | Size of the track and text.                                         |
+| `color`          | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'`     | Color of the track when on.                                         |
+| `labelPosition`  | `'right' \| 'left'`                                                                                | `'right'`       | Which side the label goes; `left` puts the switch at the row's end. |
+| `disabled`       | `boolean`                                                                                          | `false`         | Disables it.                                                        |
 
 ### Switch.Group
 

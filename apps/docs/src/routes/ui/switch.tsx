@@ -69,7 +69,12 @@ export default function SwitchPage() {
             default: "'primary'",
             description: 'Color of the track when on.',
           },
-          { name: 'labelPosition', type: "'right' | 'left'", default: "'right'", description: 'Which side the label goes.' },
+          {
+            name: 'labelPosition',
+            type: "'right' | 'left'",
+            default: "'right'",
+            description: "Which side the label goes; left puts the switch at the row's end.",
+          },
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables it.' },
         ]}
       />

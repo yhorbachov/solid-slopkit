@@ -1,5 +1,6 @@
 /*
  * The layout shared by Checkbox, Radio and Switch: the control, then a column of label, description and error.
+ * With the label on the left, the text fills the row and the control sits at its end, as in a settings list.
  * The control is centered on the label's first line. Sizes set the control's size and the text sizes together.
  *
  * Everything prefixed `--_choice-` is internal; each control reads `--_choice-size`.
@@ -20,7 +21,6 @@
 
     &[data-label-position='left'] {
       flex-direction: row-reverse;
-      justify-content: flex-end;
     }
 
     &[data-size='xs'] {
@@ -64,6 +64,10 @@
     min-width: 0;
     /* A control taller than the line pushes the text down to stay centered on it. */
     padding-block: max(0px, calc((var(--_choice-size) - var(--_choice-label-line-height)) / 2));
+
+    [data-label-position='left'] > & {
+      flex-grow: 1;
+    }
   }
 
   .label {

@@ -85,7 +85,7 @@ export default function CheckboxPage() {
             name: 'labelPosition',
             type: "'right' | 'left'",
             default: "'right'",
-            description: 'Which side of the box the label goes.',
+            description: "Which side of the box the label goes; left puts the box at the row's end.",
           },
           { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables it.' },
         ]}

@@ -69,21 +69,6 @@
   background: var(--slp-color-warning);
 }
 
-/* Preferences: label and description on the left, the switch at the end. */
-
-.create-one-a-setting {
-  justify-content: space-between;
-  width: 100%;
-
-  & [data-slot='switch-text'] {
-    flex: 1;
-  }
-
-  & [data-slot='switch-control'] {
-    flex: none;
-  }
-}
-
 /* Savings goal */
 
 .create-one-a-donut {

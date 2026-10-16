@@ -309,7 +309,6 @@ export function Column2() {
             <Select label="Default Currency" size="sm" data={CURRENCIES} defaultValue="usd" />
             <Stack divided gap={6}>
               <Switch
-                class="create-one-a-setting"
                 labelPosition="left"
                 size="sm"
                 label="Public Statistics"
@@ -317,7 +316,6 @@ export function Column2() {
                 defaultChecked
               />
               <Switch
-                class="create-one-a-setting"
                 labelPosition="left"
                 size="sm"
                 label="Email Notifications"

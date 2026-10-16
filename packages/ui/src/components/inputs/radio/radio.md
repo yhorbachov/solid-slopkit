@@ -31,7 +31,7 @@ const [plan, setPlan] = createSignal('monthly');
 
 - **In a group** a radio is chosen when its `value` is the group's; its own `checked` is ignored.
 - **Alone** (rare: a single radio can't be unchosen) it takes `checked`, `defaultChecked` and `onChange`, which gets `true` when it's chosen.
-- **Text:** `label` next to the circle (`labelPosition="left"` puts it before), `description` and `error` under it. A click on the label chooses it.
+- **Text:** `label` next to the circle (`labelPosition="left"` puts it before), `description` and `error` under it. With the label on the left, the text fills the row and the circle sits at its end, as in a settings list; to keep the two together, give the Radio a narrower parent or `width: fit-content`. A click on the label chooses it.
 - **Look:** `color` takes a color role (`primary` by default) for the chosen circle; `size` (`xs` to `xl`) sizes the circle and text.
 - **Props:** `class` and `style` go to the root; every other prop goes to the `input`.
 
@@ -58,17 +58,17 @@ Other props are passed to the InputWrapper root.
 
 Other props are passed to the `input`.
 
-| Prop                                    | Type                                                                                               | Default         | Description                              |
-| --------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------- | ---------------------------------------- |
-| `value`                                 | `string`                                                                                           | —               | Its value in the group, and for forms.   |
-| `label`                                 | `JSX.Element`                                                                                      | —               | The label next to the circle.            |
-| `description`                           | `JSX.Element`                                                                                      | —               | Help text under the label.               |
-| `error`                                 | `JSX.Element`                                                                                      | —               | Error message; marks it invalid.         |
-| `size`                                  | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                             | group's, `'md'` | Size of the circle and text.             |
-| `color`                                 | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'`     | Color of the chosen circle.              |
-| `labelPosition`                         | `'right' \| 'left'`                                                                                | `'right'`       | Which side of the circle the label goes. |
-| `disabled`                              | `boolean`                                                                                          | `false`         | Disables it.                             |
-| `checked`, `defaultChecked`, `onChange` | —                                                                                                  | —               | Outside a group only.                    |
+| Prop                                    | Type                                                                                               | Default         | Description                                                                       |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------- | --------------------------------------------------------------------------------- |
+| `value`                                 | `string`                                                                                           | —               | Its value in the group, and for forms.                                            |
+| `label`                                 | `JSX.Element`                                                                                      | —               | The label next to the circle.                                                     |
+| `description`                           | `JSX.Element`                                                                                      | —               | Help text under the label.                                                        |
+| `error`                                 | `JSX.Element`                                                                                      | —               | Error message; marks it invalid.                                                  |
+| `size`                                  | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                                                             | group's, `'md'` | Size of the circle and text.                                                      |
+| `color`                                 | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'`     | Color of the chosen circle.                                                       |
+| `labelPosition`                         | `'right' \| 'left'`                                                                                | `'right'`       | Which side of the circle the label goes; `left` puts the circle at the row's end. |
+| `disabled`                              | `boolean`                                                                                          | `false`         | Disables it.                                                                      |
+| `checked`, `defaultChecked`, `onChange` | —                                                                                                  | —               | Outside a group only.                                                             |
 
 ## Styling
 

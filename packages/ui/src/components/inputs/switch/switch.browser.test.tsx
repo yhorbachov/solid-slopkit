@@ -20,6 +20,24 @@ describe('<Switch /> in a browser', () => {
     await expect.poll(() => track.right - thumb(control).right).toBeCloseTo(off.left - track.left, 0);
   });
 
+  test('with the label on the left, the text fills the row and the switch sits at its end', () => {
+    const { getByRole, getByText, container } = render(() => (
+      <div style={{ width: '400px' }}>
+        <Switch label="Public statistics" description="Show your stream count" labelPosition="left" />
+        <Switch label="Right" />
+      </div>
+    ));
+    const [left, right] = [...container.querySelectorAll('.slp-switch')].map((el) => el.getBoundingClientRect());
+    const tracks = getByRole('switch', { name: 'Public statistics' }).getBoundingClientRect();
+    const label = getByText('Public statistics').getBoundingClientRect();
+
+    expect(Math.round(left.width)).toBe(400);
+    expect(Math.round(tracks.right)).toBe(Math.round(left.right));
+    expect(Math.round(label.left)).toBe(Math.round(left.left));
+    // The default stays packed at the start: the switch first, then its label.
+    expect(Math.round(getByRole('switch', { name: 'Right' }).getBoundingClientRect().left)).toBe(Math.round(right.left));
+  });
+
   test('on, the track takes the role color', async () => {
     const { getByRole, getByTestId } = render(() => (
       <>
