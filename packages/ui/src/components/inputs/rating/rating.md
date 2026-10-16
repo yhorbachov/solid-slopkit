@@ -24,27 +24,27 @@ import { Rating } from '@solid-slopkit/ui';
 - **Read-only:** `readOnly` (read once) draws the stars without radios, as `role="img"` named `Rated 4.3 out of 5` (change it with `readOnlyLabel`, or name it with `aria-label`). Any value draws: 4.3 fills 30% of the fifth star.
 - **Look:** `color` takes a color role for the filled stars, `warning` by default. `size` from `xs` (1rem stars) to `xl` (2.5rem).
 - **Forms:** the radios share a `name` (generated unless you pass one), so the chosen value is submitted.
-- **Text:** it's an InputWrapper: `label`, `description`, `error`, `size`.
+- **Text:** it's an InputWrapper: `label`, `labelSection`, `description`, `error`, `size`.
 
 ## Props
 
 Other props are passed to the InputWrapper root.
 
-| Prop                                                  | Type                                                                                               | Default               | Description                                   |
-| ----------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------- | --------------------------------------------- |
-| `value`                                               | `number`                                                                                           | —                     | The rating, controlled; 0 is none.            |
-| `defaultValue`                                        | `number`                                                                                           | `0`                   | The starting rating, uncontrolled.            |
-| `onChange`                                            | `(value: number) => void`                                                                          | —                     | Called with the new rating.                   |
-| `count`                                               | `number`                                                                                           | `5`                   | How many stars.                               |
-| `fractions`                                           | `number`                                                                                           | `1`                   | Parts of a star that can be chosen.           |
-| `readOnly`                                            | `boolean`                                                                                          | `false`               | Shows the rating as an image. Read once.      |
-| `allowClear`                                          | `boolean`                                                                                          | `false`               | Choosing the current rating clears it.        |
-| `color`                                               | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'warning'`           | Color of the filled stars.                    |
-| `name`                                                | `string`                                                                                           | generated             | The radios' `name`.                           |
-| `disabled`                                            | `boolean`                                                                                          | `false`               | Disables it.                                  |
-| `itemLabel`                                           | `(value: number) => string`                                                                        | `1 star`, `2.5 stars` | Each radio's accessible name.                 |
-| `readOnlyLabel`                                       | `(value: number, count: number) => string`                                                         | `Rated 4.3 out of 5`  | The read-only image's accessible name.        |
-| `label`, `description`, `error`, `size`, `aria-label` | —                                                                                                  | —                     | InputWrapper's; `aria-label` names the stars. |
+| Prop                                                                  | Type                                                                                               | Default               | Description                                   |
+| --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------- | --------------------------------------------- |
+| `value`                                                               | `number`                                                                                           | —                     | The rating, controlled; 0 is none.            |
+| `defaultValue`                                                        | `number`                                                                                           | `0`                   | The starting rating, uncontrolled.            |
+| `onChange`                                                            | `(value: number) => void`                                                                          | —                     | Called with the new rating.                   |
+| `count`                                                               | `number`                                                                                           | `5`                   | How many stars.                               |
+| `fractions`                                                           | `number`                                                                                           | `1`                   | Parts of a star that can be chosen.           |
+| `readOnly`                                                            | `boolean`                                                                                          | `false`               | Shows the rating as an image. Read once.      |
+| `allowClear`                                                          | `boolean`                                                                                          | `false`               | Choosing the current rating clears it.        |
+| `color`                                                               | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'warning'`           | Color of the filled stars.                    |
+| `name`                                                                | `string`                                                                                           | generated             | The radios' `name`.                           |
+| `disabled`                                                            | `boolean`                                                                                          | `false`               | Disables it.                                  |
+| `itemLabel`                                                           | `(value: number) => string`                                                                        | `1 star`, `2.5 stars` | Each radio's accessible name.                 |
+| `readOnlyLabel`                                                       | `(value: number, count: number) => string`                                                         | `Rated 4.3 out of 5`  | The read-only image's accessible name.        |
+| `label`, `labelSection`, `description`, `error`, `size`, `aria-label` | —                                                                                                  | —                     | InputWrapper's; `aria-label` names the stars. |
 
 ## Styling
 

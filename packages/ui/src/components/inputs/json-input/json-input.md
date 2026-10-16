@@ -19,7 +19,7 @@ const [config, setConfig] = createSignal('{"theme": "dark"}');
 - **Formatting:** with `formatOnBlur`, valid text is formatted when the field loses focus, `indent` spaces per level (2).
 - **Other formats:** `deserialize` parses the text and throws when it's invalid (`JSON.parse` by default); `serialize` turns the value back into text when formatting (`JSON.stringify`).
 - **Text:** a monospace font, no spellcheck, no autocapitalization, lines that don't wrap (the field scrolls sideways).
-- **Everything else is Textarea's:** `autosize`, `minRows`, `maxRows`, `rows`, Input's `variant` and sections, and InputWrapper's `label`, `description`, `required`, `size`.
+- **Everything else is Textarea's:** `autosize`, `minRows`, `maxRows`, `rows`, Input's `variant` and sections, and InputWrapper's `label`, `labelSection`, `description`, `required`, `size`.
 
 ## Props
 

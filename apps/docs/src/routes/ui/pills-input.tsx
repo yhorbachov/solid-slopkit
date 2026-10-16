@@ -48,6 +48,11 @@ export default function PillsInputPage() {
       <PropsTable
         rows={[
           { name: 'label', type: 'JSX.Element', description: 'The label, which names the field.' },
+          {
+            name: 'labelSection',
+            type: 'JSX.Element',
+            description: "Content at the end of the label's row, such as the current value or a link.",
+          },
           { name: 'description', type: 'JSX.Element', description: 'A hint under the label.' },
           { name: 'error', type: 'JSX.Element | boolean', description: 'An error under the box, which marks it invalid.' },
           { name: 'required', type: 'boolean', default: 'false', description: 'An asterisk, and required on the field.' },

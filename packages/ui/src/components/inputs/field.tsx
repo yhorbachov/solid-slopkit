@@ -13,7 +13,18 @@ export interface FieldWrapperProps extends Omit<InputWrapperOwnProps, 'children'
   style?: JSX.CSSProperties;
 }
 
-const WRAPPER_KEYS = ['label', 'description', 'error', 'required', 'withAsterisk', 'size', 'id', 'class', 'style'] as const;
+const WRAPPER_KEYS = [
+  'label',
+  'labelSection',
+  'description',
+  'error',
+  'required',
+  'withAsterisk',
+  'size',
+  'id',
+  'class',
+  'style',
+] as const;
 
 /** The field's props without the wrapper's: what goes to the control. */
 export function controlProps<T extends FieldWrapperProps>(props: T): Omit<T, (typeof WRAPPER_KEYS)[number]> {
@@ -25,6 +36,7 @@ export function FieldWrapper(props: { field: FieldWrapperProps; rootClass: strin
   return (
     <InputWrapper
       label={props.field.label}
+      labelSection={props.field.labelSection}
       description={props.field.description}
       error={props.field.error}
       required={props.field.required}

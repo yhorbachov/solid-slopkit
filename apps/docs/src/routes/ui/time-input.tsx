@@ -37,8 +37,8 @@ export default function TimeInputPage() {
 
       <H2 id="props">Props</H2>
       <p>
-        Other props go to the <code>input</code>, and <code>label</code>, <code>description</code>, <code>error</code>,{' '}
-        <code>required</code>, <code>withAsterisk</code>, <code>size</code> and <code>id</code> work as on{' '}
+        Other props go to the <code>input</code>, and <code>label</code>, <code>labelSection</code>, <code>description</code>,{' '}
+        <code>error</code>, <code>required</code>, <code>withAsterisk</code>, <code>size</code> and <code>id</code> work as on{' '}
         <a href="/ui/text-input">TextInput</a>.
       </p>
       <PropsTable

@@ -10,6 +10,11 @@ export type InputWrapperLabelElement = 'label' | 'div';
 export interface InputWrapperOwnProps {
   /** The field's label. */
   label?: JSX.Element;
+  /**
+   * Content at the end of the label's row, such as the current value or a link. It isn't part of the label, so it
+   * doesn't change the field's accessible name.
+   */
+  labelSection?: JSX.Element;
   /** Help text between the label and the field. */
   description?: JSX.Element;
   /**
@@ -72,6 +77,7 @@ export function InputWrapper(props: InputWrapperProps) {
     'class',
     'children',
     'label',
+    'labelSection',
     'description',
     'error',
     'required',
@@ -91,10 +97,12 @@ export function InputWrapper(props: InputWrapperProps) {
   // Read once: a JSX prop is a getter that creates its elements on every read. Each is rendered whenever it has
   // content, so nothing created here is left out of the page.
   const label = createMemo(() => props.label, { name: 'InputWrapper.label' });
+  const labelSection = createMemo(() => props.labelSection, { name: 'InputWrapper.labelSection' });
   const description = createMemo(() => props.description, { name: 'InputWrapper.description' });
   const error = createMemo(() => props.error, { name: 'InputWrapper.error' });
 
   const withLabel = () => hasContent(label());
+  const withLabelSection = () => hasContent(labelSection());
   const withDescription = () => hasContent(description());
   const withError = () => hasContent(error());
   const invalid = () => withError() || error() === true;
@@ -111,6 +119,18 @@ export function InputWrapper(props: InputWrapperProps) {
       </Show>
     </>
   );
+
+  // With a label section, the label and the section share a row.
+  const labelView = () =>
+    labelIsElement ? (
+      <label id={labelId} for={id} data-slot="input-wrapper-label" class={style.label}>
+        {labelContent()}
+      </label>
+    ) : (
+      <div id={labelId} data-slot="input-wrapper-label" class={style.label}>
+        {labelContent()}
+      </div>
+    );
 
   const context: InputWrapperContextValue = {
     id,
@@ -129,16 +149,13 @@ export function InputWrapper(props: InputWrapperProps) {
       class={joinClass(['slp-input-wrapper', style.wrapper], mergedProps.class)}
       {...others}
     >
-      <Show when={withLabel()}>
-        {labelIsElement ? (
-          <label id={labelId} for={id} data-slot="input-wrapper-label" class={style.label}>
-            {labelContent()}
-          </label>
-        ) : (
-          <div id={labelId} data-slot="input-wrapper-label" class={style.label}>
-            {labelContent()}
+      <Show when={withLabelSection()} fallback={<Show when={withLabel()}>{labelView()}</Show>}>
+        <div data-slot="input-wrapper-label-row" class={style.labelRow}>
+          <Show when={withLabel()}>{labelView()}</Show>
+          <div data-slot="input-wrapper-label-section" class={style.labelSection}>
+            {labelSection()}
           </div>
-        )}
+        </div>
       </Show>
       <Show when={withDescription()}>
         <div id={descriptionId} data-slot="input-wrapper-description" class={style.description}>

@@ -24,7 +24,7 @@ const [year, setYear] = createSignal<Date | null>(null);
 
 ## Props
 
-The YearPicker's props (except `size`), plus DatePickerInput's field props: `placeholder`, `valueFormat` (default `{ year: 'numeric' }`), `labelSeparator`, `closeOnChange`, `clearable`, `clearLabel`, `name`, `readOnly`, `disabled`, `variant`, `leftSection`, `rightSection`, `position`, `offset`, `transition`, `transitionDuration`, and `label`, `description`, `error`, `required`, `withAsterisk`, `size`, `id`.
+The YearPicker's props (except `size`), plus DatePickerInput's field props: `placeholder`, `valueFormat` (default `{ year: 'numeric' }`), `labelSeparator`, `closeOnChange`, `clearable`, `clearLabel`, `name`, `readOnly`, `disabled`, `variant`, `leftSection`, `rightSection`, `position`, `offset`, `transition`, `transitionDuration`, and `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size`, `id`.
 
 ## Styling
 

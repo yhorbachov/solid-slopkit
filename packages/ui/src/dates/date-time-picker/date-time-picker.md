@@ -23,7 +23,7 @@ const [when, setWhen] = createSignal<Date | null>(null);
 - **Time:** `withSeconds` adds the seconds to the time and the value. `timePickerProps` go to the TimePicker: `format`, the steps, `minTime`, `maxTime`, `withDropdown`, `segmentLabels`…
 - **Clear:** `clearable` adds a button (named `clearLabel`, default `Clear`) while there's a value; it clears it and focuses the field.
 - **Forms:** `name` adds a hidden input with the local date and time, `2026-10-15T09:30` (`:ss` with seconds), as a `datetime-local` input writes it; empty when there's none.
-- **Label and texts:** `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput; `size` sizes the field, the calendar and the time. A button can't be `required`, so `required` shows the asterisk and sets `aria-required`.
+- **Label and texts:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput; `size` sizes the field, the calendar and the time. A button can't be `required`, so `required` shows the asterisk and sets `aria-required`.
 - **States:** `disabled` disables the button; `readOnly` shows the value without opening, and hides the clear button. `variant` and the sections go to the box.
 - **Animation:** `transition` (default `fade`) and `transitionDuration` (ms, default 150). Needs a `<SlopkitUi>` above it.
 - `class` and `style` go to the root (with the label and texts); other props go to the button.
@@ -54,7 +54,7 @@ The DatePicker's props for one day (the Calendar's, except `size` and `minLevel`
 | `transition`         | `TransitionName`                 | `'fade'`                                      | The dropdown's animation.                  |
 | `transitionDuration` | `number`                         | `150`                                         | Duration of the animation, in ms.          |
 
-Plus `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
+Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
 
 ## Styling
 

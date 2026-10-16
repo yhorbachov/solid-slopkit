@@ -31,7 +31,7 @@ import { TagsInput } from '@solid-slopkit/ui';
 - **Suggestions:** `data` takes strings, `{ value, disabled? }` items and `{ group, items }` groups. Those that contain what's typed (ignoring case), without the tags already added, show in a dropdown; it opens while something matches and closes when nothing does. Typing never makes a suggestion active, so Enter adds what was typed; ArrowDown and ArrowUp move to a suggestion, and Enter or a click then adds it. Without `data` there's no dropdown, and the field has no `aria-autocomplete`.
 - **Field:** a text field with `role="combobox"` after the tags. `placeholder` shows while there are no tags. A press anywhere else on the box focuses it.
 - **Forms:** `name` adds a hidden input per tag, so the form data has every tag under that name. `required` marks the field `aria-required` but doesn't make the text field required, since the tags are the pills.
-- **Label and texts:** `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. The label names the field and the list of suggestions. Without a label, pass `aria-label`.
+- **Label and texts:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. The label names the field and the list of suggestions. Without a label, pass `aria-label`.
 - **Box:** a PillsInput's box, with `variant`, `leftSection` and `rightSection`; it grows as the tags wrap, and the dropdown follows it. `disabled` and `readOnly` add and remove nothing; `readOnly` hides the remove buttons, and `disabled` disables them.
 - **Dropdown:** under the box and as wide as it; `comboboxProps` sets `position`, `offset`, `matchTargetWidth`, `transition` and `transitionDuration`. Needs a `<SlopkitUi>` above it.
 - `class` and `style` go to the root (with the label and texts); other props, such as `aria-label` or `onBlur`, go to the field.
@@ -62,7 +62,7 @@ import { TagsInput } from '@solid-slopkit/ui';
 | `rightSection`      | `JSX.Element`                                                            | —           | Content after the field.                            |
 | `comboboxProps`     | `{ position, offset, matchTargetWidth, transition, transitionDuration }` | —           | The dropdown's position and animation.              |
 
-Plus `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
+Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
 
 ## Styling
 

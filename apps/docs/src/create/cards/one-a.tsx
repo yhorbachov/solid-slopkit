@@ -219,14 +219,11 @@ export function Column2() {
             <Select label="Preferred Currency" size="sm" data={CURRENCIES} defaultValue="usd" />
             <Stack gap={1.5}>
               <Slider
-                class="create-one-a-payout"
-                label={
-                  <>
-                    <span>Minimum Payout Amount</span>
-                    <Text as="span" size="2xl" weight="semibold" tabularNums aria-hidden="true">
-                      ${payout().toFixed(2)}
-                    </Text>
-                  </>
+                label="Minimum Payout Amount"
+                labelSection={
+                  <Text as="span" size="2xl" weight="semibold" tabularNums aria-hidden="true">
+                    ${payout().toFixed(2)}
+                  </Text>
                 }
                 min={50}
                 max={10000}

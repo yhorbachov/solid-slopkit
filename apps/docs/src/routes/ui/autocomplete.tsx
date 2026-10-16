@@ -43,8 +43,9 @@ export default function AutocompletePage() {
       <H2 id="props">Props</H2>
       <p>
         <code>class</code> and <code>style</code> go to the root, with the label and texts; other props, such as <code>name</code>{' '}
-        or <code>placeholder</code>, go to the input. Plus <code>label</code>, <code>description</code>, <code>error</code>,{' '}
-        <code>required</code>, <code>withAsterisk</code>, <code>size</code> and <code>id</code>, as on TextInput.
+        or <code>placeholder</code>, go to the input. Plus <code>label</code>, <code>labelSection</code>, <code>description</code>
+        , <code>error</code>, <code>required</code>, <code>withAsterisk</code>, <code>size</code> and <code>id</code>, as on
+        TextInput.
       </p>
       <PropsTable
         rows={[

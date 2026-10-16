@@ -24,7 +24,7 @@ const [time, setTime] = createSignal('09:30');
 - **Dropdown:** `withDropdown` adds one, opened by a click on the field, with a column of options per part (the steps apply), each a `listbox`; the chosen options are scrolled into view. A click on an option sets its part and keeps the focus in the field. Escape, a press outside, and focus leaving both the field and the dropdown close it.
 - **Clear:** `clearable` adds a button (named `clearLabel`, default `Clear`) while there's a time; it empties it and goes to the hours.
 - **Forms:** `name` adds a hidden input with the value.
-- **Label and texts:** `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. `variant`, the sections, `disabled` and `readOnly` (the time shows, and can't change).
+- **Label and texts:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. `variant`, the sections, `disabled` and `readOnly` (the time shows, and can't change).
 - **Locale:** the provider's, or `locale`. Needs a `<SlopkitUi>` above it.
 - `class` and `style` go to the root (with the label and texts).
 
@@ -57,7 +57,7 @@ const [time, setTime] = createSignal('09:30');
 | `transition`         | `TransitionName`                             | `'fade'`         | The dropdown's animation.                         |
 | `transitionDuration` | `number`                                     | `150`            | Duration of the animation, in ms.                 |
 
-Plus `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
+Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
 
 ## Styling
 

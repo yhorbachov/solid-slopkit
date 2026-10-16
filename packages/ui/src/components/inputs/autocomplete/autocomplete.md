@@ -29,7 +29,7 @@ import { Autocomplete } from '@solid-slopkit/ui';
 - **Keyboard:** typing never makes a suggestion active, so Enter keeps what was typed and submits a form as usual. ArrowDown and ArrowUp move to a suggestion; Enter then fills it in and closes. Escape and Tab close it and keep the text. Home and End move the caret.
 - **Focus** stays on the field; a click on a suggestion fills it in.
 - **Field:** a text `input` with `aria-autocomplete="list"` and `autocomplete="off"`. Other props, such as `name`, `placeholder` or `onBlur`, go to it.
-- **Label and texts:** `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. The label names the field and the list.
+- **Label and texts:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. The label names the field and the list.
 - **Box:** an [Input](../input/input.md)'s box, with `variant`, `leftSection` and `rightSection`. `disabled` and `readOnly` offer no suggestions.
 - **Dropdown:** under the field and as wide as it; `comboboxProps` sets `position`, `offset`, `matchTargetWidth`, `transition` and `transitionDuration`. The list scrolls past 15rem. Needs a `<SlopkitUi>` above it.
 - For a value that must be one of the options, use [Select](../select/select.md) with `searchable`.
@@ -51,7 +51,7 @@ import { Autocomplete } from '@solid-slopkit/ui';
 | `rightSection`   | `JSX.Element`                                                            | —           | Content after the text.                     |
 | `comboboxProps`  | `{ position, offset, matchTargetWidth, transition, transitionDuration }` | —           | The dropdown's position and animation.      |
 
-Plus `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
+Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
 
 ## Styling
 

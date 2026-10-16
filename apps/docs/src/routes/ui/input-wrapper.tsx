@@ -8,6 +8,8 @@ import Basic from '../../examples/input-wrapper/basic';
 import basicCode from '../../examples/input-wrapper/basic.tsx?raw';
 import Sizes from '../../examples/input-wrapper/sizes';
 import sizesCode from '../../examples/input-wrapper/sizes.tsx?raw';
+import LabelSection from '../../examples/input-wrapper/label-section';
+import labelSectionCode from '../../examples/input-wrapper/label-section.tsx?raw';
 import Group from '../../examples/input-wrapper/group';
 import groupCode from '../../examples/input-wrapper/group.tsx?raw';
 
@@ -41,6 +43,14 @@ export default function InputWrapperPage() {
       </p>
       <Example component={Sizes} code={sizesCode} />
 
+      <H2 id="label-section">Label section</H2>
+      <p>
+        <code>labelSection</code> puts content at the end of the label's row, on its baseline: a link, a count, or the current
+        value of a slider. It sits outside the <code>label</code>, so it isn't part of the field's accessible name; hide a visual
+        duplicate of the value with <code>aria-hidden</code>. Every field and slider takes it.
+      </p>
+      <Example component={LabelSection} code={labelSectionCode} />
+
       <H2 id="groups">Groups and custom fields</H2>
       <p>
         A group of controls, such as radios, can't be labelled with <code>for</code>. With <code>labelElement="div"</code>, the
@@ -57,6 +67,11 @@ export default function InputWrapperPage() {
       <PropsTable
         rows={[
           { name: 'label', type: 'JSX.Element', description: "The field's label." },
+          {
+            name: 'labelSection',
+            type: 'JSX.Element',
+            description: "Content at the end of the label's row, such as the current value or a link.",
+          },
           { name: 'description', type: 'JSX.Element', description: 'Help text between the label and the field.' },
           {
             name: 'error',
@@ -84,7 +99,8 @@ export default function InputWrapperPage() {
       <H2 id="styling">Styling</H2>
       <p>
         The root has the class <code>.slp-input-wrapper</code>, with <code>data-size</code> and <code>data-invalid</code>. Its
-        slots are <code>input-wrapper-label</code>, <code>input-wrapper-required</code>, <code>input-wrapper-description</code>{' '}
+        slots are <code>input-wrapper-label</code>, <code>input-wrapper-required</code>, <code>input-wrapper-label-row</code> (the
+        label and the section, with a section), <code>input-wrapper-label-section</code>, <code>input-wrapper-description</code>{' '}
         and <code>input-wrapper-error</code>. Its rules live in <code>@layer slopkit.components</code>, so unlayered CSS wins.
       </p>
     </article>

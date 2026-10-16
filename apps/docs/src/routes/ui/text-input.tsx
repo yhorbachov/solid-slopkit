@@ -26,10 +26,10 @@ export default function TextInputPage() {
 
       <H2 id="usage">Usage</H2>
       <p>
-        <code>label</code>, <code>description</code>, <code>error</code>, <code>required</code>, <code>size</code>,{' '}
-        <code>id</code>, <code>class</code> and <code>style</code> go to the wrapper, the root of the field. Every other prop goes
-        to the <code>input</code>. Controlled with <code>value</code> and <code>onInput</code>, which fires on every keystroke, or
-        uncontrolled.
+        <code>label</code>, <code>labelSection</code>, <code>description</code>, <code>error</code>, <code>required</code>,{' '}
+        <code>size</code>, <code>id</code>, <code>class</code> and <code>style</code> go to the wrapper, the root of the field.
+        Every other prop goes to the <code>input</code>. Controlled with <code>value</code> and <code>onInput</code>, which fires
+        on every keystroke, or uncontrolled.
       </p>
       <Example component={Basic} code={basicCode} />
 
@@ -54,6 +54,11 @@ export default function TextInputPage() {
       <PropsTable
         rows={[
           { name: 'label', type: 'JSX.Element', description: "The field's label." },
+          {
+            name: 'labelSection',
+            type: 'JSX.Element',
+            description: "Content at the end of the label's row, such as the current value or a link.",
+          },
           { name: 'description', type: 'JSX.Element', description: 'Help text between the label and the field.' },
           { name: 'error', type: 'JSX.Element', description: 'Error message; marks the field invalid.' },
           { name: 'required', type: 'boolean', default: 'false', description: 'Asterisk, and a required input.' },

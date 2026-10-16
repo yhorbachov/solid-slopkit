@@ -26,7 +26,7 @@ const [price, setPrice] = createSignal<[number, number]>([20, 80]);
 
 ## Props
 
-Other props are passed to the InputWrapper root. `min`, `max`, `step`, `largeStep`, `marks`, `valueLabel`, `valueLabelAlwaysOn`, `valueText`, `color`, `disabled`, `name`, `label`, `description`, `error` and `size` are Slider's.
+Other props are passed to the InputWrapper root. `min`, `max`, `step`, `largeStep`, `marks`, `valueLabel`, `valueLabelAlwaysOn`, `valueText`, `color`, `disabled`, `name`, `label`, `labelSection`, `description`, `error` and `size` are Slider's.
 
 | Prop           | Type                                | Default                  | Description                          |
 | -------------- | ----------------------------------- | ------------------------ | ------------------------------------ |

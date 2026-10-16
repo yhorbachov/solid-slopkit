@@ -22,7 +22,7 @@ const [day, setDay] = createSignal<Date | null>(null);
 - **Field:** a text `input` with `role="combobox"`, `aria-haspopup="dialog"` and `aria-expanded`, `autocomplete="off"` and no spellcheck. Other props, such as `placeholder` or `onBlur`, go to it.
 - **Clear:** `clearable` adds a button (named `clearLabel`, default `Clear`) while there's a day; it clears it and focuses the field.
 - **Forms:** `name` adds a hidden input with the ISO day (`2026-10-15`), empty when there's none. The text field itself isn't submitted.
-- **Label and texts:** `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. `size` sizes the field and the calendar.
+- **Label and texts:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. `size` sizes the field and the calendar.
 - **States:** `disabled`, and `readOnly`, which shows the day without typing or opening, and hides the clear button. `variant` and the sections go to the box.
 - **Animation:** `transition` (default `fade`) and `transitionDuration` (ms, default 150). Needs a `<SlopkitUi>` above it.
 - `class` and `style` go to the root (with the label and texts).
@@ -52,7 +52,7 @@ The DatePicker's props for one day (the Calendar's, except `size` and `minLevel`
 | `transition`         | `TransitionName`                 | `'fade'`                  | The dropdown's animation.                      |
 | `transitionDuration` | `number`                         | `150`                     | Duration of the animation, in ms.              |
 
-Plus `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
+Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
 
 ## Styling
 

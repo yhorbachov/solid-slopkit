@@ -1,5 +1,6 @@
 /*
- * InputWrapper. A column: label, description, the field, error. The texts are sized from the type scale, a step
+ * InputWrapper. A column: label, description, the field, error. A label section shares the label's row, at its end,
+ * on the label's baseline. The texts are sized from the type scale, a step
  * below the field's own text size.
  *
  * Everything prefixed `--_iw-` is internal.
@@ -44,6 +45,28 @@
     font-weight: 500;
     line-height: var(--_iw-label-line-height);
     overflow-wrap: anywhere;
+
+    /* In the row, it keeps to the shared baseline. */
+    .labelRow > & {
+      align-self: auto;
+    }
+  }
+
+  .labelRow {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: calc(var(--slp-spacing) * 4);
+    min-width: 0;
+  }
+
+  .labelSection {
+    flex-shrink: 0;
+    /* Plain text matches the label; a Text inside sets its own size, e.g. a large value readout. */
+    font-size: var(--_iw-label-size);
+    line-height: var(--_iw-label-line-height);
+    /* Alone in the row, it still sits at the end. */
+    margin-inline-start: auto;
   }
 
   .required {
@@ -63,7 +86,8 @@
   }
 
   /* The description sits under the label, so it pulls up a little to read as part of it. */
-  .label + .description {
+  .label + .description,
+  .labelRow + .description {
     margin-top: calc(var(--slp-spacing) * -0.5);
   }
 

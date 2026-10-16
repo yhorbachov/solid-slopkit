@@ -23,7 +23,7 @@ const [plan, setPlan] = createSignal('monthly');
 
 - **Value:** the chosen radio's `value`, a `string`, or `undefined` when none is. Controlled with `value` and `onChange`: passing `value` at all makes it controlled, and a choice the parent doesn't apply is undone. Uncontrolled, it starts at `defaultValue`.
 - **Keyboard:** the radios share a `name` (generated unless you pass one), so the browser treats them as one group: Tab reaches the chosen radio (or the first), and the arrow keys move the choice, skipping disabled radios.
-- **Text:** it's an InputWrapper: `label`, `description`, `error`, `required`, `size`. The radios sit in a `role="radiogroup"` named by the label and described by the description and error. `required` makes the radios `required`, so a form can't be sent without a choice.
+- **Text:** it's an InputWrapper: `label`, `labelSection`, `description`, `error`, `required`, `size`. The radios sit in a `role="radiogroup"` named by the label and described by the description and error. `required` makes the radios `required`, so a form can't be sent without a choice.
 - **Layout:** the group doesn't lay out its children. Put the radios in a Stack, a Group or a SimpleGrid.
 - **Shared:** `disabled` disables every radio; `size` is their default size.
 
@@ -45,14 +45,14 @@ A card that is a radio: a `label` around a hidden native radio, an indicator and
 
 Other props are passed to the InputWrapper root.
 
-| Prop                                                                      | Type                      | Default   | Description                              |
-| ------------------------------------------------------------------------- | ------------------------- | --------- | ---------------------------------------- |
-| `value`                                                                   | `string \| undefined`     | —         | The chosen value, controlled.            |
-| `defaultValue`                                                            | `string`                  | —         | The value chosen at first, uncontrolled. |
-| `onChange`                                                                | `(value: string) => void` | —         | Called with the newly chosen value.      |
-| `name`                                                                    | `string`                  | generated | The `name` of every radio.               |
-| `disabled`                                                                | `boolean`                 | `false`   | Disables every radio.                    |
-| `label`, `description`, `error`, `required`, `withAsterisk`, `size`, `id` | —                         | —         | InputWrapper's.                          |
+| Prop                                                                                      | Type                      | Default   | Description                              |
+| ----------------------------------------------------------------------------------------- | ------------------------- | --------- | ---------------------------------------- |
+| `value`                                                                                   | `string \| undefined`     | —         | The chosen value, controlled.            |
+| `defaultValue`                                                                            | `string`                  | —         | The value chosen at first, uncontrolled. |
+| `onChange`                                                                                | `(value: string) => void` | —         | Called with the newly chosen value.      |
+| `name`                                                                                    | `string`                  | generated | The `name` of every radio.               |
+| `disabled`                                                                                | `boolean`                 | `false`   | Disables every radio.                    |
+| `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size`, `id` | —                         | —         | InputWrapper's.                          |
 
 ### Radio
 

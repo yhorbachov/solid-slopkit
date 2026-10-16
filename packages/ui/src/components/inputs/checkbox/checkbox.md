@@ -33,7 +33,7 @@ const [accepted, setAccepted] = createSignal(false);
 A labelled group with one value: the array of its checked checkboxes' `value`s, in the order they were checked.
 
 - **State:** controlled with `value` and `onChange`, or uncontrolled with `defaultValue`. A checkbox in a group gets its checked state from the group by its `value`; its own `checked` is ignored.
-- **Text:** it's an InputWrapper: `label`, `description`, `error`, `withAsterisk`, `size`. The checkboxes sit in a `role="group"` named by the label and described by the description and error.
+- **Text:** it's an InputWrapper: `label`, `labelSection`, `description`, `error`, `withAsterisk`, `size`. The checkboxes sit in a `role="group"` named by the label and described by the description and error.
 - **Layout:** the group doesn't lay out its children. Put the checkboxes in a Stack, a Group or a SimpleGrid.
 - **Shared:** `name` names every checkbox, `disabled` disables them all, `size` is their default size.
 
@@ -72,14 +72,14 @@ Other props are passed to the `input`.
 
 Other props are passed to the InputWrapper root.
 
-| Prop                                                          | Type                        | Default | Description                                |
-| ------------------------------------------------------------- | --------------------------- | ------- | ------------------------------------------ |
-| `value`                                                       | `string[]`                  | —       | The checked values, controlled.            |
-| `defaultValue`                                                | `string[]`                  | `[]`    | The values checked at first, uncontrolled. |
-| `onChange`                                                    | `(value: string[]) => void` | —       | Called with the new checked values.        |
-| `name`                                                        | `string`                    | —       | The `name` of every checkbox.              |
-| `disabled`                                                    | `boolean`                   | `false` | Disables every checkbox.                   |
-| `label`, `description`, `error`, `withAsterisk`, `size`, `id` | —                           | —       | InputWrapper's.                            |
+| Prop                                                                          | Type                        | Default | Description                                |
+| ----------------------------------------------------------------------------- | --------------------------- | ------- | ------------------------------------------ |
+| `value`                                                                       | `string[]`                  | —       | The checked values, controlled.            |
+| `defaultValue`                                                                | `string[]`                  | `[]`    | The values checked at first, uncontrolled. |
+| `onChange`                                                                    | `(value: string[]) => void` | —       | Called with the new checked values.        |
+| `name`                                                                        | `string`                    | —       | The `name` of every checkbox.              |
+| `disabled`                                                                    | `boolean`                   | `false` | Disables every checkbox.                   |
+| `label`, `labelSection`, `description`, `error`, `withAsterisk`, `size`, `id` | —                           | —       | InputWrapper's.                            |
 
 ### Checkbox.Card
 

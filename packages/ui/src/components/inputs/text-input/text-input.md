@@ -23,7 +23,7 @@ const [name, setName] = createSignal('');
 />
 ```
 
-- **Props are split:** `label`, `description`, `error`, `required`, `withAsterisk`, `size`, `id`, `class` and `style` go to the InputWrapper, the root of the field. Every other prop goes to the `input`: `value`, `onInput`, `onChange`, `type`, `name`, `placeholder`, `autocomplete`, `ref`, ….
+- **Props are split:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size`, `id`, `class` and `style` go to the InputWrapper, the root of the field. Every other prop goes to the `input`: `value`, `onInput`, `onChange`, `type`, `name`, `placeholder`, `autocomplete`, `ref`, ….
 - **Wiring:** the label points at the input, the input is described by the description and the error, and `error` marks it invalid. See InputWrapper.
 - **Look:** Input's `variant` (`outline`, `soft`, `ghost`), `leftSection` and `rightSection`. `size` sizes the label, texts and box together.
 - **Value:** controlled with `value` and `onInput`, or uncontrolled: leave `value` out and read the input, e.g. through a form. `onInput` fires on every keystroke, `onChange` when the field loses focus.
@@ -34,23 +34,24 @@ const [name, setName] = createSignal('');
 
 Other props are passed to the `input`.
 
-| Prop           | Type                                   | Default     | Description                                |
-| -------------- | -------------------------------------- | ----------- | ------------------------------------------ |
-| `label`        | `JSX.Element`                          | —           | The field's label.                         |
-| `description`  | `JSX.Element`                          | —           | Help text between the label and the field. |
-| `error`        | `JSX.Element`                          | —           | Error message; marks the field invalid.    |
-| `required`     | `boolean`                              | `false`     | Asterisk, and a required input.            |
-| `withAsterisk` | `boolean`                              | `required`  | Shows the asterisk.                        |
-| `size`         | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`      | Size of the label, texts and box.          |
-| `id`           | `string`                               | generated   | The input's id. Read once.                 |
-| `variant`      | `'outline' \| 'soft' \| 'ghost'`       | `'outline'` | Visual style of the box.                   |
-| `leftSection`  | `JSX.Element`                          | —           | Content before the input.                  |
-| `rightSection` | `JSX.Element`                          | —           | Content after the input.                   |
-| `disabled`     | `boolean`                              | `false`     | Disables the input.                        |
-| `readOnly`     | `boolean`                              | `false`     | Makes the input read-only.                 |
-| `class`        | `ClassValue`                           | —           | Classes for the root.                      |
-| `style`        | `JSX.CSSProperties`                    | —           | Styles for the root.                       |
-| `ref`          | `Ref<HTMLElement>`                     | —           | The `input`.                               |
+| Prop           | Type                                   | Default     | Description                                                                 |
+| -------------- | -------------------------------------- | ----------- | --------------------------------------------------------------------------- |
+| `label`        | `JSX.Element`                          | —           | The field's label.                                                          |
+| `labelSection` | `JSX.Element`                          | —           | Content at the end of the label's row, such as the current value or a link. |
+| `description`  | `JSX.Element`                          | —           | Help text between the label and the field.                                  |
+| `error`        | `JSX.Element`                          | —           | Error message; marks the field invalid.                                     |
+| `required`     | `boolean`                              | `false`     | Asterisk, and a required input.                                             |
+| `withAsterisk` | `boolean`                              | `required`  | Shows the asterisk.                                                         |
+| `size`         | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`      | Size of the label, texts and box.                                           |
+| `id`           | `string`                               | generated   | The input's id. Read once.                                                  |
+| `variant`      | `'outline' \| 'soft' \| 'ghost'`       | `'outline'` | Visual style of the box.                                                    |
+| `leftSection`  | `JSX.Element`                          | —           | Content before the input.                                                   |
+| `rightSection` | `JSX.Element`                          | —           | Content after the input.                                                    |
+| `disabled`     | `boolean`                              | `false`     | Disables the input.                                                         |
+| `readOnly`     | `boolean`                              | `false`     | Makes the input read-only.                                                  |
+| `class`        | `ClassValue`                           | —           | Classes for the root.                                                       |
+| `style`        | `JSX.CSSProperties`                    | —           | Styles for the root.                                                        |
+| `ref`          | `Ref<HTMLElement>`                     | —           | The `input`.                                                                |
 
 ## Styling
 

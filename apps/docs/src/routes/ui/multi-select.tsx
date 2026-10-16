@@ -55,9 +55,9 @@ export default function MultiSelectPage() {
       <H2 id="props">Props</H2>
       <p>
         <code>class</code> and <code>style</code> go to the root, with the label and texts; other props, such as{' '}
-        <code>aria-label</code> or <code>onBlur</code>, go to the field. Plus <code>label</code>, <code>description</code>,{' '}
-        <code>error</code>, <code>required</code>, <code>withAsterisk</code>, <code>size</code> and <code>id</code>, as on
-        TextInput.
+        <code>aria-label</code> or <code>onBlur</code>, go to the field. Plus <code>label</code>, <code>labelSection</code>,{' '}
+        <code>description</code>, <code>error</code>, <code>required</code>, <code>withAsterisk</code>, <code>size</code> and{' '}
+        <code>id</code>, as on TextInput.
       </p>
       <PropsTable
         rows={[

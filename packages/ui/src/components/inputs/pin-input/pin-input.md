@@ -20,29 +20,29 @@ import { PinInput } from '@solid-slopkit/ui';
 - **Characters:** `type="number"` (the default) takes digits and asks phones for a number pad; `alphanumeric` takes letters and digits. `mask` hides them like a password.
 - **Length:** `length` fields, 4 by default.
 - **Forms:** with `name`, a hidden input submits the whole code.
-- **Text:** it's an InputWrapper: `label`, `description`, `error`, `size`. The fields sit in a `role="group"` named by the label; each field is named "Character 1 of 4", and so on (change it with `fieldLabel`). `error` marks every field invalid.
+- **Text:** it's an InputWrapper: `label`, `labelSection`, `description`, `error`, `size`. The fields sit in a `role="group"` named by the label; each field is named "Character 1 of 4", and so on (change it with `fieldLabel`). `error` marks every field invalid.
 - **Look:** Input's variants, `outline`, `soft` and `ghost` (an underline). The fields are square, a step taller than a text field of the same size.
 
 ## Props
 
 Other props are passed to the InputWrapper root.
 
-| Prop                                                                      | Type                                        | Default                     | Description                                       |
-| ------------------------------------------------------------------------- | ------------------------------------------- | --------------------------- | ------------------------------------------------- |
-| `length`                                                                  | `number`                                    | `4`                         | How many characters.                              |
-| `type`                                                                    | `'number' \| 'alphanumeric'`                | `'number'`                  | Which characters it takes.                        |
-| `value`                                                                   | `string`                                    | —                           | The code, controlled.                             |
-| `defaultValue`                                                            | `string`                                    | —                           | The starting code, uncontrolled.                  |
-| `onChange`                                                                | `(value: string) => void`                   | —                           | Called after every change.                        |
-| `onComplete`                                                              | `(value: string) => void`                   | —                           | Called when every field is filled.                |
-| `mask`                                                                    | `boolean`                                   | `false`                     | Hides the characters.                             |
-| `oneTimeCode`                                                             | `boolean`                                   | `true`                      | Lets the browser fill a code from a text message. |
-| `name`                                                                    | `string`                                    | —                           | Submits the code with a form.                     |
-| `fieldLabel`                                                              | `(index: number, length: number) => string` | `Character {n} of {length}` | Each field's accessible name.                     |
-| `variant`                                                                 | `'outline' \| 'soft' \| 'ghost'`            | `'outline'`                 | Visual style of the fields.                       |
-| `disabled`                                                                | `boolean`                                   | `false`                     | Disables every field.                             |
-| `readOnly`                                                                | `boolean`                                   | `false`                     | Makes every field read-only.                      |
-| `label`, `description`, `error`, `required`, `withAsterisk`, `size`, `id` | —                                           | —                           | InputWrapper's.                                   |
+| Prop                                                                                      | Type                                        | Default                     | Description                                       |
+| ----------------------------------------------------------------------------------------- | ------------------------------------------- | --------------------------- | ------------------------------------------------- |
+| `length`                                                                                  | `number`                                    | `4`                         | How many characters.                              |
+| `type`                                                                                    | `'number' \| 'alphanumeric'`                | `'number'`                  | Which characters it takes.                        |
+| `value`                                                                                   | `string`                                    | —                           | The code, controlled.                             |
+| `defaultValue`                                                                            | `string`                                    | —                           | The starting code, uncontrolled.                  |
+| `onChange`                                                                                | `(value: string) => void`                   | —                           | Called after every change.                        |
+| `onComplete`                                                                              | `(value: string) => void`                   | —                           | Called when every field is filled.                |
+| `mask`                                                                                    | `boolean`                                   | `false`                     | Hides the characters.                             |
+| `oneTimeCode`                                                                             | `boolean`                                   | `true`                      | Lets the browser fill a code from a text message. |
+| `name`                                                                                    | `string`                                    | —                           | Submits the code with a form.                     |
+| `fieldLabel`                                                                              | `(index: number, length: number) => string` | `Character {n} of {length}` | Each field's accessible name.                     |
+| `variant`                                                                                 | `'outline' \| 'soft' \| 'ghost'`            | `'outline'`                 | Visual style of the fields.                       |
+| `disabled`                                                                                | `boolean`                                   | `false`                     | Disables every field.                             |
+| `readOnly`                                                                                | `boolean`                                   | `false`                     | Makes every field read-only.                      |
+| `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size`, `id` | —                                           | —                           | InputWrapper's.                                   |
 
 ## Styling
 

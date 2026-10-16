@@ -23,7 +23,7 @@ import { Chip } from '@solid-slopkit/ui';
 
 - **Chip.Group:** single choice by default: the chips are radios sharing a `name`, the value is the chosen chip's `value` (a `string`), and the arrow keys move the choice. With `multiple`, they're checkboxes and the value is the array of the ones that are on, in the order they were turned on. `multiple` is read once, and the types of `value` and `onChange` follow it.
 - **State:** controlled with `value` and `onChange` (passing `value` at all makes it controlled, and a change the parent doesn't apply is undone), or uncontrolled with `defaultValue`.
-- **Text:** the group is an InputWrapper: `label`, `description`, `error`, `size`; the chips sit in a `role="radiogroup"` or `role="group"` named by the label. Without a visible label, pass `aria-label`. The chips wrap onto new lines, 0.5rem apart.
+- **Text:** the group is an InputWrapper: `label`, `labelSection`, `description`, `error`, `size`; the chips sit in a `role="radiogroup"` or `role="group"` named by the label. Without a visible label, pass `aria-label`. The chips wrap onto new lines, 0.5rem apart.
 - **Alone,** a chip is a toggle: `checked`, `defaultChecked` and `onChange` (with a `boolean`).
 - **Name:** the chip's text is its accessible name. Keep it short; don't put links or buttons inside.
 - **Look:** `variant` sets how a chip looks when on: `soft` (the default, a tint), `outline` (a border) or `filled`. Soft and outline keep the text in the base color, so it stays readable whatever the color; the check takes the role. `color` takes a color role (`primary` by default). Heights match Button's.
@@ -50,15 +50,15 @@ Other props are passed to the hidden `input`.
 
 Other props are passed to the InputWrapper root.
 
-| Prop                                                  | Type                                               | Default   | Description                                   |
-| ----------------------------------------------------- | -------------------------------------------------- | --------- | --------------------------------------------- |
-| `multiple`                                            | `boolean`                                          | `false`   | Several chips can be on. Read once.           |
-| `value`                                               | `string \| undefined`, or `string[]` with multiple | —         | The value, controlled.                        |
-| `defaultValue`                                        | `string`, or `string[]` with multiple              | —         | The starting value, uncontrolled.             |
-| `onChange`                                            | `(value: string)`, or `(value: string[])`          | —         | Called with the new value.                    |
-| `name`                                                | `string`                                           | generated | The `name` of every chip.                     |
-| `disabled`                                            | `boolean`                                          | `false`   | Disables every chip.                          |
-| `label`, `description`, `error`, `size`, `aria-label` | —                                                  | —         | InputWrapper's; `aria-label` names the group. |
+| Prop                                                                  | Type                                               | Default   | Description                                   |
+| --------------------------------------------------------------------- | -------------------------------------------------- | --------- | --------------------------------------------- |
+| `multiple`                                                            | `boolean`                                          | `false`   | Several chips can be on. Read once.           |
+| `value`                                                               | `string \| undefined`, or `string[]` with multiple | —         | The value, controlled.                        |
+| `defaultValue`                                                        | `string`, or `string[]` with multiple              | —         | The starting value, uncontrolled.             |
+| `onChange`                                                            | `(value: string)`, or `(value: string[])`          | —         | Called with the new value.                    |
+| `name`                                                                | `string`                                           | generated | The `name` of every chip.                     |
+| `disabled`                                                            | `boolean`                                          | `false`   | Disables every chip.                          |
+| `label`, `labelSection`, `description`, `error`, `size`, `aria-label` | —                                                  | —         | InputWrapper's; `aria-label` names the group. |
 
 ## Styling
 

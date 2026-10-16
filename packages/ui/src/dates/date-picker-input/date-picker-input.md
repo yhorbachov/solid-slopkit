@@ -23,7 +23,7 @@ const [day, setDay] = createSignal<Date | null>(null);
 - **Calendar:** every DatePicker prop goes to the calendar: `allowDeselect`, `allowSingleDateInRange`, levels, `minDate`, `maxDate`, `excludeDate`, `getDayProps`, `numberOfColumns`, the week props, `color`, labels. It opens on the month of the first chosen day, unless `defaultDate` says otherwise. `size` sizes the field and the calendar.
 - **Clear:** `clearable` adds a button (named `clearLabel`, default `Clear`) in the right section while there's a value; it empties the value and focuses the field. Otherwise `rightSection` shows there.
 - **Forms:** `name` adds a hidden input with the value as ISO days: `2026-10-15`, comma-separated for several days or a range, empty when there's none.
-- **Label and texts:** `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. A button can't be `required`, so `required` shows the asterisk and sets `aria-required`.
+- **Label and texts:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. A button can't be `required`, so `required` shows the asterisk and sets `aria-required`.
 - **States:** `disabled` disables the button; `readOnly` shows the value without opening (`aria-readonly`) and hides the clear button. `variant` and `leftSection` go to the box.
 - **Animation:** `transition` (default `fade`) and `transitionDuration` (ms, default 150). None under `prefers-reduced-motion`. Needs a `<SlopkitUi>` above it.
 - `class` and `style` go to the root (with the label and texts); other props go to the button.
@@ -51,7 +51,7 @@ The DatePicker's props (`type`, `value`, `defaultValue`, `onChange`, `allowDesel
 | `transition`         | `TransitionName`                 | `'fade'`                  | The dropdown's animation.                       |
 | `transitionDuration` | `number`                         | `150`                     | Duration of the animation, in ms.               |
 
-Plus `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
+Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
 
 ## Styling
 

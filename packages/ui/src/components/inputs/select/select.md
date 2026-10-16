@@ -32,7 +32,7 @@ import { Select } from '@solid-slopkit/ui';
 - **Selected option:** marked with a check mark and the primary color, and `aria-selected="true"`. `allowDeselect` makes choosing it again clear the value.
 - **Clearing:** `clearable` replaces the chevron with a clear button (named `clearLabel`, default `Clear`) while there's a value.
 - **Forms:** `name` adds a hidden input with the value (empty for none).
-- **Label and texts:** `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. The label names the field and the listbox. Without a label, pass `aria-label`.
+- **Label and texts:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. The label names the field and the listbox. Without a label, pass `aria-label`.
 - **Box:** an [Input](../input/input.md)'s box, with `variant`, `leftSection` and `rightSection` (which replaces the chevron). `disabled` and `readOnly` keep it closed.
 - **Dropdown:** under the field and as wide as it; `comboboxProps` sets `position`, `offset`, `matchTargetWidth`, `transition` and `transitionDuration`. The list scrolls past 15rem. Needs a `<SlopkitUi>` above it.
 - `class` and `style` go to the root (with the label and texts); other props, such as `aria-label` or `onBlur`, go to the field.
@@ -59,7 +59,7 @@ import { Select } from '@solid-slopkit/ui';
 | `rightSection`        | `JSX.Element`                                                            | a chevron         | Content after the value.                      |
 | `comboboxProps`       | `{ position, offset, matchTargetWidth, transition, transitionDuration }` | —                 | The dropdown's position and animation.        |
 
-Plus `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
+Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
 
 ## Styling
 

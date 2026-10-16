@@ -26,7 +26,7 @@ import { ColorInput } from '@solid-slopkit/ui';
 - **Field:** a text `input` with `role="combobox"`, `aria-haspopup="dialog"` and `aria-expanded` (a plain text field without the picker), `autocomplete="off"` and no spellcheck. Other props, such as `name`, `placeholder` or `onBlur`, go to it, so `name` submits the text.
 - **Swatch:** a [ColorSwatch](../../data-display/color-swatch/color-swatch.md) of the value in the left section, hidden from screen readers; `hideSwatch` removes it, and `leftSection` replaces it.
 - **Eye dropper:** where the browser has an `EyeDropper`, a button in the right section (named `eyeDropperLabel`, default `Pick a color from the screen`) picks a color from the screen. It's added once hydrated, so the server render matches. `withEyeDropper={false}` removes it, and `rightSection` replaces it.
-- **Label and texts:** `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. `size` also sizes the swatch and the picker.
+- **Label and texts:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. `size` also sizes the swatch and the picker.
 - **Box:** an [Input](../input/input.md)'s box, with `variant`. `disabled` and `readOnly` keep the picker closed and hide the eye dropper.
 - **Animation:** `transition` (default `fade`) and `transitionDuration` (ms, default 150). None under `prefers-reduced-motion`. Needs a `<SlopkitUi>` above it.
 - `class` and `style` go to the root (with the label and texts).
@@ -56,7 +56,7 @@ import { ColorInput } from '@solid-slopkit/ui';
 | `transition`         | `TransitionName`                                        | `'fade'`                         | The dropdown's animation.                         |
 | `transitionDuration` | `number`                                                | `150`                            | Duration of the animation, in ms.                 |
 
-Plus `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
+Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
 
 ## Styling
 

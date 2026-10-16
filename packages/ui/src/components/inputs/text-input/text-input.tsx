@@ -9,7 +9,7 @@ export interface TextInputOwnProps
 export type TextInputProps = ElementProps<JSX.InputHTMLAttributes<HTMLInputElement>, TextInputOwnProps>;
 
 /**
- * A labelled one-line text field: an Input in an InputWrapper. `label`, `description`, `error`, `required`, `size`,
+ * A labelled one-line text field: an Input in an InputWrapper. `label`, `labelSection`, `description`, `error`, `required`, `size`,
  * `id`, `class` and `style` go to the wrapper; every other prop goes to the `input`.
  */
 export function TextInput(props: TextInputProps) {

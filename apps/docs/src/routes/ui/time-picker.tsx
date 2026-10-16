@@ -46,8 +46,9 @@ export default function TimePickerPage() {
 
       <H2 id="props">Props</H2>
       <p>
-        <code>label</code>, <code>description</code>, <code>error</code>, <code>required</code>, <code>withAsterisk</code>,{' '}
-        <code>size</code> and <code>id</code> work as on <a href="/ui/text-input">TextInput</a>. Plus these:
+        <code>label</code>, <code>labelSection</code>, <code>description</code>, <code>error</code>, <code>required</code>,{' '}
+        <code>withAsterisk</code>, <code>size</code> and <code>id</code> work as on <a href="/ui/text-input">TextInput</a>. Plus
+        these:
       </p>
       <PropsTable
         rows={[

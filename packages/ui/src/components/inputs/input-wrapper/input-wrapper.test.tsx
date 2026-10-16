@@ -6,6 +6,9 @@ import { describe, expect, test } from 'vitest';
 import { expectHydration } from '../../../../test/ssr';
 import { NO_DIAGNOSTICS } from '../../../../test/diagnostics';
 import { Input } from '../input';
+import { TextInput } from '../text-input';
+import { Slider } from '../slider';
+import { SlopkitUi } from '../../provider';
 import { InputWrapper, useInputWrapper } from './input-wrapper';
 
 const slot = (root: Element, name: string) => root.querySelector(`[data-slot="input-wrapper-${name}"]`);
@@ -43,6 +46,61 @@ describe('<InputWrapper />', () => {
 
     expect(root.children).toHaveLength(1);
     expect(root).not.toHaveAttribute('data-invalid');
+  });
+
+  test('labelSection shares a row with the label, outside it, so the accessible name is the label alone', () => {
+    const { container, getByRole } = render(() => (
+      <InputWrapper label="Password" labelSection={<a href="#reset">Forgot?</a>} description="8 characters or more.">
+        <Input type="password" aria-label={undefined} />
+      </InputWrapper>
+    ));
+    const root = container.firstElementChild!;
+    const row = slot(root, 'label-row')!;
+
+    expect(Array.from(root.children).map((child) => child.getAttribute('data-slot') ?? child.className)).toEqual([
+      'input-wrapper-label-row',
+      'input-wrapper-description',
+      expect.stringContaining('slp-input'),
+    ]);
+    expect(Array.from(row.children).map((child) => child.getAttribute('data-slot'))).toEqual([
+      'input-wrapper-label',
+      'input-wrapper-label-section',
+    ]);
+    expect(slot(root, 'label')).not.toContainElement(getByRole('link', { name: 'Forgot?' }));
+    expect(slot(root, 'label')).toHaveAttribute('for', root.querySelector('input')!.id);
+    expect(slot(root, 'label')!.textContent).toBe('Password');
+  });
+
+  test('a labelSection without a label still gets its row; without either there is no row', () => {
+    const { container } = render(() => (
+      <>
+        <InputWrapper labelSection="3 / 5">
+          <Input aria-label="Code" />
+        </InputWrapper>
+        <InputWrapper label="Plain">
+          <Input />
+        </InputWrapper>
+      </>
+    ));
+    const [sectionOnly, plain] = Array.from(container.children);
+
+    expect(slot(sectionOnly, 'label-row')).not.toBeNull();
+    expect(slot(sectionOnly, 'label')).toBeNull();
+    expect(slot(sectionOnly, 'label-section')).toHaveTextContent('3 / 5');
+    expect(slot(plain, 'label-row')).toBeNull();
+    expect(slot(plain, 'label')!.parentElement).toBe(plain);
+  });
+
+  test('fields and sliders pass labelSection to their wrapper', () => {
+    const { getByText } = render(() => (
+      <SlopkitUi>
+        <TextInput label="Bio" labelSection="0 / 160" />
+        <Slider label="Volume" labelSection="30%" defaultValue={30} />
+      </SlopkitUi>
+    ));
+
+    expect(getByText('0 / 160')).toHaveAttribute('data-slot', 'input-wrapper-label-section');
+    expect(getByText('30%')).toHaveAttribute('data-slot', 'input-wrapper-label-section');
   });
 
   test('required: an asterisk hidden from screen readers, and a required control', () => {
@@ -133,12 +191,17 @@ describe('<InputWrapper />', () => {
       return <span>{props.text}</span>;
     };
     render(() => (
-      <InputWrapper label={<Counted text="L" />} description={<Counted text="D" />} error={<Counted text="E" />}>
+      <InputWrapper
+        label={<Counted text="L" />}
+        labelSection={<Counted text="S" />}
+        description={<Counted text="D" />}
+        error={<Counted text="E" />}
+      >
         <Input />
       </InputWrapper>
     ));
 
-    expect(created).toBe(3);
+    expect(created).toBe(4);
   });
 
   test('showing an error wires it to the control without diagnostics or waste', async () => {

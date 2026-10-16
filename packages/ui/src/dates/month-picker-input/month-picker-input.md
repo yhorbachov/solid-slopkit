@@ -24,7 +24,7 @@ const [month, setMonth] = createSignal<Date | null>(null);
 
 ## Props
 
-The MonthPicker's props (except `size`), plus DatePickerInput's field props: `placeholder`, `valueFormat` (default `{ month: 'long', year: 'numeric' }`), `labelSeparator`, `closeOnChange`, `clearable`, `clearLabel`, `name`, `readOnly`, `disabled`, `variant`, `leftSection`, `rightSection`, `position`, `offset`, `transition`, `transitionDuration`, and `label`, `description`, `error`, `required`, `withAsterisk`, `size`, `id`.
+The MonthPicker's props (except `size`), plus DatePickerInput's field props: `placeholder`, `valueFormat` (default `{ month: 'long', year: 'numeric' }`), `labelSeparator`, `closeOnChange`, `clearable`, `clearLabel`, `name`, `readOnly`, `disabled`, `variant`, `leftSection`, `rightSection`, `position`, `offset`, `transition`, `transitionDuration`, and `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size`, `id`.
 
 ## Styling
 

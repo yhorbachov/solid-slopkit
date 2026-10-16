@@ -34,7 +34,7 @@ import { MultiSelect } from '@solid-slopkit/ui';
 - **Pointer:** a press in the field opens it; a press elsewhere on the box (the chevron, a pill's label) opens or closes it and focuses the field. Focus stays on the field throughout.
 - **Clearing:** `clearable` replaces the chevron with a clear button (named `clearLabel`, default `Clear`) while there are values.
 - **Forms:** `name` adds a hidden input per value, so the form data has every value under that name. `required` marks the field `aria-required` but doesn't make the text field required, since the values are the pills.
-- **Label and texts:** `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. The label names the field and the listbox. Without a label, pass `aria-label`.
+- **Label and texts:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. The label names the field and the listbox. Without a label, pass `aria-label`.
 - **Box:** a PillsInput's box, with `variant`, `leftSection` and `rightSection` (which replaces the chevron); it grows as the pills wrap, and the dropdown follows it. `disabled` and `readOnly` keep it closed; `readOnly` hides the remove buttons, and `disabled` disables them.
 - **Dropdown:** under the box and as wide as it; `comboboxProps` sets `position`, `offset`, `matchTargetWidth`, `transition` and `transitionDuration`. The list scrolls past 15rem. Needs a `<SlopkitUi>` above it.
 - `class` and `style` go to the root (with the label and texts); other props, such as `aria-label` or `onBlur`, go to the field.
@@ -62,7 +62,7 @@ import { MultiSelect } from '@solid-slopkit/ui';
 | `rightSection`        | `JSX.Element`                                                            | a chevron         | Content after the field.                            |
 | `comboboxProps`       | `{ position, offset, matchTargetWidth, transition, transitionDuration }` | —                 | The dropdown's position and animation.              |
 
-Plus `label`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
+Plus `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput.
 
 ## Styling
 

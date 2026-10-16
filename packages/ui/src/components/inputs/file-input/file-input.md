@@ -22,26 +22,26 @@ const [resume, setResume] = createSignal<File | null>(null);
 - **Screen readers:** the button is named by `label` and described by the chosen names and the description, so they hear "Resume, button, resume.pdf, PDF, up to 5 MB."
 - **Forms:** the hidden file input always holds the files the field shows, also after clearing or a controlled change, so a form submits them under `name`. `required` shows the asterisk only: check for a file when the form is sent.
 - **Filters:** `accept` filters the picker only; check the files you get. `capture` opens a phone's camera.
-- **Look and wrapper:** Input's `variant` and `leftSection`; InputWrapper's `label`, `description`, `error`, `size`. `class` and `style` go to the root; other props go to the button. `onClick` runs before the picker opens; `preventDefault()` keeps it closed.
+- **Look and wrapper:** Input's `variant` and `leftSection`; InputWrapper's `label`, `labelSection`, `description`, `error`, `size`. `class` and `style` go to the root; other props go to the button. `onClick` runs before the picker opens; `preventDefault()` keeps it closed.
 
 ## Props
 
 Other props are passed to the button.
 
-| Prop                                                                                                | Type                                          | Default                          | Description                                      |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------- | -------------------------------- | ------------------------------------------------ |
-| `multiple`                                                                                          | `boolean`                                     | `false`                          | Several files; the value is an array. Read once. |
-| `value`                                                                                             | `File \| null`, or `File[]` with `multiple`   | —                                | The files, controlled.                           |
-| `defaultValue`                                                                                      | `File \| null`, or `File[]` with `multiple`   | —                                | The files at first, uncontrolled.                |
-| `onChange`                                                                                          | `(value: File \| null)`, or `(value: File[])` | —                                | Called with the chosen or cleared files.         |
-| `accept`                                                                                            | `string`                                      | —                                | File types to offer.                             |
-| `capture`                                                                                           | `'user' \| 'environment'`                     | —                                | Opens a phone's camera.                          |
-| `name`                                                                                              | `string`                                      | —                                | Submits the files with a form.                   |
-| `placeholder`                                                                                       | `string`                                      | `Choose a file` / `Choose files` | Shown while empty.                               |
-| `valueFormat`                                                                                       | `(files: File[]) => JSX.Element`              | the names                        | How the files show.                              |
-| `clearable`                                                                                         | `boolean`                                     | `false`                          | A button that clears the files. Read once.       |
-| `clearLabel`                                                                                        | `string`                                      | `'Clear'`                        | The clear button's accessible name.              |
-| `variant`, `leftSection`, `rightSection`, `disabled`, `label`, `description`, `error`, `size`, `id` | —                                             | —                                | Input's and InputWrapper's.                      |
+| Prop                                                                                                                | Type                                          | Default                          | Description                                      |
+| ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | -------------------------------- | ------------------------------------------------ |
+| `multiple`                                                                                                          | `boolean`                                     | `false`                          | Several files; the value is an array. Read once. |
+| `value`                                                                                                             | `File \| null`, or `File[]` with `multiple`   | —                                | The files, controlled.                           |
+| `defaultValue`                                                                                                      | `File \| null`, or `File[]` with `multiple`   | —                                | The files at first, uncontrolled.                |
+| `onChange`                                                                                                          | `(value: File \| null)`, or `(value: File[])` | —                                | Called with the chosen or cleared files.         |
+| `accept`                                                                                                            | `string`                                      | —                                | File types to offer.                             |
+| `capture`                                                                                                           | `'user' \| 'environment'`                     | —                                | Opens a phone's camera.                          |
+| `name`                                                                                                              | `string`                                      | —                                | Submits the files with a form.                   |
+| `placeholder`                                                                                                       | `string`                                      | `Choose a file` / `Choose files` | Shown while empty.                               |
+| `valueFormat`                                                                                                       | `(files: File[]) => JSX.Element`              | the names                        | How the files show.                              |
+| `clearable`                                                                                                         | `boolean`                                     | `false`                          | A button that clears the files. Read once.       |
+| `clearLabel`                                                                                                        | `string`                                      | `'Clear'`                        | The clear button's accessible name.              |
+| `variant`, `leftSection`, `rightSection`, `disabled`, `label`, `labelSection`, `description`, `error`, `size`, `id` | —                                             | —                                | Input's and InputWrapper's.                      |
 
 ## Styling
 

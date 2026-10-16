@@ -29,30 +29,30 @@ import { Slider } from '@solid-slopkit/ui';
 - **Screen readers:** the thumb is named by `label`, with `aria-valuenow`, `aria-valuemin`, `aria-valuemax` and `aria-valuetext`: the number in the provider's locale, or `valueText(value)`, e.g. `'21 degrees'`.
 - **Forms:** with `name`, a hidden input submits the value.
 - **Look:** `color` takes a color role for the bar and thumb border (`primary`). `size` sets the track and thumb sizes.
-- **Text:** it's an InputWrapper: `label`, `description`, `error`, `size`.
+- **Text:** it's an InputWrapper: `label`, `labelSection`, `description`, `error`, `size`.
 
 ## Props
 
 Other props are passed to the InputWrapper root.
 
-| Prop                                    | Type                                                                                               | Default     | Description                                 |
-| --------------------------------------- | -------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------- |
-| `value`                                 | `number`                                                                                           | —           | The value, controlled.                      |
-| `defaultValue`                          | `number`                                                                                           | `min`       | The starting value, uncontrolled.           |
-| `onChange`                              | `(value: number) => void`                                                                          | —           | Called on every step.                       |
-| `onChangeEnd`                           | `(value: number) => void`                                                                          | —           | Called when the user lets go.               |
-| `min`                                   | `number`                                                                                           | `0`         | The smallest value.                         |
-| `max`                                   | `number`                                                                                           | `100`       | The largest value.                          |
-| `step`                                  | `number`                                                                                           | `1`         | The step, and the grid values snap to.      |
-| `largeStep`                             | `number`                                                                                           | ten steps   | Page Up and Page Down.                      |
-| `marks`                                 | `{ value: number; label?: JSX.Element }[]`                                                         | —           | Dots on the track, with optional labels.    |
-| `valueLabel`                            | `((value: number) => JSX.Element) \| null`                                                         | the value   | The bubble over the thumb; `null` hides it. |
-| `valueLabelAlwaysOn`                    | `boolean`                                                                                          | `false`     | Shows the bubble all the time.              |
-| `valueText`                             | `(value: number) => string`                                                                        | the number  | The value as screen readers say it.         |
-| `color`                                 | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'` | Color of the bar and thumb.                 |
-| `disabled`                              | `boolean`                                                                                          | `false`     | Disables it.                                |
-| `name`                                  | `string`                                                                                           | —           | Submits the value with a form.              |
-| `label`, `description`, `error`, `size` | —                                                                                                  | —           | InputWrapper's.                             |
+| Prop                                                    | Type                                                                                               | Default     | Description                                 |
+| ------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------- |
+| `value`                                                 | `number`                                                                                           | —           | The value, controlled.                      |
+| `defaultValue`                                          | `number`                                                                                           | `min`       | The starting value, uncontrolled.           |
+| `onChange`                                              | `(value: number) => void`                                                                          | —           | Called on every step.                       |
+| `onChangeEnd`                                           | `(value: number) => void`                                                                          | —           | Called when the user lets go.               |
+| `min`                                                   | `number`                                                                                           | `0`         | The smallest value.                         |
+| `max`                                                   | `number`                                                                                           | `100`       | The largest value.                          |
+| `step`                                                  | `number`                                                                                           | `1`         | The step, and the grid values snap to.      |
+| `largeStep`                                             | `number`                                                                                           | ten steps   | Page Up and Page Down.                      |
+| `marks`                                                 | `{ value: number; label?: JSX.Element }[]`                                                         | —           | Dots on the track, with optional labels.    |
+| `valueLabel`                                            | `((value: number) => JSX.Element) \| null`                                                         | the value   | The bubble over the thumb; `null` hides it. |
+| `valueLabelAlwaysOn`                                    | `boolean`                                                                                          | `false`     | Shows the bubble all the time.              |
+| `valueText`                                             | `(value: number) => string`                                                                        | the number  | The value as screen readers say it.         |
+| `color`                                                 | `'neutral' \| 'primary' \| 'secondary' \| 'accent' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'primary'` | Color of the bar and thumb.                 |
+| `disabled`                                              | `boolean`                                                                                          | `false`     | Disables it.                                |
+| `name`                                                  | `string`                                                                                           | —           | Submits the value with a form.              |
+| `label`, `labelSection`, `description`, `error`, `size` | —                                                                                                  | —           | InputWrapper's.                             |
 
 ## Styling
 

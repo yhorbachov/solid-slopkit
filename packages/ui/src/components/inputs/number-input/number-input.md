@@ -29,7 +29,7 @@ const [quantity, setQuantity] = createSignal<number | undefined>(1);
 
 ## Props
 
-Other props are passed to the `input`. The wrapper's props (`label`, `description`, `error`, `required`, `withAsterisk`, `size`, `id`, `class`, `style`) are TextInput's.
+Other props are passed to the `input`. The wrapper's props (`label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size`, `id`, `class`, `style`) are TextInput's.
 
 | Prop                | Type                                   | Default                | Description                                     |
 | ------------------- | -------------------------------------- | ---------------------- | ----------------------------------------------- |

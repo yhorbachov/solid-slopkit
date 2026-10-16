@@ -39,8 +39,8 @@ export default function DateTimePickerPage() {
       <H2 id="props">Props</H2>
       <p>
         The <a href="/ui/date-picker#props">DatePicker's props</a> for one day go to the calendar, and <code>label</code>,{' '}
-        <code>description</code>, <code>error</code>, <code>required</code>, <code>withAsterisk</code>, <code>size</code> and{' '}
-        <code>id</code> work as on <a href="/ui/text-input">TextInput</a>. Plus these:
+        <code>labelSection</code>, <code>description</code>, <code>error</code>, <code>required</code>, <code>withAsterisk</code>,{' '}
+        <code>size</code> and <code>id</code> work as on <a href="/ui/text-input">TextInput</a>. Plus these:
       </p>
       <PropsTable
         rows={[
