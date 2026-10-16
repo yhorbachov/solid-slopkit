@@ -21,7 +21,7 @@
 
 ## T0 — Foundations
 
-- [ ] **T0.01** Package scaffold modeled on `packages/forms`: `package.json` (the `solid` export condition, ADR 0001), `tsconfig.json` / `tsconfig.build.json`, build and typecheck scripts, a jsdom vitest project and an empty entry. Peers: `solid-js`, `@solidjs/web`, `three` (required; pick and justify the lowest supported version) and `@types/three`. `pnpm build`, `test`, `lint` and `format:check` pass from the root.
+- [x] **T0.01** Package scaffold modeled on `packages/forms`: `package.json` (the `solid` export condition, ADR 0001), `tsconfig.json` / `tsconfig.build.json`, build and typecheck scripts, a jsdom vitest project and an empty entry. Peers: `solid-js`, `@solidjs/web`, `three` (required; pick and justify the lowest supported version) and `@types/three`. `pnpm build`, `test`, `lint` and `format:check` pass from the root. `three` is `>=0.171.0 <1`: r171 is the first release where `three` and `three/webgpu` share one `three.core.js`, so their classes are identical and the WebGPU opt-in (T1.15) attaches the same Instances. `@types/three` uses the same range and is an optional peer, for JavaScript consumers.
 - [ ] **T0.02** A vitest browser project (Chromium) for `*.browser.test.tsx`, with one smoke test that creates a `WebGLRenderer` on a real canvas.
 
 ## T1 — Core
