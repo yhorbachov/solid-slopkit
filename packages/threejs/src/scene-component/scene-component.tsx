@@ -2,6 +2,7 @@ import { createEffect, createMemo, createRenderEffect, onCleanup, untrack, useCo
 import type { JSX } from '@solidjs/web';
 import type { Color, ColorRepresentation } from 'three';
 import { attach, type Attach, type Attachment } from './attach';
+import { useCanvas } from '../canvas/canvas';
 import { ParentContext } from './parent';
 import { bindProps, copyPlain } from './props';
 
@@ -127,6 +128,8 @@ export function sceneComponent<C extends SceneClass>(Class: C): SceneComponent<C
   const Component: SceneComponent<C> = (props) => {
     const name = Class.name;
     const parent = useContext(ParentContext);
+    // Every change this component makes to the scene asks its Canvas for a Frame.
+    const { invalidate } = useCanvas();
 
     const instance = untrack(() => 'object' in props)
       ? adoptedInstance<InstanceType<C>>(props, name)
@@ -134,7 +137,7 @@ export function sceneComponent<C extends SceneClass>(Class: C): SceneComponent<C
 
     // Created before Attach, so the props are on the Instance before it joins its parent, at mount and on a Rebuild.
     // oxlint-disable-next-line solid/reactivity -- bindProps reads the accessor inside its own render effects
-    bindProps(instance, props, name);
+    bindProps(instance, props, name, invalidate);
 
     // Attach follows the parent: a Rebuild of the parent detaches this Instance from the old one and attaches it to
     // the new one. A Rebuild of this component swaps the new Instance into the old one's place instead.
@@ -148,16 +151,21 @@ export function sceneComponent<C extends SceneClass>(Class: C): SceneComponent<C
           untrack(() => props.attach),
         );
         attachment = current;
+        invalidate();
         return () => {
           current.detach();
           if (attachment === current) attachment = undefined;
+          invalidate();
         };
       },
       { name: `${name}.attach` },
     );
     createRenderEffect(
       () => instance(),
-      (next) => attachment?.swap(next),
+      (next) => {
+        attachment?.swap(next);
+        invalidate();
+      },
       { name: `${name}.swap`, defer: true },
     );
 

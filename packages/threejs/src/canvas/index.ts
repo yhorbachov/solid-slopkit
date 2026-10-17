@@ -1,4 +1,5 @@
-export { Canvas, useCanvas } from './canvas';
+export { Canvas, invalidate, useCanvas } from './canvas';
+export type { Frameloop } from './frame-loop';
 export type {
   CanvasHandle,
   CanvasOwnProps,

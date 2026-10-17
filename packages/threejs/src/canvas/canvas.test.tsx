@@ -6,7 +6,8 @@ import { describe, expect, onTestFinished, test, vi } from 'vitest';
 import { deferredFactory, resize, stubFactory } from '../../test/harness';
 import { Canvas, useCanvas, type CanvasHandle, type DefaultCameraOptions } from '.';
 
-// Captures the handle the way any Scene component gets it: from inside the Canvas.
+// Captures the handle the way any Scene component gets it: from inside the Canvas. Frames render only through
+// advance(), so draws are counted exactly (frame-loop.test.tsx covers the loop).
 function mount(props: { renderer?: Parameters<typeof Canvas>[0]['renderer']; camera?: DefaultCameraOptions } = {}) {
   let handle!: CanvasHandle;
   const Probe = () => {
@@ -14,7 +15,7 @@ function mount(props: { renderer?: Parameters<typeof Canvas>[0]['renderer']; cam
     return null;
   };
   const utils = render(() => (
-    <Canvas aria-label="Scene" class="scene" renderer={props.renderer} camera={props.camera}>
+    <Canvas aria-label="Scene" class="scene" renderer={props.renderer} camera={props.camera} frameloop="never">
       <Probe />
     </Canvas>
   ));

@@ -93,9 +93,10 @@ export function copyPlain(value: unknown): unknown {
 /**
  * Binds every prop that isn't reserved to the current Instance, each through its own render effect: the first write
  * happens now, so the Instance is set up before it is attached, and a change re-runs only that prop's binding. A
- * Rebuild re-runs them all, onto the new Instance. Which props there are is read once; their values are reactive.
+ * Rebuild re-runs them all, onto the new Instance. Every write Invalidates the Canvas. Which props there are is read
+ * once; their values are reactive.
  */
-export function bindProps(instance: () => object, props: Record<string, unknown>, name: string) {
+export function bindProps(instance: () => object, props: Record<string, unknown>, name: string, invalidate: () => void) {
   for (const key of Object.keys(props)) {
     if (RESERVED_PROPS.has(key)) continue;
     createRenderEffect(
@@ -103,6 +104,7 @@ export function bindProps(instance: () => object, props: Record<string, unknown>
       () => ({ target: instance(), value: copyPlain(props[key]) }),
       ({ target, value }) => {
         applyProp(target, key, value);
+        invalidate();
         if (isPlainObject(value)) return registerPartial(target, key, () => applyProp(target, key, value));
       },
       { name: `${name}.${key}` },

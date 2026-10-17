@@ -45,6 +45,7 @@ The rest of this page holds for both.
 - **Instance:** constructed with `new Class(...args)`, and constructed again when `args` changes (see Rebuild).
 - **Parent:** the Instance of the Scene component around it, or the Canvas's scene at the top. A Scene component outside a Canvas throws.
 - **Ref:** called once the Instance's props are applied and it is attached, with the Instance. It takes a variable (`let mesh!: Mesh; <T.Mesh ref={mesh} />`), a callback, or an array of them. Children attach after it, so read their effects later (in an effect or a Frame callback), not in the ref. After a Rebuild it is called again with the new Instance, once the children have moved to it, so a variable ref always holds the current one.
+- **Frames:** every prop write, Attach, detach and Rebuild Invalidates the Canvas, so it renders a Frame on the next animation frame. A change made to the Instance any other way needs `invalidate()` (see [Canvas](../canvas/canvas.md)).
 - **Disposal:** when its owner is disposed (a `<Show>` turns false, a `<For>` drops its item, the Canvas goes), the Instance is detached and its `dispose()` is called, if it has one. Pass `dispose={false}` to keep an Instance you hold on to elsewhere.
 - **Children:** Scene components inside it attach to its Instance. The scene is part of the component tree, so `<Show>`, `<For>`, context and your own components work inside it.
 

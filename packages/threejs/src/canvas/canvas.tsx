@@ -2,6 +2,7 @@ import { createContext, createEffect, createSignal, omit, onSettled, untrack, us
 import type { JSX } from '@solidjs/web';
 import { PerspectiveCamera, Scene, WebGLRenderer, type Camera } from 'three';
 import { ParentContext } from '../scene-component/parent';
+import { createFrameLoop, type Frameloop } from './frame-loop';
 
 /** What a Canvas needs from a renderer. `WebGLRenderer` and an initialized `WebGPURenderer` both fit. */
 export interface CanvasRenderer {
@@ -45,8 +46,13 @@ export interface CanvasHandle {
   readonly renderer: () => CanvasRenderer | undefined;
   /** The `<canvas>` element's size, kept up to date as it resizes. `0 × 0` until it has been measured. */
   readonly size: () => CanvasSize;
-  /** Renders one Frame now. Returns `false`, and renders nothing, while there is no renderer yet. */
+  /** Renders one Frame now, whatever `frameloop` is. Returns `false`, and renders nothing, while there is no renderer yet. */
   advance(): boolean;
+  /**
+   * Asks for a Frame. Prop writes, Attach, detach and Rebuild do it on their own; call it after changing an Instance
+   * some other way (through a ref, or when a texture finishes loading).
+   */
+  invalidate(): void;
 }
 
 export interface CanvasOwnProps {
@@ -54,6 +60,11 @@ export interface CanvasOwnProps {
   renderer?: RendererFactory;
   /** Settings of the default camera. */
   camera?: DefaultCameraOptions;
+  /**
+   * When Frames render on their own: `"demand"` (the default) on the animation frame after an Invalidation,
+   * `"always"` on every animation frame, `"never"` only through `advance()`.
+   */
+  frameloop?: Frameloop;
   /** The scene: Scene components, and any component that renders them. */
   children?: JSX.Element;
 }
@@ -62,6 +73,14 @@ export type CanvasProps = Omit<JSX.CanvasHTMLAttributes<HTMLCanvasElement>, keyo
   CanvasOwnProps & { style?: JSX.CSSProperties };
 
 const CanvasContext = createContext<CanvasHandle>();
+
+// Every Canvas mounted in the page, for `invalidate()`.
+const mounted = new Set<CanvasHandle>();
+
+/** Invalidates every Canvas in the page. Inside a Canvas, `useCanvas().invalidate()` asks only that one. */
+export function invalidate() {
+  for (const handle of mounted) handle.invalidate();
+}
 
 const DEFAULT_POSITION = [0, 0, 5] as const;
 
@@ -80,16 +99,25 @@ function release(renderer: CanvasRenderer) {
 
 /**
  * The root of a scene: a `<canvas>` that fills its parent, the scene, the default camera and the renderer. Every
- * Scene component inside it belongs to its scene. Frames render only when `advance()` is called on the Canvas
- * handle (`useCanvas()`).
+ * Scene component inside it belongs to its scene. By default a Frame renders on the animation frame after something
+ * changes the scene (see `frameloop`).
  */
 export function Canvas(props: CanvasProps) {
-  const others = omit(props, 'renderer', 'camera', 'children', 'style');
+  const others = omit(props, 'renderer', 'camera', 'frameloop', 'children', 'style');
   let canvas: HTMLCanvasElement | undefined;
 
   const scene = new Scene();
   const camera = new PerspectiveCamera(75, 1, 0.1, 1000);
   camera.position.set(...DEFAULT_POSITION);
+
+  // The renderer as a plain variable too: Frames render with it as soon as it arrives, before the signal commits.
+  let active: CanvasRenderer | undefined;
+  const render = () => {
+    if (!active) return false;
+    active.render(scene, camera);
+    return true;
+  };
+  const loop = createFrameLoop(render, untrack(() => props.frameloop) ?? 'demand');
 
   const [renderer, setRenderer] = createSignal<CanvasRenderer | undefined>(undefined, { name: 'Canvas.renderer' });
   const [size, setSize] = createSignal<CanvasSize>(
@@ -114,14 +142,23 @@ export function Canvas(props: CanvasProps) {
       camera.far = far;
       camera.position.set(...position);
       camera.updateProjectionMatrix();
+      loop.invalidate();
     },
     { name: 'Canvas.camera' },
   );
 
   createEffect(
+    () => props.frameloop ?? 'demand',
+    (mode) => loop.setMode(mode),
+    { name: 'Canvas.frameloop', defer: true },
+  );
+
+  createEffect(
     () => ({ current: renderer(), size: size() }),
     ({ current, size }) => {
-      current?.setSize(size.width, size.height, false);
+      if (!current) return;
+      current.setSize(size.width, size.height, false);
+      loop.invalidate();
     },
     { name: 'Canvas.rendererSize' },
   );
@@ -134,8 +171,11 @@ export function Canvas(props: CanvasProps) {
     const adopt = (made: CanvasRenderer) => {
       if (disposed) return release(made);
       current = made;
+      active = made;
       made.setPixelRatio(window.devicePixelRatio);
       setRenderer(made);
+      loop.ready();
+      loop.invalidate();
     };
     const made = (untrack(() => props.renderer) ?? defaultRenderer)(element);
     if (isThenable(made)) void made.then(adopt);
@@ -146,9 +186,14 @@ export function Canvas(props: CanvasProps) {
     });
     observer.observe(element);
 
+    mounted.add(handle);
+
     return () => {
       disposed = true;
+      mounted.delete(handle);
+      loop.dispose();
       observer.disconnect();
+      active = undefined;
       if (current) release(current);
     };
   });
@@ -159,11 +204,11 @@ export function Canvas(props: CanvasProps) {
     renderer,
     size,
     advance() {
-      const current = untrack(renderer);
-      if (!current) return false;
-      current.render(scene, camera);
+      if (!render()) return false;
+      loop.rendered();
       return true;
     },
+    invalidate: loop.invalidate,
   };
 
   return (
