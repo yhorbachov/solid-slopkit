@@ -1,6 +1,6 @@
 {
   "name": "@solid-slopkit/forms",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Schema-driven, signal-based forms for SolidJS 2.x",
   "license": "MIT",
   "files": [
