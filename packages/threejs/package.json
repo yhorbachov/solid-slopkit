@@ -4,7 +4,8 @@
   "description": "three.js scenes as SolidJS 2.x components",
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "skills"
   ],
   "type": "module",
   "sideEffects": false,

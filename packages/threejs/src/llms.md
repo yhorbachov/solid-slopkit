@@ -2,6 +2,12 @@
 
 three.js scenes as SolidJS 2.x components. A scene is part of the page's component tree: each Scene component creates its three.js Instance once and updates it through fine-grained bindings, with no custom renderer. Each link below is a reference for one area. Paths are relative to this file.
 
+Task guides live next to `dist/` in the package, at `node_modules/@solid-slopkit/threejs/skills/<area>/SKILL.md`. Read the one for your task first: the rules that prevent the usual mistakes.
+
+- `skills/scenes/SKILL.md`: describe a scene: the Canvas, `T`, props and Partial values, Attach, cameras, pointer events, controls, WebGPU and server rendering.
+- `skills/animation/SKILL.md`: animate it: Frame callbacks, frame loops, Invalidating, state-driven props, Render callbacks, Frames in tests.
+- `skills/assets/SKILL.md`: load models and textures: `loadAsset`, `<Loading>`, the Asset cache, cloning, preloading and loader configuration.
+
 ## Setup
 
 It is installed from a GitHub Release tarball, not from npm; once installed, the package name is `@solid-slopkit/threejs`. `three` is a peer dependency (r171 or later), and so is `@types/three` for TypeScript:

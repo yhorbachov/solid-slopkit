@@ -1,0 +1,84 @@
+---
+name: slopkit-threejs-assets
+description: Load models, textures and other files into @solid-slopkit/threejs scenes — loadAsset with <Loading> and <Errored>, the shared Asset cache and its disposal, showing a loaded glTF through the object prop, cloning to show one twice, preloadAsset, and configuring loaders (DRACO, KTX2) with configureLoader. Use when a 3D scene needs a .glb/.gltf model, a texture, an HDR environment or any file loaded through a three.js loader.
+---
+
+# Loading Assets with @solid-slopkit/threejs
+
+An **Asset** is anything a three.js loader loads from a URL. `loadAsset(Loader, () => url)` reads it through the **Asset cache**: each loader class and URL loads once, every component that asks shares it, and it's disposed once nothing has used it for a second.
+
+The API is in the Assets reference, linked from `node_modules/@solid-slopkit/threejs/dist/source/llms.md`.
+
+## Rules that prevent the usual mistakes
+
+- Put a `<Loading>` inside the Canvas, around what loads. Reading an Asset before it has loaded suspends to the nearest `<Loading>`; without one, nothing in the Canvas shows until everything has loaded.
+- Pass the URL as a function (`() => '/ship.glb'`, `() => props.url`), so the Asset follows it.
+- Never dispose an Asset yourself: the cache disposes it once nothing uses it. Components never dispose what they get through `object`.
+- One Asset's scene can be in the scene graph once. To show a model twice, clone it.
+- Make loaders' settings with `configureLoader`, once at startup, not per call.
+
+## Loading and showing
+
+```tsx
+import { Errored, Loading } from 'solid-js';
+import { Canvas, T, loadAsset } from '@solid-slopkit/threejs';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { TextureLoader } from 'three';
+
+function Ship(props: { model: string }) {
+  const gltf = loadAsset(GLTFLoader, () => `/models/${props.model}.glb`);
+  return <T.Group object={gltf().scene} position={[0, 1, 0]} />;
+}
+
+function Floor() {
+  const grass = loadAsset(TextureLoader, () => '/textures/grass.jpg');
+  return (
+    <T.Mesh rotation={[-Math.PI / 2, 0, 0]}>
+      <T.PlaneGeometry args={[20, 20]} />
+      <T.MeshStandardMaterial map={grass()} />
+    </T.Mesh>
+  );
+}
+
+<Canvas fallback={<p class="loading">Loading…</p>}>
+  <Errored fallback={(error) => null}>
+    <Loading fallback={null}>
+      <Ship model="clipper" />
+      <Floor />
+    </Loading>
+  </Errored>
+</Canvas>;
+```
+
+- The accessor is typed from the loader: `gltf()` is a `GLTF` (`scene`, `animations`, …), `grass()` a `Texture`.
+- Show an Object3D Asset with the `object` prop of the matching component (`T.Group`, `T.Mesh`, `T.Object3D`), and use texture and geometry Assets as prop values.
+- When the URL changes, the old Asset stays on screen until the new one has loaded.
+- A failed load reaches the nearest `<Errored>`; the next read loads again.
+- The Canvas's `fallback` shows until the first Frame: use it for a poster image over the canvas while the renderer starts.
+
+## Showing one Asset twice
+
+```tsx
+function Fleet() {
+  const gltf = loadAsset(GLTFLoader, () => '/models/ship.glb');
+  return <For each={[0, 3, 6]}>{(x) => <T.Group object={gltf().scene.clone()} position={[x, 0, 0]} />}</For>;
+}
+```
+
+A clone shares the original's geometries and materials, which the cache disposes with the Asset. Clone materials too (`mesh.material = mesh.material.clone()`) before changing one copy's color.
+
+## Preloading and configuring
+
+```tsx
+import { configureLoader, preloadAsset } from '@solid-slopkit/threejs';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+
+const draco = new DRACOLoader().setDecoderPath('/draco/');
+configureLoader(GLTFLoader, (loader) => loader.setDRACOLoader(draco));
+
+void preloadAsset(GLTFLoader, '/models/ship.glb');
+```
+
+- `configureLoader(Loader, configure, { dispose })` sets up the one loader the cache makes for that class; `dispose` replaces the default disposal of its Assets.
+- KTX2 needs to know what the renderer supports: call `ktx2.detectSupport(renderer)` inside the Canvas's `renderer` factory, where the renderer is made.
+- `preloadAsset` starts a load before anything reads it (on hover over a link, at startup), so the first read doesn't suspend. A preloaded Asset stays cached until it's first used.

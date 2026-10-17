@@ -48,7 +48,7 @@
 
 ## T3 — Release 0.0.1
 
-- [ ] **T3.01** Skills (`skills/<area>/SKILL.md`, ADR 0012): describing a scene, animating with Frame callbacks and Partial values, loading Assets.
+- [x] **T3.01** Skills (`skills/<area>/SKILL.md`, ADR 0012): describing a scene, animating with Frame callbacks and Partial values, loading Assets. `scenes`, `animation` and `assets`, listed in `llms.md` and shipped in `files`; their examples were type-checked against the package, and `test/skills.test.ts` checks each one's name, its listing and that every name it imports exists.
 - [ ] **T3.02** A threejs section on the docs site with live examples, client-only per T1.14, and a sidebar entry and home-page card.
 - [ ] **T3.03** `release:pack` and a release workflow for `threejs-v<version>` tags (ADR 0001), modeled on the UI's.
 - [ ] **T3.04** Audit before release: every LLM reference, skill and docs page matches the API.
