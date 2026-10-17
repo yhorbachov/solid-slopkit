@@ -1,6 +1,7 @@
 import { createContext, createEffect, createSignal, omit, onSettled, untrack, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
 import { PerspectiveCamera, Scene, WebGLRenderer, type Camera } from 'three';
+import { ParentContext } from '../scene-component/parent';
 
 /** What a Canvas needs from a renderer. `WebGLRenderer` and an initialized `WebGPURenderer` both fit. */
 export interface CanvasRenderer {
@@ -172,7 +173,9 @@ export function Canvas(props: CanvasProps) {
         {...others}
         style={{ display: 'block', width: '100%', height: '100%', ...props.style }}
       />
-      <CanvasContext value={handle}>{props.children}</CanvasContext>
+      <CanvasContext value={handle}>
+        <ParentContext value={scene}>{props.children}</ParentContext>
+      </CanvasContext>
     </>
   );
 }

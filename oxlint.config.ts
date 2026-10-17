@@ -12,5 +12,11 @@ export default defineConfig({
       files: ['packages/forms/src/**/*.test.{ts,tsx}'],
       rules: { 'solid/reactivity': 'off' },
     },
+    {
+      // threejs tests take Instances through `let mesh!: Mesh; <T.Mesh ref={mesh} />`, a form they test on purpose:
+      // the Solid compiler assigns the variable, which this rule can't see.
+      files: ['packages/threejs/src/**/*.test.tsx'],
+      rules: { 'no-unassigned-vars': 'off' },
+    },
   ],
 });

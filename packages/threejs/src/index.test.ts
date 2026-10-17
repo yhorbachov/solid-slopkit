@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest';
 import * as threejs from './index';
 
 // The public runtime surface, pinned: adding or removing an export is a deliberate change.
-const PUBLIC_API = ['Canvas', 'useCanvas'];
+const PUBLIC_API = ['Canvas', 'sceneComponent', 'useCanvas'];
 
 describe('public API', () => {
   test('exports exactly the pinned names', () => {

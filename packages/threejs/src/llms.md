@@ -12,10 +12,11 @@ pnpm add solid-js @solidjs/web three @types/three https://github.com/yhorbachov/
 
 ## API
 
-Entry points: `Canvas`, `useCanvas`.
+Entry points: `Canvas`, `useCanvas`, `sceneComponent`.
 
-Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `CanvasRenderer`, `CanvasSize`, `RendererFactory`, `DefaultCameraOptions`.
+Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `CanvasRenderer`, `CanvasSize`, `RendererFactory`, `DefaultCameraOptions`, `SceneClass`, `SceneComponent`, `SceneComponentProps`, `SceneRef`, `Attach`, `AttachFn`.
 
 ## References
 
 - [Canvas](canvas/canvas.md): `Canvas`, its renderer and default camera, and `useCanvas()`.
+- [Scene components](scene-component/scene-component.md): `sceneComponent`, Instances, Attach, refs and disposal.
