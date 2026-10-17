@@ -1,0 +1,21 @@
+# @solid-slopkit/threejs
+
+three.js scenes as SolidJS 2.x components. A scene is part of the page's component tree: each Scene component creates its three.js Instance once and updates it through fine-grained bindings, with no custom renderer. Each link below is a reference for one area. Paths are relative to this file.
+
+## Setup
+
+It is installed from a GitHub Release tarball, not from npm; once installed, the package name is `@solid-slopkit/threejs`. `three` is a peer dependency (r171 or later), and so is `@types/three` for TypeScript:
+
+```bash
+pnpm add solid-js @solidjs/web three @types/three https://github.com/yhorbachov/solid-slopkit/releases/download/threejs-v<version>/solid-slopkit-threejs-<version>.tgz
+```
+
+## API
+
+Entry points: `Canvas`, `useCanvas`.
+
+Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `CanvasRenderer`, `CanvasSize`, `RendererFactory`, `DefaultCameraOptions`.
+
+## References
+
+- [Canvas](canvas/canvas.md): `Canvas`, its renderer and default camera, and `useCanvas()`.

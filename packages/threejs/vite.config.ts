@@ -13,9 +13,9 @@ export default defineConfig({
         test: {
           name: 'unit',
           environment: 'jsdom',
-          include: ['src/**/*.test.{ts,tsx}', 'test/**/*.test.ts'],
+          include: ['src/**/*.test.{ts,tsx}', 'test/**/*.test.{ts,tsx}'],
           exclude: ['**/*.browser.test.*'],
-          setupFiles: ['./test/setup.ts'],
+          setupFiles: ['./test/setup.ts', './test/jsdom-setup.ts'],
         },
       },
       {
@@ -23,7 +23,7 @@ export default defineConfig({
         extends: true,
         test: {
           name: 'browser',
-          include: ['src/**/*.browser.test.{ts,tsx}', 'test/**/*.browser.test.ts'],
+          include: ['src/**/*.browser.test.{ts,tsx}', 'test/**/*.browser.test.{ts,tsx}'],
           setupFiles: ['./test/setup.ts'],
           browser: {
             enabled: true,

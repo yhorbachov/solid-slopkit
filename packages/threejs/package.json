@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@solidjs/diagnostics": "^2.0.0-rc.13",
+    "@solidjs/testing-library": "^1.0.0-beta.3",
     "@solidjs/vite-plugin": "^3.0.0-next.46",
     "@testing-library/jest-dom": "^7.0.0",
     "@types/node": "^24.0.0",
