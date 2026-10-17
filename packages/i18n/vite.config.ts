@@ -26,6 +26,8 @@ export default defineConfig({
             'src/vite.build.test.ts',
             'src/cli.test.ts',
           ],
+          // The TypeScript tests run `tsc` on a temporary project, which takes several seconds on a busy CI runner.
+          testTimeout: 30_000,
         },
       },
       {
