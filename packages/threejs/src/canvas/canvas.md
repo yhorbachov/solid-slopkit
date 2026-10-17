@@ -24,10 +24,10 @@ import { Canvas, T, invalidate, onFrame, onRender, useCanvas } from '@solid-slop
 - **Default camera:** a `PerspectiveCamera`, set from `camera`: `fov` (default 75), `near` (0.1), `far` (1000) and `position` (`[0, 0, 5]`). It follows changes to the prop; a field left out goes back to its default. Frames draw with it unless another camera is the Active camera.
 - **Active camera:** the camera Frames draw with: the camera most recently made active with the `active` prop (see [Scene components](../scene-component/scene-component.md#cameras)) that still is, or the default camera when none is. Before each Frame, the Active camera is fitted to the canvas: a `PerspectiveCamera` gets the canvas's aspect ratio, and an `OrthographicCamera` keeps its `top`, `bottom` and horizontal center and gets `left` and `right` from the aspect ratio. Then its projection matrix is updated, so props such as `fov`, `zoom` or `near` show without calling `updateProjectionMatrix()`. An inactive camera is left alone.
 - **Frames:** with `frameloop="demand"` (the default), a Frame renders on the animation frame after something Invalidates the Canvas, and any number of Invalidations before it render one Frame. Prop writes, Attach, detach and Rebuild Invalidate, and so do a resize, a change to `camera` and the renderer's arrival. An idle scene renders nothing. While a Frame callback is registered (see `onFrame()`), every animation frame renders one. `"always"` renders on every animation frame; `"never"` renders only through `advance()`, Frame callbacks or not, and keeps Invalidations until the mode changes.
-- **Changes outside props:** after changing an Instance some other way (through a ref, in an event handler, when a texture finishes loading), call `useCanvas().invalidate()`, or the exported `invalidate()`, which Invalidates every Canvas in the page.
+- **Changes outside props:** after changing an Instance some other way (through a ref, in an event handler, when a texture finishes loading), call `invalidate()` on the `useCanvas()` handle, or the exported `invalidate()`, which Invalidates every Canvas in the page. Take the handle in the component body: `useCanvas()` throws in an event handler, which has no owner.
 - **Context:** the Canvas is part of the component tree, so context from outside it reaches the components inside it.
 - **Server rendering:** on the server, the Canvas renders its `<canvas>` and its `fallback`, never its children: no Scene component, Frame callback or Asset load runs there. When the page hydrates, the `<canvas>` is reused and the scene mounts once hydration has finished. A Canvas rendered on the client without hydration mounts its scene at once.
-- **Fallback:** `fallback` is rendered after the `<canvas>`, as its sibling, until the first Frame has rendered: on the server, through hydration, while the renderer initializes and while the scene waits under a `<Loading>` that renders nothing. The canvas fills its parent, so lay the fallback over it yourself:
+- **Fallback:** `fallback` is rendered after the `<canvas>`, as its sibling, until the first Frame has rendered: on the server, through hydration and while the renderer initializes. A part of the scene suspended under `<Loading>` doesn't hold it: the first Frame renders without that part, and the fallback goes. The canvas fills its parent, so lay the fallback over it yourself:
 
 ```tsx
 <div style={{ position: 'relative', height: '400px' }}>
@@ -39,7 +39,7 @@ import { Canvas, T, invalidate, onFrame, onRender, useCanvas } from '@solid-slop
 
 ## Props
 
-Other props are passed to the `<canvas>` element.
+Other props are passed to the `<canvas>` element. `CanvasProps` types them all (`CanvasOwnProps`, the ones below, plus the `<canvas>` attributes), and `Frameloop` is the `frameloop` union.
 
 | Prop        | Type                              | Default                                                  | Description                                         |
 | ----------- | --------------------------------- | -------------------------------------------------------- | --------------------------------------------------- |
@@ -111,6 +111,8 @@ function Spinning() {
 `onRender(callback)` registers the Render callback of the Canvas the calling component is inside, and throws outside one. Until the current owner is disposed, it draws every Frame in place of `renderer.render(scene, camera)`, for example through a post-processing chain:
 
 ```tsx
+import { onCleanup } from 'solid-js';
+import type { WebGLRenderer } from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 

@@ -10,6 +10,7 @@ import { configureLoader, loadAsset, preloadAsset } from '@solid-slopkit/threejs
 
 ```tsx
 import { Loading } from 'solid-js';
+import { Canvas, T, loadAsset } from '@solid-slopkit/threejs';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TextureLoader } from 'three';
 
@@ -46,7 +47,7 @@ function Ship(props: { livery: string }) {
 
 ## The Asset cache
 
-- **Counting:** each reactive owner that reads an Asset through `loadAsset` (a component, while its `url` points at it) uses it. When the owner is disposed or its `url` moves on, it stops using it.
+- **Counting:** each `loadAsset` call uses the Asset its `url` points at, while its owner lives. When the owner is disposed or the `url` moves on, it stops using it.
 - **Grace period:** an Asset nothing uses for one second is disposed and leaves the cache. One used again sooner (a `<Show>` toggling, a route coming back) is reused as it is. One released while still loading is disposed when its load finishes.
 - **Disposal:** the Asset's own `dispose()` when it has one (a `Texture`). Otherwise, for every Object3D it holds (itself, or a `scene` or `scenes`, as a glTF result has), the geometries and materials in it, and the textures on those materials. `configureLoader` can replace this for a loader class.
 - **Global:** the cache belongs to the page, not to a Canvas, so two Canvases share Assets.
@@ -80,6 +81,8 @@ configureLoader(GLTFLoader, (loader) => loader.setDRACOLoader(draco).setKTX2Load
   }}
 />;
 ```
+
+A glTF's KTX2 textures are read once its file has downloaded, by when the renderer exists. A `KTX2Loader` used directly throws until `detectSupport` has run, and a scene's components run before the renderer factory, so mount what loads a `.ktx2` file only once the renderer exists: `<Show when={useCanvas().renderer()}>`, from a component inside the Canvas.
 
 Since the cache key is the loader class and the URL, one URL never loads twice with different settings.
 

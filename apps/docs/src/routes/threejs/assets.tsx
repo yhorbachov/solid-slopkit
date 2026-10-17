@@ -57,11 +57,12 @@ function Ship() {
       <p>
         <code>preloadAsset(Loader, url)</code> starts a load before anything reads it, and keeps the Asset until its first use.{' '}
         <code>configureLoader(Loader, configure, {'{ dispose }'})</code> sets up the one loader the cache makes per class, for
-        DRACO or KTX2, and can replace the disposal of its Assets.
+        DRACO or KTX2, and can replace the disposal of its Assets. Call it once at startup, before loading.
       </p>
       <CodeBlock
         code={`import { configureLoader, preloadAsset } from '@solid-slopkit/threejs';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const draco = new DRACOLoader().setDecoderPath('/draco/');
 configureLoader(GLTFLoader, (loader) => loader.setDRACOLoader(draco));

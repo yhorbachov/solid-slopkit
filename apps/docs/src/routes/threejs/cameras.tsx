@@ -46,14 +46,16 @@ export default function ThreejsCameras() {
       <H2 id="orbit-controls">Orbit controls</H2>
       <p>
         <code>&lt;OrbitControls&gt;</code>, from <code>@solid-slopkit/threejs/controls</code>, orbits the Active camera: drag to
-        orbit, turn the wheel to zoom, right-drag to pan. Every property of three's <code>OrbitControls</code> is a prop (
-        <code>{'target={[0, 1, 0]}'}</code>, <code>enableDamping</code>, <code>minDistance</code>, <code>autoRotate</code>…), and{' '}
-        <code>onChange</code>, <code>onStart</code> and <code>onEnd</code> report the camera moving.
+        orbit, turn the wheel to zoom, right-drag to pan. Every property of three's <code>OrbitControls</code> but{' '}
+        <code>domElement</code> is a prop (<code>{'target={[0, 1, 0]}'}</code>, <code>enableDamping</code>,{' '}
+        <code>minDistance</code>, <code>autoRotate</code>…); the camera is always the Active camera. <code>onChange</code> reports
+        a camera move, <code>onStart</code> and <code>onEnd</code> a gesture starting and ending (with damping, the camera keeps
+        easing after it ends), and <code>ref</code> gets the controls once they are set up.
       </p>
       <ul>
         <li>
           Each camera move Invalidates, so an on-demand Canvas redraws while you drag and goes idle when you stop. With damping,
-          Frames keep coming only while the camera eases to rest.
+          Frames keep coming only while the camera eases to rest, and with <code>autoRotate</code> for as long as it turns.
         </li>
         <li>When another camera becomes active, the same controls move to it, keeping their target.</li>
         <li>They're disposed with their owner.</li>

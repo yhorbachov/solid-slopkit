@@ -23,8 +23,6 @@ export default function Pointer() {
                 onPointerEnter={() => setHovered(index())}
                 onPointerLeave={() => setHovered(undefined)}
                 onClick={(event) => {
-                  // The nearest ball wins; nothing behind it gets the click.
-                  event.stopPropagation();
                   setSelected(index());
                   const { x, y, z } = event.intersection.point;
                   setPoint(`Hit ${color} at (${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)})`);

@@ -10,11 +10,17 @@ import pointerCode from '../../examples/threejs/pointer.tsx?raw';
 const EVENT: [string, string][] = [
   ['nativeEvent', 'The DOM event on the <canvas>.'],
   ['intersection', "three's Intersection for the nearest hit that led here: point, distance, face, uv, object."],
-  ['object', 'The object whose handler is running.'],
+  ['object', 'The Instance whose handler is running.'],
   ['pointer, ray, camera', 'The pointer in normalized device coordinates, the ray cast, and the Active camera.'],
-  ['pointerId, button, buttons, altKey, ctrlKey, metaKey, shiftKey', 'Copied from the DOM event.'],
-  ['stopPropagation()', 'Ends delivery: no object above or behind gets the event.'],
-  ['setPointerCapture(), releasePointerCapture()', "Send the pointer's later moves and its up to this object, hit or not."],
+  [
+    'pointerId, button, buttons, altKey, ctrlKey, metaKey, shiftKey',
+    'Copied from the DOM event (pointerId is undefined for onWheel).',
+  ],
+  ['stopPropagation()', 'Ends delivery: no Instance above or behind gets the event.'],
+  [
+    'setPointerCapture(), releasePointerCapture()',
+    "Send the pointer's later moves and its up to this Instance and its ancestors with handlers, hit or not.",
+  ],
 ];
 
 export default function ThreejsPointerEvents() {
@@ -24,7 +30,7 @@ export default function ThreejsPointerEvents() {
       <p class="docs-eyebrow">threejs</p>
       <h1>Pointer events</h1>
       <p class="docs-lead">
-        Object components take <code>onClick</code>, <code>onContextMenu</code>, <code>onPointerDown</code>,{' '}
+        <code>Object3D</code> components take <code>onClick</code>, <code>onContextMenu</code>, <code>onPointerDown</code>,{' '}
         <code>onPointerUp</code>, <code>onPointerMove</code>, <code>onPointerOver</code>, <code>onPointerOut</code>,{' '}
         <code>onPointerEnter</code>, <code>onPointerLeave</code> and <code>onWheel</code>.
       </p>
@@ -34,29 +40,30 @@ export default function ThreejsPointerEvents() {
 
       <H2 id="hit-testing">Hit-testing</H2>
       <p>
-        On each pointer event over the canvas, a ray is cast from the Active camera through the pointer, against the objects with
-        a handler and everything under them. An object with no handler neither gets events nor blocks them; a hit on one goes to
-        the nearest object above it that has a handler.
+        On each pointer event over the canvas, a ray is cast from the Active camera through the pointer, against the Interactive
+        Instances (those with a handler) and everything under them. Whether an Instance is Interactive is decided once, when it
+        mounts. An Instance with no handler neither gets events nor blocks them; a hit on one goes to the nearest Instance above
+        it that has a handler.
       </p>
 
       <H2 id="delivery">Delivery</H2>
       <p>
-        Every hit gets the event, nearest first: the hit object, then its ancestors with handlers, then the next hit. Each object
-        gets an event once. <code>event.stopPropagation()</code> ends delivery.
+        Every hit gets the event, nearest first: the hit Instance, then its ancestors with handlers, then the next hit. Each
+        Instance gets an event once. <code>event.stopPropagation()</code> ends delivery.
       </p>
       <ul>
         <li>
-          <code>onPointerEnter</code> and <code>onPointerLeave</code> run on each object that becomes hovered or stops being
-          hovered, and don't bubble. <code>onPointerOver</code> and <code>onPointerOut</code> run when the nearest hovered object
-          changes, and bubble.
+          <code>onPointerEnter</code> and <code>onPointerLeave</code> run on each Instance that becomes hovered or stops being
+          hovered, and don't bubble. <code>onPointerOver</code> and <code>onPointerOut</code> run when the nearest hovered
+          Instance changes, and bubble.
         </li>
-        <li>Handlers are read when their event is delivered, so they can change. They're never written to the object.</li>
+        <li>Handlers are read when their event is delivered, so they can change. They're never written to the Instance.</li>
       </ul>
 
       <H2 id="drags">Drags</H2>
       <p>
         Call <code>event.setPointerCapture()</code> in <code>onPointerDown</code>. Until the pointer is lifted, its moves reach
-        the object even off it, with no <code>intersection</code> when they miss.
+        the Instance (and its ancestors with handlers) even off it, with no <code>intersection</code> when they miss.
       </p>
       <CodeBlock
         code={`<T.Mesh

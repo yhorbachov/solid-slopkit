@@ -44,7 +44,7 @@ The rest of this page holds for both.
 
 - **Instance:** constructed with `new Class(...args)`, and constructed again when `args` changes (see Rebuild).
 - **Parent:** the Instance of the Scene component around it, or the Canvas's scene at the top. A Scene component outside a Canvas throws.
-- **Ref:** called once the Instance's props are applied and it is attached, with the Instance. It takes a variable (`let mesh!: Mesh; <T.Mesh ref={mesh} />`), a callback, or an array of them. Children attach after it, so read their effects later (in an effect or a Frame callback), not in the ref. After a Rebuild it is called again with the new Instance, once the children have moved to it, so a variable ref always holds the current one.
+- **Ref:** called once the Instance's props are applied and it is attached, with the Instance. It takes a variable (`let mesh!: Mesh; <T.Mesh ref={mesh} />`), a callback, or an array of callbacks. Children attach after it, so read their effects later (in an effect or a Frame callback), not in the ref. After a Rebuild it is called again with the new Instance, once the children have moved to it, so a variable ref always holds the current one.
 - **Frames:** every prop write, Attach, detach and Rebuild Invalidates the Canvas, so it renders a Frame on the next animation frame. A change made to the Instance any other way needs `invalidate()` (see [Canvas](../canvas/canvas.md)).
 - **Disposal:** when its owner is disposed (a `<Show>` turns false, a `<For>` drops its item, the Canvas goes), the Instance is detached and its `dispose()` is called, if it has one. Pass `dispose={false}` to keep an Instance you hold on to elsewhere.
 - **Children:** Scene components inside it attach to its Instance. The scene is part of the component tree, so `<Show>`, `<For>`, context and your own components work inside it.
@@ -71,13 +71,13 @@ Detaching restores what was there before. When several Instances claim one prope
 
 Many three.js classes take their configuration only in the constructor (a `BoxGeometry`'s size), so a change to `args` rebuilds the Instance: `<BoxGeometry args={[width(), 1, 1]} />`.
 
-1. A new Instance is constructed from the new `args`, and the old one is disposed (unless `dispose={false}`).
+1. The old Instance is disposed (unless `dispose={false}`), and a new one is constructed from the new `args`.
 2. The current props are applied to the new one.
 3. It takes the old one's place: the same position among its parent's children, or the same claim on the property it was attached to (a claim made after it still wins).
 4. The children move to it, in order. Their components don't run again, so their state, effects and refs survive.
 5. The ref is called with it.
 
-`args` is compared by value, so `args={[1, 1, 1]}` re-evaluated with the same numbers is not a change. A Rebuild costs a new Instance and its GPU upload, so animate through props, not `args`.
+`args` is compared element by element (`Object.is`), so `args={[1, 1, 1]}` re-evaluated with the same numbers is not a change, but an object or array inside `args` is a new one each time. A Rebuild costs a new Instance and its GPU upload, so animate through props, not `args`.
 
 ## Adopted Instances
 

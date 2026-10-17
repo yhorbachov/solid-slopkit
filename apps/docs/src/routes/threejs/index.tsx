@@ -1,5 +1,6 @@
 import { Title } from '@solidjs/meta';
 import { CodeBlock } from '../../components/CodeBlock';
+import { DocTable } from '../../components/DocTable';
 import { Example } from '../../components/Example';
 import { H2 } from '../../components/Heading';
 
@@ -7,6 +8,33 @@ import FirstScene from '../../examples/threejs/first-scene';
 import firstSceneCode from '../../examples/threejs/first-scene.tsx?raw';
 
 const RELEASES_URL = 'https://github.com/yhorbachov/solid-slopkit/releases';
+
+const CANVAS_PROPS: [string, string, string][] = [
+  [
+    'renderer',
+    'a WebGLRenderer with antialiasing',
+    'A factory (canvas) => renderer, or a promise of one. Called once, after mount.',
+  ],
+  [
+    'camera',
+    '{ fov: 75, near: 0.1, far: 1000, position: [0, 0, 5] }',
+    'The default camera. A field left out goes back to its default.',
+  ],
+  ['frameloop', "'demand'", "When Frames render on their own: 'demand', 'always' or 'never'. Reactive."],
+  ['fallback', '—', 'Shown after the <canvas> until the first Frame. Whether there is one is read once.'],
+  ['style', '—', 'Merged over display: block and 100% width and height.'],
+];
+
+const HANDLE: [string, string][] = [
+  ['scene', 'The scene the Canvas renders.'],
+  ['camera', 'The default camera.'],
+  ['activeCamera()', 'The camera Frames draw with.'],
+  ['renderer()', 'The renderer, or undefined until it is ready.'],
+  ['size()', "The <canvas> element's size, 0 × 0 until it has been measured."],
+  ['time', "Frame time in seconds, the sum of every Frame's delta. A plain number: read it in a Frame callback."],
+  ['invalidate()', 'Asks this Canvas for a Frame.'],
+  ['advance(delta)', 'Runs the Frame callbacks with delta and renders one Frame now. false until the renderer is ready.'],
+];
 
 export default function ThreejsOverview() {
   return (
@@ -16,7 +44,8 @@ export default function ThreejsOverview() {
       <h1>Overview</h1>
       <p class="docs-lead">
         <code>@solid-slopkit/threejs</code> describes three.js scenes with SolidJS 2 components. Each component creates its
-        three.js object once and keeps it in sync through fine-grained bindings: there is no custom renderer and no re-render.
+        three.js Instance once (again only when its <code>args</code> change) and keeps it in sync through fine-grained bindings:
+        there is no custom renderer and no re-render.
       </p>
 
       <H2 id="installation">Installation</H2>
@@ -37,7 +66,7 @@ export default function ThreejsOverview() {
       <p>
         <code>&lt;Canvas&gt;</code> makes the <code>&lt;canvas&gt;</code>, the renderer, the scene and a default camera, and fills
         its parent, so give the parent a size. Inside it, every member of <code>T</code> wraps one three.js class: a mesh, its
-        geometry and its material are components nested the way the objects attach. Hover the box, and drag to orbit.
+        geometry and its material are components nested the way their Instances attach. Hover the box, and drag to orbit.
       </p>
       <Example component={FirstScene} code={firstSceneCode} />
       <p>
@@ -45,14 +74,34 @@ export default function ThreejsOverview() {
         moving. An idle scene draws nothing.
       </p>
 
+      <H2 id="canvas">Canvas</H2>
+      <p>
+        Other props pass through to the <code>&lt;canvas&gt;</code> element. The Canvas disposes the renderer with its owner.
+      </p>
+      <DocTable
+        head={['Prop', 'Default', 'Description']}
+        rows={CANVAS_PROPS.map(([prop, fallback, description]) => [<code>{prop}</code>, <code>{fallback}</code>, description])}
+      />
+      <p>
+        <code>useCanvas()</code>, called in the body of a component inside the Canvas, returns its handle. Keep the handle and use
+        it from event handlers and Frame callbacks; <code>useCanvas()</code> itself throws outside a component body.
+      </p>
+      <DocTable
+        head={['Member', 'Description']}
+        rows={HANDLE.map(([member, description]) => [<code>{member}</code>, description])}
+      />
+
       <H2 id="webgpu">WebGPU</H2>
       <p>
         The default renderer is a <code>WebGLRenderer</code>. To render with WebGPU, pass the factory from the <code>webgpu</code>{' '}
-        subpath. It resolves once the renderer has initialized, and falls back to WebGL 2 where the browser has no WebGPU. Scenes
-        don't change.
+        subpath. <code>webgpuRenderer(parameters)</code> takes the <code>WebGPURenderer</code> parameters except{' '}
+        <code>canvas</code>, resolves once the renderer has initialized, and falls back to WebGL 2 where the browser has no
+        WebGPU. Scenes don't change, except that <code>ShaderMaterial</code> and <code>RawShaderMaterial</code> need node
+        materials instead.
       </p>
       <CodeBlock
-        code={`import { webgpuRenderer } from '@solid-slopkit/threejs/webgpu';
+        code={`import { Canvas } from '@solid-slopkit/threejs';
+import { webgpuRenderer } from '@solid-slopkit/threejs/webgpu';
 
 <Canvas renderer={webgpuRenderer({ antialias: true })}>…</Canvas>`}
       />
@@ -74,7 +123,7 @@ export default function ThreejsOverview() {
       <H2 id="next">Next</H2>
       <ul>
         <li>
-          <a href="/threejs/scene-components">Scene components</a>: props, Partial values, Attach, Rebuild and existing objects.
+          <a href="/threejs/scene-components">Scene components</a>: props, Partial values, Attach, Rebuild and Adopted Instances.
         </li>
         <li>
           <a href="/threejs/animation">Animation</a>, <a href="/threejs/cameras">Cameras and controls</a>,{' '}

@@ -11,15 +11,15 @@ The API and a reference per area are linked from `node_modules/@solid-slopkit/th
 
 ## Pick the tool
 
-| You want                                                   | Use                                                                             |
-| ---------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Something to move every frame (spin, bob, follow a path)   | `onFrame` mutating the object through a ref                                     |
-| An object to change when state changes (selected, hovered) | A signal in its props: `scale={selected() ? 1.2 : 1}`                           |
-| One field of a nested object to follow state               | A Partial value: `position={{ y: height() }}`, `material={{ opacity: fade() }}` |
-| A change made outside props to show                        | `useCanvas().invalidate()`, or the exported `invalidate()` for every Canvas     |
-| A different draw (post-processing)                         | `onRender`                                                                      |
-| Every animation frame rendered, whatever happens           | `<Canvas frameloop="always">`                                                   |
-| Frames rendered only by your code                          | `<Canvas frameloop="never">` and `useCanvas().advance(delta)`                   |
+| You want                                                   | Use                                                                               |
+| ---------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Something to move every frame (spin, bob, follow a path)   | `onFrame` mutating the object through a ref                                       |
+| An object to change when state changes (selected, hovered) | A signal in its props: `scale={selected() ? 1.2 : 1}`                             |
+| One field of a nested object to follow state               | A Partial value: `position={{ y: height() }}`, `material={{ opacity: fade() }}`   |
+| A change made outside props to show                        | `canvas.invalidate()` on the `useCanvas()` handle, or the exported `invalidate()` |
+| A different draw (post-processing)                         | `onRender`                                                                        |
+| Every animation frame rendered, whatever happens           | `<Canvas frameloop="always">`                                                     |
+| Frames rendered only by your code                          | `<Canvas frameloop="never">` and `useCanvas().advance(delta)`                     |
 
 ## Frame callbacks
 
@@ -67,4 +67,4 @@ A Partial value (an object literal for an object property) writes only the field
 
 ## Tests
 
-Render with `frameloop="never"`, get the handle with `useCanvas()` from a small probe component inside the Canvas, and step time yourself: `handle.advance(0.5)` runs the Frame callbacks with `delta` 0.5 and renders one Frame. It returns `false` and does nothing while the renderer isn't there yet.
+Render with `frameloop="never"` and, in jsdom (which has no WebGL), a stub renderer: `renderer={() => ({ render() {}, setSize() {}, setPixelRatio() {}, dispose() {} })}`, or run the test in a real browser. Get the handle with `useCanvas()` from a small probe component inside the Canvas, and step time yourself: `handle.advance(0.5)` runs the Frame callbacks with `delta` 0.5 and renders one Frame. It returns `false` and does nothing while the renderer isn't there yet.

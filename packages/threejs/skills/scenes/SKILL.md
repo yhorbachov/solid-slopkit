@@ -22,11 +22,12 @@ The API and a reference per area are linked from `node_modules/@solid-slopkit/th
 - Scene components only work inside a `<Canvas>`; outside one they throw. Ordinary components, `<Show>`, `<For>` and context work inside it.
 - Children attach to their parent's object. Geometry and material go inside the mesh, a texture inside its material with `attach="map"`.
 - Animate through props or Frame callbacks, never through `args`: a change to `args` constructs a new object (a **Rebuild**) and uploads it to the GPU again. `args` is only for what three.js takes in the constructor alone (a `BoxGeometry`'s size).
-- After changing an object outside its props (through a ref, in an event handler), call `useCanvas().invalidate()`: by default the Canvas only renders when something asks for a Frame.
+- After changing an object outside its props (through a ref, in an event handler), Invalidate the Canvas: by default it only renders when something asks for a Frame. Take the handle in the component body (`const canvas = useCanvas()`) and call `canvas.invalidate()` from the handler, or call the exported `invalidate()`. `useCanvas()` itself only works in the component body: an event handler has no owner, and it throws there.
 
 ## The basics
 
 ```tsx
+import { createSignal } from 'solid-js';
 import { Canvas, T } from '@solid-slopkit/threejs';
 
 function Scene() {
@@ -68,7 +69,7 @@ The Canvas draws with its **Active camera**: the default camera (set through the
 
 ```tsx
 <T.PerspectiveCamera active={view() === 'close'} position={[0, 1, 3]} fov={40} />
-<T.OrthographicCamera active={view() === 'map'} args={[-1, 1, 10, -10]} position={[0, 20, 0]} />
+<T.OrthographicCamera active={view() === 'map'} args={[-1, 1, 10, -10]} position={[0, 20, 0]} rotation={[-Math.PI / 2, 0, 0]} />
 ```
 
 The Active camera's aspect ratio follows the canvas (an orthographic one keeps its height and gets its width from the aspect ratio), and its projection matrix is updated before each Frame, so `fov` and `zoom` props just work. Read it with `useCanvas().activeCamera()`.
@@ -80,11 +81,11 @@ For orbiting, `import { OrbitControls } from '@solid-slopkit/threejs/controls'` 
 `Object3D` components take `onClick`, `onContextMenu`, `onPointerDown`, `onPointerUp`, `onPointerMove`, `onPointerOver`, `onPointerOut`, `onPointerEnter`, `onPointerLeave` and `onWheel`.
 
 - Only objects with a handler, and what's under them, are hit-tested. An object with no handler doesn't block the pointer.
-- Every hit gets the event, nearest first, then each hit's ancestors with handlers. Call `event.stopPropagation()` to keep the event from objects behind or above.
+- Every hit gets the event, nearest first, each followed by its ancestors that have handlers; each object gets it once. Call `event.stopPropagation()` to keep the event from objects behind or above.
 - `event.intersection.point` is where the ray hit; `event.object` is the object whose handler runs.
 - For drags, call `event.setPointerCapture()` in `onPointerDown`; moves then reach the object even off it, with no `intersection` when they miss.
 
 ## Renderer, WebGPU and server rendering
 
-- The default renderer is a `WebGLRenderer` with antialiasing. Opt into WebGPU in one line: `import { webgpuRenderer } from '@solid-slopkit/threejs/webgpu'`, then `<Canvas renderer={webgpuRenderer()}>`. Scene components and `T` work unchanged.
+- The default renderer is a `WebGLRenderer` with antialiasing. Opt into WebGPU in one line: `import { webgpuRenderer } from '@solid-slopkit/threejs/webgpu'`, then `<Canvas renderer={webgpuRenderer()}>`. Scene components and `T` work unchanged, except the materials `WebGPURenderer` can't draw (`ShaderMaterial`, `RawShaderMaterial`): use node materials there.
 - On the server, a Canvas renders only its `<canvas>` and its `fallback`; the scene mounts in the browser once the page has hydrated. `fallback` shows, as a sibling of the `<canvas>`, until the first Frame has rendered; position it over the canvas yourself.

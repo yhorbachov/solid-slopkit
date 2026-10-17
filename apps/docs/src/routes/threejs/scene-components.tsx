@@ -31,8 +31,8 @@ export default function ThreejsSceneComponents() {
       <p class="docs-eyebrow">threejs</p>
       <h1>Scene components</h1>
       <p class="docs-lead">
-        A Scene component wraps one three.js class: it constructs the object, keeps it in sync with its props, attaches it to its
-        parent, and disposes it with its owner.
+        A Scene component wraps one three.js class: it constructs its Instance, keeps it in sync with its props, attaches it to
+        its parent, and disposes it with its owner.
       </p>
 
       <H2 id="t">The T namespace</H2>
@@ -51,7 +51,7 @@ const WaterSurface = sceneComponent(Water);`}
 
       <H2 id="props">Props</H2>
       <p>
-        Every other prop sets the object's property of the same name, and each prop is its own binding, so a change re-runs only
+        Every other prop sets the Instance's property of the same name, and each prop is its own binding, so a change re-runs only
         that write. A property that holds a math object is copied into, never replaced, so code holding <code>mesh.position</code>{' '}
         keeps seeing the current value:
       </p>
@@ -70,8 +70,8 @@ const WaterSurface = sceneComponent(Water);`}
       <Example component={PartialValues} code={partialValuesCode} />
 
       <H2 id="attach">Attach</H2>
-      <p>A component's object joins the object of the Scene component around it, or the scene at the top:</p>
-      <DocTable head={['Object', 'Default']} rows={ATTACH.map(([object, how]) => [object, how])} />
+      <p>A component's Instance joins the Instance of the Scene component around it, or the scene at the top:</p>
+      <DocTable head={['Instance', 'Default']} rows={ATTACH.map(([instance, how]) => [instance, how])} />
       <p>
         <code>attach</code> overrides it: a property path (<code>attach="map"</code> on a texture inside a material,{' '}
         <code>attach="fog"</code>, <code>attach="material.1"</code>) or a function <code>(parent, self) =&gt; detach</code>.
@@ -81,27 +81,31 @@ const WaterSurface = sceneComponent(Water);`}
       <H2 id="rebuild">args and Rebuild</H2>
       <p>
         <code>args</code> are the constructor arguments, for what three.js takes only in the constructor. A change to{' '}
-        <code>args</code> constructs a new object, applies the props, puts it in the old one's place, moves the children over and
-        disposes the old one. Children keep their state. It costs a new object and a GPU upload, so animate through props, not{' '}
-        <code>args</code>.
+        <code>args</code> is a Rebuild: it disposes the old Instance, constructs a new one from the new <code>args</code>, applies
+        the props, puts it in the old one's place and moves the children over. Children keep their state, and the ref is called
+        again. <code>args</code> is compared element by element, so the same numbers again are not a change. A Rebuild costs a new
+        Instance and a GPU upload, so animate through props, not <code>args</code>.
       </p>
       <Example component={Rebuild} code={rebuildCode} />
 
-      <H2 id="existing-objects">Existing objects</H2>
+      <H2 id="existing-objects">Adopted Instances</H2>
       <p>
-        <code>object</code> hands a component an object that already exists, such as a loaded model, instead of constructing one.
-        It's attached, gets the props and children, and is never disposed by the component.
+        <code>object</code> hands a component an Instance that already exists, such as a loaded model, instead of constructing
+        one. It's attached, gets the props and children, and is never disposed by the component. A new <code>object</code> takes
+        the old one's place, like a Rebuild. Whether a component adopts is decided once, when it is created.
       </p>
       <CodeBlock code={`<T.Group object={gltf().scene} position={[0, 1, 0]} />`} />
 
       <H2 id="notes">Notes</H2>
       <ul>
         <li>
-          A ref (<code>let mesh!: Mesh; &lt;T.Mesh ref={'{mesh}'} /&gt;</code>) gets the object once its props are applied and it
-          is attached, before its children attach. After changing it through the ref, call <code>useCanvas().invalidate()</code>.
+          A ref (<code>let mesh!: Mesh; &lt;T.Mesh ref={'{mesh}'} /&gt;</code>) gets the Instance once its props are applied and
+          it is attached, before its children attach. After changing it through the ref, Invalidate the Canvas:{' '}
+          <code>invalidate()</code>, or <code>canvas.invalidate()</code> on a <code>useCanvas()</code> handle taken in the
+          component body.
         </li>
         <li>
-          Owned objects are disposed with their owner; pass <code>{'dispose={false}'}</code> to keep one.
+          Owned Instances are disposed with their owner; pass <code>{'dispose={false}'}</code> to keep one.
         </li>
         <li>Which props a component has is read once; their values are reactive.</li>
       </ul>

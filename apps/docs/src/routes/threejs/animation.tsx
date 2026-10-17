@@ -30,23 +30,24 @@ export default function ThreejsAnimation() {
       <H2 id="frames">Frames and Invalidating</H2>
       <p>
         Prop writes, Attach, detach and Rebuild <strong>Invalidate</strong> the Canvas, and so do a resize and a camera change.
-        Any number of Invalidations before the next animation frame render one Frame. A change made to an object any other way,
-        through a ref or when a texture finishes loading, needs <code>useCanvas().invalidate()</code>, or the exported{' '}
-        <code>invalidate()</code>, which asks every Canvas.
+        Any number of Invalidations before the next animation frame render one Frame. A change made to an Instance any other way,
+        through a ref or when a texture finishes loading, needs <code>invalidate()</code> on the <code>useCanvas()</code> handle,
+        or the exported <code>invalidate()</code>, which asks every Canvas.
       </p>
       <DocTable head={['frameloop', 'Frames render']} rows={FRAMELOOP.map(([mode, meaning]) => [<code>{mode}</code>, meaning])} />
 
       <H2 id="frame-callbacks">Frame callbacks</H2>
       <p>
         <code>onFrame((canvas, delta) =&gt; …)</code> runs before every Frame, until the calling component's owner is disposed.
-        <code>delta</code> is the seconds since the previous Frame, and <code>canvas.time</code> their sum. While one is
-        registered the Canvas renders every animation frame; once the last one is gone it's back on demand. Here the callback is
-        in a component under a <code>&lt;Show&gt;</code>, so pausing stops the Frames.
+        <code>delta</code> is the seconds since the previous Frame (0 on the first Frame after the Canvas was idle), and{' '}
+        <code>canvas.time</code> their sum. While one is registered the Canvas renders every animation frame; once the last one is
+        gone it's back on demand. Here the callback is in a component under a <code>&lt;Show&gt;</code>, so pausing stops the
+        Frames.
       </p>
       <Example component={Spinning} code={spinCode} />
       <ul>
         <li>
-          Change objects directly in a Frame callback, through a ref. That runs no reactive code, and shows in the Frame drawn
+          Change Instances directly in a Frame callback, through a ref. That runs no reactive code, and shows in the Frame drawn
           right after. A signal written there reaches its props only after that Frame.
         </li>
         <li>Callbacks run in registration order, so a parent component's runs before its children's.</li>
@@ -78,7 +79,9 @@ export default function ThreejsAnimation() {
       <H2 id="tests">Frames in tests</H2>
       <p>
         With <code>frameloop="never"</code>, nothing renders on its own. <code>useCanvas().advance(0.5)</code> runs the Frame
-        callbacks with a <code>delta</code> of 0.5 and renders one Frame, so animations step deterministically.
+        callbacks with a <code>delta</code> of 0.5 and renders one Frame, so animations step deterministically. It returns{' '}
+        <code>false</code> and does nothing until the renderer is ready. In jsdom, which has no WebGL, pass a stub{' '}
+        <code>renderer</code>.
       </p>
     </article>
   );
