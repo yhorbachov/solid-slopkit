@@ -9,6 +9,10 @@ The installed packages ship agent skills that match their exact installed versio
 - `node_modules/solid-js/skills/reactivity-diagnostics/SKILL.md` — repair guide mapping every dev-mode diagnostic code (e.g. `REACTIVE_WRITE_IN_OWNED_SCOPE`, `STRICT_READ_UNTRACKED`) to its prescribed fix. Read it whenever a Solid diagnostic code appears in test output or the browser console.
 - `node_modules/@solidjs/diagnostics/skills/agent-loops/SKILL.md` — how to capture reactive evidence (which scopes re-ran and why, wasted recomputes, cost tables) and assert budgets, in tests and against live pages.
 
+## Releasing
+
+Every package is released together under one version (ADR 0001). To cut a release, follow `.claude/skills/release/SKILL.md`: it applies the changesets, runs the checks, and asks before committing, tagging or pushing.
+
 ## Reactive diagnostics — capture evidence instead of guessing
 
 Use these whenever you are debugging reactivity (something doesn't update, updates too often, or is slow) or verifying a change didn't regress update granularity:
