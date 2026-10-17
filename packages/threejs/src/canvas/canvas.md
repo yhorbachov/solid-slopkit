@@ -3,7 +3,7 @@
 The root of a scene: a `<canvas>` that fills its parent, the scene, the default camera and the renderer. Every Scene component inside a Canvas belongs to its scene.
 
 ```tsx
-import { Canvas, T, invalidate, onFrame, useCanvas } from '@solid-slopkit/threejs';
+import { Canvas, T, invalidate, onFrame, onRender, useCanvas } from '@solid-slopkit/threejs';
 ```
 
 ## Usage
@@ -92,3 +92,31 @@ function Spinning() {
 - **Order:** callbacks run in registration order, and a parent component's before its children's. One registered while a Frame runs starts with the next Frame.
 - **Continuous rendering:** with `frameloop="demand"`, a Canvas renders on every animation frame while any callback is registered, and goes back to rendering on demand when the last one is disposed. `"never"` stays manual: `advance(delta)` runs the callbacks with exactly that `delta`, which steps animations deterministically in tests.
 - **Changing Instances:** change them directly, through a ref, as above. That runs no reactive code, and the Frame drawn right after shows it. A signal written in a callback reaches its props only when Solid flushes, after this Frame is drawn.
+
+## onRender()
+
+`onRender(callback)` registers the Render callback of the Canvas the calling component is inside, and throws outside one. Until the current owner is disposed, it draws every Frame in place of `renderer.render(scene, camera)`, for example through a post-processing chain:
+
+```tsx
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+
+function Effects() {
+  const { scene, camera, renderer } = useCanvas();
+  let composer: EffectComposer | undefined;
+  onRender((_, delta) => {
+    // No Frame renders before the renderer exists, so it's there by the first call.
+    if (!composer) {
+      composer = new EffectComposer(renderer() as WebGLRenderer);
+      composer.addPass(new RenderPass(scene, camera));
+    }
+    composer.render(delta);
+  });
+  onCleanup(() => composer?.dispose());
+  return null;
+}
+```
+
+- **Arguments:** a `RenderCallback` takes the same `(canvas, delta)` as a Frame callback, and runs after every Frame callback.
+- **One per Canvas:** registering a second while the first is still registered throws in development. In production the first keeps drawing and the second is ignored. A Render callback that replaces another (the branches of a `Show`, say) is fine: the check runs once the old one is disposed.
+- **Frames:** registering one and disposing it each Invalidate the Canvas, and once it's disposed the default draw returns. It doesn't make the Canvas render continuously: with `frameloop="demand"` it still draws only on demand. For an animated effect, register a Frame callback too, or use `frameloop="always"`.

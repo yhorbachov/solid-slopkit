@@ -1,4 +1,4 @@
-export { Canvas, invalidate, onFrame, useCanvas } from './canvas';
+export { Canvas, invalidate, onFrame, onRender, useCanvas } from './canvas';
 export type { Frameloop } from './frame-loop';
 export type {
   CanvasHandle,
@@ -8,5 +8,6 @@ export type {
   CanvasSize,
   DefaultCameraOptions,
   FrameCallback,
+  RenderCallback,
   RendererFactory,
 } from './canvas';

@@ -1,4 +1,4 @@
-import { createContext, createEffect, createSignal, omit, onCleanup, onSettled, untrack, useContext } from 'solid-js';
+import { createContext, createEffect, createSignal, DEV, omit, onCleanup, onSettled, untrack, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
 import { PerspectiveCamera, Scene, WebGLRenderer, type Camera } from 'three';
 import { ParentContext } from '../scene-component/parent';
@@ -87,10 +87,22 @@ export type CanvasProps = Omit<JSX.CanvasHTMLAttributes<HTMLCanvasElement>, keyo
  */
 export type FrameCallback = (canvas: CanvasHandle, delta: number) => void;
 
+/**
+ * Draws a Frame in place of the Canvas's `renderer.render(scene, camera)`, after the Frame callbacks, with the same
+ * arguments.
+ */
+export type RenderCallback = FrameCallback;
+
 const CanvasContext = createContext<CanvasHandle>();
 
-// How `onFrame` registers a Frame callback on a Canvas. Returns the unregister.
-const registerFrame = new WeakMap<CanvasHandle, (callback: FrameCallback) => () => void>();
+// How `onFrame` and `onRender` register their callbacks on a Canvas. Each returns the unregister.
+interface Registry {
+  frame(callback: FrameCallback): () => void;
+  render(callback: RenderCallback): () => void;
+  /** How many Render callbacks are registered. */
+  renders(): number;
+}
+const registries = new WeakMap<CanvasHandle, Registry>();
 
 // Every Canvas mounted in the page, for `invalidate()`.
 const mounted = new Set<CanvasHandle>();
@@ -132,12 +144,17 @@ export function Canvas(props: CanvasProps) {
   let active: CanvasRenderer | undefined;
   let time = 0;
   const entries = new Set<{ callback: FrameCallback }>();
+  // Render callbacks in registration order; the first draws. More than one stands only for a moment (a replacement
+  // registers before what it replaces is disposed), or by mistake, which `onRender` reports in development.
+  const draws: Array<{ callback: RenderCallback }> = [];
   const render = (delta: number) => {
     if (!active) return false;
     time += delta;
     // A snapshot: callbacks registered during this Frame run from the next one; unregistered ones don't run.
     for (const entry of Array.from(entries)) if (entries.has(entry)) entry.callback(handle, delta);
-    active.render(scene, camera);
+    const draw = draws[0];
+    if (draw) draw.callback(handle, delta);
+    else active.render(scene, camera);
     return true;
   };
   const loop = createFrameLoop(render, untrack(() => props.frameloop) ?? 'demand');
@@ -237,14 +254,28 @@ export function Canvas(props: CanvasProps) {
     invalidate: loop.invalidate,
   };
   // Each entry is its own object, so one function registered twice runs twice. The hold keeps the loop running.
-  registerFrame.set(handle, (callback) => {
-    const entry = { callback };
-    entries.add(entry);
-    const release = loop.hold();
-    return () => {
-      entries.delete(entry);
-      release();
-    };
+  registries.set(handle, {
+    frame(callback) {
+      const entry = { callback };
+      entries.add(entry);
+      const release = loop.hold();
+      return () => {
+        entries.delete(entry);
+        release();
+      };
+    },
+    render(callback) {
+      const entry = { callback };
+      draws.push(entry);
+      loop.invalidate();
+      return () => {
+        const index = draws.indexOf(entry);
+        if (index === -1) return;
+        draws.splice(index, 1);
+        if (index === 0) loop.invalidate();
+      };
+    },
+    renders: () => draws.length,
   });
 
   return (
@@ -272,6 +303,25 @@ export function useCanvas(): CanvasHandle {
  * `frameloop="demand"` renders on every animation frame. Throws outside a Canvas.
  */
 export function onFrame(callback: FrameCallback): void {
-  const unregister = registerFrame.get(useCanvas())!(callback);
+  const unregister = registries.get(useCanvas())!.frame(callback);
   onCleanup(unregister);
+}
+
+/**
+ * Registers the Render callback of the Canvas the calling component is inside: until the current owner is disposed,
+ * it draws every Frame in place of `renderer.render(scene, camera)`, after the Frame callbacks. A Canvas has at most
+ * one; registering a second throws in development and is ignored in production. It doesn't make the Canvas render
+ * continuously. Throws outside a Canvas.
+ */
+export function onRender(callback: RenderCallback): void {
+  const registry = registries.get(useCanvas())!;
+  onCleanup(registry.render(callback));
+  // Checked once settled: by then, a Render callback this one replaces has been disposed.
+  if (DEV) {
+    onSettled(() => {
+      if (registry.renders() > 1) {
+        throw new Error('@solid-slopkit/threejs: a Canvas has at most one Render callback, and this one already has one');
+      }
+    });
+  }
 }
