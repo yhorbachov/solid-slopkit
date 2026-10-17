@@ -32,8 +32,7 @@
     "build:plugin-types": "tsc -p tsconfig.plugin.json",
     "build:plugin": "vite build -c vite.plugin.config.ts",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run --configLoader runner",
-    "release:pack": "node scripts/release-pack.mjs"
+    "test": "vitest run --configLoader runner"
   },
   "devDependencies": {
     "@solidjs/diagnostics": "^2.0.0-rc.13",

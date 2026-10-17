@@ -14,6 +14,6 @@ The repo holds a family of packages: `@solid-slopkit/ui` (components), `@solid-s
 
 ## Consequences
 
-- Each package is released on its own (ADR 0001), with its own tag (`forms-v<version>`, `i18n-v<version>`).
+- The packages share one version and one release (ADR 0001), though none needs another installed.
 - A change to the props an input takes can break `bind()`'s types. The forms tests render the real inputs to catch it.
 - Docs that show two packages together say how they are wired, since neither does it for the app.

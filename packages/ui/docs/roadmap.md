@@ -39,7 +39,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M0.05** Make `pnpm format:check` pass. Eight files predate it and aren't formatted: root `package.json`, `.zed/settings.json`, `file-routes.d.ts`, `pnpm-workspace.yaml`, `apps/docs/src/routes/ui/button.tsx`, `packages/ui/src/styles/slopkit.css`, and both `packages/ui` tsconfigs. Run `oxfmt`, or ignore generated files, and keep the result committed.
 - [x] **M0.06** Upgrade to TypeScript 7 (the native compiler). TS 7 changed the `rootDir` default, which nested the output under `dist/*/src/`, so `tsconfig.build.json` now sets `rootDir: "src"`. Afterwards the emitted `.jsx`/`.js` were byte-identical to TS 5.9's, the `.d.ts` differed only cosmetically, and a tarball consumer type-checks with both TS 5.9 and TS 7.
 - [x] **M0.07** Upgrade jsdom 25 → 30. The 20 "Could not parse CSS stylesheet" messages are gone (jsdom 25 rejected the provider's generated `@layer` rules), and the tests still pass. `engines.node` is now jsdom 30's range, `^22.22.2 || >=24.15.0`.
-- [x] **M0.08** `pnpm release:pack`: build and `pnpm pack` into `release/`, refusing to overwrite an existing tarball. `.github/workflows/release-ui.yml` runs on a `ui-v<version>` tag: it checks the tag against the package version, runs every check, packs, and attaches the tarball to a GitHub Release (ADR 0001). The install docs on the UI overview point at the release URL (the repo is public, so no token is needed).
+- [x] **M0.08** `pnpm release:pack`: build and `pnpm pack` into `release/`, refusing to overwrite an existing tarball. `.github/workflows/release-ui.yml` runs on a `ui-v<version>` tag: it checks the tag against the package version, runs every check, packs, and attaches the tarball to a GitHub Release (ADR 0001). The install docs on the UI overview point at the release URL (the repo is public, so no token is needed). Since replaced by one release for every package, tagged `v<version>` (ADR 0001).
 - [x] **M0.09** A vitest browser project (Chromium via `@vitest/browser-playwright`) next to jsdom, for `*.browser.test.tsx`. It loads the real stylesheets. The first browser test checks that the SegmentedControl indicator covers the selected item, and the release workflow installs Chromium.
 - [x] **M0.10** An SSR/hydration test helper that every component's SSR test uses: `packages/ui/test/ssr.tsx`. Its own Vite server compiles each fixture for the server and, hydratably, for the client (Vitest's transform never produces hydratable code). It fails on any console message or thrown error on either side, and on any server element hydration didn't reuse.
 - [x] **M0.11** The default theme gets a dark set with `light-dark()`. Add `color-scheme` and `[data-slp-color-scheme]` in `slopkit.base` (ADR 0005).
@@ -205,7 +205,7 @@ Layout: Box, Flex, Stack, Group, SimpleGrid, Grid, Container, Center, AspectRati
 - [x] **M8.01** Export the stable primitives from `@solid-slopkit/ui/primitives` (ADR 0007)
 - [x] **M8.02** Decide the default theme's values (it is a work in progress until then), then write the docs Theming page and the theming skill (both removed until then, so they can't mislead) and update the LLM references that quote them.
 - [x] **M8.03** Audit the docs, LLM references and skills against the shipped API
-- [ ] **M8.04** Tag `ui-v0.0.1` and publish the GitHub Release
+- [ ] **M8.04** Tag `v0.0.1` and publish the GitHub Release
 
 ## Not in 0.0.1
 

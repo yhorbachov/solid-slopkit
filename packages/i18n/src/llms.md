@@ -9,7 +9,7 @@ Before adding translations, read the task guide at `node_modules/@solid-slopkit/
 It is installed from a GitHub Release tarball, not from npm; once installed, the package name is `@solid-slopkit/i18n`:
 
 ```bash
-pnpm add solid-js @solidjs/web https://github.com/yhorbachov/solid-slopkit/releases/download/i18n-v<version>/solid-slopkit-i18n-<version>.tgz
+pnpm add solid-js @solidjs/web https://github.com/yhorbachov/solid-slopkit/releases/download/v<version>/solid-slopkit-i18n-<version>.tgz
 ```
 
 ```ts

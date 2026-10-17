@@ -26,7 +26,7 @@ export default function ThreejsOverview() {
       </p>
       <CodeBlock
         lang="bash"
-        code={`pnpm add three @types/three ${RELEASES_URL}/download/threejs-v0.0.1/solid-slopkit-threejs-0.0.1.tgz`}
+        code={`pnpm add three @types/three ${RELEASES_URL}/download/v0.0.1/solid-slopkit-threejs-0.0.1.tgz`}
       />
       <p>
         It needs <code>solid-js</code> and <code>@solidjs/web</code> 2.x and <code>three</code> r171 or later, which it takes as

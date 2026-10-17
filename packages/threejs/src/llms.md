@@ -13,7 +13,7 @@ Task guides live next to `dist/` in the package, at `node_modules/@solid-slopkit
 It is installed from a GitHub Release tarball, not from npm; once installed, the package name is `@solid-slopkit/threejs`. `three` is a peer dependency (r171 or later), and so is `@types/three` for TypeScript:
 
 ```bash
-pnpm add solid-js @solidjs/web three @types/three https://github.com/yhorbachov/solid-slopkit/releases/download/threejs-v<version>/solid-slopkit-threejs-<version>.tgz
+pnpm add solid-js @solidjs/web three @types/three https://github.com/yhorbachov/solid-slopkit/releases/download/v<version>/solid-slopkit-threejs-<version>.tgz
 ```
 
 ## API

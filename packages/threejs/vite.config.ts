@@ -3,6 +3,15 @@ import solid from '@solidjs/vite-plugin';
 import { playwright } from '@vitest/browser-playwright';
 
 // The package ships uncompiled Solid source (see `build:source`); this config only serves the tests.
+
+// The GPU backend for the browser tests: Metal on a Mac, and on Linux (the GPU-less release runner) SwiftShader, a
+// software Vulkan that gives both WebGL and WebGPU an adapter.
+const gpuArgs =
+  process.platform === 'darwin'
+    ? ['--use-angle=metal']
+    : process.platform === 'linux'
+      ? ['--use-angle=vulkan', '--use-vulkan=swiftshader', '--use-webgpu-adapter=swiftshader', '--enable-unsafe-swiftshader']
+      : [];
 export default defineConfig({
   plugins: [solid({ ssr: true })],
   test: {
@@ -32,7 +41,7 @@ export default defineConfig({
             // A real WebGPU adapter for the WebGPU tests: headless Chromium offers none by default, and the renderer
             // would quietly fall back to WebGL 2.
             provider: playwright({
-              launchOptions: { args: ['--enable-unsafe-webgpu', '--enable-features=Vulkan,WebGPU', '--use-angle=metal'] },
+              launchOptions: { args: ['--enable-unsafe-webgpu', '--enable-features=Vulkan,WebGPU', ...gpuArgs] },
             }),
             headless: true,
             instances: [{ browser: 'chromium' }],

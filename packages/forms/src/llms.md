@@ -9,7 +9,7 @@ Before writing a form, read the task guide at `node_modules/@solid-slopkit/forms
 It is installed from a GitHub Release tarball, not from npm; once installed, the package name is `@solid-slopkit/forms`:
 
 ```bash
-pnpm add solid-js @solidjs/web https://github.com/yhorbachov/solid-slopkit/releases/download/forms-v<version>/solid-slopkit-forms-<version>.tgz
+pnpm add solid-js @solidjs/web https://github.com/yhorbachov/solid-slopkit/releases/download/v<version>/solid-slopkit-forms-<version>.tgz
 ```
 
 ```ts

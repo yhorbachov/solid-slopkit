@@ -23,8 +23,7 @@
     "build:source": "tsc -p tsconfig.build.json",
     "build:assets": "node -e \"require('fs').cpSync('src','dist/source',{recursive:true,filter:s=>!require('path').extname(s)||/\\.md$/.test(s)})\"",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run",
-    "release:pack": "node scripts/release-pack.mjs"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@solid-slopkit/ui": "workspace:*",

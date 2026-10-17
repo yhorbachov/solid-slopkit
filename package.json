@@ -11,9 +11,10 @@
     "test": "pnpm -r --if-present test",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "release:pack": "pnpm --filter @solid-slopkit/ui release:pack"
+    "release:pack": "node scripts/release-pack.mjs"
   },
   "devDependencies": {
+    "@changesets/cli": "^3.0.3",
     "eslint-plugin-solid": "~0.18.1",
     "oxfmt": "^0.72.0",
     "oxlint": "~1.87.0",

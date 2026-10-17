@@ -42,7 +42,7 @@ export default function FormsOverview() {
         Like the other slopkit packages, it isn't published to npm. Each version is a tarball attached to a{' '}
         <a href={RELEASES_URL}>GitHub Release</a>. Replace <code>0.0.1</code> with the version you want.
       </p>
-      <CodeBlock lang="bash" code={`pnpm add ${RELEASES_URL}/download/forms-v0.0.1/solid-slopkit-forms-0.0.1.tgz`} />
+      <CodeBlock lang="bash" code={`pnpm add ${RELEASES_URL}/download/v0.0.1/solid-slopkit-forms-0.0.1.tgz`} />
       <p>
         It needs <code>solid-js</code> and <code>@solidjs/web</code> 2.x. It doesn't depend on <code>@solid-slopkit/ui</code>, but
         its bindings produce exactly the props the UI inputs take.

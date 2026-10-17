@@ -26,7 +26,7 @@ export default function UiOverview() {
         <a href={RELEASES_URL}>GitHub Release</a>, and you install it from there. Replace <code>0.0.1</code> with the version you
         want.
       </p>
-      <CodeBlock lang="bash" code={`pnpm add ${RELEASES_URL}/download/ui-v0.0.1/solid-slopkit-ui-0.0.1.tgz`} />
+      <CodeBlock lang="bash" code={`pnpm add ${RELEASES_URL}/download/v0.0.1/solid-slopkit-ui-0.0.1.tgz`} />
       <p>
         It needs <code>solid-js</code> and <code>@solidjs/web</code> 2.x. The package ships uncompiled JSX, so the app must
         compile it with <code>@solidjs/vite-plugin</code>, the same way it compiles its own components.

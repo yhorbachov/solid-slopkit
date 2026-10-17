@@ -30,7 +30,7 @@ export default function I18nOverview() {
         <a href={RELEASES_URL}>GitHub Release</a>. Replace <code>0.0.1</code> with the version you want, then add the plugin (see{' '}
         <a href="/i18n/setup">Setup</a>).
       </p>
-      <CodeBlock lang="bash" code={`pnpm add ${RELEASES_URL}/download/i18n-v0.0.1/solid-slopkit-i18n-0.0.1.tgz`} />
+      <CodeBlock lang="bash" code={`pnpm add ${RELEASES_URL}/download/v0.0.1/solid-slopkit-i18n-0.0.1.tgz`} />
       <p>
         It needs <code>solid-js</code> and <code>@solidjs/web</code> 2.x, and Vite for the plugin. It doesn't depend on{' '}
         <code>@solid-slopkit/ui</code>; the two meet through props.
