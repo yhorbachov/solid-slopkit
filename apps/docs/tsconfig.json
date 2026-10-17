@@ -24,7 +24,10 @@
       "@solid-slopkit/ui/dates": ["../../packages/ui/src/dates/index.ts"],
       "@solid-slopkit/forms": ["../../packages/forms/src/index.ts"],
       "@solid-slopkit/i18n": ["../../packages/i18n/src/runtime/index.ts"],
-      "@solid-slopkit/i18n/vite": ["../../packages/i18n/src/vite.ts"]
+      "@solid-slopkit/i18n/vite": ["../../packages/i18n/src/vite.ts"],
+      "@solid-slopkit/threejs": ["../../packages/threejs/src/index.ts"],
+      "@solid-slopkit/threejs/controls": ["../../packages/threejs/src/controls/index.ts"],
+      "@solid-slopkit/threejs/webgpu": ["../../packages/threejs/src/webgpu/index.ts"]
     },
 
     // Translation files: the i18n plugin writes their types outside src

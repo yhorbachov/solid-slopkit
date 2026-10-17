@@ -227,4 +227,15 @@ export const nav: NavSection[] = [
       { title: 'With slopkit components', href: '/i18n/slopkit-ui' },
     ],
   },
+  {
+    title: 'threejs',
+    items: [
+      { title: 'Overview', href: '/threejs' },
+      { title: 'Scene components', href: '/threejs/scene-components' },
+      { title: 'Animation', href: '/threejs/animation' },
+      { title: 'Cameras and controls', href: '/threejs/cameras' },
+      { title: 'Pointer events', href: '/threejs/pointer-events' },
+      { title: 'Assets', href: '/threejs/assets' },
+    ],
+  },
 ];

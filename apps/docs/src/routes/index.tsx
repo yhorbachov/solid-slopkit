@@ -22,6 +22,10 @@ export default function Home() {
           <h2>i18n</h2>
           <p>Typed translation files that live next to each component.</p>
         </a>
+        <a class="docs-card" href="/threejs">
+          <h2>threejs</h2>
+          <p>three.js scenes as components, updated through fine-grained reactivity.</p>
+        </a>
       </div>
 
       <Button as="a" href="/ui" color="primary" rightSection={<ArrowRight />}>
