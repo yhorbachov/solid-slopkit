@@ -10,7 +10,7 @@ export const components = () => (
     <Button variant="soft" color="primary">
       Button
     </Button>
-    <SegmentedControl aria-label="Framework" data={['React', 'Solid']} />
+    <SegmentedControl aria-label="View" data={['List', 'Grid']} />
   </Stack>
 );
 

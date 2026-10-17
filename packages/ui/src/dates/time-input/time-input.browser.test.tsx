@@ -15,8 +15,9 @@ describe('<TimeInput /> in a browser', () => {
     const field = getByLabelText('Time') as HTMLInputElement;
 
     await userEvent.click(field);
-    // Chromium's en-US segments: hours, minutes, then AM/PM, which starts on AM.
-    await userEvent.keyboard('0945');
+    // Chromium's en-US segments: hours, minutes, then AM/PM. AM/PM starts empty on Linux, and the
+    // value stays empty until every segment is filled, so it is typed too.
+    await userEvent.keyboard('0945a');
     expect(field.value).toBe('09:45');
     expect(values.at(-1)).toBe('09:45');
   });

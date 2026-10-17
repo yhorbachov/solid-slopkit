@@ -26,3 +26,8 @@ peerDependencyRules:
     '@typescript-eslint/typescript-estree>typescript': '7'
     '@typescript-eslint/tsconfig-utils>typescript': '7'
     '@typescript-eslint/project-service>typescript': '7'
+
+# One copy of each package however its optional peers resolve. Without it, vite@8 resolved with and without its
+# optional `yaml` peer gave two vitest copies, and a setup file importing the other copy registered its matchers a
+# second time, breaking `.rejects.toThrow()`.
+dedupePeers: true

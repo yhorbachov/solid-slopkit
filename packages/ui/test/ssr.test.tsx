@@ -28,9 +28,9 @@ describe('SSR test helper', () => {
   test('the hydrated tree is live', async () => {
     const result = await renderAndHydrate(fixturesPath, 'components');
     const active = () => [...result.container.querySelectorAll('[data-active]')].map((item) => item.textContent);
-    expect(active()).toEqual(['React']);
+    expect(active()).toEqual(['List']);
     result.container.querySelectorAll<HTMLInputElement>('input[type="radio"]')[1].click();
-    expect(active()).toEqual(['Solid']);
+    expect(active()).toEqual(['Grid']);
     result.dispose();
   });
 
