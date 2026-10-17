@@ -26,6 +26,16 @@ import { Canvas, T, invalidate, onFrame, onRender, useCanvas } from '@solid-slop
 - **Frames:** with `frameloop="demand"` (the default), a Frame renders on the animation frame after something Invalidates the Canvas, and any number of Invalidations before it render one Frame. Prop writes, Attach, detach and Rebuild Invalidate, and so do a resize, a change to `camera` and the renderer's arrival. An idle scene renders nothing. While a Frame callback is registered (see `onFrame()`), every animation frame renders one. `"always"` renders on every animation frame; `"never"` renders only through `advance()`, Frame callbacks or not, and keeps Invalidations until the mode changes.
 - **Changes outside props:** after changing an Instance some other way (through a ref, in an event handler, when a texture finishes loading), call `useCanvas().invalidate()`, or the exported `invalidate()`, which Invalidates every Canvas in the page.
 - **Context:** the Canvas is part of the component tree, so context from outside it reaches the components inside it.
+- **Server rendering:** on the server, the Canvas renders its `<canvas>` and its `fallback`, never its children: no Scene component, Frame callback or Asset load runs there. When the page hydrates, the `<canvas>` is reused and the scene mounts once hydration has finished. A Canvas rendered on the client without hydration mounts its scene at once.
+- **Fallback:** `fallback` is rendered after the `<canvas>`, as its sibling, until the first Frame has rendered: on the server, through hydration, while the renderer initializes and while the scene waits under a `<Loading>` that renders nothing. The canvas fills its parent, so lay the fallback over it yourself:
+
+```tsx
+<div style={{ position: 'relative', height: '400px' }}>
+  <Canvas fallback={<img src="/ship.jpg" alt="" style={{ position: 'absolute', inset: 0 }} />}>
+    <Ship />
+  </Canvas>
+</div>
+```
 
 ## Props
 
@@ -35,6 +45,7 @@ Other props are passed to the `<canvas>` element.
 | ----------- | --------------------------------- | -------------------------------------------------------- | --------------------------------------------------- |
 | `renderer`  | `RendererFactory`                 | a `WebGLRenderer` with `antialias: true`                 | Creates the renderer for the `<canvas>`. Read once. |
 | `camera`    | `DefaultCameraOptions`            | `{ fov: 75, near: 0.1, far: 1000, position: [0, 0, 5] }` | Settings of the default camera.                     |
+| `fallback`  | `JSX.Element`                     | —                                                        | Shown after the `<canvas>` until the first Frame.   |
 | `frameloop` | `'demand' \| 'always' \| 'never'` | `'demand'`                                               | When Frames render on their own.                    |
 | `style`     | `JSX.CSSProperties`               | —                                                        | Merged over the fill-the-parent style.              |
 | `children`  | `JSX.Element`                     | —                                                        | The scene.                                          |

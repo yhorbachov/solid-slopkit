@@ -16,6 +16,8 @@ export default defineConfig({
           include: ['src/**/*.test.{ts,tsx}', 'test/**/*.test.{ts,tsx}'],
           exclude: ['**/*.browser.test.*'],
           setupFiles: ['./test/setup.ts', './test/jsdom-setup.ts'],
+          // An SSR test's first render starts the helper's own Vite server (test/ssr.tsx), once per test file.
+          testTimeout: 20_000,
         },
       },
       {

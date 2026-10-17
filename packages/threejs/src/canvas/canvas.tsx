@@ -1,5 +1,17 @@
-import { createContext, createEffect, createSignal, DEV, omit, onCleanup, onSettled, untrack, useContext } from 'solid-js';
-import type { JSX } from '@solidjs/web';
+import {
+  createContext,
+  createEffect,
+  createSignal,
+  DEV,
+  isHydrating,
+  omit,
+  onCleanup,
+  onSettled,
+  Show,
+  untrack,
+  useContext,
+} from 'solid-js';
+import { isServer, type JSX } from '@solidjs/web';
 import { PerspectiveCamera, Scene, WebGLRenderer, type Camera, type Object3D, type OrthographicCamera } from 'three';
 import { ParentContext } from '../scene-component/parent';
 import { createFrameLoop, type Frameloop } from './frame-loop';
@@ -77,7 +89,12 @@ export interface CanvasOwnProps {
    * `advance()`.
    */
   frameloop?: Frameloop;
-  /** The scene: Scene components, and any component that renders them. */
+  /**
+   * Shown after the `<canvas>`, as its sibling, until the first Frame has rendered: on the server, during hydration
+   * and while the renderer initializes. Lay it over the canvas with your own CSS.
+   */
+  fallback?: JSX.Element;
+  /** The scene: Scene components, and any component that renders them. Never rendered on the server. */
   children?: JSX.Element;
 }
 
@@ -179,12 +196,22 @@ function release(renderer: CanvasRenderer) {
  * changes the scene (see `frameloop`).
  */
 export function Canvas(props: CanvasProps) {
-  const others = omit(props, 'renderer', 'camera', 'frameloop', 'children', 'style');
+  const others = omit(props, 'renderer', 'camera', 'frameloop', 'fallback', 'children', 'style');
   let canvas: HTMLCanvasElement | undefined;
 
   const scene = new Scene();
   const camera = new PerspectiveCamera(75, 1, 0.1, 1000);
   camera.position.set(...DEFAULT_POSITION);
+
+  // On the server the scene never mounts; while hydrating, it mounts once hydration has finished, since the server
+  // rendered none of it. A client-only render mounts it at once.
+  const hydrating = !isServer && isHydrating();
+  const [sceneMounted, setSceneMounted] = createSignal(!isServer && !hydrating, { name: 'Canvas.sceneMounted' });
+  // Whether a Frame has rendered yet, which ends the fallback. Written by the first Frame, wherever it renders from.
+  // Without a fallback there is nothing to end. Whether there is one is read once.
+  const hasFallback = untrack(() => 'fallback' in props);
+  let firstDrawn = !hasFallback;
+  const [drawn, setDrawn] = createSignal(false, { name: 'Canvas.drawn', ownedWrite: true });
 
   // The renderer as a plain variable too: Frames render with it as soon as it arrives, before the signal commits.
   let active: CanvasRenderer | undefined;
@@ -207,6 +234,10 @@ export function Canvas(props: CanvasProps) {
     const draw = draws[0];
     if (draw) draw.callback(handle, delta);
     else active.render(scene, drawing);
+    if (!firstDrawn) {
+      firstDrawn = true;
+      setDrawn(true);
+    }
     return true;
   };
   const loop = createFrameLoop(render, untrack(() => props.frameloop) ?? 'demand');
@@ -266,6 +297,7 @@ export function Canvas(props: CanvasProps) {
 
   onSettled(() => {
     if (!canvas) return;
+    if (hydrating) setSceneMounted(true);
     const element = canvas;
     let disposed = false;
     let current: CanvasRenderer | undefined;
@@ -369,8 +401,11 @@ export function Canvas(props: CanvasProps) {
         {...others}
         style={{ display: 'block', width: '100%', height: '100%', ...props.style }}
       />
+      {hasFallback && <Show when={!drawn()}>{props.fallback}</Show>}
       <CanvasContext value={handle}>
-        <ParentContext value={() => scene}>{props.children}</ParentContext>
+        <ParentContext value={() => scene}>
+          <Show when={sceneMounted()}>{props.children}</Show>
+        </ParentContext>
       </CanvasContext>
     </>
   );
