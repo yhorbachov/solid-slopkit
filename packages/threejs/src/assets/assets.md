@@ -47,7 +47,7 @@ function Ship(props: { livery: string }) {
 
 ## The Asset cache
 
-- **Counting:** each `loadAsset` call uses the Asset its `url` points at, while its owner lives. When the owner is disposed or the `url` moves on, it stops using it.
+- **Counting:** each `loadAsset` call uses the Asset its `url` points at, while its owner lives. When the owner is disposed it stops using it. When the `url` moves on, it keeps the old Asset, which stays on screen, until the new one has loaded or failed; a URL it leaves before that is let go at once.
 - **Grace period:** an Asset nothing uses for one second is disposed and leaves the cache. One used again sooner (a `<Show>` toggling, a route coming back) is reused as it is. One released while still loading is disposed when its load finishes.
 - **Disposal:** the Asset's own `dispose()` when it has one (a `Texture`). Otherwise, for every Object3D it holds (itself, or a `scene` or `scenes`, as a glTF result has), the geometries and materials in it, and the textures on those materials. `configureLoader` can replace this for a loader class.
 - **Global:** the cache belongs to the page, not to a Canvas, so two Canvases share Assets.

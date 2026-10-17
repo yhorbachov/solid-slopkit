@@ -1,3 +1,4 @@
+import { captureArtifact } from '@solidjs/diagnostics';
 import { render } from '@solidjs/testing-library';
 import { createSignal, Errored, flush, Loading, Show } from 'solid-js';
 import { BoxGeometry, Group, Mesh, MeshStandardMaterial, Texture, TextureLoader } from 'three';
@@ -143,6 +144,141 @@ describe('loadAsset', () => {
     expect(old.geometry.dispose).not.toHaveBeenCalled();
     await vi.advanceTimersByTimeAsync(1);
     expect(old.geometry.dispose).toHaveBeenCalledOnce();
+  });
+
+  test('keeps the old Asset while the new one loads, however long that takes', async () => {
+    const first = url('first');
+    const second = url('second');
+    const [current, setCurrent] = createSignal(first);
+    const seen: Model[] = [];
+    const { container } = render(() => (
+      <Loading>
+        <Reader url={current} seen={seen} />
+      </Loading>
+    ));
+    flush();
+    await finish(first);
+    const old = seen.at(-1)!;
+
+    setCurrent(second);
+    flush();
+    await vi.advanceTimersByTimeAsync(5000);
+    // Still on screen, so still alive.
+    expect(container.textContent).toBe(first);
+    expect(old.geometry.dispose).not.toHaveBeenCalled();
+
+    await finish(second);
+    expect(container.textContent).toBe(second);
+    await vi.advanceTimersByTimeAsync(999);
+    expect(old.geometry.dispose).not.toHaveBeenCalled();
+    await vi.advanceTimersByTimeAsync(1);
+    expect(old.geometry.dispose).toHaveBeenCalledOnce();
+    expect(seen.at(-1)!.geometry.dispose).not.toHaveBeenCalled();
+  });
+
+  test('a URL left before its Asset loads is let go at once; the shown one waits for its successor', async () => {
+    const first = url('first');
+    const second = url('second');
+    const third = url('third');
+    const [current, setCurrent] = createSignal(first);
+    const seen: Model[] = [];
+    const { container } = render(() => (
+      <Loading>
+        <Reader url={current} seen={seen} />
+      </Loading>
+    ));
+    flush();
+    await finish(first);
+    const old = seen.at(-1)!;
+
+    setCurrent(second);
+    flush();
+    setCurrent(third);
+    flush();
+    // The second never showed: its load finishing changes nothing, and it goes after the grace period.
+    await finish(second);
+    expect(container.textContent).toBe(first);
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(ModelLoader.loads.find((load) => load.url === second)!.made!.geometry.dispose).toHaveBeenCalledOnce();
+    expect(old.geometry.dispose).not.toHaveBeenCalled();
+
+    await finish(third);
+    expect(container.textContent).toBe(third);
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(old.geometry.dispose).toHaveBeenCalledOnce();
+    expect(seen.at(-1)!.geometry.dispose).not.toHaveBeenCalled();
+  });
+
+  test('a new URL that fails to load lets go of the old Asset, which Errored no longer shows', async () => {
+    const first = url('first');
+    const second = url('broken');
+    const [current, setCurrent] = createSignal(first);
+    const seen: Model[] = [];
+    const { container } = render(() => (
+      <Errored fallback={(error) => `failed: ${(error() as Error).message}`}>
+        <Loading>
+          <Reader url={current} seen={seen} />
+        </Loading>
+      </Errored>
+    ));
+    flush();
+    await finish(first);
+    const old = seen.at(-1)!;
+
+    setCurrent(second);
+    flush();
+    ModelLoader.loads.find((load) => load.url === second)!.reject(new Error('404'));
+    await vi.advanceTimersByTimeAsync(0);
+    flush();
+    expect(container.textContent).toBe('failed: 404');
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(old.geometry.dispose).toHaveBeenCalledOnce();
+  });
+
+  test('disposed while the next Asset loads: lets go of both', async () => {
+    const first = url('first');
+    const second = url('second');
+    const [current, setCurrent] = createSignal(first);
+    const seen: Model[] = [];
+    const { unmount } = render(() => (
+      <Loading>
+        <Reader url={current} seen={seen} />
+      </Loading>
+    ));
+    flush();
+    await finish(first);
+    const old = seen.at(-1)!;
+
+    setCurrent(second);
+    flush();
+    unmount();
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(old.geometry.dispose).toHaveBeenCalledOnce();
+    await finish(second);
+    expect(ModelLoader.loads.find((load) => load.url === second)!.made!.geometry.dispose).toHaveBeenCalledOnce();
+  });
+
+  test('following a URL raises no diagnostics', async () => {
+    const first = url('first');
+    const second = url('second');
+    const [current, setCurrent] = createSignal(first);
+    const { artifact } = await captureArtifact(
+      async () => {
+        render(() => (
+          <Loading>
+            <Reader url={current} seen={[]} />
+          </Loading>
+        ));
+        flush();
+        await finish(first);
+        setCurrent(second);
+        flush();
+        await finish(second);
+      },
+      { scenario: 'asset-url-change' },
+    );
+    // With fake timers the first load finishes at once, so its fallback flashes for 0ms.
+    expect(artifact).toHaveNoDiagnostics({ allow: ['HOT_SCOPE_TIME', 'FALLBACK_FLASH'] });
   });
 
   test('an Asset used again within the grace period is reused, not reloaded or disposed', async () => {

@@ -52,7 +52,7 @@ function Floor() {
 
 - The accessor is typed from the loader: `gltf()` is a `GLTF` (`scene`, `animations`, …), `grass()` a `Texture`.
 - Show an Object3D Asset with the `object` prop of the matching component (`T.Group`, `T.Mesh`, `T.Object3D`), and use texture and geometry Assets as prop values.
-- When the URL changes, the old Asset stays on screen until the new one has loaded.
+- When the URL changes, the old Asset stays on screen, and cached, until the new one has loaded (or failed).
 - A failed load reaches the nearest `<Errored>`; the next read loads again.
 - The Canvas's `fallback` shows until the first Frame, which renders as soon as the renderer is ready, with whatever has loaded: use it for a poster while the renderer starts, not as a loading indicator for Assets. Show Asset progress in the DOM next to the Canvas.
 
