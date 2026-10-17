@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitest/config';
 import solid from '@solidjs/vite-plugin';
+import { playwright } from '@vitest/browser-playwright';
 
 // The package ships uncompiled Solid source (see `build:source`); this config only serves the tests.
 export default defineConfig({
@@ -7,12 +8,29 @@ export default defineConfig({
   test: {
     projects: [
       {
+        // The scene graph and reactivity against a stub renderer: fast, no GPU and no layout.
         extends: true,
         test: {
           name: 'unit',
           environment: 'jsdom',
           include: ['src/**/*.test.{ts,tsx}', 'test/**/*.test.ts'],
+          exclude: ['**/*.browser.test.*'],
           setupFiles: ['./test/setup.ts'],
+        },
+      },
+      {
+        // Anything that needs a GPU context, real layout or real pointer input.
+        extends: true,
+        test: {
+          name: 'browser',
+          include: ['src/**/*.browser.test.{ts,tsx}', 'test/**/*.browser.test.ts'],
+          setupFiles: ['./test/setup.ts'],
+          browser: {
+            enabled: true,
+            provider: playwright(),
+            headless: true,
+            instances: [{ browser: 'chromium' }],
+          },
         },
       },
     ],
