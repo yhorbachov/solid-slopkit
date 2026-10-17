@@ -1,8 +1,9 @@
 import { createContext, createEffect, createSignal, DEV, omit, onCleanup, onSettled, untrack, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
-import { PerspectiveCamera, Scene, WebGLRenderer, type Camera, type OrthographicCamera } from 'three';
+import { PerspectiveCamera, Scene, WebGLRenderer, type Camera, type Object3D, type OrthographicCamera } from 'three';
 import { ParentContext } from '../scene-component/parent';
 import { createFrameLoop, type Frameloop } from './frame-loop';
+import { createPointerEvents, type HandlerLookup, type InteractiveClaim } from './pointer-events';
 
 /** What a Canvas needs from a renderer. `WebGLRenderer` and an initialized `WebGPURenderer` both fit. */
 export interface CanvasRenderer {
@@ -116,6 +117,14 @@ export interface CameraClaim {
 // The Active camera stack of each Canvas, for camera Scene components.
 const cameraStacks = new WeakMap<CanvasHandle, (camera: Camera) => CameraClaim>();
 
+// The Interactive Instances of each Canvas, for Scene components of `Object3D`s with pointer event handlers.
+const interactives = new WeakMap<CanvasHandle, (instance: Object3D, handlers: HandlerLookup) => InteractiveClaim>();
+
+/** Makes `instance` an Interactive Instance of `canvas` until the claim is released. Internal to the package. */
+export function claimInteractive(canvas: CanvasHandle, instance: Object3D, handlers: HandlerLookup): InteractiveClaim {
+  return interactives.get(canvas)!(instance, handlers);
+}
+
 /** Makes `camera` the Active camera of `canvas` until the claim is released. Internal to the package. */
 export function claimCamera(canvas: CanvasHandle, camera: Camera): CameraClaim {
   return cameraStacks.get(canvas)!(camera);
@@ -203,6 +212,7 @@ export function Canvas(props: CanvasProps) {
   const loop = createFrameLoop(render, untrack(() => props.frameloop) ?? 'demand');
 
   const [renderer, setRenderer] = createSignal<CanvasRenderer | undefined>(undefined, { name: 'Canvas.renderer' });
+  const pointerEvents = createPointerEvents(scene, () => drawing);
   const [activeCamera, setActiveCamera] = createSignal<Camera>(camera, { name: 'Canvas.activeCamera' });
   const restack = () => {
     const top = claims.at(-1)?.camera ?? camera;
@@ -278,6 +288,7 @@ export function Canvas(props: CanvasProps) {
       setSize(measured);
     });
     observer.observe(element);
+    const stopListening = pointerEvents.listen(element);
 
     mounted.add(handle);
 
@@ -286,6 +297,7 @@ export function Canvas(props: CanvasProps) {
       mounted.delete(handle);
       loop.dispose();
       observer.disconnect();
+      stopListening();
       active = undefined;
       if (current) release(current);
     };
@@ -307,6 +319,7 @@ export function Canvas(props: CanvasProps) {
     },
     invalidate: loop.invalidate,
   };
+  interactives.set(handle, pointerEvents.register);
   cameraStacks.set(handle, (claimed) => {
     const entry = { camera: claimed };
     claims.push(entry);

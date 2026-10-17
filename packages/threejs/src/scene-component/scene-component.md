@@ -138,16 +138,59 @@ A camera's Scene component (`T.PerspectiveCamera`, `T.OrthographicCamera`, or `s
 - **Frames:** activating and deactivating Invalidate the Canvas.
 - **Other classes:** `active` is a camera prop only. On any other Instance it is an Instance prop like the rest.
 
+## Pointer events
+
+A Scene component of an `Object3D` takes pointer event handlers: `onClick`, `onContextMenu`, `onPointerDown`, `onPointerUp`, `onPointerMove`, `onPointerOver`, `onPointerOut`, `onPointerEnter`, `onPointerLeave` and `onWheel`. An Instance with at least one is an Interactive Instance.
+
+```tsx
+const [hovered, setHovered] = createSignal(false);
+
+<T.Mesh
+  onClick={(event) => {
+    event.stopPropagation();
+    console.log(event.intersection.point);
+  }}
+  onPointerEnter={() => setHovered(true)}
+  onPointerLeave={() => setHovered(false)}
+  scale={hovered() ? 1.2 : 1}
+>
+  <T.BoxGeometry />
+  <T.MeshStandardMaterial color={hovered() ? 'hotpink' : 'orange'} />
+</T.Mesh>;
+```
+
+- **Hit-testing:** on each pointer event over the `<canvas>`, a ray is cast from the Active camera through the pointer, against Interactive Instances and everything under them, where their props now put them. Nothing else is hit-tested: an object with no handlers neither receives events nor blocks them. A hit on an object with no handlers goes to the nearest Interactive Instance above it. Nothing is hit-tested between pointer events, so an object that moves under a still pointer is noticed on the next one.
+- **Delivery:** every hit gets the event, nearest first. Each goes to the hit's Interactive Instance, then up through its Interactive ancestors, and then on to the next hit. Each Instance gets an event once, with its nearest hit. `stopPropagation()` ends delivery entirely: no ancestor and no farther hit gets it.
+- **Hover:** each move computes the hovered Instances: the ones the move reached, up to the one that stopped it. `onPointerEnter` and `onPointerLeave` run on each Instance that joins or leaves that set, and don't bubble. `onPointerOver` and `onPointerOut` run when the nearest hovered Instance changes, and bubble. The pointer leaving the canvas ends every hover.
+- **Capture:** `event.setPointerCapture()` sends that pointer's later moves and its up to this Instance and its Interactive ancestors, hit or not, even outside the canvas, until the pointer is lifted or cancelled or `event.releasePointerCapture()` is called. While captured, those handlers get an event with no `intersection` when the ray misses, and hover doesn't change. Use it for drags.
+- **Handlers:** which handlers a component has is read once, and each is read when its event is delivered, so it can change. They aren't written to the Instance. A Rebuild keeps the component interactive. A disposed Instance stops receiving events.
+- **DOM:** `event.nativeEvent` is the DOM event on the `<canvas>`, so `event.nativeEvent.preventDefault()` stops a context menu or a page scroll.
+
+The event is a `ScenePointerEvent<E, I>`:
+
+| Member                                                          | Description                                                                                                                                                                                                                                                                            |
+| --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `nativeEvent`                                                   | The DOM event: a `PointerEvent`, a `MouseEvent` for `onClick` and `onContextMenu`, a `WheelEvent` for `onWheel`.                                                                                                                                                                       |
+| `intersection`                                                  | three's `Intersection` for the nearest hit that led here (`point`, `distance`, `face`, `uv`, `object`: what the ray hit). `undefined` only for `onPointerMove` and `onPointerUp` under a capture that misses, and for `onPointerOut` and `onPointerLeave` once the Instance isn't hit. |
+| `object`                                                        | The Instance whose handler is running.                                                                                                                                                                                                                                                 |
+| `pointer`                                                       | The pointer in normalized device coordinates (-1 to 1, y up).                                                                                                                                                                                                                          |
+| `ray`, `camera`                                                 | The ray cast, and the Active camera it was cast from.                                                                                                                                                                                                                                  |
+| `pointerId`                                                     | The DOM event's `pointerId`; `undefined` for a wheel event.                                                                                                                                                                                                                            |
+| `button`, `buttons`, `altKey`, `ctrlKey`, `metaKey`, `shiftKey` | Copied from the DOM event.                                                                                                                                                                                                                                                             |
+| `stopPropagation()`                                             | Ends delivery.                                                                                                                                                                                                                                                                         |
+| `setPointerCapture()`, `releasePointerCapture()`                | Start and end a capture by this Instance. Do nothing without a `pointerId`.                                                                                                                                                                                                            |
+
 ## Props
 
-| Prop       | Type                            | Default              | Description                                                  |
-| ---------- | ------------------------------- | -------------------- | ------------------------------------------------------------ |
-| `args`     | the constructor's parameters    | `[]`                 | Constructor arguments of the Instance. A change rebuilds it. |
-| `object`   | an instance of the class        | —                    | An existing Instance to adopt instead. Never disposed.       |
-| `attach`   | `Attach` (`string \| AttachFn`) | by the Instance type | Where the Instance goes in its parent. Read once.            |
-| `dispose`  | `boolean`                       | `true`               | `false` keeps the Instance after the component is gone.      |
-| `ref`      | `SceneRef<Instance>`            | —                    | Receives the Instance once attached, and after each Rebuild. |
-| `children` | `JSX.Element`                   | —                    | Scene components that attach to this Instance.               |
-| `active`   | `boolean`                       | `false`              | Cameras only: makes it the Active camera while `true`.       |
+| Prop                          | Type                                 | Default              | Description                                                    |
+| ----------------------------- | ------------------------------------ | -------------------- | -------------------------------------------------------------- |
+| `args`                        | the constructor's parameters         | `[]`                 | Constructor arguments of the Instance. A change rebuilds it.   |
+| `object`                      | an instance of the class             | —                    | An existing Instance to adopt instead. Never disposed.         |
+| `attach`                      | `Attach` (`string \| AttachFn`)      | by the Instance type | Where the Instance goes in its parent. Read once.              |
+| `dispose`                     | `boolean`                            | `true`               | `false` keeps the Instance after the component is gone.        |
+| `ref`                         | `SceneRef<Instance>`                 | —                    | Receives the Instance once attached, and after each Rebuild.   |
+| `children`                    | `JSX.Element`                        | —                    | Scene components that attach to this Instance.                 |
+| `active`                      | `boolean`                            | `false`              | Cameras only: makes it the Active camera while `true`.         |
+| `onClick`, `onPointerDown`, … | `(event: ScenePointerEvent) => void` | —                    | `Object3D`s only: pointer event handlers (see Pointer events). |
 
-Types: `SceneClass` (a constructible class), `InstanceProps<Instance>` (the Instance props), `PartialValue<O>` (a Partial value for an `O`), `PropValue<V>` (what one of them accepts), `SceneComponent<C>` (what `sceneComponent(C)` returns), `SceneComponentProps<Instance, Args>`, `SceneRef<Instance>`, `CameraProps` (a camera's `active`), `Attach`, `AttachFn` (`(parent, self) => detach`).
+Types: `SceneClass` (a constructible class), `InstanceProps<Instance>` (the Instance props), `PartialValue<O>` (a Partial value for an `O`), `PropValue<V>` (what one of them accepts), `SceneComponent<C>` (what `sceneComponent(C)` returns), `SceneComponentProps<Instance, Args>`, `SceneRef<Instance>`, `CameraProps` (a camera's `active`), `PointerEventProps` (an `Object3D`'s handlers), `ScenePointerEvent<E, I>`, `Attach`, `AttachFn` (`(parent, self) => detach`).

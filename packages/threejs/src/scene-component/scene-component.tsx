@@ -1,8 +1,9 @@
 import { createEffect, createMemo, createRenderEffect, onCleanup, untrack, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
-import type { Camera, Color, ColorRepresentation } from 'three';
+import type { Camera, Color, ColorRepresentation, Object3D } from 'three';
 import { attach, type Attach, type Attachment } from './attach';
-import { claimCamera, useCanvas, type CameraClaim } from '../canvas/canvas';
+import { claimCamera, claimInteractive, useCanvas, type CameraClaim } from '../canvas/canvas';
+import { POINTER_EVENT_PROPS, type PointerEventName, type PointerEventProps } from '../canvas/pointer-events';
 import { ParentContext } from './parent';
 import { bindProps, copyPlain } from './props';
 
@@ -69,8 +70,12 @@ export type PropValue<V> = V extends Color
         ? V | PartialValue<V>
         : V;
 
-// A camera's `active` is the component's own; on any other Instance it's an Instance prop.
-type Reserved<Instance> = keyof SceneComponentProps<unknown, unknown[]> | (Instance extends Camera ? keyof CameraProps : never);
+// A camera's `active` and an Object3D's pointer event handlers are the component's own; on any other Instance they're
+// Instance props.
+type Reserved<Instance> =
+  | keyof SceneComponentProps<unknown, unknown[]>
+  | (Instance extends Camera ? keyof CameraProps : never)
+  | (Instance extends Object3D ? keyof PointerEventProps : never);
 
 /** A prop for every property of an Instance that isn't a method. */
 export type InstanceProps<Instance> = {
@@ -82,6 +87,7 @@ export type SceneComponent<C extends SceneClass> = (
   props: SceneComponentProps<InstanceType<C>, ConstructorParameters<C>> &
     InstanceProps<InstanceType<C>> &
     (InstanceType<C> extends Camera ? CameraProps : unknown) &
+    (InstanceType<C> extends Object3D ? PointerEventProps : unknown) &
     // An Instance comes from `args` or from `object`, never both.
     ({ args?: ConstructorParameters<C>; object?: never } | { args?: never; object: InstanceType<C> }),
 ) => JSX.Element;
@@ -149,12 +155,16 @@ export function sceneComponent<C extends SceneClass>(Class: C): SceneComponent<C
       ? adoptedInstance<InstanceType<C>>(props, name)
       : ownedInstance(Class, props, name);
 
-    // Whether the Instance is a camera, and takes `active`, is decided once.
-    const camera = (untrack(instance) as Partial<Camera>).isCamera === true;
+    // Whether the Instance is a camera (and takes `active`) and an Object3D (and takes pointer event handlers) is
+    // decided once.
+    const first = untrack(instance) as Partial<Camera>;
+    const camera = first.isCamera === true;
+    const object3d = first.isObject3D === true;
+    const own = new Set([...(camera ? CAMERA_PROPS : []), ...(object3d ? POINTER_EVENT_PROPS : [])]);
 
     // Created before Attach, so the props are on the Instance before it joins its parent, at mount and on a Rebuild.
     // oxlint-disable-next-line solid/reactivity -- bindProps reads the accessor inside its own render effects
-    bindProps(instance, props, name, invalidate, camera ? CAMERA_PROPS : undefined);
+    bindProps(instance, props, name, invalidate, own);
 
     // Attach follows the parent: a Rebuild of the parent detaches this Instance from the old one and attaches it to
     // the new one. A Rebuild of this component swaps the new Instance into the old one's place instead.
@@ -185,6 +195,19 @@ export function sceneComponent<C extends SceneClass>(Class: C): SceneComponent<C
       },
       { name: `${name}.swap`, defer: true },
     );
+
+    // An Interactive Instance has at least one handler prop. Which ones it has is read once; each is read when its
+    // event is delivered, so it can change.
+    if (object3d && untrack(() => Object.keys(props).some((key) => POINTER_EVENT_PROPS.has(key)))) {
+      const handlers = props as Record<PointerEventName, ((event: any) => void) | undefined>;
+      const interactive = claimInteractive(canvas, untrack(instance) as Object3D, (event) => untrack(() => handlers[event]));
+      onCleanup(() => interactive.release());
+      createRenderEffect(
+        () => instance(),
+        (next) => interactive.swap(next as Object3D),
+        { name: `${name}.interactiveSwap`, defer: true },
+      );
+    }
 
     if (camera) {
       // A claim on the Active camera stack while `active`; a Rebuild keeps the claim's place in the stack. Plain
