@@ -29,7 +29,11 @@ export default defineConfig({
           setupFiles: ['./test/setup.ts'],
           browser: {
             enabled: true,
-            provider: playwright(),
+            // A real WebGPU adapter for the WebGPU tests: headless Chromium offers none by default, and the renderer
+            // would quietly fall back to WebGL 2.
+            provider: playwright({
+              launchOptions: { args: ['--enable-unsafe-webgpu', '--enable-features=Vulkan,WebGPU', '--use-angle=metal'] },
+            }),
             headless: true,
             instances: [{ browser: 'chromium' }],
           },

@@ -21,3 +21,7 @@ Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `Frameloop`, `FrameCallb
 - [Canvas](canvas/canvas.md): `Canvas`, its renderer, default camera, Active camera and Frames, `invalidate()`, `useCanvas()`, Frame callbacks with `onFrame()`, and the Render callback with `onRender()`.
 - [Assets](assets/assets.md): `loadAsset`, the Asset cache and its disposal, `preloadAsset`, `configureLoader`, and showing an Asset as an Adopted Instance.
 - [Scene components](scene-component/scene-component.md): the `T` namespace, `sceneComponent`, Instances, their props and Partial values, Attach, Rebuild, Adopted Instances, cameras and `active`, pointer events, refs and disposal.
+
+## Subpaths
+
+- [WebGPU](webgpu/webgpu.md) (`@solid-slopkit/threejs/webgpu`): `webgpuRenderer()`, the one-line WebGPU opt-in for a Canvas.

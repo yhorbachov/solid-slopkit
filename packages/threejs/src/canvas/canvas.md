@@ -50,7 +50,7 @@ Other props are passed to the `<canvas>` element.
 | `style`     | `JSX.CSSProperties`               | —                                                        | Merged over the fill-the-parent style.              |
 | `children`  | `JSX.Element`                     | —                                                        | The scene.                                          |
 
-`RendererFactory` is `(canvas: HTMLCanvasElement) => CanvasRenderer | Promise<CanvasRenderer>`. `CanvasRenderer` is what the Canvas calls: `render(scene, camera)`, `setSize(width, height, updateStyle)`, `setPixelRatio(ratio)` and `dispose()`. `WebGLRenderer` fits, and so does a `WebGPURenderer` once `init()` has resolved:
+`RendererFactory` is `(canvas: HTMLCanvasElement) => CanvasRenderer | Promise<CanvasRenderer>`. `CanvasRenderer` is what the Canvas calls: `render(scene, camera)`, `setSize(width, height, updateStyle)`, `setPixelRatio(ratio)` and `dispose()`. `WebGLRenderer` fits, and so does a `WebGPURenderer` once `init()` has resolved, which `webgpuRenderer()` from `@solid-slopkit/threejs/webgpu` does in one line (see [WebGPU](../webgpu/webgpu.md)). By hand:
 
 ```tsx
 import { WebGPURenderer } from 'three/webgpu';
