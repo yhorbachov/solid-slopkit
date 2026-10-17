@@ -11,7 +11,7 @@ A family of packages for SolidJS 2.x:
 
 ## Installing
 
-The packages aren't published to npm. Every package is released together under one version, as a tarball attached to a [GitHub Release](https://github.com/yhorbachov/solid-slopkit/releases) tagged `v<version>` (ADR 0001). Install the ones you need from that release:
+The packages aren't published to npm. Every package is released together under one version, as a tarball attached to a [GitHub Release](https://github.com/yhorbachov/solid-slopkit/releases) tagged `v<version>` (ADR 0001). [docs/using-slopkit.md](./docs/using-slopkit.md) is the setup guide for coding agents: point an agent at it to install and wire up the packages in an app. To install by hand, add the ones you need from that release:
 
 ```bash
 pnpm add https://github.com/yhorbachov/solid-slopkit/releases/download/v0.0.1/solid-slopkit-ui-0.0.1.tgz
