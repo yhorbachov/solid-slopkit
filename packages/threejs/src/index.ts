@@ -2,3 +2,4 @@
 // never imported from this file (ADR 0002).
 export * from './canvas';
 export * from './scene-component';
+export * from './t';

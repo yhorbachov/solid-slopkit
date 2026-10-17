@@ -22,7 +22,8 @@
     "build:source": "tsc -p tsconfig.build.json",
     "build:assets": "node -e \"require('fs').cpSync('src','dist/source',{recursive:true,filter:s=>!require('path').extname(s)||/\\.md$/.test(s)})\"",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "generate": "node scripts/generate-t.mjs"
   },
   "devDependencies": {
     "@solidjs/diagnostics": "^2.0.0-rc.13",
@@ -35,6 +36,7 @@
     "jsdom": "^30.1.2",
     "playwright": "^1.63.0",
     "three": "^0.186.1",
+    "three-floor": "npm:three@0.171.0",
     "typescript": "^7.0.2",
     "vite": "^8.1.5",
     "vitest": "^5.0.0"

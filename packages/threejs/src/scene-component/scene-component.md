@@ -1,32 +1,50 @@
 # Scene components
 
-A Scene component wraps one three.js class and manages its Instance: it constructs it, attaches it to its parent, and detaches and disposes it with its owner. `sceneComponent(Class)` makes one for any class.
+A Scene component wraps one three.js class and manages its Instance: it constructs it, attaches it to its parent, and detaches and disposes it with its owner. The `T` namespace has one for every scene-graph class three.js exports; `sceneComponent(Class)` makes one for any other class.
 
 ```tsx
-import { sceneComponent } from '@solid-slopkit/threejs';
+import { T, sceneComponent } from '@solid-slopkit/threejs';
 ```
 
 ## Usage
 
 ```tsx
-import { Canvas, sceneComponent } from '@solid-slopkit/threejs';
-import * as THREE from 'three';
-
-const Mesh = sceneComponent(THREE.Mesh);
-const BoxGeometry = sceneComponent(THREE.BoxGeometry);
-const MeshStandardMaterial = sceneComponent(THREE.MeshStandardMaterial);
+import { Canvas, T } from '@solid-slopkit/threejs';
 
 <Canvas>
-  <Mesh>
-    <BoxGeometry args={[1, 1, 1]} />
-    <MeshStandardMaterial />
-  </Mesh>
+  <T.Mesh>
+    <T.BoxGeometry args={[1, 1, 1]} />
+    <T.MeshStandardMaterial />
+  </T.Mesh>
 </Canvas>;
 ```
 
+## The T namespace
+
+`T` holds a Scene component for each class three.js exports that is, or extends, `Object3D` (objects, cameras, lights, helpers), `BufferGeometry`, `Material`, `Texture`, `Fog` or `FogExp2`: `T.Mesh`, `T.PerspectiveCamera`, `T.PointLight`, `T.AxesHelper`, `T.BoxGeometry`, `T.MeshStandardMaterial`, `T.Texture`, `T.Fog`, and the rest. Math types (`Vector3`, `Color`), loaders and renderers aren't scene members, so they aren't in it. Neither is the abstract `Light`.
+
+- **Tree-shaking:** `T` is a static module namespace, not an object built at runtime, so a bundler keeps only the members an app reads (`T.Mesh`) and the three.js classes they wrap. Read members directly; `Object.values(T)` or passing `T` around keeps all of them.
+- **Names:** each member has its class's name, so it never clashes with the class itself: `import { Mesh } from 'three'` and `<T.Mesh>` sit side by side.
+- **Versions:** `T` has only the classes that both the installed three.js and the oldest supported release (r171) export, so it works across the peer range. A class added to three.js later is reached with `sceneComponent`.
+
+## sceneComponent
+
+For a class `T` doesn't have, such as an add-on from `three/examples`, a newer three.js class or a subclass of your own, `sceneComponent(Class)` makes a Scene component. Make it once, at module level, not inside a component:
+
+```tsx
+import { sceneComponent } from '@solid-slopkit/threejs';
+import { Water } from 'three/examples/jsm/objects/Water.js';
+
+const WaterSurface = sceneComponent(Water);
+
+<WaterSurface args={[geometry, options]} rotation={[-Math.PI / 2, 0, 0]} />;
+```
+
+The rest of this page holds for both.
+
 - **Instance:** constructed with `new Class(...args)`, and constructed again when `args` changes (see Rebuild).
 - **Parent:** the Instance of the Scene component around it, or the Canvas's scene at the top. A Scene component outside a Canvas throws.
-- **Ref:** called once the Instance's props are applied and it is attached, with the Instance. It takes a variable (`let mesh!: THREE.Mesh; <Mesh ref={mesh} />`), a callback, or an array of them. Children attach after it, so read their effects later (in an effect or a Frame callback), not in the ref. After a Rebuild it is called again with the new Instance, once the children have moved to it, so a variable ref always holds the current one.
+- **Ref:** called once the Instance's props are applied and it is attached, with the Instance. It takes a variable (`let mesh!: Mesh; <T.Mesh ref={mesh} />`), a callback, or an array of them. Children attach after it, so read their effects later (in an effect or a Frame callback), not in the ref. After a Rebuild it is called again with the new Instance, once the children have moved to it, so a variable ref always holds the current one.
 - **Disposal:** when its owner is disposed (a `<Show>` turns false, a `<For>` drops its item, the Canvas goes), the Instance is detached and its `dispose()` is called, if it has one. Pass `dispose={false}` to keep an Instance you hold on to elsewhere.
 - **Children:** Scene components inside it attach to its Instance. The scene is part of the component tree, so `<Show>`, `<For>`, context and your own components work inside it.
 
@@ -72,7 +90,7 @@ Many three.js classes take their configuration only in the constructor (a `BoxGe
 
 ## Instance props
 
-Every prop that isn't one of the component's own (below) sets the Instance's property of the same name: `<Mesh position={[0, 1, 0]} visible={shown()} />`. Each prop is its own binding, so a change re-runs only that prop's write, and props are applied before the Instance is attached and its ref runs. Which props a component has is read once; their values are reactive.
+Every prop that isn't one of the component's own (below) sets the Instance's property of the same name: `<T.Mesh position={[0, 1, 0]} visible={shown()} />`. Each prop is its own binding, so a change re-runs only that prop's write, and props are applied before the Instance is attached and its ref runs. Which props a component has is read once; their values are reactive.
 
 A property that holds a math object (one with `set`: `Vector3`, `Euler`, `Quaternion`, `Color`, `Layers`, `Matrix4`, …) is copied into, never replaced, so code that holds `mesh.position` keeps seeing the current value:
 

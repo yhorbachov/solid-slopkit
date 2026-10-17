@@ -3,14 +3,19 @@
 The root of a scene: a `<canvas>` that fills its parent, the scene, the default camera and the renderer. Every Scene component inside a Canvas belongs to its scene.
 
 ```tsx
-import { Canvas, useCanvas } from '@solid-slopkit/threejs';
+import { Canvas, T, useCanvas } from '@solid-slopkit/threejs';
 ```
 
 ## Usage
 
 ```tsx
 <div style={{ height: '400px' }}>
-  <Canvas camera={{ fov: 50, position: [0, 2, 6] }}>{/* Scene components */}</Canvas>
+  <Canvas camera={{ fov: 50, position: [0, 2, 6] }}>
+    <T.Mesh>
+      <T.BoxGeometry />
+      <T.MeshNormalMaterial />
+    </T.Mesh>
+  </Canvas>
 </div>
 ```
 
