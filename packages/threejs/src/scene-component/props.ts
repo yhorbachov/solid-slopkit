@@ -10,15 +10,37 @@ function isSettable(value: unknown): value is Settable {
   return value !== null && typeof value === 'object' && typeof (value as Settable).set === 'function';
 }
 
+/** An object literal (or a store's view of one), as opposed to an instance of a class. */
+export function isPlainObject(value: unknown): value is Record<string, unknown> {
+  if (value === null || typeof value !== 'object') return false;
+  const prototype = Object.getPrototypeOf(value);
+  return prototype === Object.prototype || prototype === null;
+}
+
+// Writes a Partial value: each field it lists, with the same rules as a prop, and nothing else. A field the object
+// doesn't have is skipped: the object may be a stand-in until Attach fills the property (a Mesh's default
+// MeshBasicMaterial has no `emissive`), and TypeScript checks the fields of an object literal.
+function applyPartial(target: object, partial: Record<string, unknown>) {
+  for (const [field, value] of Object.entries(partial)) {
+    if (field in target) applyProp(target, field, value);
+  }
+}
+
 /**
  * Writes one prop to an Instance. A property that holds a math object (anything with `set`) is copied into, never
  * replaced, so code holding that object keeps seeing the Instance's value: a `Color` takes whatever `Color.set`
  * takes, an array spreads into `set`, a number goes to `setScalar` (or `set`, for a one-argument type like `Layers`),
- * and an object of the same type is copied. `undefined` leaves a math object as it is. Anything else is assigned.
+ * and an object of the same type is copied. A Partial value (an object literal for a property that holds an instance
+ * of a class) writes only the fields it lists that the object has, at any depth; for an empty (`null`) property it
+ * waits until Attach fills it. `undefined` leaves a math object as it is. Anything else is assigned.
  */
 export function applyProp(instance: object, key: string, value: unknown) {
   const target = instance as Record<string, unknown>;
   const current = target[key];
+  if (isPlainObject(value) && current !== undefined && !isPlainObject(current)) {
+    if (current !== null && typeof current === 'object') applyPartial(current, value);
+    return;
+  }
   if (!isSettable(current)) {
     target[key] = value;
     return;
@@ -39,72 +61,52 @@ export function applyProp(instance: object, key: string, value: unknown) {
   } else target[key] = value;
 }
 
-// The Path props bound to each Instance, by the property they go through (`material` for `material-opacity`). When
-// Attach puts a new value in that property, they are written again to it.
-const pathBindings = new WeakMap<object, Map<string, Set<() => void>>>();
+// The Partial values bound to each Instance, by property. When Attach puts a new object in that property, they are
+// written again to it: `material={{ opacity: 0.5 }}` on a Mesh reaches the material a child attaches after it.
+const partialBindings = new WeakMap<object, Map<string, () => void>>();
 
-/** Writes the Path props that go through `instance[head]` again. Attach calls it after it changes that property. */
-export function reapplyPaths(instance: object, head: PropertyKey) {
-  if (typeof head !== 'string') return;
-  for (const reapply of pathBindings.get(instance)?.get(head) ?? []) reapply();
+/** Writes the Partial value bound to `instance[key]` again. Attach calls it after it changes that property. */
+export function reapplyPartial(instance: object, key: PropertyKey) {
+  if (typeof key === 'string') partialBindings.get(instance)?.get(key)?.();
 }
 
-function applyPath(instance: object, key: string, head: string, field: string, value: unknown) {
-  const owner = (instance as Record<string, unknown>)[head];
-  // An empty slot is written once something is attached to it.
-  if (owner === null) return;
-  if (owner === undefined || typeof owner !== 'object') {
-    throw new Error(`Can't set "${key}": "${head}" is ${owner === undefined ? 'undefined' : typeof owner} on the Instance.`);
-  }
-  // TypeScript doesn't check JSX attributes with a dash it doesn't know, so a misspelled field is caught here. A plain
-  // record (`userData`) takes new keys.
-  if (!(field in owner) && Object.getPrototypeOf(owner) !== Object.prototype) {
-    throw new Error(`Can't set "${key}": ${owner.constructor.name} has no "${field}".`);
-  }
-  applyProp(owner, field, value);
+function registerPartial(instance: object, key: string, reapply: () => void) {
+  let byKey = partialBindings.get(instance);
+  if (!byKey) partialBindings.set(instance, (byKey = new Map()));
+  byKey.set(key, reapply);
+  onCleanup(() => byKey.delete(key));
 }
 
-function registerPath(instance: object, head: string, reapply: () => void) {
-  let byHead = pathBindings.get(instance);
-  if (!byHead) pathBindings.set(instance, (byHead = new Map()));
-  let bindings = byHead.get(head);
-  if (!bindings) byHead.set(head, (bindings = new Set()));
-  bindings.add(reapply);
-  onCleanup(() => bindings.delete(reapply));
+// A copy of arrays and object literals, made in the tracked read: a store's nested values are read (and tracked) there,
+// never in the apply phase. Instances of classes are passed as they are.
+function copyPlain(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(copyPlain);
+  if (isPlainObject(value)) {
+    const copy: Record<string, unknown> = {};
+    for (const [field, nested] of Object.entries(value)) copy[field] = copyPlain(nested);
+    return copy;
+  }
+  return value;
 }
 
 /**
  * Binds every prop that isn't reserved to the Instance, each through its own render effect: the first write happens
  * now, so the Instance is set up before it is attached, and a change re-runs only that prop's binding. Which props
- * there are is read once; their values are reactive. A Path prop (`position-y`, `material-opacity`) sets one field of
- * the object in a property of the Instance, with the same copy rules, and is written again when Attach puts a new
- * object in that property.
+ * there are is read once; their values are reactive.
  */
 export function bindProps(instance: object, props: Record<string, unknown>, name: string) {
   for (const key of Object.keys(props)) {
     if (RESERVED_PROPS.has(key)) continue;
-    const dash = key.indexOf('-');
-    let write = (value: unknown) => applyProp(instance, key, value);
-    if (dash !== -1) {
-      const head = key.slice(0, dash);
-      const field = key.slice(dash + 1);
-      if (!head || !field || field.includes('-')) {
-        throw new Error(`"${key}" isn't a Path prop: they go one level deep, like "position-y" or "material-opacity".`);
-      }
-      let latest: unknown;
-      write = (value) => {
-        latest = value;
-        applyPath(instance, key, head, field, value);
-      };
-      registerPath(instance, head, () => applyPath(instance, key, head, field, latest));
-    }
+    let latest: unknown;
+    registerPartial(instance, key, () => {
+      if (isPlainObject(latest)) applyProp(instance, key, latest);
+    });
     createRenderEffect(
-      // Arrays are copied here, in the tracked read, so an array from a store is never read in the apply phase.
-      () => {
-        const value = props[key];
-        return Array.isArray(value) ? [...value] : value;
+      () => copyPlain(props[key]),
+      (value) => {
+        latest = value;
+        applyProp(instance, key, value);
       },
-      write,
       { name: `${name}.${key}` },
     );
   }

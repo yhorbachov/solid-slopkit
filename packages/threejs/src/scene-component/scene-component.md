@@ -64,15 +64,23 @@ A property that holds a math object (one with `set`: `Vector3`, `Euler`, `Quater
 
 Any other value is assigned: `visible={false}`, `roughness={0.5}`, `material={shared}`. The types follow the same rules (`PropValue<V>`): `position` takes a `Vector3` or `[x, y, z]`, never a string, and methods aren't props.
 
-## Path props
+## Partial values
 
-A prop with one dash sets one field of the object in a property: `position-y={y()}`, `material-opacity={0.5}`, `shadow-mapSize={[2048, 2048]}`. The field gets the same copy rules as any prop, so `material-color="red"` copies into the material's `Color`. Each is its own binding: animating `position-y` writes one number per change, where `position={[0, y(), 0]}` writes all three.
+An object literal given for a property that holds an instance of a class writes only the fields it lists, with the same rules as any prop, at any depth:
 
-- **One level:** `material-color-r` throws. Go deeper through a ref.
-- **Attached later:** a Path prop is written again whenever Attach puts a new object in its property, so `material-opacity` on a `Mesh` reaches the material a child attaches after it, and the one a `<Show>` swaps in. A property that is `null` is skipped until something is attached to it.
-- **Order:** with both `position` and `position-y`, the one listed later wins at mount, and after that whichever changed last.
-- **Mistakes:** a property the Instance doesn't have, or a field its object doesn't have, throws (a plain record like `userData` takes new keys: `userData-id={7}`).
-- **Types:** `PathProps<Instance>` types each one from the property's declared type, so `position-y="1"` is a type error. A `Mesh`'s `material` is declared as a `Material`, so `material-opacity` types but `material-color` doesn't; type the class with its material to get it: `sceneComponent(Mesh<BoxGeometry, MeshStandardMaterial>)`. TypeScript never checks a JSX attribute with a dash it doesn't know, so a misspelled Path prop such as `position-w` is caught when it runs, not by the types.
+```tsx
+<T.Mesh position={{ y: y() }} />
+<T.DirectionalLight shadow={{ mapSize: [2048, 2048], camera: { far: 50 } }} />
+<T.Mesh material={{ opacity: 0.5, transparent: true }}>
+  <T.MeshStandardMaterial />
+</T.Mesh>
+```
+
+- **Fields:** each field gets the copy rules (`mapSize: [2048, 2048]` copies into the `Vector2`, `color: 'red'` into the `Color`), and a nested object literal is a Partial value of its own. Fields the literal leaves out keep their values.
+- **Attached later:** a Partial value is written again whenever Attach puts a new object in its property, so `material={{ opacity: 0.5 }}` on a `Mesh` reaches the material a child attaches after it, and the one a `<Show>` swaps in. A property that is `null` is skipped until something is attached to it.
+- **Missing fields:** a field the current object doesn't have is skipped, never added: before its child attaches, a `Mesh` holds a `MeshBasicMaterial`, which has no `emissive`.
+- **Not a Partial value:** an instance of a class is assigned or copied as usual (`material={shared}`, `position={new Vector3()}`), and a property that holds an object literal itself, like `userData`, is replaced as a whole.
+- **Types:** `PartialValue<O>` types the fields from the property's declared type, so `position={{ w: 1 }}` and `position={{ y: '1' }}` are type errors, at any depth. A `Mesh`'s `material` is declared as a `Material`, so `material={{ opacity }}` types but `material={{ color }}` doesn't; type the class with its material to get it: `sceneComponent(Mesh<BoxGeometry, MeshStandardMaterial>)`.
 
 ## Props
 
@@ -84,4 +92,4 @@ A prop with one dash sets one field of the object in a property: `position-y={y(
 | `ref`      | `SceneRef<Instance>`            | —                    | Receives the Instance once it is attached.              |
 | `children` | `JSX.Element`                   | —                    | Scene components that attach to this Instance.          |
 
-Types: `SceneClass` (a constructible class), `InstanceProps<Instance>` (the Instance props), `PathProps<Instance>` (the Path props), `PropValue<V>` (what one of them accepts), `SceneComponent<C>` (what `sceneComponent(C)` returns), `SceneComponentProps<Instance, Args>`, `SceneRef<Instance>`, `Attach`, `AttachFn` (`(parent, self) => detach`).
+Types: `SceneClass` (a constructible class), `InstanceProps<Instance>` (the Instance props), `PartialValue<O>` (a Partial value for an `O`), `PropValue<V>` (what one of them accepts), `SceneComponent<C>` (what `sceneComponent(C)` returns), `SceneComponentProps<Instance, Args>`, `SceneRef<Instance>`, `Attach`, `AttachFn` (`(parent, self) => detach`).

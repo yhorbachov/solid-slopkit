@@ -1,6 +1,6 @@
 import { onCleanup, untrack, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
-import type { Color, ColorRepresentation, Object3D } from 'three';
+import type { Color, ColorRepresentation } from 'three';
 import { attach, type Attach } from './attach';
 import { ParentContext } from './parent';
 import { bindProps } from './props';
@@ -25,60 +25,45 @@ export interface SceneComponentProps<Instance, Args extends unknown[]> {
   children?: JSX.Element;
 }
 
+type Method = (...args: any[]) => any;
+
+type FieldKeys<O> = { [F in keyof O & string]: O[F] extends Method ? never : F }[keyof O & string];
+
+/**
+ * A Partial value: an object literal listing some fields of the object a property holds, each taking what a prop for
+ * it would take, at any depth. Only the fields it lists are written.
+ */
+export type PartialValue<O> = { [F in FieldKeys<O>]?: PropValue<O[F]> };
+
 /**
  * What a prop for one property of an Instance accepts: for a `Color`, anything `Color.set` takes; for another math
- * object, the object, its `set` arguments as an array, and a number when it has `setScalar` or a one-argument `set`.
+ * object, the object, its `set` arguments as an array, and a number when it has `setScalar` or a one-argument `set`;
+ * for any other object, a Partial value too.
  */
 export type PropValue<V> = V extends Color
-  ? ColorRepresentation | [r: number, g: number, b: number]
+  ? ColorRepresentation | [r: number, g: number, b: number] | PartialValue<Color>
   : V extends { set(...args: infer A): unknown }
-    ? V | A | (V extends { setScalar(scalar: number): unknown } ? number : A extends [infer Only] ? Only : never)
-    : V;
+    ?
+        | V
+        | A
+        | (V extends { setScalar(scalar: number): unknown } ? number : A extends [infer Only] ? Only : never)
+        | PartialValue<V>
+    : V extends Method | readonly unknown[]
+      ? V
+      : V extends object
+        ? V | PartialValue<V>
+        : V;
 
 type Reserved = keyof SceneComponentProps<unknown, unknown[]>;
 
 /** A prop for every property of an Instance that isn't a method. */
 export type InstanceProps<Instance> = {
-  [K in keyof Instance as K extends Reserved ? never : Instance[K] extends (...args: any[]) => any ? never : K]?: PropValue<
-    Instance[K]
-  >;
+  [K in keyof Instance as K extends Reserved ? never : Instance[K] extends Method ? never : K]?: PropValue<Instance[K]>;
 };
-
-type Method = (...args: any[]) => any;
-
-// The object a Path prop goes through: a property's type without null, arrays (a Mesh's material can be an array),
-// functions and other Object3Ds (`parent` and `children` aren't paths).
-type PathTarget<V> = Exclude<V, null | undefined | readonly unknown[] | Object3D | Method> & object;
-
-type FieldKeys<O> = { [F in keyof O & string]: O[F] extends Method ? never : F }[keyof O & string];
-
-type PathKeys<Instance> = {
-  [K in keyof Instance & string]: [PathTarget<Instance[K]>] extends [never]
-    ? never
-    : `${K}-${FieldKeys<PathTarget<Instance[K]>>}`;
-}[keyof Instance & string];
-
-type PathValue<Instance, P> = P extends `${infer K}-${infer F}`
-  ? K extends keyof Instance
-    ? F extends keyof PathTarget<Instance[K]>
-      ? PropValue<PathTarget<Instance[K]>[F]>
-      : never
-    : never
-  : never;
-
-/**
- * A Path prop for every field of every object-valued property of an Instance, one level deep: `position-y`,
- * `material-opacity`, `shadow-mapSize`. They follow the property's declared type: a `Mesh`'s `material` is a
- * `Material`, so `material-color` needs a `Mesh` typed with its material (`sceneComponent(Mesh<BoxGeometry,
- * MeshStandardMaterial>)`).
- */
-export type PathProps<Instance> = { [P in PathKeys<Instance>]?: PathValue<Instance, P> };
 
 /** A component that wraps one three.js class and manages its Instance. */
 export type SceneComponent<C extends SceneClass> = (
-  props: SceneComponentProps<InstanceType<C>, ConstructorParameters<C>> &
-    InstanceProps<InstanceType<C>> &
-    PathProps<InstanceType<C>>,
+  props: SceneComponentProps<InstanceType<C>, ConstructorParameters<C>> & InstanceProps<InstanceType<C>>,
 ) => JSX.Element;
 
 function callRef<Instance>(ref: SceneRef<Instance>, instance: Instance) {
@@ -90,7 +75,8 @@ function callRef<Instance>(ref: SceneRef<Instance>, instance: Instance) {
  * Makes a Scene component for a three.js class: an add-on from `three/examples`, a class of your own, or any class
  * the `T` namespace doesn't have. The component constructs its Instance from `args`, attaches it to the Instance of
  * the Scene component around it (or to the Canvas's scene), and on disposal detaches it and calls its `dispose()`.
- * Every other prop sets the property of the same name on the Instance, copying into math objects.
+ * Every other prop sets the property of the same name on the Instance, copying into math objects; an object literal
+ * writes only the fields it lists.
  */
 export function sceneComponent<C extends SceneClass>(Class: C): SceneComponent<C> {
   const Component: SceneComponent<C> = (props) => {

@@ -24,9 +24,9 @@ _Avoid_: object, node, element
 The constructor arguments of an **Instance**, given as the `args` prop.
 _Avoid_: params, constructor props
 
-**Path prop**:
-A dashed prop that sets one nested field of an **Instance**, one level deep (`position-y`, `material-opacity`).
-_Avoid_: pierced prop, dashed prop, nested prop
+**Partial value**:
+An object literal given for a property of an **Instance** that holds an object: it sets only the fields it lists, at any depth (`position={{ y: 1 }}`, `shadow={{ mapSize: [2048, 2048] }}`).
+_Avoid_: path prop, dashed prop, pierced prop, patch
 
 **Attach**:
 Joining an **Instance** to its parent: added as a child if it is an `Object3D`, otherwise assigned to one of the parent's properties. Detaching restores what was there before.
