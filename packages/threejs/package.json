@@ -15,6 +15,11 @@
       "solid": "./dist/source/index.js",
       "default": "./dist/source/index.js"
     },
+    "./controls": {
+      "types": "./dist/types/controls/index.d.ts",
+      "solid": "./dist/source/controls/index.js",
+      "default": "./dist/source/controls/index.js"
+    },
     "./webgpu": {
       "types": "./dist/types/webgpu/index.d.ts",
       "solid": "./dist/source/webgpu/index.js",

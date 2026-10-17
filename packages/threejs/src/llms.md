@@ -24,4 +24,5 @@ Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `Frameloop`, `FrameCallb
 
 ## Subpaths
 
+- [Controls](controls/controls.md) (`@solid-slopkit/threejs/controls`): `<OrbitControls>`, orbiting the Active camera, Invalidating as it moves.
 - [WebGPU](webgpu/webgpu.md) (`@solid-slopkit/threejs/webgpu`): `webgpuRenderer()`, the one-line WebGPU opt-in for a Canvas.

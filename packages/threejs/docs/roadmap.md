@@ -44,7 +44,7 @@
 
 ## T2 — Helpers
 
-- [ ] **T2.01** Orbit controls at `@solid-slopkit/threejs/controls`: bound to the Active camera and the canvas, **Invalidate** on change so on-demand scenes redraw while dragging, and disposed with their owner.
+- [x] **T2.01** Orbit controls at `@solid-slopkit/threejs/controls`: bound to the Active camera and the canvas, **Invalidate** on change so on-demand scenes redraw while dragging, and disposed with their owner. `<OrbitControls>` takes every property of three's `OrbitControls` as a prop through `bindProps` (each write runs `update()`), plus `ref` and `onChange`/`onStart`/`onEnd`. A change Invalidates; with damping or `autoRotate`, an ownerless Frame callback runs `update()` until the camera comes to rest. It follows the Active camera, and a browser test drags it with real input.
 
 ## T3 — Release 0.0.1
 

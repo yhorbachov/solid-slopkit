@@ -142,6 +142,22 @@ export function claimInteractive(canvas: CanvasHandle, instance: Object3D, handl
   return interactives.get(canvas)!(instance, handlers);
 }
 
+// Each Canvas's `<canvas>` element, for helpers that listen on it (controls).
+const elements = new WeakMap<CanvasHandle, () => HTMLCanvasElement | undefined>();
+
+/** The `<canvas>` element of `canvas`, once it exists. Internal to the package. */
+export function canvasElement(canvas: CanvasHandle): HTMLCanvasElement | undefined {
+  return elements.get(canvas)?.();
+}
+
+/**
+ * Registers a Frame callback that belongs to no owner: it runs until the returned function is called. Internal to
+ * the package, for helpers that render continuously only for a while.
+ */
+export function addFrameCallback(canvas: CanvasHandle, callback: FrameCallback): () => void {
+  return registries.get(canvas)!.frame(callback);
+}
+
 /** Makes `camera` the Active camera of `canvas` until the claim is released. Internal to the package. */
 export function claimCamera(canvas: CanvasHandle, camera: Camera): CameraClaim {
   return cameraStacks.get(canvas)!(camera);
@@ -352,6 +368,7 @@ export function Canvas(props: CanvasProps) {
     invalidate: loop.invalidate,
   };
   interactives.set(handle, pointerEvents.register);
+  elements.set(handle, () => canvas);
   cameraStacks.set(handle, (claimed) => {
     const entry = { camera: claimed };
     claims.push(entry);
