@@ -12,11 +12,12 @@ pnpm add solid-js @solidjs/web three @types/three https://github.com/yhorbachov/
 
 ## API
 
-Entry points: `Canvas`, `useCanvas`, `invalidate`, `onFrame`, `onRender`, `T` (a Scene component per three.js scene-graph class), `sceneComponent`.
+Entry points: `Canvas`, `useCanvas`, `invalidate`, `onFrame`, `onRender`, `loadAsset`, `preloadAsset`, `configureLoader`, `T` (a Scene component per three.js scene-graph class), `sceneComponent`.
 
-Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `Frameloop`, `FrameCallback`, `RenderCallback`, `CanvasRenderer`, `CanvasSize`, `RendererFactory`, `DefaultCameraOptions`, `SceneClass`, `SceneComponent`, `InstanceProps`, `PartialValue`, `PropValue`, `SceneComponentProps`, `SceneRef`, `CameraProps`, `PointerEventProps`, `ScenePointerEvent`, `Attach`, `AttachFn`.
+Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `Frameloop`, `FrameCallback`, `RenderCallback`, `CanvasRenderer`, `CanvasSize`, `RendererFactory`, `DefaultCameraOptions`, `SceneClass`, `SceneComponent`, `InstanceProps`, `PartialValue`, `PropValue`, `SceneComponentProps`, `SceneRef`, `CameraProps`, `PointerEventProps`, `ScenePointerEvent`, `Attach`, `AttachFn`, `AssetLoader`, `AssetOf`, `LoaderOptions`.
 
 ## References
 
 - [Canvas](canvas/canvas.md): `Canvas`, its renderer, default camera, Active camera and Frames, `invalidate()`, `useCanvas()`, Frame callbacks with `onFrame()`, and the Render callback with `onRender()`.
+- [Assets](assets/assets.md): `loadAsset`, the Asset cache and its disposal, `preloadAsset`, `configureLoader`, and showing an Asset as an Adopted Instance.
 - [Scene components](scene-component/scene-component.md): the `T` namespace, `sceneComponent`, Instances, their props and Partial values, Attach, Rebuild, Adopted Instances, cameras and `active`, pointer events, refs and disposal.
