@@ -1,4 +1,4 @@
-import { createRenderEffect, onCleanup } from 'solid-js';
+import { createRenderEffect } from 'solid-js';
 import { Color, type ColorRepresentation } from 'three';
 
 /** Props that configure the Scene component itself rather than a property of its Instance. */
@@ -70,16 +70,17 @@ export function reapplyPartial(instance: object, key: PropertyKey) {
   if (typeof key === 'string') partialBindings.get(instance)?.get(key)?.();
 }
 
-function registerPartial(instance: object, key: string, reapply: () => void) {
+function registerPartial(instance: object, key: string, reapply: () => void): () => void {
   let byKey = partialBindings.get(instance);
   if (!byKey) partialBindings.set(instance, (byKey = new Map()));
   byKey.set(key, reapply);
-  onCleanup(() => byKey.delete(key));
+  return () => {
+    if (byKey.get(key) === reapply) byKey.delete(key);
+  };
 }
 
-// A copy of arrays and object literals, made in the tracked read: a store's nested values are read (and tracked) there,
-// never in the apply phase. Instances of classes are passed as they are.
-function copyPlain(value: unknown): unknown {
+/** A copy of arrays and object literals, made in a tracked read so a store's nested values are read (and tracked) there. */
+export function copyPlain(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(copyPlain);
   if (isPlainObject(value)) {
     const copy: Record<string, unknown> = {};
@@ -90,22 +91,19 @@ function copyPlain(value: unknown): unknown {
 }
 
 /**
- * Binds every prop that isn't reserved to the Instance, each through its own render effect: the first write happens
- * now, so the Instance is set up before it is attached, and a change re-runs only that prop's binding. Which props
- * there are is read once; their values are reactive.
+ * Binds every prop that isn't reserved to the current Instance, each through its own render effect: the first write
+ * happens now, so the Instance is set up before it is attached, and a change re-runs only that prop's binding. A
+ * Rebuild re-runs them all, onto the new Instance. Which props there are is read once; their values are reactive.
  */
-export function bindProps(instance: object, props: Record<string, unknown>, name: string) {
+export function bindProps(instance: () => object, props: Record<string, unknown>, name: string) {
   for (const key of Object.keys(props)) {
     if (RESERVED_PROPS.has(key)) continue;
-    let latest: unknown;
-    registerPartial(instance, key, () => {
-      if (isPlainObject(latest)) applyProp(instance, key, latest);
-    });
     createRenderEffect(
-      () => copyPlain(props[key]),
-      (value) => {
-        latest = value;
-        applyProp(instance, key, value);
+      // Values are copied here, in the tracked read: a store's nested values are never read in the apply phase.
+      () => ({ target: instance(), value: copyPlain(props[key]) }),
+      ({ target, value }) => {
+        applyProp(target, key, value);
+        if (isPlainObject(value)) return registerPartial(target, key, () => applyProp(target, key, value));
       },
       { name: `${name}.${key}` },
     );

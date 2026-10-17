@@ -19,4 +19,4 @@ Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `CanvasRenderer`, `Canva
 ## References
 
 - [Canvas](canvas/canvas.md): `Canvas`, its renderer and default camera, and `useCanvas()`.
-- [Scene components](scene-component/scene-component.md): `sceneComponent`, Instances, their props and Partial values, Attach, refs and disposal.
+- [Scene components](scene-component/scene-component.md): `sceneComponent`, Instances, their props and Partial values, Attach, Rebuild, refs and disposal.

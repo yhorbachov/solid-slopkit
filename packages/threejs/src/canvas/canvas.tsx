@@ -174,7 +174,7 @@ export function Canvas(props: CanvasProps) {
         style={{ display: 'block', width: '100%', height: '100%', ...props.style }}
       />
       <CanvasContext value={handle}>
-        <ParentContext value={scene}>{props.children}</ParentContext>
+        <ParentContext value={() => scene}>{props.children}</ParentContext>
       </CanvasContext>
     </>
   );

@@ -1,9 +1,9 @@
-import { onCleanup, untrack, useContext } from 'solid-js';
+import { createEffect, createMemo, createRenderEffect, onCleanup, untrack, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
 import type { Color, ColorRepresentation } from 'three';
-import { attach, type Attach } from './attach';
+import { attach, type Attach, type Attachment } from './attach';
 import { ParentContext } from './parent';
-import { bindProps } from './props';
+import { bindProps, copyPlain } from './props';
 
 /** A three.js class a Scene component can wrap. */
 export type SceneClass = new (...args: any[]) => object;
@@ -13,13 +13,13 @@ export type SceneRef<Instance> = Instance | ((instance: Instance) => void) | und
 
 /** The props every Scene component takes. */
 export interface SceneComponentProps<Instance, Args extends unknown[]> {
-  /** The constructor arguments of the Instance. Read once. */
+  /** The constructor arguments of the Instance. A change rebuilds it: a new Instance takes the old one's place. */
   args?: Args;
   /** Where the Instance goes in its parent, when the default isn't right. Read once. */
   attach?: Attach<any, Instance>;
   /** Pass `false` to keep the Instance alive after the component is gone, instead of disposing it. */
   dispose?: boolean;
-  /** Receives the Instance once it is attached. */
+  /** Receives the Instance once it is attached, and again with the new one after each Rebuild. */
   ref?: SceneRef<Instance>;
   /** Scene components that attach to this Instance. */
   children?: JSX.Element;
@@ -71,33 +71,80 @@ function callRef<Instance>(ref: SceneRef<Instance>, instance: Instance) {
   else if (Array.isArray(ref)) for (const each of ref) callRef(each, instance);
 }
 
+function sameArgs(a: unknown[], b: unknown[]) {
+  return a.length === b.length && a.every((value, index) => Object.is(value, b[index]));
+}
+
 /**
  * Makes a Scene component for a three.js class: an add-on from `three/examples`, a class of your own, or any class
  * the `T` namespace doesn't have. The component constructs its Instance from `args`, attaches it to the Instance of
  * the Scene component around it (or to the Canvas's scene), and on disposal detaches it and calls its `dispose()`.
  * Every other prop sets the property of the same name on the Instance, copying into math objects; an object literal
- * writes only the fields it lists.
+ * writes only the fields it lists. When `args` changes, a Rebuild puts a new Instance in the old one's place.
  */
 export function sceneComponent<C extends SceneClass>(Class: C): SceneComponent<C> {
   const Component: SceneComponent<C> = (props) => {
+    const name = Class.name;
     const parent = useContext(ParentContext);
-    const instance = untrack(() => new Class(...(props.args ?? []))) as InstanceType<C>;
-    bindProps(instance, props, Class.name);
-    const detach = attach(
-      parent,
-      instance,
-      untrack(() => props.attach),
+
+    const args = createMemo(() => copyPlain(props.args ?? []) as unknown[], { name: `${name}.args`, equals: sameArgs });
+    // A Rebuild is this memo running again. The cleanup disposes the Instance it made, before the next one is made
+    // and when the component's owner is disposed.
+    const instance = createMemo(
+      () => {
+        const made = new Class(...args()) as InstanceType<C>;
+        onCleanup(() => {
+          if (untrack(() => props.dispose) !== false) (made as { dispose?: () => void }).dispose?.();
+        });
+        return made;
+      },
+      { name: `${name}.instance` },
     );
 
-    onCleanup(() => {
-      detach();
-      if (untrack(() => props.dispose) !== false) (instance as { dispose?: () => void }).dispose?.();
-    });
+    // Created before Attach, so the props are on the Instance before it joins its parent, at mount and on a Rebuild.
+    // oxlint-disable-next-line solid/reactivity -- bindProps reads the accessor inside its own render effects
+    bindProps(instance, props, name);
 
+    // Attach follows the parent: a Rebuild of the parent detaches this Instance from the old one and attaches it to
+    // the new one. A Rebuild of this component swaps the new Instance into the old one's place instead.
+    let attachment: Attachment | undefined;
+    createRenderEffect(
+      () => parent(),
+      (into) => {
+        const current = attach(
+          into,
+          untrack(instance),
+          untrack(() => props.attach),
+        );
+        attachment = current;
+        return () => {
+          current.detach();
+          if (attachment === current) attachment = undefined;
+        };
+      },
+      { name: `${name}.attach` },
+    );
+    createRenderEffect(
+      () => instance(),
+      (next) => attachment?.swap(next),
+      { name: `${name}.swap`, defer: true },
+    );
+
+    // The ref gets the Instance at mount, and after a Rebuild once the children have moved to the new one.
     callRef(
       untrack(() => props.ref),
-      instance,
+      untrack(instance),
     );
+    createEffect(
+      () => instance(),
+      (next) =>
+        callRef(
+          untrack(() => props.ref),
+          next,
+        ),
+      { name: `${name}.ref`, defer: true },
+    );
+
     return <ParentContext value={instance}>{props.children}</ParentContext>;
   };
   Object.defineProperty(Component, 'name', { value: Class.name });
