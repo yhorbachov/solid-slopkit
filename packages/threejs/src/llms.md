@@ -14,9 +14,9 @@ pnpm add solid-js @solidjs/web three @types/three https://github.com/yhorbachov/
 
 Entry points: `Canvas`, `useCanvas`, `sceneComponent`.
 
-Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `CanvasRenderer`, `CanvasSize`, `RendererFactory`, `DefaultCameraOptions`, `SceneClass`, `SceneComponent`, `SceneComponentProps`, `SceneRef`, `Attach`, `AttachFn`.
+Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `CanvasRenderer`, `CanvasSize`, `RendererFactory`, `DefaultCameraOptions`, `SceneClass`, `SceneComponent`, `InstanceProps`, `PropValue`, `SceneComponentProps`, `SceneRef`, `Attach`, `AttachFn`.
 
 ## References
 
 - [Canvas](canvas/canvas.md): `Canvas`, its renderer and default camera, and `useCanvas()`.
-- [Scene components](scene-component/scene-component.md): `sceneComponent`, Instances, Attach, refs and disposal.
+- [Scene components](scene-component/scene-component.md): `sceneComponent`, Instances, their props, Attach, refs and disposal.

@@ -26,7 +26,7 @@ const MeshStandardMaterial = sceneComponent(THREE.MeshStandardMaterial);
 
 - **Instance:** constructed once, with `new Class(...args)`. `args` is read once.
 - **Parent:** the Instance of the Scene component around it, or the Canvas's scene at the top. A Scene component outside a Canvas throws.
-- **Ref:** called once the Instance is attached, with the Instance. It takes a variable (`let mesh!: THREE.Mesh; <Mesh ref={mesh} />`), a callback, or an array of them. Children attach after it, so read their effects later (in an effect or a Frame callback), not in the ref.
+- **Ref:** called once the Instance's props are applied and it is attached, with the Instance. It takes a variable (`let mesh!: THREE.Mesh; <Mesh ref={mesh} />`), a callback, or an array of them. Children attach after it, so read their effects later (in an effect or a Frame callback), not in the ref.
 - **Disposal:** when its owner is disposed (a `<Show>` turns false, a `<For>` drops its item, the Canvas goes), the Instance is detached and its `dispose()` is called, if it has one. Pass `dispose={false}` to keep an Instance you hold on to elsewhere.
 - **Children:** Scene components inside it attach to its Instance. The scene is part of the component tree, so `<Show>`, `<For>`, context and your own components work inside it.
 
@@ -48,6 +48,22 @@ How an Instance joins its parent:
 
 Detaching restores what was there before. When several Instances claim one property, as with two materials behind `<Show>`s, the property holds the most recent claim still standing, and its original value once none is: a `Mesh`'s material goes back to the `MeshBasicMaterial` it was constructed with.
 
+## Instance props
+
+Every prop that isn't one of the component's own (below) sets the Instance's property of the same name: `<Mesh position={[0, 1, 0]} visible={shown()} />`. Each prop is its own binding, so a change re-runs only that prop's write, and props are applied before the Instance is attached and its ref runs. Which props a component has is read once; their values are reactive.
+
+A property that holds a math object (one with `set`: `Vector3`, `Euler`, `Quaternion`, `Color`, `Layers`, `Matrix4`, …) is copied into, never replaced, so code that holds `mesh.position` keeps seeing the current value:
+
+| Value                      | Write                                                           | Example                                                                          |
+| -------------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| anything for a `Color`     | `color.set(value)`: a CSS color string, a hex number, a `Color` | `color="hotpink"`, `emissive={0x111111}`                                         |
+| an array                   | `set(...value)`                                                 | `position={[0, 1, 0]}`, `rotation={[0, Math.PI, 0, 'YXZ']}`, `color={[1, 0, 0]}` |
+| a number                   | `setScalar(value)`, or `set(value)` when there's no `setScalar` | `scale={2}`, `layers={1}`                                                        |
+| an object of the same type | `copy(value)`                                                   | `quaternion={q}`                                                                 |
+| `undefined`                | nothing: the math object keeps its value                        |                                                                                  |
+
+Any other value is assigned: `visible={false}`, `roughness={0.5}`, `material={shared}`. The types follow the same rules (`PropValue<V>`): `position` takes a `Vector3` or `[x, y, z]`, never a string, and methods aren't props.
+
 ## Props
 
 | Prop       | Type                            | Default              | Description                                             |
@@ -58,4 +74,4 @@ Detaching restores what was there before. When several Instances claim one prope
 | `ref`      | `SceneRef<Instance>`            | —                    | Receives the Instance once it is attached.              |
 | `children` | `JSX.Element`                   | —                    | Scene components that attach to this Instance.          |
 
-Types: `SceneClass` (a constructible class), `SceneComponent<C>` (what `sceneComponent(C)` returns), `SceneComponentProps<Instance, Args>`, `SceneRef<Instance>`, `Attach`, `AttachFn` (`(parent, self) => detach`).
+Types: `SceneClass` (a constructible class), `InstanceProps<Instance>` (the Instance props), `PropValue<V>` (what one of them accepts), `SceneComponent<C>` (what `sceneComponent(C)` returns), `SceneComponentProps<Instance, Args>`, `SceneRef<Instance>`, `Attach`, `AttachFn` (`(parent, self) => detach`).

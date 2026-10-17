@@ -1,7 +1,9 @@
 import { onCleanup, untrack, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
+import type { Color, ColorRepresentation } from 'three';
 import { attach, type Attach } from './attach';
 import { ParentContext } from './parent';
+import { bindProps } from './props';
 
 /** A three.js class a Scene component can wrap. */
 export type SceneClass = new (...args: any[]) => object;
@@ -23,9 +25,28 @@ export interface SceneComponentProps<Instance, Args extends unknown[]> {
   children?: JSX.Element;
 }
 
+/**
+ * What a prop for one property of an Instance accepts: for a `Color`, anything `Color.set` takes; for another math
+ * object, the object, its `set` arguments as an array, and a number when it has `setScalar` or a one-argument `set`.
+ */
+export type PropValue<V> = V extends Color
+  ? ColorRepresentation | [r: number, g: number, b: number]
+  : V extends { set(...args: infer A): unknown }
+    ? V | A | (V extends { setScalar(scalar: number): unknown } ? number : A extends [infer Only] ? Only : never)
+    : V;
+
+type Reserved = keyof SceneComponentProps<unknown, unknown[]>;
+
+/** A prop for every property of an Instance that isn't a method. */
+export type InstanceProps<Instance> = {
+  [K in keyof Instance as K extends Reserved ? never : Instance[K] extends (...args: any[]) => any ? never : K]?: PropValue<
+    Instance[K]
+  >;
+};
+
 /** A component that wraps one three.js class and manages its Instance. */
 export type SceneComponent<C extends SceneClass> = (
-  props: SceneComponentProps<InstanceType<C>, ConstructorParameters<C>>,
+  props: SceneComponentProps<InstanceType<C>, ConstructorParameters<C>> & InstanceProps<InstanceType<C>>,
 ) => JSX.Element;
 
 function callRef<Instance>(ref: SceneRef<Instance>, instance: Instance) {
@@ -37,11 +58,13 @@ function callRef<Instance>(ref: SceneRef<Instance>, instance: Instance) {
  * Makes a Scene component for a three.js class: an add-on from `three/examples`, a class of your own, or any class
  * the `T` namespace doesn't have. The component constructs its Instance from `args`, attaches it to the Instance of
  * the Scene component around it (or to the Canvas's scene), and on disposal detaches it and calls its `dispose()`.
+ * Every other prop sets the property of the same name on the Instance, copying into math objects.
  */
 export function sceneComponent<C extends SceneClass>(Class: C): SceneComponent<C> {
   const Component: SceneComponent<C> = (props) => {
     const parent = useContext(ParentContext);
     const instance = untrack(() => new Class(...(props.args ?? []))) as InstanceType<C>;
+    bindProps(instance, props, Class.name);
     const detach = attach(
       parent,
       instance,
