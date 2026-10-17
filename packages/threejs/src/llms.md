@@ -14,9 +14,9 @@ pnpm add solid-js @solidjs/web three @types/three https://github.com/yhorbachov/
 
 Entry points: `Canvas`, `useCanvas`, `invalidate`, `onFrame`, `onRender`, `T` (a Scene component per three.js scene-graph class), `sceneComponent`.
 
-Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `Frameloop`, `FrameCallback`, `RenderCallback`, `CanvasRenderer`, `CanvasSize`, `RendererFactory`, `DefaultCameraOptions`, `SceneClass`, `SceneComponent`, `InstanceProps`, `PartialValue`, `PropValue`, `SceneComponentProps`, `SceneRef`, `Attach`, `AttachFn`.
+Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `Frameloop`, `FrameCallback`, `RenderCallback`, `CanvasRenderer`, `CanvasSize`, `RendererFactory`, `DefaultCameraOptions`, `SceneClass`, `SceneComponent`, `InstanceProps`, `PartialValue`, `PropValue`, `SceneComponentProps`, `SceneRef`, `CameraProps`, `Attach`, `AttachFn`.
 
 ## References
 
-- [Canvas](canvas/canvas.md): `Canvas`, its renderer, default camera and Frames, `invalidate()`, `useCanvas()`, Frame callbacks with `onFrame()`, and the Render callback with `onRender()`.
-- [Scene components](scene-component/scene-component.md): the `T` namespace, `sceneComponent`, Instances, their props and Partial values, Attach, Rebuild, Adopted Instances, refs and disposal.
+- [Canvas](canvas/canvas.md): `Canvas`, its renderer, default camera, Active camera and Frames, `invalidate()`, `useCanvas()`, Frame callbacks with `onFrame()`, and the Render callback with `onRender()`.
+- [Scene components](scene-component/scene-component.md): the `T` namespace, `sceneComponent`, Instances, their props and Partial values, Attach, Rebuild, Adopted Instances, cameras and `active`, refs and disposal.

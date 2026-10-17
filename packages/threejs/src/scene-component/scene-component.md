@@ -123,6 +123,21 @@ An object literal given for a property that holds an instance of a class writes 
 - **Not a Partial value:** an instance of a class is assigned or copied as usual (`material={shared}`, `position={new Vector3()}`), and a property that holds an object literal itself, like `userData`, is replaced as a whole.
 - **Types:** `PartialValue<O>` types the fields from the property's declared type, so `position={{ w: 1 }}` and `position={{ y: '1' }}` are type errors, at any depth. A `Mesh`'s `material` is declared as a `Material`, so `material={{ opacity }}` types but `material={{ color }}` doesn't; type the class with its material to get it: `sceneComponent(Mesh<BoxGeometry, MeshStandardMaterial>)`.
 
+## Cameras
+
+A camera's Scene component (`T.PerspectiveCamera`, `T.OrthographicCamera`, or `sceneComponent` of any class whose Instances have `isCamera`) takes `active` too. While it's `true`, the camera is its Canvas's Active camera, which Frames draw with:
+
+```tsx
+<T.PerspectiveCamera active={view() === 'close'} position={[0, 1, 3]} fov={40} />
+<T.OrthographicCamera active={view() === 'map'} args={[-1, 1, 10, -10]} position={[0, 20, 0]} />
+```
+
+- **A stack:** the camera made active most recently wins. When it's deactivated or disposed, the one active before it is the Active camera again, and the default camera once none is.
+- **Fitted to the canvas:** while it's the Active camera, its aspect ratio (or an orthographic camera's `left` and `right`, keeping `top`, `bottom` and the center) follows the canvas size, and its projection matrix is updated before each Frame (see [Canvas](../canvas/canvas.md)).
+- **Rebuild:** a camera that rebuilds stays active, in its place in the stack.
+- **Frames:** activating and deactivating Invalidate the Canvas.
+- **Other classes:** `active` is a camera prop only. On any other Instance it is an Instance prop like the rest.
+
 ## Props
 
 | Prop       | Type                            | Default              | Description                                                  |
@@ -133,5 +148,6 @@ An object literal given for a property that holds an instance of a class writes 
 | `dispose`  | `boolean`                       | `true`               | `false` keeps the Instance after the component is gone.      |
 | `ref`      | `SceneRef<Instance>`            | —                    | Receives the Instance once attached, and after each Rebuild. |
 | `children` | `JSX.Element`                   | —                    | Scene components that attach to this Instance.               |
+| `active`   | `boolean`                       | `false`              | Cameras only: makes it the Active camera while `true`.       |
 
-Types: `SceneClass` (a constructible class), `InstanceProps<Instance>` (the Instance props), `PartialValue<O>` (a Partial value for an `O`), `PropValue<V>` (what one of them accepts), `SceneComponent<C>` (what `sceneComponent(C)` returns), `SceneComponentProps<Instance, Args>`, `SceneRef<Instance>`, `Attach`, `AttachFn` (`(parent, self) => detach`).
+Types: `SceneClass` (a constructible class), `InstanceProps<Instance>` (the Instance props), `PartialValue<O>` (a Partial value for an `O`), `PropValue<V>` (what one of them accepts), `SceneComponent<C>` (what `sceneComponent(C)` returns), `SceneComponentProps<Instance, Args>`, `SceneRef<Instance>`, `CameraProps` (a camera's `active`), `Attach`, `AttachFn` (`(parent, self) => detach`).

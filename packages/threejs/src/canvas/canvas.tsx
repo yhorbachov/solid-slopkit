@@ -1,6 +1,6 @@
 import { createContext, createEffect, createSignal, DEV, omit, onCleanup, onSettled, untrack, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
-import { PerspectiveCamera, Scene, WebGLRenderer, type Camera } from 'three';
+import { PerspectiveCamera, Scene, WebGLRenderer, type Camera, type OrthographicCamera } from 'three';
 import { ParentContext } from '../scene-component/parent';
 import { createFrameLoop, type Frameloop } from './frame-loop';
 
@@ -42,6 +42,8 @@ export interface CanvasHandle {
   readonly scene: Scene;
   /** The default camera. */
   readonly camera: PerspectiveCamera;
+  /** The Active camera: the camera most recently made active that still is, or the default camera. */
+  readonly activeCamera: () => Camera;
   /** The renderer, once the factory has returned or resolved; `undefined` before that and on the server. */
   readonly renderer: () => CanvasRenderer | undefined;
   /** The `<canvas>` element's size, kept up to date as it resizes. `0 × 0` until it has been measured. */
@@ -104,6 +106,41 @@ interface Registry {
 }
 const registries = new WeakMap<CanvasHandle, Registry>();
 
+/** A camera's claim on being a Canvas's Active camera. */
+export interface CameraClaim {
+  /** Puts another camera in this claim's place, keeping its position in the stack (a Rebuild). */
+  swap(camera: Camera): void;
+  release(): void;
+}
+
+// The Active camera stack of each Canvas, for camera Scene components.
+const cameraStacks = new WeakMap<CanvasHandle, (camera: Camera) => CameraClaim>();
+
+/** Makes `camera` the Active camera of `canvas` until the claim is released. Internal to the package. */
+export function claimCamera(canvas: CanvasHandle, camera: Camera): CameraClaim {
+  return cameraStacks.get(canvas)!(camera);
+}
+
+// Fits a camera to the canvas's aspect ratio, then updates its projection matrix, so prop writes to `fov`, `zoom` or
+// an orthographic frustum show too. An orthographic camera keeps its top and bottom and its horizontal center.
+function fit(camera: Camera, { width, height }: CanvasSize) {
+  const aspect = width > 0 && height > 0 ? width / height : undefined;
+  if ((camera as PerspectiveCamera).isPerspectiveCamera) {
+    const perspective = camera as PerspectiveCamera;
+    if (aspect !== undefined) perspective.aspect = aspect;
+    perspective.updateProjectionMatrix();
+  } else if ((camera as OrthographicCamera).isOrthographicCamera) {
+    const orthographic = camera as OrthographicCamera;
+    if (aspect !== undefined) {
+      const center = (orthographic.left + orthographic.right) / 2;
+      const half = ((orthographic.top - orthographic.bottom) / 2) * aspect;
+      orthographic.left = center - half;
+      orthographic.right = center + half;
+    }
+    orthographic.updateProjectionMatrix();
+  }
+}
+
 // Every Canvas mounted in the page, for `invalidate()`.
 const mounted = new Set<CanvasHandle>();
 
@@ -144,6 +181,11 @@ export function Canvas(props: CanvasProps) {
   let active: CanvasRenderer | undefined;
   let time = 0;
   const entries = new Set<{ callback: FrameCallback }>();
+  // The Active camera stack: the last claim draws, the default camera when there is none. `drawing` and `measured` are
+  // plain variables for the same reason as `active`.
+  const claims: Array<{ camera: Camera }> = [];
+  let drawing: Camera = camera;
+  let measured: CanvasSize = { width: 0, height: 0 };
   // Render callbacks in registration order; the first draws. More than one stands only for a moment (a replacement
   // registers before what it replaces is disposed), or by mistake, which `onRender` reports in development.
   const draws: Array<{ callback: RenderCallback }> = [];
@@ -152,14 +194,23 @@ export function Canvas(props: CanvasProps) {
     time += delta;
     // A snapshot: callbacks registered during this Frame run from the next one; unregistered ones don't run.
     for (const entry of Array.from(entries)) if (entries.has(entry)) entry.callback(handle, delta);
+    fit(drawing, measured);
     const draw = draws[0];
     if (draw) draw.callback(handle, delta);
-    else active.render(scene, camera);
+    else active.render(scene, drawing);
     return true;
   };
   const loop = createFrameLoop(render, untrack(() => props.frameloop) ?? 'demand');
 
   const [renderer, setRenderer] = createSignal<CanvasRenderer | undefined>(undefined, { name: 'Canvas.renderer' });
+  const [activeCamera, setActiveCamera] = createSignal<Camera>(camera, { name: 'Canvas.activeCamera' });
+  const restack = () => {
+    const top = claims.at(-1)?.camera ?? camera;
+    if (top === drawing) return;
+    drawing = top;
+    setActiveCamera(() => top);
+    loop.invalidate();
+  };
   const [size, setSize] = createSignal<CanvasSize>(
     { width: 0, height: 0 },
     { name: 'Canvas.size', equals: (a, b) => a.width === b.width && a.height === b.height },
@@ -222,7 +273,9 @@ export function Canvas(props: CanvasProps) {
     else adopt(made);
 
     const observer = new ResizeObserver(([entry]) => {
-      if (entry) setSize({ width: entry.contentRect.width, height: entry.contentRect.height });
+      if (!entry) return;
+      measured = { width: entry.contentRect.width, height: entry.contentRect.height };
+      setSize(measured);
     });
     observer.observe(element);
 
@@ -241,6 +294,7 @@ export function Canvas(props: CanvasProps) {
   const handle: CanvasHandle = {
     scene,
     camera,
+    activeCamera,
     renderer,
     size,
     get time() {
@@ -253,6 +307,23 @@ export function Canvas(props: CanvasProps) {
     },
     invalidate: loop.invalidate,
   };
+  cameraStacks.set(handle, (claimed) => {
+    const entry = { camera: claimed };
+    claims.push(entry);
+    restack();
+    return {
+      swap(next) {
+        entry.camera = next;
+        restack();
+      },
+      release() {
+        const index = claims.indexOf(entry);
+        if (index === -1) return;
+        claims.splice(index, 1);
+        restack();
+      },
+    };
+  });
   // Each entry is its own object, so one function registered twice runs twice. The hold keeps the loop running.
   registries.set(handle, {
     frame(callback) {

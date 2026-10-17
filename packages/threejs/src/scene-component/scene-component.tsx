@@ -1,8 +1,8 @@
 import { createEffect, createMemo, createRenderEffect, onCleanup, untrack, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
-import type { Color, ColorRepresentation } from 'three';
+import type { Camera, Color, ColorRepresentation } from 'three';
 import { attach, type Attach, type Attachment } from './attach';
-import { useCanvas } from '../canvas/canvas';
+import { claimCamera, useCanvas, type CameraClaim } from '../canvas/canvas';
 import { ParentContext } from './parent';
 import { bindProps, copyPlain } from './props';
 
@@ -29,6 +29,15 @@ export interface SceneComponentProps<Instance, Args extends unknown[]> {
   ref?: SceneRef<Instance>;
   /** Scene components that attach to this Instance. */
   children?: JSX.Element;
+}
+
+/** The props a camera's Scene component takes on top of the others. */
+export interface CameraProps {
+  /**
+   * Makes the camera the Canvas's Active camera while `true`. The camera made active most recently wins; when it is
+   * deactivated or disposed, the one before it is active again.
+   */
+  active?: boolean;
 }
 
 type Method = (...args: any[]) => any;
@@ -60,20 +69,24 @@ export type PropValue<V> = V extends Color
         ? V | PartialValue<V>
         : V;
 
-type Reserved = keyof SceneComponentProps<unknown, unknown[]>;
+// A camera's `active` is the component's own; on any other Instance it's an Instance prop.
+type Reserved<Instance> = keyof SceneComponentProps<unknown, unknown[]> | (Instance extends Camera ? keyof CameraProps : never);
 
 /** A prop for every property of an Instance that isn't a method. */
 export type InstanceProps<Instance> = {
-  [K in keyof Instance as K extends Reserved ? never : Instance[K] extends Method ? never : K]?: PropValue<Instance[K]>;
+  [K in keyof Instance as K extends Reserved<Instance> ? never : Instance[K] extends Method ? never : K]?: PropValue<Instance[K]>;
 };
 
 /** A component that wraps one three.js class and manages its Instance. */
 export type SceneComponent<C extends SceneClass> = (
   props: SceneComponentProps<InstanceType<C>, ConstructorParameters<C>> &
     InstanceProps<InstanceType<C>> &
+    (InstanceType<C> extends Camera ? CameraProps : unknown) &
     // An Instance comes from `args` or from `object`, never both.
     ({ args?: ConstructorParameters<C>; object?: never } | { args?: never; object: InstanceType<C> }),
 ) => JSX.Element;
+
+const CAMERA_PROPS: ReadonlySet<string> = new Set(['active']);
 
 function callRef<Instance>(ref: SceneRef<Instance>, instance: Instance) {
   if (typeof ref === 'function') (ref as (instance: Instance) => void)(instance);
@@ -129,15 +142,19 @@ export function sceneComponent<C extends SceneClass>(Class: C): SceneComponent<C
     const name = Class.name;
     const parent = useContext(ParentContext);
     // Every change this component makes to the scene asks its Canvas for a Frame.
-    const { invalidate } = useCanvas();
+    const canvas = useCanvas();
+    const { invalidate } = canvas;
 
     const instance = untrack(() => 'object' in props)
       ? adoptedInstance<InstanceType<C>>(props, name)
       : ownedInstance(Class, props, name);
 
+    // Whether the Instance is a camera, and takes `active`, is decided once.
+    const camera = (untrack(instance) as Partial<Camera>).isCamera === true;
+
     // Created before Attach, so the props are on the Instance before it joins its parent, at mount and on a Rebuild.
     // oxlint-disable-next-line solid/reactivity -- bindProps reads the accessor inside its own render effects
-    bindProps(instance, props, name, invalidate);
+    bindProps(instance, props, name, invalidate, camera ? CAMERA_PROPS : undefined);
 
     // Attach follows the parent: a Rebuild of the parent detaches this Instance from the old one and attaches it to
     // the new one. A Rebuild of this component swaps the new Instance into the old one's place instead.
@@ -168,6 +185,30 @@ export function sceneComponent<C extends SceneClass>(Class: C): SceneComponent<C
       },
       { name: `${name}.swap`, defer: true },
     );
+
+    if (camera) {
+      // A claim on the Active camera stack while `active`; a Rebuild keeps the claim's place in the stack. Plain
+      // effects: a claim writes the Canvas's activeCamera signal, and no Frame draws before effects run.
+      let claim: CameraClaim | undefined;
+      createEffect(
+        () => (props as CameraProps).active === true,
+        (active) => {
+          if (!active) return;
+          const current = claimCamera(canvas, untrack(instance) as Camera);
+          claim = current;
+          return () => {
+            current.release();
+            if (claim === current) claim = undefined;
+          };
+        },
+        { name: `${name}.active` },
+      );
+      createEffect(
+        () => instance(),
+        (next) => claim?.swap(next as Camera),
+        { name: `${name}.activeSwap`, defer: true },
+      );
+    }
 
     // The ref gets the Instance at mount, and after a Rebuild once the children have moved to the new one.
     callRef(

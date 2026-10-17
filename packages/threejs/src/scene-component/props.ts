@@ -96,9 +96,16 @@ export function copyPlain(value: unknown): unknown {
  * Rebuild re-runs them all, onto the new Instance. Every write Invalidates the Canvas. Which props there are is read
  * once; their values are reactive.
  */
-export function bindProps(instance: () => object, props: Record<string, unknown>, name: string, invalidate: () => void) {
+export function bindProps(
+  instance: () => object,
+  props: Record<string, unknown>,
+  name: string,
+  invalidate: () => void,
+  // Props of the component's own beyond the reserved ones, such as a camera's `active`.
+  own?: ReadonlySet<string>,
+) {
   for (const key of Object.keys(props)) {
-    if (RESERVED_PROPS.has(key)) continue;
+    if (RESERVED_PROPS.has(key) || own?.has(key)) continue;
     createRenderEffect(
       // Values are copied here, in the tracked read: a store's nested values are never read in the apply phase.
       () => ({ target: instance(), value: copyPlain(props[key]) }),
