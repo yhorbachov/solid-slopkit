@@ -1,6 +1,6 @@
 import { onCleanup, untrack, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
-import type { Color, ColorRepresentation } from 'three';
+import type { Color, ColorRepresentation, Object3D } from 'three';
 import { attach, type Attach } from './attach';
 import { ParentContext } from './parent';
 import { bindProps } from './props';
@@ -44,9 +44,41 @@ export type InstanceProps<Instance> = {
   >;
 };
 
+type Method = (...args: any[]) => any;
+
+// The object a Path prop goes through: a property's type without null, arrays (a Mesh's material can be an array),
+// functions and other Object3Ds (`parent` and `children` aren't paths).
+type PathTarget<V> = Exclude<V, null | undefined | readonly unknown[] | Object3D | Method> & object;
+
+type FieldKeys<O> = { [F in keyof O & string]: O[F] extends Method ? never : F }[keyof O & string];
+
+type PathKeys<Instance> = {
+  [K in keyof Instance & string]: [PathTarget<Instance[K]>] extends [never]
+    ? never
+    : `${K}-${FieldKeys<PathTarget<Instance[K]>>}`;
+}[keyof Instance & string];
+
+type PathValue<Instance, P> = P extends `${infer K}-${infer F}`
+  ? K extends keyof Instance
+    ? F extends keyof PathTarget<Instance[K]>
+      ? PropValue<PathTarget<Instance[K]>[F]>
+      : never
+    : never
+  : never;
+
+/**
+ * A Path prop for every field of every object-valued property of an Instance, one level deep: `position-y`,
+ * `material-opacity`, `shadow-mapSize`. They follow the property's declared type: a `Mesh`'s `material` is a
+ * `Material`, so `material-color` needs a `Mesh` typed with its material (`sceneComponent(Mesh<BoxGeometry,
+ * MeshStandardMaterial>)`).
+ */
+export type PathProps<Instance> = { [P in PathKeys<Instance>]?: PathValue<Instance, P> };
+
 /** A component that wraps one three.js class and manages its Instance. */
 export type SceneComponent<C extends SceneClass> = (
-  props: SceneComponentProps<InstanceType<C>, ConstructorParameters<C>> & InstanceProps<InstanceType<C>>,
+  props: SceneComponentProps<InstanceType<C>, ConstructorParameters<C>> &
+    InstanceProps<InstanceType<C>> &
+    PathProps<InstanceType<C>>,
 ) => JSX.Element;
 
 function callRef<Instance>(ref: SceneRef<Instance>, instance: Instance) {

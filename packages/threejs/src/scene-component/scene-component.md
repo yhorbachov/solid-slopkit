@@ -64,6 +64,16 @@ A property that holds a math object (one with `set`: `Vector3`, `Euler`, `Quater
 
 Any other value is assigned: `visible={false}`, `roughness={0.5}`, `material={shared}`. The types follow the same rules (`PropValue<V>`): `position` takes a `Vector3` or `[x, y, z]`, never a string, and methods aren't props.
 
+## Path props
+
+A prop with one dash sets one field of the object in a property: `position-y={y()}`, `material-opacity={0.5}`, `shadow-mapSize={[2048, 2048]}`. The field gets the same copy rules as any prop, so `material-color="red"` copies into the material's `Color`. Each is its own binding: animating `position-y` writes one number per change, where `position={[0, y(), 0]}` writes all three.
+
+- **One level:** `material-color-r` throws. Go deeper through a ref.
+- **Attached later:** a Path prop is written again whenever Attach puts a new object in its property, so `material-opacity` on a `Mesh` reaches the material a child attaches after it, and the one a `<Show>` swaps in. A property that is `null` is skipped until something is attached to it.
+- **Order:** with both `position` and `position-y`, the one listed later wins at mount, and after that whichever changed last.
+- **Mistakes:** a property the Instance doesn't have, or a field its object doesn't have, throws (a plain record like `userData` takes new keys: `userData-id={7}`).
+- **Types:** `PathProps<Instance>` types each one from the property's declared type, so `position-y="1"` is a type error. A `Mesh`'s `material` is declared as a `Material`, so `material-opacity` types but `material-color` doesn't; type the class with its material to get it: `sceneComponent(Mesh<BoxGeometry, MeshStandardMaterial>)`. TypeScript never checks a JSX attribute with a dash it doesn't know, so a misspelled Path prop such as `position-w` is caught when it runs, not by the types.
+
 ## Props
 
 | Prop       | Type                            | Default              | Description                                             |
@@ -74,4 +84,4 @@ Any other value is assigned: `visible={false}`, `roughness={0.5}`, `material={sh
 | `ref`      | `SceneRef<Instance>`            | —                    | Receives the Instance once it is attached.              |
 | `children` | `JSX.Element`                   | —                    | Scene components that attach to this Instance.          |
 
-Types: `SceneClass` (a constructible class), `InstanceProps<Instance>` (the Instance props), `PropValue<V>` (what one of them accepts), `SceneComponent<C>` (what `sceneComponent(C)` returns), `SceneComponentProps<Instance, Args>`, `SceneRef<Instance>`, `Attach`, `AttachFn` (`(parent, self) => detach`).
+Types: `SceneClass` (a constructible class), `InstanceProps<Instance>` (the Instance props), `PathProps<Instance>` (the Path props), `PropValue<V>` (what one of them accepts), `SceneComponent<C>` (what `sceneComponent(C)` returns), `SceneComponentProps<Instance, Args>`, `SceneRef<Instance>`, `Attach`, `AttachFn` (`(parent, self) => detach`).

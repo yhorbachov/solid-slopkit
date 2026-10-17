@@ -1,4 +1,5 @@
 import { BufferGeometry, Material, Object3D } from 'three';
+import { reapplyPaths } from './props';
 
 /** Attaches `self` to `parent` by hand, returning what detaches it again. */
 export type AttachFn<Parent = any, Self = any> = (parent: Parent, self: Self) => () => void;
@@ -11,6 +12,7 @@ export type Attach<Parent = any, Self = any> = string | AttachFn<Parent, Self>;
 
 // One property slot (an object and a key) that several Instances may claim at once, as when a `<Show>` swaps two
 // materials. The slot shows the most recent claim still standing, and the value it had before any claim when none is.
+// Each change writes the parent's Path props through that slot again (`material-opacity` onto the new material).
 interface Slot {
   original: unknown;
   claims: unknown[];
@@ -26,6 +28,7 @@ function claim(target: Record<PropertyKey, unknown>, key: PropertyKey, value: un
   const entry = { value };
   slot.claims.push(entry);
   target[key] = value;
+  reapplyPaths(target, key);
 
   return () => {
     const current = slot!;
@@ -33,6 +36,7 @@ function claim(target: Record<PropertyKey, unknown>, key: PropertyKey, value: un
     const top = current.claims.at(-1) as { value: unknown } | undefined;
     target[key] = top ? top.value : current.original;
     if (!top) byKey!.delete(key);
+    reapplyPaths(target, key);
   };
 }
 
