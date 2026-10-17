@@ -1,4 +1,4 @@
-import { createContext, createEffect, createSignal, omit, onSettled, untrack, useContext } from 'solid-js';
+import { createContext, createEffect, createSignal, omit, onCleanup, onSettled, untrack, useContext } from 'solid-js';
 import type { JSX } from '@solidjs/web';
 import { PerspectiveCamera, Scene, WebGLRenderer, type Camera } from 'three';
 import { ParentContext } from '../scene-component/parent';
@@ -46,8 +46,16 @@ export interface CanvasHandle {
   readonly renderer: () => CanvasRenderer | undefined;
   /** The `<canvas>` element's size, kept up to date as it resizes. `0 × 0` until it has been measured. */
   readonly size: () => CanvasSize;
-  /** Renders one Frame now, whatever `frameloop` is. Returns `false`, and renders nothing, while there is no renderer yet. */
-  advance(): boolean;
+  /**
+   * Frame time, in seconds: the sum of every Frame's `delta` so far. A plain number, not a signal: read it in a Frame
+   * callback.
+   */
+  readonly time: number;
+  /**
+   * Renders one Frame now, whatever `frameloop` is, after running the Frame callbacks with `delta` (seconds, default
+   * 0). Returns `false`, and runs and renders nothing, while there is no renderer yet.
+   */
+  advance(delta?: number): boolean;
   /**
    * Asks for a Frame. Prop writes, Attach, detach and Rebuild do it on their own; call it after changing an Instance
    * some other way (through a ref, or when a texture finishes loading).
@@ -61,8 +69,9 @@ export interface CanvasOwnProps {
   /** Settings of the default camera. */
   camera?: DefaultCameraOptions;
   /**
-   * When Frames render on their own: `"demand"` (the default) on the animation frame after an Invalidation,
-   * `"always"` on every animation frame, `"never"` only through `advance()`.
+   * When Frames render on their own: `"demand"` (the default) on the animation frame after an Invalidation, and on
+   * every one while a Frame callback is registered; `"always"` on every animation frame; `"never"` only through
+   * `advance()`.
    */
   frameloop?: Frameloop;
   /** The scene: Scene components, and any component that renders them. */
@@ -72,7 +81,16 @@ export interface CanvasOwnProps {
 export type CanvasProps = Omit<JSX.CanvasHTMLAttributes<HTMLCanvasElement>, keyof CanvasOwnProps | 'ref' | 'style'> &
   CanvasOwnProps & { style?: JSX.CSSProperties };
 
+/**
+ * Runs before a Frame renders, with the Canvas and the seconds since the previous Frame (0 on the first one after
+ * the loop was idle).
+ */
+export type FrameCallback = (canvas: CanvasHandle, delta: number) => void;
+
 const CanvasContext = createContext<CanvasHandle>();
+
+// How `onFrame` registers a Frame callback on a Canvas. Returns the unregister.
+const registerFrame = new WeakMap<CanvasHandle, (callback: FrameCallback) => () => void>();
 
 // Every Canvas mounted in the page, for `invalidate()`.
 const mounted = new Set<CanvasHandle>();
@@ -112,8 +130,13 @@ export function Canvas(props: CanvasProps) {
 
   // The renderer as a plain variable too: Frames render with it as soon as it arrives, before the signal commits.
   let active: CanvasRenderer | undefined;
-  const render = () => {
+  let time = 0;
+  const entries = new Set<{ callback: FrameCallback }>();
+  const render = (delta: number) => {
     if (!active) return false;
+    time += delta;
+    // A snapshot: callbacks registered during this Frame run from the next one; unregistered ones don't run.
+    for (const entry of Array.from(entries)) if (entries.has(entry)) entry.callback(handle, delta);
     active.render(scene, camera);
     return true;
   };
@@ -203,13 +226,26 @@ export function Canvas(props: CanvasProps) {
     camera,
     renderer,
     size,
-    advance() {
-      if (!render()) return false;
+    get time() {
+      return time;
+    },
+    advance(delta = 0) {
+      if (!render(delta)) return false;
       loop.rendered();
       return true;
     },
     invalidate: loop.invalidate,
   };
+  // Each entry is its own object, so one function registered twice runs twice. The hold keeps the loop running.
+  registerFrame.set(handle, (callback) => {
+    const entry = { callback };
+    entries.add(entry);
+    const release = loop.hold();
+    return () => {
+      entries.delete(entry);
+      release();
+    };
+  });
 
   return (
     <>
@@ -228,4 +264,14 @@ export function Canvas(props: CanvasProps) {
 /** The Canvas the calling component is inside. Throws outside a Canvas. */
 export function useCanvas(): CanvasHandle {
   return useContext(CanvasContext);
+}
+
+/**
+ * Registers a Frame callback on the Canvas the calling component is inside: it runs before every Frame, after the
+ * callbacks registered before it, until the current owner is disposed. While any is registered, a Canvas with
+ * `frameloop="demand"` renders on every animation frame. Throws outside a Canvas.
+ */
+export function onFrame(callback: FrameCallback): void {
+  const unregister = registerFrame.get(useCanvas())!(callback);
+  onCleanup(unregister);
 }

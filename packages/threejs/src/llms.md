@@ -12,11 +12,11 @@ pnpm add solid-js @solidjs/web three @types/three https://github.com/yhorbachov/
 
 ## API
 
-Entry points: `Canvas`, `useCanvas`, `invalidate`, `T` (a Scene component per three.js scene-graph class), `sceneComponent`.
+Entry points: `Canvas`, `useCanvas`, `invalidate`, `onFrame`, `T` (a Scene component per three.js scene-graph class), `sceneComponent`.
 
-Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `Frameloop`, `CanvasRenderer`, `CanvasSize`, `RendererFactory`, `DefaultCameraOptions`, `SceneClass`, `SceneComponent`, `InstanceProps`, `PartialValue`, `PropValue`, `SceneComponentProps`, `SceneRef`, `Attach`, `AttachFn`.
+Types: `CanvasProps`, `CanvasOwnProps`, `CanvasHandle`, `Frameloop`, `FrameCallback`, `CanvasRenderer`, `CanvasSize`, `RendererFactory`, `DefaultCameraOptions`, `SceneClass`, `SceneComponent`, `InstanceProps`, `PartialValue`, `PropValue`, `SceneComponentProps`, `SceneRef`, `Attach`, `AttachFn`.
 
 ## References
 
-- [Canvas](canvas/canvas.md): `Canvas`, its renderer, default camera and Frames, `invalidate()`, and `useCanvas()`.
+- [Canvas](canvas/canvas.md): `Canvas`, its renderer, default camera and Frames, `invalidate()`, `useCanvas()`, and Frame callbacks with `onFrame()`.
 - [Scene components](scene-component/scene-component.md): the `T` namespace, `sceneComponent`, Instances, their props and Partial values, Attach, Rebuild, Adopted Instances, refs and disposal.
