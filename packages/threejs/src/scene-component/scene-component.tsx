@@ -15,9 +15,14 @@ export type SceneRef<Instance> = Instance | ((instance: Instance) => void) | und
 export interface SceneComponentProps<Instance, Args extends unknown[]> {
   /** The constructor arguments of the Instance. A change rebuilds it: a new Instance takes the old one's place. */
   args?: Args;
+  /**
+   * An existing Instance to adopt instead of constructing one: it is attached and detached but never disposed. A change
+   * puts the new object in the old one's place. Whether the component adopts is decided once, by whether it has this prop.
+   */
+  object?: Instance;
   /** Where the Instance goes in its parent, when the default isn't right. Read once. */
   attach?: Attach<any, Instance>;
-  /** Pass `false` to keep the Instance alive after the component is gone, instead of disposing it. */
+  /** Pass `false` to keep the Instance alive after the component is gone, instead of disposing it. An Adopted Instance is never disposed. */
   dispose?: boolean;
   /** Receives the Instance once it is attached, and again with the new one after each Rebuild. */
   ref?: SceneRef<Instance>;
@@ -63,7 +68,10 @@ export type InstanceProps<Instance> = {
 
 /** A component that wraps one three.js class and manages its Instance. */
 export type SceneComponent<C extends SceneClass> = (
-  props: SceneComponentProps<InstanceType<C>, ConstructorParameters<C>> & InstanceProps<InstanceType<C>>,
+  props: SceneComponentProps<InstanceType<C>, ConstructorParameters<C>> &
+    InstanceProps<InstanceType<C>> &
+    // An Instance comes from `args` or from `object`, never both.
+    ({ args?: ConstructorParameters<C>; object?: never } | { args?: never; object: InstanceType<C> }),
 ) => JSX.Element;
 
 function callRef<Instance>(ref: SceneRef<Instance>, instance: Instance) {
@@ -75,31 +83,54 @@ function sameArgs(a: unknown[], b: unknown[]) {
   return a.length === b.length && a.every((value, index) => Object.is(value, b[index]));
 }
 
+type SourceProps = { args?: unknown[]; object?: unknown; dispose?: boolean };
+
+// An Owned Instance. A Rebuild is this memo running again; its cleanup disposes the Instance it made, before the next
+// one is made and when the component's owner is disposed.
+function ownedInstance<C extends SceneClass>(Class: C, props: SourceProps, name: string) {
+  const args = createMemo(() => copyPlain(props.args ?? []) as unknown[], { name: `${name}.args`, equals: sameArgs });
+  return createMemo(
+    () => {
+      const made = new Class(...args()) as InstanceType<C>;
+      onCleanup(() => {
+        if (untrack(() => props.dispose) !== false) (made as { dispose?: () => void }).dispose?.();
+      });
+      return made;
+    },
+    { name: `${name}.instance` },
+  );
+}
+
+// An Adopted Instance: whatever `object` holds, never disposed. A new object takes the old one's place, like a Rebuild.
+function adoptedInstance<Instance extends object>(props: SourceProps, name: string) {
+  return createMemo(
+    () => {
+      const object = props.object;
+      if (object === null || typeof object !== 'object') {
+        throw new Error(`${name} got ${object === null ? 'null' : typeof object} as its object; it adopts an existing Instance.`);
+      }
+      return object as Instance;
+    },
+    { name: `${name}.instance` },
+  );
+}
+
 /**
  * Makes a Scene component for a three.js class: an add-on from `three/examples`, a class of your own, or any class
  * the `T` namespace doesn't have. The component constructs its Instance from `args`, attaches it to the Instance of
  * the Scene component around it (or to the Canvas's scene), and on disposal detaches it and calls its `dispose()`.
  * Every other prop sets the property of the same name on the Instance, copying into math objects; an object literal
- * writes only the fields it lists. When `args` changes, a Rebuild puts a new Instance in the old one's place.
+ * writes only the fields it lists. When `args` changes, a Rebuild puts a new Instance in the old one's place. With
+ * `object`, it adopts an existing Instance instead, and never disposes it.
  */
 export function sceneComponent<C extends SceneClass>(Class: C): SceneComponent<C> {
   const Component: SceneComponent<C> = (props) => {
     const name = Class.name;
     const parent = useContext(ParentContext);
 
-    const args = createMemo(() => copyPlain(props.args ?? []) as unknown[], { name: `${name}.args`, equals: sameArgs });
-    // A Rebuild is this memo running again. The cleanup disposes the Instance it made, before the next one is made
-    // and when the component's owner is disposed.
-    const instance = createMemo(
-      () => {
-        const made = new Class(...args()) as InstanceType<C>;
-        onCleanup(() => {
-          if (untrack(() => props.dispose) !== false) (made as { dispose?: () => void }).dispose?.();
-        });
-        return made;
-      },
-      { name: `${name}.instance` },
-    );
+    const instance = untrack(() => 'object' in props)
+      ? adoptedInstance<InstanceType<C>>(props, name)
+      : ownedInstance(Class, props, name);
 
     // Created before Attach, so the props are on the Instance before it joins its parent, at mount and on a Rebuild.
     // oxlint-disable-next-line solid/reactivity -- bindProps reads the accessor inside its own render effects

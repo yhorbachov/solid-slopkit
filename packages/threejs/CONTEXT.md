@@ -37,7 +37,7 @@ An **Instance** the component constructed from its **Args**. The component dispo
 _Avoid_: managed instance, internal instance
 
 **Adopted Instance**:
-An existing **Instance** handed to a component through its `object` prop. The component attaches and detaches it but never disposes it.
+An existing **Instance** handed to a component through its `object` prop. The component attaches and detaches it but never disposes it; a new `object` takes the old one's place as in a **Rebuild**.
 _Avoid_: primitive, external instance, borrowed instance
 
 **Asset**:

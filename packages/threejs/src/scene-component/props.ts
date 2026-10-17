@@ -2,7 +2,7 @@ import { createRenderEffect } from 'solid-js';
 import { Color, type ColorRepresentation } from 'three';
 
 /** Props that configure the Scene component itself rather than a property of its Instance. */
-export const RESERVED_PROPS = new Set(['args', 'attach', 'dispose', 'ref', 'children']);
+export const RESERVED_PROPS = new Set(['args', 'object', 'attach', 'dispose', 'ref', 'children']);
 
 type Settable = { set(...args: unknown[]): unknown; setScalar?: (scalar: number) => unknown; copy?: (v: unknown) => unknown };
 

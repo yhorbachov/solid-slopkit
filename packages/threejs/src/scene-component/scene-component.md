@@ -60,6 +60,16 @@ Many three.js classes take their configuration only in the constructor (a `BoxGe
 
 `args` is compared by value, so `args={[1, 1, 1]}` re-evaluated with the same numbers is not a change. A Rebuild costs a new Instance and its GPU upload, so animate through props, not `args`.
 
+## Adopted Instances
+
+`object` hands a component an Instance that already exists, such as a loaded model's scene graph or a geometry shared between meshes, instead of constructing one: `<T.Group object={gltf.scene} position={[0, 1, 0]} />`.
+
+- **Attached, never disposed:** it is attached and detached like any Instance, but never disposed, with or without `dispose`. Whoever made it disposes it.
+- **Props and children:** props are written to it and Scene components inside it attach to it, as with an Owned Instance. Props it was given stay on it after it is detached.
+- **A new object:** when `object` changes, the new one takes the old one's place, the children move to it and the ref is called with it, as in a Rebuild. The old one is detached, not disposed.
+- **One place at a time:** an `Object3D` has one parent, so adopting the same one in two places moves it to the second. Clone it to show it twice.
+- **Types:** a component takes `args` or `object`, never both, and `object` must be an instance of its class: `sceneComponent(Mesh)` adopts a `Mesh`; `sceneComponent(Object3D)` adopts any `Object3D`. Whether a component adopts is decided once, by whether it has an `object` prop; `null` or `undefined` throws.
+
 ## Instance props
 
 Every prop that isn't one of the component's own (below) sets the Instance's property of the same name: `<Mesh position={[0, 1, 0]} visible={shown()} />`. Each prop is its own binding, so a change re-runs only that prop's write, and props are applied before the Instance is attached and its ref runs. Which props a component has is read once; their values are reactive.
@@ -99,6 +109,7 @@ An object literal given for a property that holds an instance of a class writes 
 | Prop       | Type                            | Default              | Description                                                  |
 | ---------- | ------------------------------- | -------------------- | ------------------------------------------------------------ |
 | `args`     | the constructor's parameters    | `[]`                 | Constructor arguments of the Instance. A change rebuilds it. |
+| `object`   | an instance of the class        | —                    | An existing Instance to adopt instead. Never disposed.       |
 | `attach`   | `Attach` (`string \| AttachFn`) | by the Instance type | Where the Instance goes in its parent. Read once.            |
 | `dispose`  | `boolean`                       | `true`               | `false` keeps the Instance after the component is gone.      |
 | `ref`      | `SceneRef<Instance>`            | —                    | Receives the Instance once attached, and after each Rebuild. |
