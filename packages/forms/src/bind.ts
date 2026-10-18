@@ -18,7 +18,8 @@ import { REQUIRED } from './metadata';
  *
  * Text inputs (`TextInput`, `Textarea`, `PasswordInput`) pass `value` and `onInput` to
  * the native element, so they take `bind.text(f)`; `Checkbox` and `Switch` take
- * `bind.checked(f)`.
+ * `bind.checked(f)`. `NativeSelect` reports the native `change` event, so it takes
+ * `bind.nativeSelect(f)`.
  */
 
 /** Props for a component bound by `value` / `onChange(value)`. */
@@ -38,6 +39,17 @@ export interface ValueBinding<T> {
 export interface TextBinding {
   readonly value: string;
   readonly onInput: (event: { currentTarget: { value: string } }) => void;
+  readonly onBlur: () => void;
+  readonly error: string | boolean;
+  readonly disabled: boolean;
+  readonly readOnly: boolean;
+  readonly required: boolean;
+}
+
+/** Props for a `NativeSelect`, whose `onChange` is the native `change` event. */
+export interface NativeSelectBinding {
+  readonly value: string;
+  readonly onChange: (event: { currentTarget: { value: string } }) => void;
   readonly onBlur: () => void;
   readonly error: string | boolean;
   readonly disabled: boolean;
@@ -107,6 +119,25 @@ function textBinding(field: Field<string>): TextBinding {
   );
 }
 
+function nativeSelectBinding(field: Field<string>): NativeSelectBinding {
+  return withState(
+    {
+      get value() {
+        return field.$value();
+      },
+      onChange: (event: { currentTarget: { value: string } }) => {
+        // A select has no native readonly: refuse the edit and put the element back.
+        if (field.$readonly()) {
+          event.currentTarget.value = field.$value();
+          return;
+        }
+        field.$set(event.currentTarget.value);
+      },
+    },
+    field as Field<unknown>,
+  );
+}
+
 function checkedBinding(field: Field<boolean>): CheckedBinding {
   return withState(
     {
@@ -121,6 +152,11 @@ function checkedBinding(field: Field<boolean>): CheckedBinding {
 
 /**
  * Binds a Field to a component by `value` / `onChange(value)`; `bind.text` is the variant for text inputs
- * (`value` / `onInput`), `bind.checked` the `checked` variant.
+ * (`value` / `onInput`), `bind.checked` the `checked` variant, `bind.nativeSelect` the variant for `NativeSelect`
+ * (`value` / `onChange(event)`).
  */
-export const bind = Object.assign(valueBinding, { text: textBinding, checked: checkedBinding });
+export const bind = Object.assign(valueBinding, {
+  text: textBinding,
+  checked: checkedBinding,
+  nativeSelect: nativeSelectBinding,
+});

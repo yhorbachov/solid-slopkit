@@ -2,6 +2,8 @@
 
 An angle picked on a dial: a circle with `role="slider"`, 0° at the top and clockwise, with a thumb on its ring that the pointer drags around the center and the keyboard steps. It wraps around.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Pointer**, **Keyboard** and **Screen readers** below.
+
 ```tsx
 import { AngleSlider } from '@solid-slopkit/ui';
 ```

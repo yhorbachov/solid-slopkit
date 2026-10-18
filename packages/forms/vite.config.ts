@@ -5,11 +5,17 @@ import { fileURLToPath } from 'node:url';
 // The package ships uncompiled Solid source (see `build:source`); this config only serves the tests. The binding
 // tests render the real @solid-slopkit/ui inputs from source: no build step, and no runtime dependency on ui.
 const uiSource = fileURLToPath(new URL('../ui/src/index.ts', import.meta.url));
+const uiDatesSource = fileURLToPath(new URL('../ui/src/dates/index.ts', import.meta.url));
 
 // Budget files run alone, after the unit project: diagnostics include wall-clock checks that trip on a busy machine.
 export default defineConfig({
   plugins: [solid({ ssr: true })],
-  resolve: { alias: { '@solid-slopkit/ui': uiSource } },
+  resolve: {
+    alias: [
+      { find: /^@solid-slopkit\/ui$/, replacement: uiSource },
+      { find: /^@solid-slopkit\/ui\/dates$/, replacement: uiDatesSource },
+    ],
+  },
   test: {
     projects: [
       {

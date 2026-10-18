@@ -2,6 +2,8 @@
 
 A labelled field for a month, several months or a range: a button that shows the value, written by the locale, and opens a [MonthPicker](../month-picker/month-picker.md) in a dropdown under it. It works as [DatePickerInput](../date-picker-input/date-picker-input.md) does, with months for days.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Dropdown** below.
+
 ```tsx
 import { MonthPickerInput } from '@solid-slopkit/ui/dates';
 ```

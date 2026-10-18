@@ -2,6 +2,8 @@
 
 A labelled field for a time of day, written by the locale in 12 or 24 hours: a segment per part, typed or stepped with the arrow keys, and optionally a dropdown of options to click. For the browser's own time field, use [TimeInput](../time-input/time-input.md).
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Typing** and **Keys** below.
+
 ```tsx
 import { TimePicker } from '@solid-slopkit/ui/dates';
 ```

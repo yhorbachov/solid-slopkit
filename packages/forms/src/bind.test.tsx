@@ -2,7 +2,7 @@ import { fireEvent, render as renderBare } from '@solidjs/testing-library';
 import type { JSX } from '@solidjs/web';
 import { createStore, flush } from 'solid-js';
 import { describe, expect, test } from 'vitest';
-import { Checkbox, NumberInput, Select, Switch, TextInput, SlopkitUi } from '@solid-slopkit/ui';
+import { Checkbox, NativeSelect, NumberInput, Select, Switch, TextInput, SlopkitUi } from '@solid-slopkit/ui';
 
 // The ui inputs must render inside the provider.
 const render = (ui: () => JSX.Element) => renderBare(ui, { wrapper: (props) => <SlopkitUi>{props.children}</SlopkitUi> });
@@ -164,6 +164,35 @@ describe('bind() with slopkit inputs', () => {
     expect(model.on).toBe(true);
   });
 
+  test('a native select takes `string`, writes the chosen option back and refuses edits while readonly', () => {
+    const [model, setModel] = createStore({ plan: 'team', locked: false });
+    const { container } = render(() => {
+      const f = form(model, setModel, (p) => {
+        required(p.plan);
+        readonly(p.plan, ({ valueOf }) => valueOf(p.locked));
+      });
+      return <NativeSelect id="plan" label="Plan" data={['solo', 'team', 'company']} {...bind.nativeSelect(f.plan)} />;
+    });
+    const select = container.querySelector<HTMLSelectElement>('#plan')!;
+    expect(select.value).toBe('team');
+    expect(select).toBeRequired();
+
+    select.value = 'company';
+    fireEvent.change(select);
+    flush();
+    expect(model.plan).toBe('company');
+
+    setModel((draft) => {
+      draft.locked = true;
+    });
+    flush();
+    select.value = 'solo';
+    fireEvent.change(select);
+    flush();
+    expect(model.plan).toBe('company');
+    expect(select.value).toBe('company');
+  });
+
   test('the binding reads the field through getters, so a spread tracks it', () => {
     const [model, setModel] = createStore({ name: 'a' });
     let f!: SignalForm<{ name: string }>;
@@ -186,5 +215,6 @@ describe('bind() with slopkit inputs', () => {
       'required',
       'value',
     ]);
+    expect(Object.keys(bind.nativeSelect(f.name)).sort()).toEqual(Object.keys(b).sort());
   });
 });

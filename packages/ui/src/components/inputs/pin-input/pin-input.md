@@ -2,6 +2,8 @@
 
 A code split into one field per character, such as a one-time code or a PIN: typing moves to the next field, Backspace goes back, and a pasted or autofilled code spreads over the fields.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Typing** below.
+
 ```tsx
 import { PinInput } from '@solid-slopkit/ui';
 ```

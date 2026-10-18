@@ -2,6 +2,8 @@
 
 A calendar: the days of a month, the months of a year, or the years of a decade, in grids moved through with the arrow keys, with a header to go to the previous or next period and up a level. It has no value of its own; mark selected days with `getDayProps` and choose them with `onDayClick`.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Keyboard** and **Screen readers** below.
+
 ```tsx
 import { Calendar } from '@solid-slopkit/ui/dates';
 ```

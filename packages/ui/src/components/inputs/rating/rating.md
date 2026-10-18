@@ -2,6 +2,8 @@
 
 A star rating. Choosing, it's a `radiogroup` of hidden native radios, one per star or part of a star, so the arrow keys move it; read-only, it's the stars as one image.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Pointer** and **Keyboard** below.
+
 ```tsx
 import { Rating } from '@solid-slopkit/ui';
 ```

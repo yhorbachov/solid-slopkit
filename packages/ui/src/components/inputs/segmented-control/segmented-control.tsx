@@ -146,7 +146,9 @@ export function SegmentedControl<T extends string = string>(props: SegmentedCont
   }
 
   // Moves the indicator over the active item. The first placement is not animated: transitions only apply once
-  // the root has `data-ready`, which is set after the indicator has been placed and laid out.
+  // the root has `data-ready`, which is set after the indicator has been placed and laid out. A control that is
+  // not laid out (mounted in a hidden tab, a closed modal) has nothing to measure: it waits for the resize
+  // observer, so the indicator doesn't start in the first item's corner and slide over once shown.
   function placeIndicator() {
     if (!root || !indicator) return;
     const active = root.querySelector<HTMLElement>(`.${style.control}[data-active]`);
@@ -154,6 +156,7 @@ export function SegmentedControl<T extends string = string>(props: SegmentedCont
       indicator.style.display = 'none';
       return;
     }
+    if (active.offsetWidth === 0 && active.offsetHeight === 0) return;
     indicator.style.display = '';
     indicator.style.width = `${active.offsetWidth}px`;
     indicator.style.height = `${active.offsetHeight}px`;
@@ -180,7 +183,10 @@ export function SegmentedControl<T extends string = string>(props: SegmentedCont
 
   return (
     <div
-      ref={mergeRefs((el: HTMLDivElement) => (root = el), mergedProps.ref)}
+      ref={mergeRefs(
+        (el: HTMLDivElement) => (root = el),
+        untrack(() => mergedProps.ref),
+      )}
       role="radiogroup"
       aria-orientation={mergedProps.orientation}
       aria-disabled={mergedProps.disabled ? 'true' : undefined}

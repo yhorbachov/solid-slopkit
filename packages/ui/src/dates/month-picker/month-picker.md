@@ -2,6 +2,8 @@
 
 A calendar to choose months with: one month, several, or a range from one month to another. It shows the months of a year, and the years of a decade above them. It is a [Calendar](../calendar/calendar.md) that starts at the year level, so the Calendar's props for months and years work too.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Keyboard and screen readers** below.
+
 ```tsx
 import { MonthPicker } from '@solid-slopkit/ui/dates';
 ```

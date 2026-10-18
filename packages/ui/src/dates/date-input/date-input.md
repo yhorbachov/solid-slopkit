@@ -2,6 +2,8 @@
 
 A labelled text field for a day: type it, or choose it in a [DatePicker](../date-picker/date-picker.md) that opens in a dropdown under the field.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Calendar** below.
+
 ```tsx
 import { DateInput } from '@solid-slopkit/ui/dates';
 ```

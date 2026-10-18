@@ -6,28 +6,38 @@ A binding connects a field to a view element. There are two layers.
 
 ## bind(): slopkit components
 
-`bind(f.x)` returns `{ value, onChange(value), onBlur, error, disabled, readOnly, required }`, all getters. Spread the whole object onto a component that takes a typed `value` and `onChange(value)`. Two variants cover the other inputs: `bind.text(f.x)` returns `onInput` instead of `onChange`, for the text inputs that pass `value` and `onInput` to their native element, and `bind.checked(f.x)` returns `checked` instead of `value`.
+`bind(f.x)` returns `{ value, onChange(value), onBlur, error, disabled, readOnly, required }`, all getters. Spread the whole object onto a component that takes a typed `value` and `onChange(value)`. Three variants cover the other inputs: `bind.text(f.x)` returns `onInput` instead of `onChange`, for the text inputs that pass `value` and `onInput` to their native element; `bind.checked(f.x)` returns `checked` instead of `value`; and `bind.nativeSelect(f.x)` returns an `onChange` that takes the native `change` event, for `NativeSelect`.
 
 | Prop                         | Value                                                                                     |
 | ---------------------------- | ----------------------------------------------------------------------------------------- |
 | `value` / `checked`          | the field's value                                                                         |
-| `onChange(value)`, `onInput` | `$set(value)`; `onInput` reads the element's `value`                                      |
+| `onChange(value)`, `onInput` | `$set(value)`; `onInput` and the native select's `onChange` read the element's `value`    |
 | `onBlur()`                   | `$markTouched()`                                                                          |
 | `error`                      | the first error's message (`true` if it has none) once the field is touched; else `false` |
 | `disabled`                   | `$disabled()`, including from a container above                                           |
 | `readOnly`                   | `$readonly()`                                                                             |
 | `required`                   | true when a `required()` rule is attached                                                 |
 
-The field's type must be the type the component reports:
+The field's type must be the type the component reports. Every input of `@solid-slopkit/ui` and its `dates` entry:
 
-| Component                                    | Call                | Field type            |
-| -------------------------------------------- | ------------------- | --------------------- |
-| `TextInput`, `Textarea`, `PasswordInput`     | `bind.text(f.x)`    | `string`              |
-| `NumberInput`                                | `bind(f.x)`         | `number \| undefined` |
-| `Select`                                     | `bind(f.x)`         | `string \| null`      |
-| `Radio.Group`                                | `bind(f.x)`         | `string`              |
-| `MultiSelect`, `TagsInput`, `Checkbox.Group` | `bind(f.x)`         | `string[]`            |
-| `Checkbox`, `Switch`                         | `bind.checked(f.x)` | `boolean`             |
+| Component                                                                                       | Call                     | Field type                     |
+| ----------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------ |
+| `TextInput`, `Textarea`, `PasswordInput`                                                        | `bind.text(f.x)`         | `string`                       |
+| `Autocomplete`, `JsonInput`, `PinInput`, `ColorInput`, `ColorPicker`, `TimeInput`, `TimePicker` | `bind(f.x)`              | `string`                       |
+| `Select`                                                                                        | `bind(f.x)`              | `string \| null`               |
+| `NativeSelect`                                                                                  | `bind.nativeSelect(f.x)` | `string`                       |
+| `SegmentedControl`, `Radio.Group`, `Chip.Group`                                                 | `bind(f.x)`              | `string`                       |
+| `MultiSelect`, `TagsInput`, `Checkbox.Group`, `Switch.Group`, `Chip.Group multiple`             | `bind(f.x)`              | `string[]`                     |
+| `NumberInput`                                                                                   | `bind(f.x)`              | `number \| undefined`          |
+| `Slider`, `AngleSlider`, `Rating`                                                               | `bind(f.x)`              | `number`                       |
+| `RangeSlider`                                                                                   | `bind(f.x)`              | `[number, number]`             |
+| `Checkbox`, `Switch`, `Chip`                                                                    | `bind.checked(f.x)`      | `boolean`                      |
+| `FileInput` (`FileInput multiple`)                                                              | `bind(f.x)`              | `File \| null` (`File[]`)      |
+| `DateInput`, `DateTimePicker`, `DatePickerInput`, `MonthPickerInput`, `YearPickerInput`         | `bind(f.x)`              | `Date \| null`                 |
+| The picker inputs with `type="multiple"`                                                        | `bind(f.x)`              | `Date[]`                       |
+| The picker inputs with `type="range"`                                                           | `bind(f.x)`              | `[Date \| null, Date \| null]` |
+
+`NativeSelect` is the browser's own select: its `onChange` is the DOM event, so it takes `bind.nativeSelect`, which reads the chosen option and refuses the edit while the field is read-only (a select has no native `readonly`). For a themed dropdown, use `Select` with `bind()`.
 
 A mismatch is a type error. `NumberInput` reports `undefined` when it is empty, so model that field as `number | undefined`; `min()` and `max()` skip an empty value, so pair them with `required()`.
 
@@ -67,7 +77,7 @@ export default function BindingDemo() {
 
 ## control(): native elements
 
-`control(f.x)` spreads `value`, DOM-event handlers, `disabled` and `readonly` onto a plain element (`readonly` is the attribute; slopkit components take `readOnly`, which `bind` gives them). Checkboxes and selects have no native `readonly`, so their handlers refuse the edit and restore the element.
+`control(f.x)` spreads `value`, DOM-event handlers, `disabled` and `readonly` onto a plain element (`readonly` is the attribute; slopkit components take `readOnly`, which `bind` gives them). Checkboxes and selects have no native `readonly`, so their handlers refuse the edit and restore the element. For `NativeSelect`, use `bind.nativeSelect(f.x)`, which also carries the field's error and conditions.
 
 | Call                    | Element      | Field type                  |
 | ----------------------- | ------------ | --------------------------- |

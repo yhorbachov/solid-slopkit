@@ -2,6 +2,10 @@
 
 A labelled field that picks one value from a list in a dropdown, optionally searchable. Built on [Combobox](../combobox/combobox.md).
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Keyboard** and **Pointer** below.
+
+The default for a dropdown: themed like the rest of the library, and bound with `bind(f.x)` from `@solid-slopkit/forms`. Use [NativeSelect](../native-select/native-select.md) instead only when you want the operating system's own picker (a wheel or a sheet on phones) and accept the browser's look for the list. For two to five options that stay in view, use [SegmentedControl](../segmented-control/segmented-control.md) or [Radio.Group](../radio/radio.md).
+
 ```tsx
 import { Select } from '@solid-slopkit/ui';
 ```
@@ -31,7 +35,7 @@ import { Select } from '@solid-slopkit/ui';
 - **Pointer:** a press anywhere on the field (the chevron included) opens and closes it; a click on the label only focuses it. A click on an option chooses it. Focus stays on the field throughout.
 - **Selected option:** marked with a check mark and the primary color, and `aria-selected="true"`. `allowDeselect` makes choosing it again clear the value.
 - **Clearing:** `clearable` replaces the chevron with a clear button (named `clearLabel`, default `Clear`) while there's a value.
-- **Forms:** `name` adds a hidden input with the value (empty for none).
+- **Forms:** `name` adds a hidden input with the value (empty for none). With `@solid-slopkit/forms`, spread `bind(f.x)` on a `string | null` field: `<Select label="Plan" data={plans} {...bind(f.plan)} />`.
 - **Label and texts:** `label`, `labelSection`, `description`, `error`, `required`, `withAsterisk`, `size` and `id`, as on TextInput. The label names the field and the listbox. Without a label, pass `aria-label`.
 - **Box:** an [Input](../input/input.md)'s box, with `variant`, `leftSection` and `rightSection` (which replaces the chevron). `disabled` and `readOnly` keep it closed.
 - **Dropdown:** under the field and as wide as it; `comboboxProps` sets `position`, `offset`, `matchTargetWidth`, `transition` and `transitionDuration`. The list scrolls past 15rem. Needs a `<SlopkitUi>` above it.

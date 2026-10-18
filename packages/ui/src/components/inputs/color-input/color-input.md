@@ -2,6 +2,8 @@
 
 A labelled text field for a color: the color as text, a swatch of it in front, a [ColorPicker](../color-picker/color-picker.md) in a dropdown, and an eye dropper where the browser has one.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Picker** below.
+
 ```tsx
 import { ColorInput } from '@solid-slopkit/ui';
 ```

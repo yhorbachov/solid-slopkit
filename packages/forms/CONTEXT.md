@@ -92,7 +92,7 @@ The props that connect a Field to a native element by spread (`<input {...contro
 _Avoid_: adapter, accessor
 
 **Binding**:
-The props that connect a Field to a component that takes a typed `value` and `onChange(value)`, by spread (`<Select {...bind(f.country)} />`), with variants for `checked` components (`bind.checked`) and text inputs (`bind.text`). It also carries the Field's `error` once touched, `disabled`, `readOnly` and `required`. The counterpart of a Control for components.
+The props that connect a Field to a component that takes a typed `value` and `onChange(value)`, by spread (`<Select {...bind(f.country)} />`), with variants for `checked` components (`bind.checked`), text inputs (`bind.text`) and `NativeSelect`, which reports the native `change` event (`bind.nativeSelect`). It also carries the Field's `error` once touched, `disabled`, `readOnly` and `required`. The counterpart of a Control for components.
 _Avoid_: adapter, wrapper, accessor
 
 **Owner**:

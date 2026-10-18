@@ -2,6 +2,8 @@
 
 A color picked on a panel: a saturation and brightness area, a hue slider, an alpha slider for formats with alpha, a preview, and optional swatches.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Pointer**, **Keyboard** and **Screen readers** below.
+
 ```tsx
 import { ColorPicker } from '@solid-slopkit/ui';
 ```

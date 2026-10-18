@@ -2,6 +2,8 @@
 
 A calendar to choose years with: one year, several, or a range from one year to another. It shows the years of a decade. It is a [Calendar](../calendar/calendar.md) fixed at the decade level, so the Calendar's props for years work too.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Keyboard and screen readers** below.
+
 ```tsx
 import { YearPicker } from '@solid-slopkit/ui/dates';
 ```

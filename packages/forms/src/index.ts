@@ -14,7 +14,7 @@ export { control } from './control';
 export type { TextControlProps, CheckboxControlProps, NumberControlProps, SelectControlProps } from './control';
 
 export { bind } from './bind';
-export type { ValueBinding, TextBinding, CheckedBinding } from './bind';
+export type { ValueBinding, TextBinding, CheckedBinding, NativeSelectBinding } from './bind';
 
 export { schema } from './schema';
 export type { Schema, SchemaFn, SchemaOrFn, SchemaPath, FieldContext, ValidationError } from './schema';

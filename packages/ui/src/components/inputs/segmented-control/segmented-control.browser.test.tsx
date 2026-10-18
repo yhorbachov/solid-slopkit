@@ -1,5 +1,6 @@
 import { render } from '@solidjs/testing-library';
 import { userEvent } from 'vitest/browser';
+import { createSignal } from 'solid-js';
 import { describe, expect, test, vi } from 'vitest';
 import { SegmentedControl } from './segmented-control';
 
@@ -24,6 +25,26 @@ describe('<SegmentedControl /> in a browser', () => {
 
     await expect.poll(() => box(indicator)).toEqual(box(item('Svelte')));
     expect(box(item('Svelte')).left).toBeGreaterThan(box(item('React')).left);
+  });
+
+  test('mounted hidden, the indicator appears over the selected item once shown, without sliding from the first', async () => {
+    const [shown, setShown] = createSignal(false);
+    const { getByRole, getByText } = render(() => (
+      <div style={{ display: shown() ? 'block' : 'none' }}>
+        <SegmentedControl aria-label="Framework" data={['React', 'Solid', 'Svelte']} defaultValue="Svelte" />
+      </div>
+    ));
+    const group = getByRole('radiogroup', { hidden: true });
+    const indicator = group.querySelector('[data-slot="segmented-control-indicator"]')!;
+    const item = getByText('Svelte').closest('[data-slot="segmented-control-item"]')!;
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    expect(group).not.toHaveAttribute('data-ready');
+
+    setShown(true);
+
+    // The default 200 ms transition would still be under way: the first placement must not animate.
+    await expect.poll(() => group.hasAttribute('data-ready')).toBe(true);
+    expect(box(indicator)).toEqual(box(item));
   });
 
   test('Tab reaches the selected item, and arrow keys move the selection past disabled items', async () => {

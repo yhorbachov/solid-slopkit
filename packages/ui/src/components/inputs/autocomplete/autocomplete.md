@@ -2,6 +2,8 @@
 
 A labelled text field with suggestions: what's typed is the value, and the suggestions that contain it are offered in a dropdown to fill it in. Built on [Combobox](../combobox/combobox.md).
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Keyboard** below.
+
 ```tsx
 import { Autocomplete } from '@solid-slopkit/ui';
 ```

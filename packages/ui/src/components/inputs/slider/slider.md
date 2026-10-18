@@ -2,6 +2,8 @@
 
 A value picked on a track: a thumb with `role="slider"` that the pointer drags and the keyboard steps, with optional marks and a value bubble. For two values, use RangeSlider.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Pointer**, **Keyboard** and **Screen readers** below.
+
 ```tsx
 import { Slider } from '@solid-slopkit/ui';
 ```

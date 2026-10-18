@@ -2,6 +2,8 @@
 
 A calendar to choose days with: one day, several, or a range from one day to another. It is a [Calendar](../calendar/calendar.md) with a value, so every Calendar prop works too.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see the [Calendar](../calendar/calendar.md)'s **Keyboard**.
+
 ```tsx
 import { DatePicker } from '@solid-slopkit/ui/dates';
 ```

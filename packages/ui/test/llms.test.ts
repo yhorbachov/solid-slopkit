@@ -30,6 +30,11 @@ describe('LLM references', () => {
     expect(links).toContain(relative(src, join(src, reference)));
   });
 
+  test('every entry in llms.md says what it is, after its link', () => {
+    const bare = index.split('\n').filter((line) => /^- \[[^\]]+\]\([^)]+\)$/.test(line));
+    expect(bare).toEqual([]);
+  });
+
   test('the provider has a reference, linked from llms.md', () => {
     expect(links).toContain('components/provider/slopkit-ui.md');
   });

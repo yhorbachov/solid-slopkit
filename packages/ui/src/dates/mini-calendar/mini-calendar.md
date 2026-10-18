@@ -2,6 +2,8 @@
 
 A strip of days to choose one from, between previous and next buttons that move it by its length. For a compact day picker, such as the day of a schedule or a booking.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Keyboard** and **Screen readers** below.
+
 ```tsx
 import { MiniCalendar } from '@solid-slopkit/ui/dates';
 ```

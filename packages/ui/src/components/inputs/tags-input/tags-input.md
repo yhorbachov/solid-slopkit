@@ -2,6 +2,8 @@
 
 A labelled field of free-text tags, shown as pills: Enter or a comma adds what's typed as a tag, and suggestions can be offered while typing. Built on [PillsInput](../pills-input/pills-input.md) and [Combobox](../combobox/combobox.md).
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see the Usage notes below.
+
 ```tsx
 import { TagsInput } from '@solid-slopkit/ui';
 ```

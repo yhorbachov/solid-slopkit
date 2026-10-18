@@ -2,6 +2,8 @@
 
 A labelled field for a year, several years or a range: a button that shows the value, written by the locale, and opens a [YearPicker](../year-picker/year-picker.md) in a dropdown under it. It works as [DatePickerInput](../date-picker-input/date-picker-input.md) does, with years for days.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Dropdown** below.
+
 ```tsx
 import { YearPickerInput } from '@solid-slopkit/ui/dates';
 ```

@@ -2,6 +2,8 @@
 
 A labelled field for a day, several days or a range: a button that shows the value, written by the locale, and opens a [DatePicker](../date-picker/date-picker.md) in a dropdown under it.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Dropdown** below.
+
 ```tsx
 import { DatePickerInput } from '@solid-slopkit/ui/dates';
 ```

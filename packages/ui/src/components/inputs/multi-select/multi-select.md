@@ -2,6 +2,8 @@
 
 A labelled field that picks several values from a list in a dropdown: the selection shows as pills, and typing in the field after them filters the options. Built on [PillsInput](../pills-input/pills-input.md) and [Combobox](../combobox/combobox.md).
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Keyboard** and **Pointer** below.
+
 ```tsx
 import { MultiSelect } from '@solid-slopkit/ui';
 ```

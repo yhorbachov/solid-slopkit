@@ -2,6 +2,8 @@
 
 A range picked on a track: two thumbs with `role="slider"`, and the bar between them. Everything else works like [Slider](../slider/slider.md).
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Pointer**, **Keyboard** and **Screen readers** below.
+
 ```tsx
 import { RangeSlider } from '@solid-slopkit/ui';
 ```

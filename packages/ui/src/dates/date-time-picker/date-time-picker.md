@@ -2,6 +2,8 @@
 
 A labelled field for a date and time: a button that shows them, written by the locale, and opens a [DatePicker](../date-picker/date-picker.md) and a [TimePicker](../time-picker/time-picker.md) in a dropdown under it.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Dropdown** below.
+
 ```tsx
 import { DateTimePicker } from '@solid-slopkit/ui/dates';
 ```

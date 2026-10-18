@@ -11,7 +11,10 @@ import nativeCode from '../../examples/forms/native.tsx?raw';
 
 const PROPS: [string, string][] = [
   ['value / checked', "The field's value, as a getter. bind.checked() gives checked instead of value."],
-  ['onChange(value)', 'Writes the typed value to the field. bind.text() gives onInput instead, which reads the element.'],
+  [
+    'onChange(value)',
+    'Writes the typed value to the field. bind.text() gives onInput instead, and bind.nativeSelect() an onChange that takes the change event; both read the element.',
+  ],
   ['onBlur()', 'Marks the field touched.'],
   ['error', "The first error's message (true if it has none) once the field is touched; false before."],
   ['disabled', "The field's $disabled(), including from a container above."],
@@ -21,11 +24,19 @@ const PROPS: [string, string][] = [
 
 const TYPES: [string, string, string][] = [
   ['TextInput, Textarea, PasswordInput', 'bind.text(f.x)', 'string'],
-  ['NumberInput', 'bind(f.x)', 'number | undefined'],
+  ['Autocomplete, JsonInput, PinInput, ColorInput, ColorPicker, TimeInput, TimePicker', 'bind(f.x)', 'string'],
   ['Select', 'bind(f.x)', 'string | null'],
-  ['Radio.Group', 'bind(f.x)', 'string'],
-  ['MultiSelect, TagsInput, Checkbox.Group', 'bind(f.x)', 'string[]'],
-  ['Checkbox, Switch', 'bind.checked(f.x)', 'boolean'],
+  ['NativeSelect', 'bind.nativeSelect(f.x)', 'string'],
+  ['SegmentedControl, Radio.Group, Chip.Group', 'bind(f.x)', 'string'],
+  ['MultiSelect, TagsInput, Checkbox.Group, Switch.Group, Chip.Group multiple', 'bind(f.x)', 'string[]'],
+  ['NumberInput', 'bind(f.x)', 'number | undefined'],
+  ['Slider, AngleSlider, Rating', 'bind(f.x)', 'number'],
+  ['RangeSlider', 'bind(f.x)', '[number, number]'],
+  ['Checkbox, Switch, Chip', 'bind.checked(f.x)', 'boolean'],
+  ['FileInput (multiple)', 'bind(f.x)', 'File | null (File[])'],
+  ['DateInput, DateTimePicker, DatePickerInput, MonthPickerInput, YearPickerInput', 'bind(f.x)', 'Date | null'],
+  ['The picker inputs with type="multiple"', 'bind(f.x)', 'Date[]'],
+  ['The picker inputs with type="range"', 'bind(f.x)', '[Date | null, Date | null]'],
 ];
 
 const CONTROLS: [string, string, string][] = [
@@ -50,9 +61,10 @@ export default function FormsBinding() {
       <p>
         <code>bind(f.plan)</code> returns the props a slopkit input takes: a typed <code>value</code> and{' '}
         <code>onChange(value)</code>, plus the field's error and conditions. Spread it, and put the label and the rest around it.
-        Every prop is a getter, so the input follows the field. Two variants cover the other inputs: <code>bind.text()</code> for
-        the text inputs, which pass <code>value</code> and <code>onInput</code> to their native element, and{' '}
-        <code>bind.checked()</code> for <code>Checkbox</code> and <code>Switch</code>.
+        Every prop is a getter, so the input follows the field. Three variants cover the other inputs: <code>bind.text()</code>{' '}
+        for the text inputs, which pass <code>value</code> and <code>onInput</code> to their native element,{' '}
+        <code>bind.checked()</code> for <code>Checkbox</code>, <code>Switch</code> and <code>Chip</code>, and{' '}
+        <code>bind.nativeSelect()</code> for <code>NativeSelect</code>, whose <code>onChange</code> is the native event.
       </p>
       <Example component={Binding} code={bindingCode} column />
       <DocTable head={['Prop', 'Value']} rows={PROPS.map(([prop, value]) => [<code>{prop}</code>, value])} />
@@ -61,7 +73,8 @@ export default function FormsBinding() {
       <p>
         The field's type must be the type the component reports. A mismatch is a type error, not a silent conversion. A{' '}
         <code>NumberInput</code> reports <code>undefined</code> when it's empty, so model it as <code>number | undefined</code>;{' '}
-        <code>min()</code> and <code>max()</code> skip an empty value, so pair them with <code>required()</code>.
+        <code>min()</code> and <code>max()</code> skip an empty value, so pair them with <code>required()</code>. For a themed
+        dropdown, use <code>Select</code> with <code>bind()</code>; <code>NativeSelect</code> is the browser's own select.
       </p>
       <DocTable
         head={['Component', 'Call', 'Field type']}

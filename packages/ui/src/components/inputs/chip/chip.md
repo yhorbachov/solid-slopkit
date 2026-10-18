@@ -2,6 +2,8 @@
 
 A pill-shaped toggle: a `label` around a hidden native checkbox, or a radio in a single-choice Chip.Group. On, it shows a check and takes the color. For filters, tags and quick options.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see the Usage notes below.
+
 ```tsx
 import { Chip } from '@solid-slopkit/ui';
 ```

@@ -2,6 +2,8 @@
 
 An area that takes files dropped on it, and opens the file picker when clicked. It checks the files against `accept`, the sizes, the count and your `validator`, hands the ones that pass to `onDrop` and the rest to `onReject`. While files are dragged over it, it shows whether it would take them. For a field that keeps the chosen files, use FileInput; for a plain button, FileButton.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Keyboard and screen readers** below.
+
 ```tsx
 import { Dropzone } from '@solid-slopkit/ui';
 ```

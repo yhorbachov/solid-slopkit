@@ -31,9 +31,9 @@ The API and the references for each area are linked from `node_modules/@solid-sl
 
 **Binding**
 
-- Slopkit components: `<Select label="Plan" {...bind(f.plan)} />`. Text inputs (`TextInput`, `Textarea`, `PasswordInput`) take `bind.text(f.name)`, `Checkbox` and `Switch` take `bind.checked(f.on)`. Native elements: `<input {...control(f.name)} />` with `control.number`, `control.checkbox`, `control.select`.
+- Slopkit components: `<Select label="Plan" {...bind(f.plan)} />`. Text inputs (`TextInput`, `Textarea`, `PasswordInput`) take `bind.text(f.name)`, `Checkbox`, `Switch` and `Chip` take `bind.checked(f.on)`, `NativeSelect` takes `bind.nativeSelect(f.plan)`. For a dropdown, prefer `Select` with `bind()`: it is themed, and `NativeSelect` is only for the browser's own picker. Native elements: `<input {...control(f.name)} />` with `control.number`, `control.checkbox`, `control.select`.
 - **Spread the binding object whole.** Its props are getters; destructuring `const { value } = bind(f.x)` reads once and freezes.
-- The field's type must be the type the component reports: `string | null` for `Select`, `string` for `Radio.Group`, `number | undefined` for `NumberInput`, `string[]` for `MultiSelect`, `TagsInput` and `Checkbox.Group`. A mismatch is a type error.
+- The field's type must be the type the component reports: `string | null` for `Select`, `string` for `Radio.Group`, `number | undefined` for `NumberInput`, `string[]` for `MultiSelect`, `TagsInput` and `Checkbox.Group`. The binding reference has a row for every ui input. A mismatch is a type error.
 - `bind()` shows `error` only once the field is **touched** (left once, or after `submit`). Override with an `error` prop after the spread.
 
 **Validation and conditions**

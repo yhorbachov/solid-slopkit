@@ -2,6 +2,8 @@
 
 A field box that holds pills and a text field after them, in rows that wrap. It's the base of MultiSelect and TagsInput; use it directly for a field of values they don't cover.
 
+Keyboard and ARIA behavior are tested, in jsdom and in a real browser; see **Focus** below.
+
 ```tsx
 import { Pill, PillsInput } from '@solid-slopkit/ui';
 ```
