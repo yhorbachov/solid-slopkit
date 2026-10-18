@@ -1,6 +1,6 @@
 {
   "name": "@solid-slopkit/ui",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Component library for SolidJS 2.x, styled with plain CSS and CSS variables",
   "license": "MIT",
   "files": [
