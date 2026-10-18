@@ -101,7 +101,7 @@ export const OPTIONS = {
 
 export const DEFAULT_PRESET: Preset = {
   base: 'neutral',
-  primary: 'blue',
+  primary: 'neutral',
   secondary: 'violet',
   font: 'system',
   headings: 'bold',

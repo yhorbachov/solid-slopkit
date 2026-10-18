@@ -9,20 +9,20 @@
  */
 @layer slopkit.themes {
   :root {
-    --slp-color-base-100: light-dark(#ffffff, #242424);
-    --slp-color-base-200: light-dark(#f4f7fa, #2e2e2e);
-    --slp-color-base-300: light-dark(#e8eef5, #3b3b3b);
-    --slp-color-base-content: light-dark(#242424, #c9c9c9);
-    --slp-color-muted: light-dark(#f4f7fa, #2e2e2e);
-    --slp-color-muted-content: light-dark(#666666, #a6a6a6);
-    --slp-color-primary: light-dark(#1971c2, #339af0);
-    --slp-color-primary-content: light-dark(#ffffff, #141414);
-    --slp-color-secondary: light-dark(#7048e8, #9775fa);
-    --slp-color-secondary-content: light-dark(#ffffff, #141414);
+    --slp-color-base-100: light-dark(oklch(100% 0 0), oklch(21% 0 0));
+    --slp-color-base-200: light-dark(oklch(96.8% 0 0), oklch(25.5% 0 0));
+    --slp-color-base-300: light-dark(oklch(92.2% 0 0), oklch(31.5% 0 0));
+    --slp-color-base-content: light-dark(oklch(21% 0 0), oklch(93% 0 0));
+    --slp-color-muted: light-dark(oklch(96.8% 0 0), oklch(25.5% 0 0));
+    --slp-color-muted-content: light-dark(oklch(50% 0 0), oklch(72% 0 0));
+    --slp-color-neutral: light-dark(oklch(30% 0 0), oklch(80% 0 0));
+    --slp-color-neutral-content: light-dark(oklch(100% 0 0), oklch(20% 0 0));
+    --slp-color-primary: light-dark(oklch(22% 0 0), oklch(92% 0 0));
+    --slp-color-primary-content: light-dark(oklch(100% 0 0), oklch(20% 0 0));
+    --slp-color-secondary: light-dark(oklch(55% 0.22 293), oklch(70% 0.173 293));
+    --slp-color-secondary-content: light-dark(oklch(100% 0 0), oklch(20% 0.04 293));
     --slp-color-accent: light-dark(oklch(0% 0 0), oklch(100% 0 0));
     --slp-color-accent-content: light-dark(oklch(100% 0 0), oklch(0% 0 0));
-    --slp-color-neutral: light-dark(#242424, #b8b8b8);
-    --slp-color-neutral-content: light-dark(#ffffff, #141414);
     --slp-color-info: light-dark(#0b7285, #15aabf);
     --slp-color-info-content: light-dark(#ffffff, #141414);
     --slp-color-success: light-dark(#087f5b, #37b24d);
@@ -32,6 +32,7 @@
     --slp-color-error: light-dark(#c92a2a, #fa5252);
     --slp-color-error-content: light-dark(#ffffff, #141414);
     --slp-size-selector: 0.25rem;
+    --slp-heading-weight: 700;
     --slp-size-field: 0.25rem;
     --slp-spacing: 0.25rem;
     --slp-depth: 0;
