@@ -10,8 +10,8 @@ const Surface = (props: { 'data-slp-color-scheme'?: string; 'data-testid': strin
   <div {...props} style={{ 'background-color': 'var(--slp-color-base-100)' }} />
 );
 
-const LIGHT = 'rgb(255, 255, 255)';
-const DARK = 'rgb(36, 36, 36)';
+const LIGHT = 'oklch(1 0 0)';
+const DARK = 'oklch(0.21 0 0)';
 
 const emulateScheme = (value: 'light' | 'dark' | '') =>
   cdp().send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value }] });
